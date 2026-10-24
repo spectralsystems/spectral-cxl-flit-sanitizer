@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you reference these formal verification proofs or hardware attestation receipts, please cite as below."
+authors:
+  - family-names: "Murphy"
+    given-names: "Eric C."
+    affiliation: "Spectral Systems LLC"
+title: "KRON-LANDAUER v3.3.1: Orthogonal Cellular Sheaf Flit Sanitization & Hamming-Isometric Shadow Coset Verification Ledger"
+version: 3.3.1
+date-released: 2026-10-24
+url: "https://github.com/spectralsystems/spectral-cxl-flit-sanitizer"

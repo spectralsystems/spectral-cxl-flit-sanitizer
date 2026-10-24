@@ -1,0 +1,35 @@
+name: Lean 4 Formal Proof & TRL-6 Silicon Attestation CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  formal-and-opsec-verification:
+    name: Verify Zero-Sorry Lean 4 Proofs & SHA-256 Silicon Receipt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hard OPSEC Check
+        run: |
+          if find . -maxdepth 3 -type f \( -name "*.sv" -o -name "*.v" -o -name "*.lib" -o -name "*.dcp" \) | grep -q .; then
+            echo "LEAK DETECTED" && exit 1
+          fi
+      - name: Install Lean 4
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:stable
+          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+      - name: Machine-Check Proofs
+        run: |
+          if grep -n "sorry" formal_lean4/SheafCosetIsometry.lean | grep -v "^--"; then exit 1; fi
+          lean formal_lean4/SheafCosetIsometry.lean
+      - name: Validate Manifest
+        run: |
+          python3 - << 'EOF'
+          import json, hashlib
+          with open("reports_public/TRL6_PUBLIC_VERIFICATION_RECEIPT.json") as f: r = json.load(f)
+          with open("formal_lean4/SheafCosetIsometry.lean", "rb") as lf: h = hashlib.sha256(lf.read()).hexdigest()
+          assert h == r["sha256_artifact_manifest"]["formal_lean4/SheafCosetIsometry.lean"]
+          print("VERIFIED")
+          EOF

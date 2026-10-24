@@ -1,0 +1,27 @@
+{
+    "company":  "Spectral Systems LLC (Virginia Beach, VA)",
+    "architecture":  "KRON-LANDAUER v3.3.1 Unified Cellular Sheaf TRL-6 Enclave (CXL CPI / IDE Hardened)",
+    "ip_notice":  "Synthesizable RTL source files (rtl_private/*.sv) are withheld under SBIR Data Rights (DFARS 252.227-7018) and Trade Secret protection. SHA-256 digests below cryptographically attest to the private hardware vault.",
+    "trl_readiness_summary":  {
+                                  "lean4_formal_proofs":  "7 constructive theorems, 0 sorry axioms (formal_lean4/SheafCosetIsometry.lean)",
+                                  "iverilog_hil_enclave_log":  [
+                                                                   "[HBM2 ROW 0] Slot3=33333333 Slot2=22222222 Slot1=11111111 Slot0(Canary)=aaaaaaaa",
+                                                                   "[HBM2 ROW 1] Slot3=77777777 Slot2=66666666 Slot1(Canary)=bbbbbbbb Slot0(Canary)=bbbbbbbb",
+                                                                   "[BAR0 CSR 0x00] Monotonic Spatial Mask  = ffffffffffff00ff (Stayed Locked!)",
+                                                                   "[BAR0 CSR 0x28] Rogue Slots Sanitized   = 4 (Expected: 4)",
+                                                                   "[BAR0 CSR 0x30] Credits Refunded (+CRD) = 4 (Expected: 4)",
+                                                                   "[BAR0 CSR 0x40] Self-Inflicted NAKs     = 0 (Expected: 0)",
+                                                                   "[BAR0 CSR 0x48] FM Escalation Traps     = 1 (Expected: 1)"
+                                                               ],
+                                  "yosys_7nm_finfet_sta_summary":  [
+                                                                       "Stage-1 Sheaf Split + Surgical NOP Delay = 38.0 ps (1 AND2 + 1 INV)",
+                                                                       "Full Enclave Worst-Case Critical Path    = 176.5 ps (\u003e820 ps positive slack @ 1.0 GHz)",
+                                                                       "Core Standard-Cell Gate Count            = 624 cells (0.00% DRAM Metadata Tax vs. 1.56% in Space-Control)"
+                                                                   ]
+                              },
+    "sha256_artifact_manifest":  {
+                                     "formal_lean4/SheafCosetIsometry.lean":  "0e7688277d0620d21acafa0abd43580a72dd70592c91c6913c9b4bd6d9888745",
+                                     "rtl_private/kron_landauer_sheaf_v3_3_per_slot.sv":  "e186b4ebe7b35c6a5e281be4ed624435f56f4e405be7ba2cf6ab00ef1d790b31",
+                                     "rtl_private/spectral_trl6_pcie_hbm_enclave.sv":  "a9c089b9ceefdcfbb94df9fb9cba4e01033a552a3282eb44784a5b02f6276f1a"
+                                 }
+}

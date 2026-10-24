@@ -1,0 +1,12 @@
+PROPRIETARY VERIFICATION LEDGER — ALL RIGHTS RESERVED
+Copyright (c) 2026 Spectral Systems LLC (Virginia Beach, VA, US).
+
+1. NO GRANT OF PATENT OR TRADE SECRET LICENSE:
+   This repository provides public mathematical verification proofs (Lean 4)
+   and SHA-256 cryptographic attestations for inspection only. Nothing in this
+   repository grants any license under U.S. Provisional Patent Applications
+   64/179,024, 64/179,325, SPEC-PPA-013, or SPEC-PPA-014.
+
+2. RESERVATION OF SBIR/STTR DATA RIGHTS (DFARS 252.227-7018):
+   All underlying RTL SystemVerilog source files, netlists, and compiler wheels
+   referenced by SHA-256 digest are proprietary trade secrets of Spectral Systems LLC.
