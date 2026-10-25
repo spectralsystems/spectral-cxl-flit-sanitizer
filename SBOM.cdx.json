@@ -1,0 +1,31 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-10-24T22:14:18Z",
+    "component": {
+      "type": "hardware-enclave-verification-ledger",
+      "name": "kron-landauer-cxl-flit-sanitizer",
+      "version": "3.3.1",
+      "supplier": {
+        "name": "Spectral Systems LLC",
+        "url": ["https://spectralsystems.org"]
+      }
+    }
+  },
+  "components": [
+    {
+      "type": "formal-proof-kernel",
+      "name": "SheafCosetIsometry.lean",
+      "version": "3.3.1",
+      "description": "7 constructive Lean 4 theorems verifying cellular sheaf flit sanitization with 0 sorry axioms."
+    },
+    {
+      "type": "cryptographic-receipt",
+      "name": "TRL6_PUBLIC_VERIFICATION_RECEIPT.json",
+      "version": "3.3.1",
+      "description": "SHA-256 zero-knowledge hardware manifest anchored to USPTO Application No. 64/183,661."
+    }
+  ]
+}

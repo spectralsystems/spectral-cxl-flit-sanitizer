@@ -5,12 +5,13 @@
 
 [![Lean 4 Formal CI](https://github.com/spectralsystems/spectral-cxl-flit-sanitizer/actions/workflows/verify_public_attestation.yml/badge.svg)](https://github.com/spectralsystems/spectral-cxl-flit-sanitizer/actions)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/spectralsystems/spectral-cxl-flit-sanitizer/blob/main/notebooks/spectral_attestation_verifier.ipynb)
+[![Open in GitHub Codespaces](https://img.shields.io/badge/Codespaces-Launch_Lean_4_IDE-181717?logo=github)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=spectralsystems/spectral-cxl-flit-sanitizer)
 [![USPTO Patent Pending](https://img.shields.io/badge/USPTO_App_No.-64%2F183%2C661-0052CC)](docs/PATENT_NOTICE.md)
-[![Confirmation](https://img.shields.io/badge/Confirmation_%23-3691-informational)](docs/PATENT_NOTICE.md)
 [![Readiness](https://img.shields.io/badge/TRL-4%2F5_Verified-2ea44f)](docs/BENCHMARKS.md)
+[![SBOM](https://img.shields.io/badge/SBOM-CycloneDX_1.5-6f42c1)](SBOM.cdx.json)
 [![DFARS](https://img.shields.io/badge/DFARS-252.227--7018_Protected-d97706)](SECURITY.md)
 
-**[Architecture](#1-cut-through-pipeline--telemetry-flow) • [Formal Proofs](#2-machine-checked-lean-4-theorem-matrix) • [Benchmarks](docs/BENCHMARKS.md) • [Threat Model](docs/THREAT_MODEL.md) • [Wiki](https://github.com/spectralsystems/spectral-cxl-flit-sanitizer/wiki) • [1-Click Colab Verifier](https://colab.research.google.com/github/spectralsystems/spectral-cxl-flit-sanitizer/blob/main/notebooks/spectral_attestation_verifier.ipynb)**
+**[Timing Waveform](#1-cycle-accurate-4-stage-pipeline-waveform) • [Formal Proofs](docs/FORMAL_PROOFS.md) • [Benchmarks](docs/BENCHMARKS.md) • [Threat Model](docs/THREAT_MODEL.md) • [Wiki](https://github.com/spectralsystems/spectral-cxl-flit-sanitizer/wiki) • [1-Click Colab Verifier](https://colab.research.google.com/github/spectralsystems/spectral-cxl-flit-sanitizer/blob/main/notebooks/spectral_attestation_verifier.ipynb)**
 
 </div>
 
@@ -22,7 +23,11 @@
 
 ---
 
-## 1. Cut-Through Pipeline & Telemetry Flow
+## 1. Cycle-Accurate 4-Stage Pipeline Waveform
+
+<p align="center">
+  <img src="docs/assets/pipeline_waveform.svg" alt="KRON-LANDAUER 4-Cycle Timing Closure Waveform" width="100%"/>
+</p>
 
 ~~~mermaid
 sequenceDiagram
@@ -110,42 +115,10 @@ All seven foundational hardware invariants in [`formal_lean4/SheafCosetIsometry.
 
 ---
 
-## 4. One-Click Zero-Knowledge Verification (Google Colab)
+## 4. Two Instant Verification Environments (Zero Local Setup)
 
-Evaluators can verify all 7 formal theorems and audit the cryptographic SHA-256 hardware receipts in under 60 seconds directly in the browser:
-
-1. Launch the **[One-Click Google Colab Attestation Notebook](https://colab.research.google.com/github/spectralsystems/spectral-cxl-flit-sanitizer/blob/main/notebooks/spectral_attestation_verifier.ipynb)**.
-2. Click **Runtime → Run all** (`Ctrl + F9`).
-3. The notebook clones this repository, installs the Microsoft Lean 4 compiler, compiles `SheafCosetIsometry.lean` with zero `sorry` axioms, and validates the SHA-256 manifest against `TRL6_PUBLIC_VERIFICATION_RECEIPT.json`.
-
----
-
-## 5. Repository Directory Map
-
-~~~text
-spectral-cxl-flit-sanitizer/
-├── .github/
-│   ├── workflows/verify_public_attestation.yml   # Automated Lean 4 & SHA-256 Receipt CI
-│   ├── ISSUE_TEMPLATE/                           # Structured verification audit forms
-│   ├── CODEOWNERS                                # Cryptographic & proof review gating
-│   ├── dependabot.yml                            # Automated workflow maintenance
-│   └── pull_request_template.md                  # Zero-sorry & OPSEC PR checklist
-├── docs/
-│   ├── BENCHMARKS.md                             # 7nm STA & Space-Control comparisons
-│   ├── PATENT_NOTICE.md                          # USPTO App. No. 64/183,661 filing record
-│   └── THREAT_MODEL.md                           # Cyclic PBR & FM escalation mapping
-├── formal_lean4/
-│   └── SheafCosetIsometry.lean                   # 7 Machine-Checked Lean 4 Theorems
-├── notebooks/
-│   └── spectral_attestation_verifier.ipynb       # 1-Click Browser Verification Harness
-├── reports_public/
-│   └── TRL6_PUBLIC_VERIFICATION_RECEIPT.json     # Signed hardware telemetry & SHA-256 ledger
-├── CITATION.cff                                  # DoD / Academic citation metadata
-├── CODE_OF_CONDUCT.md                            # Technical governance standards
-├── CONTRIBUTING.md                               # Proof contribution & OPSEC rules
-├── LICENSE                                       # Evaluation-only proprietary license
-└── SECURITY.md                                   # DFARS 252.227-7018 & disclosure policy
-~~~
+* **Google Colab (1-Click Batch Execution):** Launch [`notebooks/spectral_attestation_verifier.ipynb`](https://colab.research.google.com/github/spectralsystems/spectral-cxl-flit-sanitizer/blob/main/notebooks/spectral_attestation_verifier.ipynb) and press `Ctrl + F9`.
+* **GitHub Codespaces (Interactive Lean 4 Proof IDE):** Click **Code → Codespaces → Create codespace on main** to inspect the theorem tactics interactively in browser VS Code.
 
 ---
 

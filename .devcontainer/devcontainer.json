@@ -1,0 +1,12 @@
+{
+  "name": "Spectral Systems — Lean 4 & Hardware Attestation Environment",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "postCreateCommand": "curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:stable && ~/.elan/bin/lean formal_lean4/SheafCosetIsometry.lean",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "leanprover.lean4"
+      ]
+    }
+  }
+}

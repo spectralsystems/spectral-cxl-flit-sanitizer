@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <rect width="1280" height="640" fill="#090d16"/>
+  <rect x="30" y="30" width="1220" height="580" rx="16" fill="#0d1117" stroke="#30363d" stroke-width="3"/>
+  <text x="80" y="130" fill="#58a6ff" font-family="monospace" font-size="24" font-weight="bold">SPECTRAL SYSTEMS LLC • VIRGINIA BEACH, VA • USPTO APP. NO. 64/183,661</text>
+  <text x="80" y="220" fill="#ffffff" font-family="sans-serif" font-size="64" font-weight="bold">KRON-LANDAUER v3.3.1</text>
+  <text x="80" y="285" fill="#8b949e" font-family="sans-serif" font-size="30">Orthogonal Cellular Sheaf Flit Sanitizer for CXL 3.0/4.0 &amp; HBM2/3 Enclaves</text>
+  <line x1="80" y1="330" x2="1200" y2="330" stroke="#21262d" stroke-width="2"/>
+  <rect x="80" y="370" width="340" height="160" rx="10" fill="#161b22" stroke="#238636" stroke-width="2"/>
+  <text x="110" y="425" fill="#3fb950" font-family="monospace" font-size="36" font-weight="bold">0.00% DRAM Tax</text>
+  <text x="110" y="470" fill="#c9d1d9" font-family="monospace" font-size="20">38.0 ps Stage-1 Split</text>
+  <text x="110" y="505" fill="#8b949e" font-family="monospace" font-size="18">624 Cells | 0 BRAM</text>
+  <rect x="460" y="370" width="340" height="160" rx="10" fill="#161b22" stroke="#1f6feb" stroke-width="2"/>
+  <text x="490" y="425" fill="#58a6ff" font-family="monospace" font-size="36" font-weight="bold">7 Lean 4 Proofs</text>
+  <text x="490" y="470" fill="#c9d1d9" font-family="monospace" font-size="20">0 Unproven Axioms</text>
+  <text x="490" y="505" fill="#8b949e" font-family="monospace" font-size="18">Machine-Checked Kernel</text>
+  <rect x="840" y="370" width="360" height="160" rx="10" fill="#161b22" stroke="#9e6a03" stroke-width="2"/>
+  <text x="870" y="425" fill="#d29922" font-family="monospace" font-size="36" font-weight="bold">TRL 4/5 Ready</text>
+  <text x="870" y="470" fill="#c9d1d9" font-family="monospace" font-size="20">DFARS 252.227-7018</text>
+  <text x="870" y="505" fill="#8b949e" font-family="monospace" font-size="18">Confirmation # 3691</text>
+</svg>
