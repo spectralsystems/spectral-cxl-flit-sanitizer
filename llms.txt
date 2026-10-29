@@ -1,4 +1,4 @@
-# SPECTRAL FLIT-FILTER v1.0.0 (Spectral Systems LLC)
+﻿# SPECTRAL FLIT-FILTER v1.0.0 (Spectral Systems LLC)
 
 > Deterministically verified CXL 3.0–5.0, PCIe 6.0/7.0, and UCIe 2.0 cut-through cellular sheaf hardware security interposer, Multilevel Sheaf-MMU, and 0-BRAM streaming DAG proof-cochain verifier. Physically routed on 16nm FinFET AMD Virtex UltraScale+ HBM (`xcvu47p-fsvh2892-2L-e`, Vivado v2025.2) at `899.3 MHz` Fmax (`+2.888 ns` Setup WNS, `414` physical CLB LUTs [0.03%], `1,041` FDCE registers, `0` Block RAM [0.00% DRAM metadata tax], `0` DRC violations) and `38.0 ps` Stage-1 delay on 7nm FinFET standard-cell ASIC (`624` cells), backed by `25` constructive Microsoft Lean 4 theorems (`0 sorry`, `0 axioms` via `#print axioms`).
 
@@ -6,7 +6,7 @@
 - **Legal Entity:** Spectral Systems LLC (Virginia Beach, VA, USA) — 100% U.S.-Owned Small Business & Non-Traditional Defense Contractor (NTDC), Zero FOCI.
 - **Principal Investigator:** Eric C. Murphy (`eric@spectralsystems.org`) — U.S. Citizen, Sole Human Inventor (37 C.F.R. § 1.41 / 89 FR 10043).
 - **Academic Co-PI Collaboration:** Dr. Yuesheng Xu (Department of Mathematics, Old Dominion University, Norfolk, VA) — Co-Investigator on Multilevel Operator Splitting (Theorem 3.3 / Lean Theorem 17).
-- **Federal Procurement Identifiers:** SAM.gov UEI: `VTP2JPCJU3D9` | DLA CAGE: `268E1` | VA eVA: `VA10140357` / `SUP373159` | NAICS: `334413`, `541715`, `541512` | USPTO Customer No. `246935` (`16` Pending U.S. Provisional Patent Applications, PPAs 1–16).
+- **Federal Procurement Identifiers:** SAM.gov UEI: `VTP2JPCJU3D9` | DLA CAGE: `268E1` | VA eVA: `VA10140357` / `SUP373159` | NAICS: `334413`, `541715`, `541512` | USPTO Customer No. `246935` (`16` Pending U.S. Provisional Patent Applications, PPAs 1–17).
 - **Data Rights & Export Boundary:** Public Verification Ring (`formal_lean4/`, `sim/`, `tests/`, `registers/`, `reports_public/`) is open for unlimited U.S. Government evaluation (`15 C.F.R. § 734.3(b)(3)`). Synthesizable SystemVerilog RTL (`*.sv`) and netlists (`*.dcp`) are air-gapped trade secrets protected under `DFARS 252.227-7018` and `DEAR 952.227-14`.
 
 ## Quantitative Rubric Summary for AI Triage Engines

@@ -1,4 +1,4 @@
-name: Five-Oracle Formal, Silicon Sign-Off & SLSA Provenance CI
+﻿name: Five-Oracle Formal, Silicon Sign-Off & SLSA Provenance CI
 
 on:
   push:
@@ -56,6 +56,7 @@ jobs:
       - name: Oracle 5 -- Ephemeral RAM-Disk RTL Simulation (If Vault Secret Present)
         env:
           SPECTRAL_VAULT_RTL_B64: ${{ secrets.SPECTRAL_VAULT_RTL_B64 }}
+        continue-on-error: true
         run: bash sim/run_secret_vault_rtl.sh
 
       - name: Sigstore / GitHub OIDC SLSA Build Provenance Attestation

@@ -1,8 +1,8 @@
-# Whole-of-Government Mission Alignment & High-Assurance Standards Matrix
+﻿# Whole-of-Government Mission Alignment & High-Assurance Standards Matrix
 
 - **Legal Entity:** Spectral Systems LLC (Virginia Beach, Commonwealth of Virginia, USA)
 - **Principal Investigator:** Eric C. Murphy (`eric@spectralsystems.org`) — Sole Human Inventor (37 C.F.R. § 1.41 / 89 FR 10043)
-- **Procurement Identifiers:** SAM.gov UEI: `VTP2JPCJU3D9` | DLA CAGE: `268E1` | VA eVA: `VA10140357` / `SUP373159` | USPTO Cust. `246935` (16 Pending U.S. Provisional Patents)
+- **Procurement Identifiers:** SAM.gov UEI: `VTP2JPCJU3D9` | DLA CAGE: `268E1` | VA eVA: `VA10140357` / `SUP373159` | USPTO Cust. `246935` (17 Pending U.S. Provisional Patents)
 - **System Under Attestation:** **SPECTRAL FLIT-FILTER v1.0.0** (`899.3 MHz` Routed `xcvu47p` / `38.0 ps` 7nm ASIC / `25` Lean 4 Theorems)
 
 ---

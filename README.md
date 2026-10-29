@@ -1,11 +1,10 @@
-<div align="center">
+﻿<div align="center">
 
 # SPECTRAL FLIT-FILTER (v1.0.0)
 ### Stateless Sub-Flit Capability Sanitization, Multilevel Sheaf-MMU & Post-Route Formal Verification for Disaggregated CXL 3.0–5.0 and UCIe Memory Fabrics at 899.3 MHz
 
 [![Lean 4 & SLSA CI](https://github.com/spectralsystems/spectral-cxl-flit-sanitizer/actions/workflows/verify_public_attestation.yml/badge.svg)](https://github.com/spectralsystems/spectral-cxl-flit-sanitizer/actions/workflows/verify_public_attestation.yml)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/spectralsystems/spectral-cxl-flit-sanitizer/blob/main/notebooks/spectral_attestation_verifier.ipynb)
-[![USPTO Portfolio](https://img.shields.io/badge/USPTO-16_Patents_Pending_%28SEP_Portfolio%29-0052CC)](docs/PATENT_NOTICE.md)
+[![USPTO Portfolio](https://img.shields.io/badge/USPTO-17_Patents_Pending_%28Customer_No._246935%29-0052CC)](docs/PATENT_NOTICE.md)
 [![Lean 4 Proofs](https://img.shields.io/badge/Lean_4-16_Canonical_Theorems_%280_Axioms%29-8957e5)](formal_lean4/SheafCosetIsometry.lean)
 [![Silicon Core](https://img.shields.io/badge/TRL--5%2F6_Post--Route_Soft_IP-xcvu47p_899.3_MHz-2ea44f)](docs/TRL6_SUBSYSTEM_VALIDATION_DOSSIER.md)
 [![DFARS](https://img.shields.io/badge/DFARS-252.227--7018_Protected-d97706)](SECURITY.md)
@@ -72,4 +71,4 @@ make all
 
 ## Intellectual Property, Acknowledgments & Federal Contracting
 
-Copyright (c) 2026 **Spectral Systems LLC** (Virginia Beach, VA, USA; SAM.gov UEI: `VTP2JPCJU3D9` | DLA CAGE: `268E1` | VA eVA: `VA10140357` / `SUP373159` | USPTO Customer No. `246935`). Conceived and executed by **Eric C. Murphy** (Founder, Principal Investigator & Sole Inventor; `eric@spectralsystems.org`). The author gratefully acknowledges **Prof. Yuesheng Xu** (Old Dominion University) for inspiring discussions on multilevel subspace decomposition. Protected by 16 Pending U.S. Provisional Patent Applications (PPAs 1–16) and DFARS 252.227-7018 / DEAR 952.227-14 reservations.
+Copyright (c) 2026 **Spectral Systems LLC** (Virginia Beach, VA, USA; SAM.gov UEI: `VTP2JPCJU3D9` | DLA CAGE: `268E1` | VA eVA: `VA10140357` / `SUP373159` | USPTO Customer No. `246935`). Conceived and executed by **Eric C. Murphy** (Founder, Principal Investigator & Sole Inventor; `eric@spectralsystems.org`). The author gratefully acknowledges **Prof. Yuesheng Xu** (Old Dominion University) for inspiring discussions on multilevel subspace decomposition. Protected by 17 Pending U.S. Provisional Patent Applications (PPAs 1–17) and DFARS 252.227-7018 / DEAR 952.227-14 reservations.

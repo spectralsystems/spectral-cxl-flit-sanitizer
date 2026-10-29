@@ -1,4 +1,4 @@
-cff-version: 1.2.0
+﻿cff-version: 1.2.0
 message: "If you reference this formal verification ledger, CXL/UCIe enclave architecture, or preprint, please cite it as below."
 title: "SPECTRAL FLIT-FILTER v1.0.0: Stateless Sub-Flit Capability Sanitization, Monotonic Access Ratcheting, and Post-Route Formal Verification for Disaggregated CXL 3.0-5.0 and UCIe Memory Fabrics at 899.3 MHz"
 version: "1.0.0"
