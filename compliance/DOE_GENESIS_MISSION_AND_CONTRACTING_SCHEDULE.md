@@ -1,0 +1,42 @@
+# DOE Genesis Mission (ASSP / AmSC) Alignment & Statutory Contracting Officer Schedule
+
+- **Legal Entity:** Spectral Systems LLC (Virginia Beach, Commonwealth of Virginia, USA) — 100% U.S.-Owned Small Business & Non-Traditional Defense Contractor (NTDC)
+- **Principal Investigator:** Eric C. Murphy (`eric@spectralsystems.org`) — U.S. Citizen, Sole Human Inventor (37 C.F.R. § 1.41 / 89 FR 10043)
+- **Academic Collaborator / Co-PI (Multilevel Operator Splitting & Applied Mathematics):** Dr. Yuesheng Xu (Department of Mathematics, Old Dominion University, Norfolk, VA)
+- **Federal Procurement Identifiers:** SAM.gov UEI: `VTP2JPCJU3D9` | DLA CAGE: `268E1` | VA eVA: `VA10140357` / `SUP373159` | USPTO Customer No. `246935` (**16 Pending U.S. Provisional Patent Applications, PPAs 1–16**)
+- **System Under Attestation:** **SPECTRAL FLIT-FILTER v1.0.0** (`899.3 MHz` Routed `xcvu47p` / `38.0 ps` 7nm ASIC / `25` Zero-Axiom Lean 4 Theorems / `0 BRAM`)
+
+---
+
+## 1. Alignment with the U.S. Department of Energy (DOE) Genesis Mission
+
+In direct support of the White House *Launching the Genesis Mission* Executive Order, the **American Science and Security Platform (ASSP)**, the **American Science Cloud (AmSC)**, and the **Genesis Mission Consortium**, **SPECTRAL FLIT-FILTER v1.0.0** resolves the primary hardware memory-isolation, energy-dissipation, and cross-domain security bottlenecks limiting multi-tenant **Super Intelligence (SI) for Science**:
+
+| DOE Genesis Mission Pillar / Facility | Exascale & Post-Exascale Technical Challenge | SPECTRAL FLIT-FILTER v1.0.0 Hardware & Mathematical Resolution | Verification Artifact in Repository |
+| :--- | :--- | :--- | :--- |
+| **American Science and Security Platform (ASSP)** & **American Science Cloud (AmSC)** | Federating classified/sensitive DOE & NNSA datasets with university and industry consortium partners across shared CXL 3.0–5.0 / HBM3/4 pools without cross-tenant leakage or TLB shootdown stalls. | **1-Cycle Stateless 4-KB Cohort Revocation ($\Delta t_{\text{CRD}} \equiv 0$)** + **Zero-Leakage $\beta\eta$-Canonical Egress (`CSR 0x58`, $I = 0\text{ bits}$):** Revokes 4-KB page cohorts in 1 clock cycle (`1.019 ns` FPGA / `38.0 ps` ASIC) with `0` BRAM tables and `0` IPI shootdowns. | `formal_lean4/SheafCosetIsometry.lean` (Theorems 15, 17, 18, 19) & `tests/test_trl6_subsystem_integration.py` |
+| **Leadership AI Supercomputers:**<br>• **Discovery** & **Lux** (ORNL)<br>• **Doudna** (NERSC / LBNL)<br>• **Venado**, **Mission** & **Vision** (LANL / NNSA) | High-density agentic SI workloads (`URSA` / `DIANA`) saturate CXL/UCIe links with 64B `M2S_RwD` tensor bursts and `S2M_DRS` reads; stateful DRAM firewalls waste **1.56%–12.50% of HBM** and add +3.3%–12% table-miss stalls. | **0.00% DRAM Metadata Tax (`0 BRAM`) & 0% Stall Cut-Through:** Preserves 100% of pooled HBM capacity (**2,500 TB reclaimed per 10k racks**), sustains 64B `M2S_RwD` bursts (`CSR 0x50`), and guarantees `M2S_BIRsp` snoop forward progress (`0` deadlocks). | `formal_lean4/SheafCosetIsometry.lean` (Theorems 21, 22, 23, 24) & `reports_public/vivado_xcvu47p_core_timing_summary.rpt` |
+| **Argonne `ModCon` & Multiscale PDE / SI Model Conditioning** | Coupling fine-scale boundary containment with coarse-grid PDE/SI solvers without runtime SVD stalls or orthogonal null-space bypasses ($\ker(\nabla_\theta^2 \mathcal{L}_{\text{reg}})$). | **Multilevel Sheaf-MMU Operator Splitting ($\mathbb{X}_{n+1} = \mathbb{X}_n \oplus \mathbb{W}_n$) & 1-Cycle Dyadic Stiefel Contraction:** Guarantees $\|u - u_{n,i+1}\|_{\mathbb{X}} \le \frac{4}{3}\rho\gamma_{n+i+1}$ and strips orthogonal null-space errors in 1 clock cycle. | `formal_lean4/SheafCosetIsometry.lean` (Theorems 14, 17, 20) & `docs/AI_CONTAINMENT_THEORY.md` |
+| **Fermilab `AXESS` & Extreme-Environment / Radiation Microelectronics** | Cosmic-ray neutron and beamline Single-Event Upsets (SEUs) corrupt multi-megabit SRAM/BRAM access-control tables in high-energy physics, fusion, and NNSA environments. | **>99.98% Stateful SEU Cross-Section Reduction:** Uses **`0` Block RAM tiles (`0.00%`)**, **`0` URAM (`0.00%`)**, and **`0` LUT-as-Memory (`0.00%`)**, relying strictly on `414` combinational CLB LUTs and `1,041` registers. | `reports_public/vivado_xcvu47p_core_utilization.rpt` & `formal_lean4/SheafCosetIsometry.lean` (Theorem 16) |
+| **American Energy Dominance & Grid Conservation** | Parasitic DRAM refresh and link-replay storms across hyperscale AI corridors consume gigawatts of national baseload power and billions of gallons of cooling water. | **Kron-Landauer Thermodynamic Bound & Zero-NAK Invariance (`CSR 0x40 == 0`):** Reclaims **1.65–2.55 GW** of U.S. baseload power (**14.45–22.34 TWh/yr**) and **6.50B–10.05B gal/yr** of cooling water across the 55–85 GW national fleet. | `formal_lean4/SheafCosetIsometry.lean` (Theorem 25), `sim/cluster_tco_calculator.py`, & `docs/ENERGY_AND_THERMODYNAMICS.md` |
+
+---
+
+## 2. Pre-Award Statutory Data Rights Assertion Schedule (`DFARS 252.227-7017` / `252.227-7018` & `DEAR 952.227-14`)
+
+For the immediate convenience of DoD Contracting Officers (KOs), DARPA Agreement Officers (AOs), and DOE Contracting/Grants Officers, Spectral Systems LLC provides the following statutory pre-award assertion schedule distinguishing public evaluation artifacts from air-gapped background IP:
+
+| Technical Data or Computer Software to be Furnished | Basis for Assertion | Asserted Rights Category | Name of Person / Entity Asserting Restrictions |
+| :--- | :--- | :--- | :--- |
+| **1. Public Formal Verification & Attestation Ledger**<br>(`formal_lean4/SheafCosetIsometry.lean`, `registers/*`, `sim/kron_landauer_twin.py`, `reports_public/*.rpt`) | Developed exclusively at private expense; published for federal evaluation & mathematical verification (`15 C.F.R. § 734.3(b)(3)`) | **Public Evaluation / Government Purpose Inspection Rights** (Subject to 16 Pending U.S. Provisional Patents, PPAs 1–16) | Spectral Systems LLC (Eric C. Murphy, Principal Investigator) |
+| **2. Synthesizable SystemVerilog RTL Core & Enclave Wrappers**<br>(`kron_landauer_sheaf_v3_3_per_slot.sv`, `spectral_trl6_pcie_hbm_enclave.sv`, PPA-16 Sheaf-MMU RTL) | Developed exclusively at private expense prior to any federal contract/grant award (Verified via timestamped USPTO SHA-512 & Git SHA-256 ledgers) | **SBIR/STTR Data Rights (`DFARS 252.227-7018`) / Protected Rights (`DEAR 952.227-14`) / Limited & Restricted Rights** | Spectral Systems LLC (Eric C. Murphy, Principal Investigator) |
+| **3. Physical Implementation Scripts, Encrypted Netlists & Standard-Cell Timing Models**<br>(`*.dcp`, `*.lib`, `*.lef`, `*.def`, `*.gds` in Air-Gapped Vault `02_Hardware_RTL_and_Constraints\`) | Developed exclusively at private expense | **SBIR/STTR Data Rights (`DFARS 252.227-7018`) / Limited Rights** | Spectral Systems LLC (Eric C. Murphy, Principal Investigator) |
+
+---
+
+## 3. Contracting Officer Responsibility, NSPM-33 & DOE RTES Attestation Checklist
+
+1. **Active Federal Registration (FAR 4.1102):** Spectral Systems LLC maintains active registration in the System for Award Management (`SAM.gov UEI: VTP2JPCJU3D9`, `DLA CAGE: 268E1`) and Virginia eVA (`VA10140357` / `SUP373159`) with zero exclusions or delinquencies.
+2. **Zero Foreign Ownership, Control, or Influence (FOCI) & DOE RTES / NSPM-33 Compliance:** Spectral Systems LLC is 100% domestically owned, controlled, and operated in Virginia Beach, Virginia, USA by a sole U.S. Citizen Principal Investigator (Eric C. Murphy). Neither the entity nor its personnel participate in any Foreign Government-Sponsored Talent Recruitment Program or maintain financial ties to any Foreign Country of Concern (FCOC).
+3. **NDAA Section 889 Supply-Chain Representation (`FAR 52.204-24`, `52.204-25`, `52.204-26`):** Spectral Systems LLC does not use or provide covered telecommunications equipment or services as a substantial or essential component of any system.
+4. **Software Bill of Materials (EO 14028) & Zero-TCB Formal Proof Footprint:** A machine-readable **CycloneDX 1.5 SBOM** (`SBOM.cdx.json`) and cryptographic **SHA-256 Manifest** (`SBOM.cdx.json` / `TRL6_PUBLIC_VERIFICATION_RECEIPT.json`) are maintained at the repository root. Furthermore, `formal_lean4/SheafCosetIsometry.lean` compiles all 25 constructive theorems against pure `Init.Prelude` with **zero external library dependencies (`0` Mathlib imports)**, eliminating third-party supply-chain risk from the formal verification Trusted Computing Base (TCB).

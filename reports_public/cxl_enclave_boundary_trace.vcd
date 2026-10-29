@@ -1,0 +1,57 @@
+$date
+   October 24, 2026
+$end
+$version
+   SPECTRAL FLIT-FILTER v3.3.1 Public Boundary-Pin Attestation Trace (Internal RTL Nets Stripped)
+$end
+$timescale
+   1ps
+$end
+$scope module kron_landauer_public_boundary $end
+$var wire 1 ! clk_1ghz $end
+$var wire 1 " ide_k_set_go $end
+$var wire 1 # slot0_sheaf_defect $end
+$var wire 1 $ m_slot0_cxl_nop_active $end
+$var wire 1 % m_pcie_crd_refund_pulse $end
+$var wire 4 & m_hbm_slot_wstrb [3:0] $end
+$var wire 8 ' csr_0x48_fm_trap_cnt [7:0] $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0!
+1"
+0#
+0$
+0%
+b1111 &
+b00000000 '
+$end
+#500
+1!
+#1000
+0!
+#1038
+1#
+1$
+1%
+#1500
+1!
+#2000
+0!
+0#
+0%
+b00000001 '
+#2500
+1!
+#3000
+0!
+#3500
+1!
+#4000
+0!
+b1110 &
+#4500
+1!
+#5000
+0!

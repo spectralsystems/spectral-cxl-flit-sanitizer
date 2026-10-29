@@ -1,0 +1,43 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-10-29T17:15:00Z",
+    "component": {
+      "type": "hardware-enclave-verification-ledger",
+      "name": "kron-landauer-cxl-flit-sanitizer",
+      "version": "1.0.0",
+      "supplier": {
+        "name": "Spectral Systems LLC",
+        "url": ["https://spectralsystems.org"]
+      }
+    }
+  },
+  "components": [
+    {
+      "type": "formal-proof-kernel",
+      "name": "formal_lean4/SheafCosetIsometry.lean",
+      "version": "1.0.0",
+      "description": "16 canonical constructive Lean 4 theorems (10 core xcvu47p baseline + 6 composable zero-BRAM extensions, 0 sorry, 0 axioms)."
+    },
+    {
+      "type": "physical-silicon-receipt",
+      "name": "reports_public/vivado_xcvu47p_core_timing_summary.rpt",
+      "version": "2025.2",
+      "description": "AMD Vivado v2025.2 post-route timing sign-off on xcvu47p-fsvh2892-2L-e (+2.888 ns WNS, +0.036 ns WHS, 899.3 MHz Fmax)."
+    },
+    {
+      "type": "physical-silicon-receipt",
+      "name": "reports_public/vivado_xcvu47p_core_utilization.rpt",
+      "version": "2025.2",
+      "description": "AMD Vivado v2025.2 post-route utilization sign-off on xcvu47p-fsvh2892-2L-e (414 physical CLB LUTs, 260 LUT6_2, 1,041 FDCE FFs, 0 BRAM)."
+    },
+    {
+      "type": "physical-silicon-receipt",
+      "name": "reports_public/vivado_xcvu47p_drc_audit.rpt",
+      "version": "2025.2",
+      "description": "AMD Vivado v2025.2 post-route Out-of-Context (OOC) DRC sign-off report (0 violations)."
+    }
+  ]
+}

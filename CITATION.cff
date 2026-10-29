@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you reference this formal verification ledger, CXL/UCIe enclave architecture, or preprint, please cite it as below."
+title: "SPECTRAL FLIT-FILTER v1.0.0: Stateless Sub-Flit Capability Sanitization, Monotonic Access Ratcheting, and Post-Route Formal Verification for Disaggregated CXL 3.0-5.0 and UCIe Memory Fabrics at 899.3 MHz"
+version: "1.0.0"
+date-released: "2026-10-29"
+url: "https://github.com/spectralsystems/spectral-cxl-flit-sanitizer"
+repository-code: "https://github.com/spectralsystems/spectral-cxl-flit-sanitizer"
+authors:
+  - family-names: "Murphy"
+    given-names: "Eric C."
+    email: "eric@spectralsystems.org"
+    affiliation: "Spectral Systems LLC, Virginia Beach, Virginia, USA"
+keywords:
+  - "CXL 3.0"
+  - "CXL 4.0"
+  - "CXL 5.0"
+  - "UCIe 2.0"
+  - "Formal Verification"
+  - "Lean 4"
+  - "Hardware Security"
+  - "HBM4"

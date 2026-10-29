@@ -1,0 +1,20 @@
+PROPRIETARY VERIFICATION LEDGER — ALL RIGHTS RESERVED
+Copyright (c) 2026 Spectral Systems LLC (Virginia, USA).
+
+1. NO GRANT OF PATENT OR TRADE SECRET LICENSE:
+   This repository provides public mathematical verification proofs (Microsoft Lean 4),
+   behavioral reference models, and SHA-256 cryptographic attestations for evaluation
+   only. Nothing in this repository grants any express or implied license under
+   Spectral Systems LLC's 16 Pending U.S. Provisional Patent Applications (Standard-
+   Essential Patent Portfolio).
+
+2. RESERVATION OF SBIR/STTR DATA RIGHTS (DFARS 252.227-7018):
+   All underlying synthesizable SystemVerilog RTL source files (*.sv), standard-cell
+   Liberty timing models (*.lib), and FPGA/ASIC netlists (*.dcp) referenced by SHA-256
+   digest in this ledger were developed exclusively at private expense and remain
+   proprietary, air-gapped trade secrets of Spectral Systems LLC.
+
+3. PERMITTED EVALUATION USE:
+   Prospective U.S. Government evaluators, Defense Prime integrators, and academic
+   reviewers may clone and execute the formal Lean 4 proof kernel, behavioral twin,
+   and verification harnesses solely to validate mathematical and architectural claims.

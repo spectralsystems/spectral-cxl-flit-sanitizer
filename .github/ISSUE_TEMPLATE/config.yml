@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Confidential U.S. Government, DOE Genesis & DoD Inquiries (DFARS 252.227-7018 / DEAR 952.227-14)
+    url: mailto:eric@spectralsystems.org
+    about: Request access to air-gapped TRL-6/7 SystemVerilog RTL, PPA-16 Multilevel Sheaf-MMU & Vivado packages under government evaluation.

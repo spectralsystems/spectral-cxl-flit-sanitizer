@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipxact:component xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2022">
+  <ipxact:vendor>spectralsystems.org</ipxact:vendor>
+  <ipxact:library>enclave_ip</ipxact:library>
+  <ipxact:name>kron_landauer_cxl_flit_sanitizer</ipxact:name>
+  <ipxact:version>3.4.0</ipxact:version>
+  <ipxact:memoryMaps>
+    <ipxact:memoryMap>
+      <ipxact:name>BAR0_MMIO_CSR_MAP</ipxact:name>
+      <ipxact:addressBlock>
+        <ipxact:name>CSR_BLOCK</ipxact:name>
+        <ipxact:baseAddress>0x0</ipxact:baseAddress>
+        <ipxact:range>0x100</ipxact:range>
+        <ipxact:width>64</ipxact:width>
+        <ipxact:register>
+          <ipxact:name>CSR_CHORD_SPATIAL</ipxact:name>
+          <ipxact:addressOffset>0x00</ipxact:addressOffset>
+          <ipxact:size>64</ipxact:size>
+          <ipxact:description>Write-Once-Per-Reset Monotonic AND-Ratchet Spatial Capability Mask (Lean 4 Theorems 7, 10 &amp; 14: reg_next = reg_curr &amp; wdata)</ipxact:description>
+        </ipxact:register>
+        <ipxact:register>
+          <ipxact:name>CSR_CHORD_TEMPORAL</ipxact:name>
+          <ipxact:addressOffset>0x08</ipxact:addressOffset>
+          <ipxact:size>64</ipxact:size>
+          <ipxact:description>Write-Once-Per-Reset Monotonic AND-Ratchet Temporal Capability Mask (Lean 4 Theorems 4, 7, 10, 11 &amp; 14)</ipxact:description>
+        </ipxact:register>
+        <ipxact:register>
+          <ipxact:name>CSR_EPOCH_KEY_BANK0</ipxact:name>
+          <ipxact:addressOffset>0x10</ipxact:addressOffset>
+          <ipxact:size>64</ipxact:size>
+          <ipxact:description>Dual-Bank Shadow-Sheaf Affine Coset Key Bank 0</ipxact:description>
+        </ipxact:register>
+        <ipxact:register>
+          <ipxact:name>CSR_EPOCH_KEY_BANK1</ipxact:name>
+          <ipxact:addressOffset>0x18</ipxact:addressOffset>
+          <ipxact:size>64</ipxact:size>
+          <ipxact:description>Dual-Bank Shadow-Sheaf Affine Coset Key Bank 1</ipxact:description>
+        </ipxact:register>
+        <ipxact:register>
+          <ipxact:name>CSR_IDE_KEY_STATUS</ipxact:name>
+          <ipxact:addressOffset>0x20</ipxact:addressOffset>
+          <ipxact:size>64</ipxact:size>
+          <ipxact:description>Native CXL IDE Key_Set_Select (K_Set_Go) Active Epoch Phase Indicator and Processed Flit Counter</ipxact:description>
+        </ipxact:register>
+        <ipxact:register>
+          <ipxact:name>CSR_SLOTS_SANITIZED_CNT</ipxact:name>
+          <ipxact:addressOffset>0x28</ipxact:addressOffset>
+          <ipxact:size>64</ipxact:size>
+          <ipxact:description>Count of violating 128-bit slots replaced in Stage 1/2 with deterministic CXL_NOP or zeroed on S2M_DRS</ipxact:description>
+        </ipxact:register>
+        <ipxact:register>
+          <ipxact:name>CSR_CREDITS_REFUNDED_CNT</ipxact:name>
+          <ipxact:addressOffset>0x30</ipxact:addressOffset>
+          <ipxact:size>64</ipxact:size>
+          <ipxact:description>Count of synthetic +CRD flow-control pulses returned to upstream switch port</ipxact:description>
+        </ipxact:register>
+        <ipxact:register>
+          <ipxact:name>CSR_LAST_VIOL_BITMAP</ipxact:name>
+          <ipxact:addressOffset>0x38</ipxact:addressOffset>
+          <ipxact:size>64</ipxact:size>
+          <ipxact:description>Most recent 4-bit per-slot coboundary defect violation bitmap</ipxact:description>
+        </ipxact:register>
+        <ipxact:register>
+          <ipxact:name>CSR_SELF_INFLICTED_NAKS</ipxact:name>
+          <ipxact:addressOffset>0x40</ipxact:addressOffset>
+          <ipxact:size>64</ipxact:size>
+          <ipxact:description>Count of link-layer Go-Back-N NAK replay storms caused by sanitization (Hardware Invariant: 0)</ipxact:description>
+        </ipxact:register>
+        <ipxact:register>
+          <ipxact:name>CSR_FM_ESCALATION_TRAPS</ipxact:name>
+          <ipxact:addressOffset>0x48</ipxact:addressOffset>
+          <ipxact:size>64</ipxact:size>
+          <ipxact:description>Software-non-resettable hardware trap counter for blocked Fabric Manager privilege escalation attempts (cleared exclusively on cold reset rst_n = 0)</ipxact:description>
+        </ipxact:register>
+        <ipxact:register>
+          <ipxact:name>CSR_RWD_ROLLOVER_CNT</ipxact:name>
+          <ipxact:addressOffset>0x50</ipxact:addressOffset>
+          <ipxact:size>64</ipxact:size>
+          <ipxact:description>Count of 64-byte M2S_RwD multi-slot data rollover transactions evaluated</ipxact:description>
+        </ipxact:register>
+        <ipxact:register>
+          <ipxact:name>CSR_EGRESS_CANON_DIGEST</ipxact:name>
+          <ipxact:addressOffset>0x58</ipxact:addressOffset>
+          <ipxact:size>64</ipxact:size>
+          <ipxact:description>Beta-eta normal canonical proof-carrying egress witness digest (Lean 4 Theorem 15: I = 0 bits)</ipxact:description>
+        </ipxact:register>
+      </ipxact:addressBlock>
+    </ipxact:memoryMap>
+  </ipxact:memoryMaps>
+</ipxact:component>

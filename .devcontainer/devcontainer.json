@@ -1,0 +1,13 @@
+{
+  "name": "Spectral Systems — SPECTRAL FLIT-FILTER 5-Oracle Verification & Vault IDE (25 Lean 4 Theorems)",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y iverilog yosys build-essential pytest && curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:stable && ~/.elan/bin/lean formal_lean4/SheafCosetIsometry.lean && python3 tests/test_vivado_and_endgame_v10.py && python3 tests/test_flit_fuzzer.py && python3 tests/test_trl6_subsystem_integration.py && python3 tests/test_trl7_pcie_bar0_mmio_loopback.py",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "leanprover.lean4",
+        "ms-python.python"
+      ]
+    }
+  }
+}

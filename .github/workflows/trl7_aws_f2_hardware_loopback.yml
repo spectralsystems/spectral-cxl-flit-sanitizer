@@ -1,0 +1,38 @@
+name: Host BAR0 MMIO & AWS F2 (xcvu47p) Hardware Loopback Attestation
+
+on:
+  workflow_dispatch:
+    inputs:
+      action_mode:
+        description: "Execution Target (hosted_gate_level_only is default & zero-setup)"
+        required: false
+        default: "hosted_gate_level_only"
+        type: choice
+        options:
+          - hosted_gate_level_only
+          - on_demand_f2_launch
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  run_loopback_attestation:
+    name: Execute BAR0 MMIO & LUT6_2 Gate-Level Loopback Verification
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Verification Ledger
+        uses: actions/checkout@v4
+      - name: Set Up Python Toolchain
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify Vivado Silicon Reports, 12-CSR C Driver & 100,000-Slot BAR0 Loopback
+        run: |
+          python3 tests/test_vivado_and_endgame_v10.py
+          python3 tests/test_flit_fuzzer.py
+          python3 tests/test_trl6_subsystem_integration.py
+          python3 tests/test_trl7_pcie_bar0_mmio_loopback.py
+          gcc -Wall -Wextra -Werror -pedantic -DNDEBUG -O2 tests/test_bar0_driver.c -o test_driver && ./test_driver
+          python3 sim/cluster_tco_calculator.py --racks 10000 --tb-per-rack 16 --alpha-pool 0.50

@@ -1,0 +1,69 @@
+name: Five-Oracle Formal, Silicon Sign-Off & SLSA Provenance CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  verify-five-oracles:
+    name: Lean 4, 10k-Flit Fuzzer, C ABI & Zero-Knowledge RTL Synthesis
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout Clean-Slate Verification Ledger
+        uses: actions/checkout@v4
+
+      - name: Oracle 1 -- Microsoft Lean 4 Formal Kernel (16 Canonical Theorems, 0 sorry, 0 axioms)
+        run: |
+          if grep -v '^\s*--' formal_lean4/SheafCosetIsometry.lean | grep -w "sorry"; then
+            echo "FATAL: Unproven sorry token detected"
+            exit 1
+          fi
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf -o /tmp/elan.sh
+          sh /tmp/elan.sh -y --default-toolchain leanprover/lean4:stable
+          ~/.elan/bin/lean formal_lean4/SheafCosetIsometry.lean > /tmp/lean_axioms.log
+          cat /tmp/lean_axioms.log
+          if grep -iE "sorryAx|propext|Quot\.sound|Classical\.choice|ofReduceBool" /tmp/lean_axioms.log; then
+            echo "FATAL: Non-empty axiom dependency detected!"
+            exit 1
+          fi
+          DECLARED_THMS=$(grep -E '^\s*theorem\s+' formal_lean4/SheafCosetIsometry.lean | wc -l)
+          AXIOM_FREE_CNT=$(grep -c "does not depend on any axioms" /tmp/lean_axioms.log)
+          echo "Verified zero-axiom canonical theorems: $AXIOM_FREE_CNT / $DECLARED_THMS"
+          test "$DECLARED_THMS" -eq 16
+          test "$AXIOM_FREE_CNT" -eq 16
+
+      - name: Oracle 2 & 4 -- Vivado xcvu47p Silicon Audit, Causal DAG, 40k-Slot Fuzzer & Loopback
+        run: |
+          python3 tests/test_vivado_and_endgame_v10.py
+          python3 tests/test_flit_fuzzer.py
+          python3 tests/test_trl6_subsystem_integration.py
+          python3 tests/test_trl7_pcie_bar0_mmio_loopback.py
+          python3 sim/cluster_tco_calculator.py --racks 10000 --tb-per-rack 16 --alpha-pool 0.50
+
+      - name: Oracle 3 -- Compile & Audit ANSI-C Bare-Metal 12-CSR BAR0 Driver Header
+        run: |
+          gcc -Wall -Wextra -Werror -pedantic -O2 tests/test_bar0_driver.c -o /tmp/test_bar0_driver && /tmp/test_bar0_driver
+          gcc -Wall -Wextra -Werror -pedantic -DNDEBUG -O2 tests/test_bar0_driver.c -o /tmp/test_bar0_driver_nd && /tmp/test_bar0_driver_nd
+
+      - name: Oracle 5 -- Ephemeral RAM-Disk RTL Simulation (If Vault Secret Present)
+        env:
+          SPECTRAL_VAULT_RTL_B64: ${{ secrets.SPECTRAL_VAULT_RTL_B64 }}
+        run: bash sim/run_secret_vault_rtl.sh
+
+      - name: Sigstore / GitHub OIDC SLSA Build Provenance Attestation
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            formal_lean4/SheafCosetIsometry.lean
+            reports_public/vivado_xcvu47p_*.rpt
+            SBOM.cdx.json

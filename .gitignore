@@ -1,0 +1,11 @@
+*.sv
+*.v
+*.lib
+*.dcp
+*.bit
+*.tcl
+*.whl
+*.zip
+*.ps1
+rtl_private/
+aws_f2_trl6/

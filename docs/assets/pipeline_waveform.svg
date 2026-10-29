@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 340" width="100%" height="100%">
+  <rect width="920" height="340" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
+  <text x="25" y="32" fill="#58a6ff" font-family="monospace" font-size="15" font-weight="bold">SPECTRAL FLIT-FILTER v1.0.0 — 4-CYCLE CUT-THROUGH TIMING CLOSURE (1.0 GHz / 38.0 ps STAGE-1 SPLIT)</text>
+  <line x1="20" y1="45" x2="900" y2="45" stroke="#21262d" stroke-width="1"/>
+  <line x1="240" y1="55" x2="240" y2="315" stroke="#21262d" stroke-dasharray="4,4"/>
+  <line x1="400" y1="55" x2="400" y2="315" stroke="#21262d" stroke-dasharray="4,4"/>
+  <line x1="560" y1="55" x2="560" y2="315" stroke="#21262d" stroke-dasharray="4,4"/>
+  <line x1="720" y1="55" x2="720" y2="315" stroke="#21262d" stroke-dasharray="4,4"/>
+  <text x="285" y="68" fill="#8b949e" font-family="monospace" font-size="12">CYCLE 1 (Ingress)</text>
+  <text x="445" y="68" fill="#8b949e" font-family="monospace" font-size="12">CYCLE 2 (Coset)</text>
+  <text x="605" y="68" fill="#8b949e" font-family="monospace" font-size="12">CYCLE 3 (CRC)</text>
+  <text x="755" y="68" fill="#8b949e" font-family="monospace" font-size="12">CYCLE 4 (HBM Commit)</text>
+  <text x="25" y="105" fill="#c9d1d9" font-family="monospace" font-size="12">clk (1.0 GHz)</text>
+  <path d="M 240 110 L 240 85 L 320 85 L 320 110 L 400 110 L 400 85 L 480 85 L 480 110 L 560 110 L 560 85 L 640 85 L 640 110 L 720 110 L 720 85 L 800 85 L 800 110 L 880 110" fill="none" stroke="#3fb950" stroke-width="2"/>
+  <text x="25" y="150" fill="#c9d1d9" font-family="monospace" font-size="12">slot0_sheaf_defect</text>
+  <path d="M 240 155 L 258 155 L 262 130 L 400 130 L 404 155 L 880 155" fill="none" stroke="#f85149" stroke-width="2"/>
+  <text x="268" y="147" fill="#ffa198" font-family="monospace" font-size="11">38.0 ps Split</text>
+  <text x="25" y="195" fill="#c9d1d9" font-family="monospace" font-size="12">m_slot0_payload[127:0]</text>
+  <rect x="262" y="175" width="618" height="26" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="275" y="192" fill="#58a6ff" font-family="monospace" font-size="11">SURGICAL CXL_NOP / S2M_DRS ZEROED (Innocent Slots 1..3 Unmodified)</text>
+  <text x="25" y="240" fill="#c9d1d9" font-family="monospace" font-size="12">m_pcie_crd_refund (+CRD)</text>
+  <path d="M 240 245 L 262 245 L 266 220 L 400 220 L 404 245 L 880 245" fill="none" stroke="#d29922" stroke-width="2"/>
+  <text x="275" y="237" fill="#e3b341" font-family="monospace" font-size="11">+1 Credit Pulse</text>
+  <text x="25" y="285" fill="#c9d1d9" font-family="monospace" font-size="12">m_hbm_wstrb[15:0]</text>
+  <rect x="720" y="265" width="160" height="26" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="730" y="282" fill="#3fb950" font-family="monospace" font-size="11">0x0000 (Canary Safe)</text>
+  <text x="25" y="322" fill="#c9d1d9" font-family="monospace" font-size="12">csr_0x00_0x08_ratchet</text>
+  <text x="262" y="322" fill="#a371f7" font-family="monospace" font-size="11">reg &lt;= reg &amp; wdata (Monotonic Lockdown Enforced | Trap Logged @ BAR0 0x48)</text>
+</svg>

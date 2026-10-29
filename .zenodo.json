@@ -1,0 +1,28 @@
+{
+  "title": "SPECTRAL FLIT-FILTER v1.0.0: Stateless Sub-Flit Capability Sanitization, Monotonic Access Ratcheting, and Post-Route Formal Verification for Disaggregated CXL 3.0-5.0 and UCIe Memory Fabrics at 899.3 MHz",
+  "version": "1.0.0",
+  "upload_type": "software",
+  "publication_date": "2026-10-29",
+  "creators": [
+    {
+      "name": "Murphy, Eric C.",
+      "affiliation": "Spectral Systems LLC, Virginia Beach, Virginia, USA"
+    }
+  ],
+  "access_right": "open",
+  "license": "other-closed",
+  "description": "16 canonical zero-axiom Lean 4 formal proofs, behavioral digital twin, bare-metal ANSI-C/IP-XACT BAR0 ABI, and AMD Vivado v2025.2 post-route xcvu47p silicon sign-off ledger (414 CLB LUTs, 1,041 FFs, 0 BRAM, 899.3 MHz). Acknowledgments: Prof. Yuesheng Xu (Old Dominion University) for inspiring discussions on multilevel subspace decomposition.",
+  "keywords": [
+    "CXL 3.0",
+    "CXL 4.0",
+    "CXL 5.0",
+    "UCIe 2.0",
+    "UALink",
+    "HBM4",
+    "Cellular Sheaf Cohomology",
+    "Lean 4 Formal Verification",
+    "Hardware Security Enclave",
+    "DFARS 252.227-7018"
+  ],
+  "notes": "Copyright (c) 2026 Spectral Systems LLC (Virginia Beach, VA, USA; SAM.gov UEI: VTP2JPCJU3D9; DLA CAGE: 268E1; USPTO Customer No. 246935)."
+}

@@ -1,0 +1,67 @@
+{
+  "version": "v1.0.0",
+  "entity": {
+    "type": "organisation",
+    "role": "owner",
+    "name": "Spectral Systems LLC",
+    "email": "eric@spectralsystems.org",
+    "phone": "",
+    "description": "Deep-tech hardware security, formal verification (Microsoft Lean 4), cellular sheaf cohomology, and CXL 3.0-5.0 / PCIe 6.0-7.0 / UCIe 2.0 silicon interposer R&D entity based in Virginia Beach, Virginia, USA (SAM.gov UEI: VTP2JPCJU3D9 | DLA CAGE: 268E1 | VA eVA: VA10140357 / SUP373159 | USPTO Customer No. 246935).",
+    "webpageUrl": {
+      "url": "https://spectralsystems.org"
+    }
+  },
+  "projects": [
+    {
+      "guid": "spectral-cxl-flit-sanitizer",
+      "name": "SPECTRAL FLIT-FILTER v1.0.0: Cellular Sheaf Flit Sanitization & Multilevel Sheaf-MMU for High-Assurance Compute",
+      "description": "Zero-axiom Lean 4 formally verified (25 constructive theorems), 0-BRAM streaming DAG proof-cochain verifier, 1-cycle stateless 4-KB cohort revocation, and 899.3 MHz AMD Virtex UltraScale+ HBM (xcvu47p) line-rate CXL 3.0-5.0 / UCIe 2.0 hardware security interposer.",
+      "webpageUrl": {
+        "url": "https://spectralsystems.github.io/spectral-cxl-flit-sanitizer/"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/spectralsystems/spectral-cxl-flit-sanitizer"
+      },
+      "licenses": [
+        "other"
+      ],
+      "tags": [
+        "cxl-3-0",
+        "pcie-6-0",
+        "ucie-2-0",
+        "lean-4",
+        "formal-verification",
+        "cellular-sheaf-cohomology",
+        "hardware-security",
+        "fpga",
+        "darpa",
+        "doe-genesis"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "federal-sbir-ota-grants",
+        "type": "other",
+        "address": "SAM.gov UEI: VTP2JPCJU3D9 | DLA CAGE: 268E1 | Contact: eric@spectralsystems.org",
+        "description": "Eligible for DOE Genesis Mission (ASSP/AmSC), DARPA BAA (HR001126S0011), DoD Direct-to-Phase-II (D2P2), Prototype OTA (10 U.S.C. 4022), Sole-Source Phase III (15 U.S.C. 638(r)(4)), NSF SBIR, and VIPC CCF."
+      }
+    ],
+    "plans": [
+      {
+        "guid": "trl7-asic-shuttle-and-f2-cluster",
+        "status": "active",
+        "name": "TRL-7 Multi-Node AWS F2 Hardware Loopback & 7nm/5nm FinFET MPW Tape-Out",
+        "description": "Scale 899.3 MHz xcvu47p validation across multi-rack CXL pooled memory fabrics and execute 7nm FinFET standard-cell ASIC shuttle tape-out with academic Co-PI collaboration at Old Dominion University.",
+        "amount": 1750000,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": [
+          "federal-sbir-ota-grants"
+        ]
+      }
+    ],
+    "history": []
+  }
+}
