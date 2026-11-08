@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Clean-Slate Verification Ledger
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Oracle 1 -- Microsoft Lean 4 Formal Kernel (30 Constructive Theorems, 0 sorry, 0 axioms)
         run: |
