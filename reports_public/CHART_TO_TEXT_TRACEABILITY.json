@@ -1,0 +1,53 @@
+{
+  "schema": "spectral.chart.traceability.v1.0.0",
+  "plates": [
+    {
+      "plate": 1,
+      "stem": "fig1_silicon_ppa",
+      "preprint_label": "fig:plate1_silicon_ppa",
+      "patent_sheet": "FIG. 4 (Sheet 4/9, Ref 400)",
+      "color_svg": "docs/figures/fig1_silicon_ppa.svg",
+      "monochrome_patent_pdf": "01_Private_DFARS_Vault/uspto_ppa19/figures/fig1_silicon_ppa.pdf"
+    },
+    {
+      "plate": 2,
+      "stem": "fig2_hbm_goodput",
+      "preprint_label": "fig:plate2_hbm_goodput",
+      "patent_sheet": "FIG. 5 (Sheet 5/9, Ref 500)",
+      "color_svg": "docs/figures/fig2_hbm_goodput.svg",
+      "monochrome_patent_pdf": "01_Private_DFARS_Vault/uspto_ppa19/figures/fig2_hbm_goodput.pdf"
+    },
+    {
+      "plate": 3,
+      "stem": "fig3_martingale_latency",
+      "preprint_label": "fig:plate3_martingale_latency",
+      "patent_sheet": "FIG. 6 (Sheet 6/9, Ref 600)",
+      "color_svg": "docs/figures/fig3_martingale_latency.svg",
+      "monochrome_patent_pdf": "01_Private_DFARS_Vault/uspto_ppa19/figures/fig3_martingale_latency.pdf"
+    },
+    {
+      "plate": 4,
+      "stem": "fig4_vieta_scaling",
+      "preprint_label": "fig:plate4_vieta_scaling",
+      "patent_sheet": "FIG. 7 (Sheet 7/9, Ref 700)",
+      "color_svg": "docs/figures/fig4_vieta_scaling.svg",
+      "monochrome_patent_pdf": "01_Private_DFARS_Vault/uspto_ppa19/figures/fig4_vieta_scaling.pdf"
+    },
+    {
+      "plate": 5,
+      "stem": "fig5_tvla_dither",
+      "preprint_label": "fig:plate5_tvla_dither",
+      "patent_sheet": "FIG. 8 (Sheet 8/9, Ref 800)",
+      "color_svg": "docs/figures/fig5_tvla_dither.svg",
+      "monochrome_patent_pdf": "01_Private_DFARS_Vault/uspto_ppa19/figures/fig5_tvla_dither.pdf"
+    },
+    {
+      "plate": 6,
+      "stem": "fig6_k8s_tco",
+      "preprint_label": "fig:plate6_k8s_tco",
+      "patent_sheet": "FIG. 9 (Sheet 9/9, Ref 900)",
+      "color_svg": "docs/figures/fig6_k8s_tco.svg",
+      "monochrome_patent_pdf": "01_Private_DFARS_Vault/uspto_ppa19/figures/fig6_k8s_tco.pdf"
+    }
+  ]
+}

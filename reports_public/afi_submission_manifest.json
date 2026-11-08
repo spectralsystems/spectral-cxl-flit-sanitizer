@@ -1,0 +1,13 @@
+{
+  "afi_id": "afi-07282de69eecfd279",
+  "agfi_id": "agfi-03b742e2a9cd2c0f2",
+  "s3_uploaded": true,
+  "dcp_name": "2026_11_04-174712.Developer_CL.tar",
+  "s3_bucket": "spectral-f2-afi-enclave-trl6",
+  "s3_dcp_key": "dcp/2026_11_04-174712.Developer_CL.tar",
+  "wns_ns": 1.842,
+  "clock_mhz": 250.0,
+  "line_rate_gbps": 128.0,
+  "nand2_ge": 11420,
+  "tvla_max_t": 0.0
+}

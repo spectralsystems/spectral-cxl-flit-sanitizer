@@ -1,0 +1,19 @@
+{
+  "schema": "spectral.tco.v1.0.0",
+  "racks": 10000,
+  "table_carveout_pct": 1.5625,
+  "cheri_metadata_pct": 12.5,
+  "spectral_metadata_pct": 0.0,
+  "reclaimed_dram_tb_decimal": 2500.0,
+  "reclaimed_dram_gib_binary": 2560000,
+  "capex_saved_musd_decimal": 37.5,
+  "capex_saved_musd_binary": 38.4,
+  "passive_refresh_mw_decimal": 1.406,
+  "passive_refresh_mw_binary": 1.44,
+  "active_stall_mw_min": 6.6,
+  "active_stall_mw_max": 38.0,
+  "total_grid_mw_min": 8.01,
+  "total_grid_mw_max": 39.44,
+  "legacy_crc_goodput_pct": 48.9,
+  "spectral_goodput_pct": 99.2
+}

@@ -1,0 +1,320 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-08T03:47:54Z"
+  },
+  "components": [
+    {
+      "type": "file",
+      "name": "preprint_Murphy_v1_0_0.tex",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "52083cb188050cde9e9e25fbee1354e103dadbf8e3f4d110067bb3c287407f74"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "preprint_Murphy_v1_0_0.pdf",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "931a0fbc20241d3a8021686dcc3099bd07d2df63df3fc93fa795d297bab541a4"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "README.md",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "cee1c401056afc85701da13a4f502ef8ffecd67eb758c71bbefdd81f1f5f6f59"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "PATENTS.md",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "016218a3500d45f8dcb7418e8f6cb2d99b94965f6a2fc1d503158f5b412742b0"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "CITATION.cff",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2c149d5f8683eb9ad2535c1a30f5fa493d499052b815f4452da2a08fd9000314"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": ".zenodo.json",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "3dbf624383af8a6034aa2905207206ded22f3c25556786442b2fe84cdde19c2c"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "Makefile",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "682892dc70af58c038a3fa0a059c1c36dfd2829247a1f25f67807d50dfbdb1c6"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "formal_lean4/CxlSubflitSanitizerFormal.lean",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d0b41201b49cc92d3ade5c689439052322cfc3bb1af025b8f01a0692de47436f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "formal_lean4/CxlSubflitSanitizerExtensions.lean",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "fe8efc2f6a76b5f7c56bbe039b9235ebe2304c8100b5120b29adabd2bfcbc1f6"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "registers/bar0_abi_v1.json",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "390aeb8fbfe1da3f4dc4df85113203f65280c07b63a9cb115d75fd10036532b2"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "sim/cxl_subflit_sanitizer_twin.py",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c374e16acc45ff96c7bccbe8d8ef118de6a91023e49272d58d5c60b57d435f9b"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "sim/benchmark_workload_and_martingale.py",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "66813682ffd1e133d39675a27301720375f0f0897e401dc17d8a97cec5cfc601"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "spectralc/Cargo.toml",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "dc93a531867b788259f86bd67f6ddf433d210d783e7345e5a3d6bc06fbe4bb29"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "helm/spectral-operator/Chart.yaml",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f2c3fe7a8b7d3c4f2ab518240e41295213329f7b666c276d228ad928c66f0cb1"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/AWS_VIVADO_SIGNOFF_SUMMARY.json",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ea7f8c12ade4c58fdc30af00cb9c8bbd77baa310fb8807b7687679f6980f7d70"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/STAGE2_AWS_F2_SILICON_RECEIPT.json",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "eeca95b13d690c45f41643b1533229f1ff8fdab4be792d595c65187b4c1c6b54"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/TRL6_ASIC_7NM_ASAP7_SIGNOFF.json",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "29d30a340852684986c6888471a674e46faa70e17fea92f8dc72d81b1712c7ab"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/TRL7_AWS_F2_HBM2_DMA_RECEIPT.json",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "de49300290bc59489dc7ef13792935fa1cfe35a98f8184031292f5f6cea74c49"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/TRL8_K8S_OPERATOR_HIL_RECEIPT.json",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "31933793b66dab1c494d11b167ae2bf67f3fcedcdced5137a13abaa8b2fa61ad"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/COTS_COMMERCIAL_READINESS_DOSSIER.json",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e73419f080e31720d963c87c9c66143b68280d946e58e372f15899fc6b551ecd"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig1_silicon_ppa.pdf",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "df3eb3a09edca94c49002d967e91e8d327acb032f908f21268acd1e2084980e0"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig2_hbm_goodput.pdf",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "33d0875266f5f05ab82a9c292981fb1aa57af965b642a33dee2c23aa9235267c"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig3_martingale_latency.pdf",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e00b0fc3cc85f06fcbab8783c4b12b5cc2405db682805a2f854799e53aa90197"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig4_vieta_scaling.pdf",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9b6af77199c79fda43acf731cb1f6c7a730a0a6b1888fd8b4b203d1a1c472c51"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig5_tvla_dither.pdf",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ecaf29dee24ac56756ddb4da1dbd63bcc1e80c9be18ec0dbb85e353e86638622"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig6_k8s_tco.pdf",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "3444363981240663c9e9e12443374c9fbd0d2e0aa2e8485472f38657d0169484"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/arxiv_doi_source_bundle_v1_0_0.zip",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d048e5a1ff1e09853dcb053edfa27a76895e1ff541548173791ccef4b7d5bbe8"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/index.html",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b3ca7e084d0fddf0497c937dc7c3a655c71e8f19b4d8f26e6857525aa66f6f7f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/sitemap.xml",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7cc19a1066694b1ebc68352b18904dfa917f84a8c252387b6bf263e9d05862d4"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/media/cdao_tradewinds_v1.mp4",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "970cc594f87b78d3081e6a297b3dd491145d0e661b08ec207229b37d75e1c1b5"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/media/darpa_eris_v1.mp4",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "fe9a579d05c04d7c461f7681c9910f7fa57b1e9d81c06d9bf7f2415c8709b285"
+        }
+      ]
+    }
+  ]
+}

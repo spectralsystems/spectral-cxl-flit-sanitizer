@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you reference this work, please cite it as below."
+title: "SPECTRAL FLIT-FILTER v1.0.0: Stateless Sub-Flit Capability Sanitization for Disaggregated CXL 3.0-4.0 and UCIe Memory Fabrics"
+version: "1.0.0"
+date-released: "2026-11-08"
+url: "https://spectralsystems.org"
+repository-code: "https://github.com/spectralsystems/spectral-cxl-flit-sanitizer"
+authors:
+  - family-names: "Murphy"
+    given-names: "Eric C."
+    email: "eric@spectralsystems.org"
+    affiliation: "Spectral Systems LLC, United States"

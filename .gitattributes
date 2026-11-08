@@ -1,0 +1,13 @@
+* text=auto eol=lf
+*.lean linguist-detectable=true
+*.lean linguist-language=Lean
+*.c linguist-detectable=true
+*.h linguist-detectable=true
+*.py linguist-detectable=true
+*.xml linguist-detectable=true
+*.ipynb linguist-documentation=true
+*.svg linguist-documentation=true
+*.html linguist-vendored=true
+*.json linguist-vendored=true
+*.sh linguist-vendored=true
+*.vcd linguist-vendored=true

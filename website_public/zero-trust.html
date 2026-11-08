@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#06090f">
+<link rel="canonical" href="https://spectralsystems.org/zero-trust.html">
+<title>Layer-1/2 Hardware Zero Trust, NSA RAIN & SKILL.md Containment — Spectral Systems LLC</title>
+<style>
+:root {
+  color-scheme: dark;
+  --bg-void: #06090f;
+  --bg-panel: #0b111d;
+  --bg-card: #101929;
+  --bg-elevated: #152033;
+  --bg-code: #080d17;
+  --border: #1e2b40;
+  --border-bright: #2d4263;
+  --ink: #e8eef5;
+  --ink-bright: #f8fafc;
+  --muted: #94a3b8;
+  --dim: #64748b;
+  --teal: #14b8a6;
+  --teal-bright: #2dd4bf;
+  --teal-glow: rgba(20, 184, 166, 0.14);
+  --cyan: #38bdf8;
+  --amber: #f59e0b;
+  --crimson: #ef4444;
+  --emerald: #10b981;
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg-void); scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background-color: var(--bg-void);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -15%, rgba(20, 184, 166, 0.09), transparent),
+    linear-gradient(rgba(148, 163, 184, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 32px 32px, 32px 32px;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15.5px;
+  line-height: 1.62;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--teal-bright); text-decoration: none; transition: color 0.15s ease; }
+a:hover { color: var(--cyan); }
+
+/* Telemetry Classification Strip */
+.sys-strip {
+  background: #04070c;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.71rem;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+}
+.sys-strip-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0.38rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--emerald);
+  box-shadow: 0 0 8px var(--emerald);
+  margin-right: 0.45rem;
+  vertical-align: middle;
+}
+
+/* Sticky Command Navigation */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  background: rgba(6, 9, 15, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.topbar-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0.78rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+}
+.brand {
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink-bright);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.brand-mark {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--teal-bright);
+  transform: rotate(45deg);
+}
+.brand span { color: var(--teal-bright); font-weight: 500; }
+nav.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.95rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
+}
+nav.nav-links a { color: var(--muted); padding: 0.25rem 0.1rem; }
+nav.nav-links a:hover, nav.nav-links a.active-nav { color: var(--ink-bright); }
+nav.nav-links a.cta-console {
+  color: var(--teal-bright);
+  border: 1px solid rgba(45, 212, 191, 0.4);
+  background: rgba(20, 184, 166, 0.08);
+  padding: 0.32rem 0.72rem;
+  border-radius: 3px;
+}
+nav.nav-links a.cta-console:hover {
+  background: rgba(20, 184, 166, 0.18);
+  border-color: var(--teal-bright);
+}
+nav.nav-links a.cta-pdf {
+  color: #041014;
+  background: var(--teal-bright);
+  font-weight: 700;
+  padding: 0.34rem 0.78rem;
+  border-radius: 3px;
+}
+nav.nav-links a.cta-pdf:hover { background: #5eead4; color: #041014; }
+
+.wrap { max-width: 1240px; margin: 0 auto; padding: 2.6rem 1.5rem 4.8rem; }
+
+/* Hero Lockup */
+.hero-panel {
+  position: relative;
+  background: linear-gradient(180deg, rgba(16, 25, 41, 0.78) 0%, rgba(11, 17, 29, 0.92) 100%);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--teal-bright);
+  border-radius: 4px;
+  padding: 2rem 2.1rem;
+  margin-bottom: 1.8rem;
+}
+.hero-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-bright);
+  font-weight: 600;
+  margin-bottom: 0.65rem;
+}
+h1.hero-title {
+  font-size: clamp(1.65rem, 2.9vw, 2.38rem);
+  line-height: 1.18;
+  font-weight: 700;
+  color: var(--ink-bright);
+  margin: 0 0 0.95rem;
+  letter-spacing: -0.02em;
+}
+.hero-sub {
+  max-width: 960px;
+  font-size: 1.01rem;
+  color: var(--muted);
+  margin: 0 0 1.35rem;
+}
+.badge-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.73rem;
+}
+.badge {
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  padding: 0.3rem 0.68rem;
+  border-radius: 3px;
+  color: var(--ink);
+}
+.badge strong { color: var(--teal-bright); font-weight: 600; }
+
+/* Tactical KPI Readouts */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 2.3rem;
+}
+.kpi-card {
+  position: relative;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  padding: 1rem 1.05rem;
+  border-radius: 3px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.kpi-card::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid var(--teal-bright);
+  border-left: 2px solid var(--teal-bright);
+}
+.kpi-card:hover { border-color: var(--border-bright); transform: translateY(-1px); }
+.kpi-tag {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 0.25rem;
+}
+.kpi-val {
+  font-family: var(--font-mono);
+  font-size: 1.28rem;
+  font-weight: 700;
+  color: var(--ink-bright);
+  line-height: 1.2;
+}
+.kpi-card.highlight .kpi-val { color: var(--teal-bright); }
+.kpi-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.32rem;
+}
+
+/* Briefing Theater */
+.theater {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin: 2rem 0 2.6rem;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.55);
+}
+.theater-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+  margin-bottom: 1.15rem;
+}
+.theater-title {
+  font-size: 1.06rem;
+  font-weight: 700;
+  color: var(--ink-bright);
+  margin: 0.2rem 0 0;
+}
+.theater-tabs { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+.tab-btn {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  padding: 0.48rem 0.92rem;
+  border-radius: 3px;
+  border: 1px solid var(--border-bright);
+  background: var(--bg-code);
+  color: var(--muted);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+.tab-btn:hover { color: var(--ink-bright); border-color: var(--teal); }
+.tab-btn.active {
+  background: var(--teal-glow);
+  border-color: var(--teal-bright);
+  color: var(--teal-bright);
+}
+.theater-layout {
+  display: grid;
+  grid-template-columns: 1.68fr 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+@media (max-width: 920px) { .theater-layout { grid-template-columns: 1fr; } }
+.video-stage video {
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid var(--border-bright);
+  background: #030509;
+  display: block;
+}
+.chapter-rail {
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.9rem;
+}
+.chapter-rail-hdr {
+  font-family: var(--font-mono);
+  font-size: 0.71rem;
+  color: var(--teal-bright);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.6rem;
+}
+.chap-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink);
+  padding: 0.54rem 0.55rem;
+  font-family: var(--font-sans);
+  font-size: 0.81rem;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.chap-btn:hover { background: var(--teal-glow); border-color: rgba(45, 212, 191, 0.35); }
+.chap-time {
+  font-family: var(--font-mono);
+  color: var(--teal-bright);
+  font-size: 0.74rem;
+  margin-right: 0.5rem;
+}
+.theater-foot {
+  margin-top: 0.95rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--dim);
+}
+.theater-foot a { margin-right: 1.1rem; }
+
+/* Section Headers */
+h2.sec-hdr {
+  font-family: var(--font-mono);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-bright);
+  margin-top: 2.8rem;
+  margin-bottom: 0.95rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--border-bright);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+h2.sec-hdr::before {
+  content: "//";
+  color: var(--teal-bright);
+}
+
+blockquote.epigraph {
+  font-style: italic;
+  color: var(--muted);
+  border-left: 2px solid var(--teal);
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 1.5rem 0;
+  padding: 0.9rem 1.25rem;
+  font-size: 0.92rem;
+  border-radius: 3px;
+}
+
+/* Grids & Cards */
+.lens-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+  gap: 1rem;
+  margin: 1.2rem 0 2rem;
+}
+.lens-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1.15rem 1.2rem;
+}
+.lens-card:hover { border-color: var(--border-bright); }
+.lens-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--teal-bright);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.lens-card h3 {
+  font-size: 0.98rem;
+  margin: 0 0 0.45rem;
+  color: var(--ink-bright);
+}
+.lens-card p { font-size: 0.88rem; margin: 0; color: var(--muted); }
+
+/* Interactive Simulators */
+.sim-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  margin: 1.2rem 0;
+}
+@media (max-width: 860px) { .sim-grid { grid-template-columns: 1fr; } }
+.sim-box {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--teal-bright);
+  cursor: pointer;
+}
+
+/* Telemetry Tables */
+.table-scroll { width: 100%; overflow-x: auto; }
+table.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.6rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.77rem;
+}
+table.spec-table th, table.spec-table td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+table.spec-table thead th {
+  background: var(--bg-elevated);
+  color: var(--teal-bright);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.71rem;
+  border-bottom: 1px solid var(--border-bright);
+}
+table.spec-table tbody tr:hover { background: rgba(21, 32, 51, 0.55); }
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.84em;
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  color: var(--cyan);
+  padding: 0.08rem 0.36rem;
+  border-radius: 3px;
+}
+
+/* Dark-Themed Vector SVG Plates (Zero White Flashbang!) */
+.plates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 1.25rem;
+  margin: 1.3rem 0;
+}
+@media (max-width: 620px) { .plates-grid { grid-template-columns: 1fr; } }
+.plate-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1rem;
+}
+.plate-card:hover { border-color: var(--border-bright); }
+.plate-hdr {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-bright);
+  font-weight: 600;
+  margin-bottom: 0.55rem;
+}
+.plate-svg-box {
+  width: 100%;
+  overflow-x: auto;
+  cursor: zoom-in;
+  margin: 0.45rem 0 0.65rem;
+  background: #0b111e;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.35rem;
+}
+.plate-svg-box svg { width: 100%; height: auto; display: block; }
+.plate-links {
+  font-family: var(--font-mono);
+  font-size: 0.73rem;
+}
+.plate-links a { color: var(--muted); margin-right: 0.95rem; }
+.plate-links a:hover { color: var(--teal-bright); }
+
+/* Dark Lightbox Modal */
+#lbModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 6, 12, 0.92);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+#lbModal.open { display: flex; }
+.lb-box {
+  background: #0b111e;
+  border: 1px solid var(--teal);
+  max-width: 95vw;
+  max-height: 92vh;
+  overflow: auto;
+  padding: 1.25rem;
+  border-radius: 4px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.85);
+}
+
+/* Interactive Console-Demo Styles */
+.console-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+}
+@media (max-width: 900px) { .console-grid { grid-template-columns: 1fr; } }
+.term-pane {
+  background: var(--bg-code);
+  border: 1px solid var(--border-bright);
+  border-radius: 3px;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.77rem;
+}
+.term-hdr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--teal-bright);
+  font-size: 0.73rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.btn-fire {
+  font-family: var(--font-mono);
+  font-size: 0.77rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: rgba(239, 68, 68, 0.14);
+  color: #fca5a5;
+  border: 1px solid var(--crimson);
+  padding: 0.55rem 1rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-fire:hover { background: var(--crimson); color: #fff; }
+.btn-compile {
+  font-family: var(--font-mono);
+  font-size: 0.77rem;
+  font-weight: 700;
+  background: var(--teal-glow);
+  color: var(--teal-bright);
+  border: 1px solid var(--teal-bright);
+  padding: 0.55rem 1rem;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.btn-compile:hover { background: var(--teal-bright); color: #041014; }
+select.profile-sel, textarea.yaml-ed {
+  width: 100%;
+  background: #050811;
+  color: var(--ink-bright);
+  border: 1px solid var(--border-bright);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  padding: 0.5rem;
+}
+
+footer.site-ftr {
+  margin-top: 3.8rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-bright);
+  font-size: 0.8rem;
+  color: var(--dim);
+}
+footer.site-ftr strong { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="sys-strip"><div class="sys-strip-inner"><div><span class="status-dot"></span>SYSTEMS NOMINAL // CAGE: 268E1 // SAM.GOV UEI: VTP2JPCJU3D9 // RELEASE v1.0.0</div><div>10 U.S.C. &sect; 4022 NON-TRADITIONAL OTA &bull; DFARS 252.227-7018 &bull; ALL PATENTS PENDING</div></div></div>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="/"><span class="brand-mark"></span>SPECTRAL SYSTEMS <span>// FLIT-FILTER v1.0.0</span></a><nav class="nav-links"><a href="/#briefings">Briefings</a><a href="/benchmarks.html">Silicon &amp; Benchmarks</a><a href="/zero-trust.html" class="active-nav">Zero Trust &amp; RAIN</a><a href="/cots-procurement.html">COTS &amp; OTA SKUs</a><a href="/patents.html">IP &amp; Provenance</a><a href="/verification.html">SHA-256 Ledger</a><a class="cta-console" href="/console-demo/">BAR0 Live Console</a><a class="cta-pdf" href="/preprint_Murphy_v1_0_0.pdf">Preprint PDF</a></nav></div></header>
+<main class="wrap">
+
+    <section class="hero-panel">
+      <div class="hero-kicker">INTERCONNECT LAYERS 1–2 POLICY ENFORCEMENT POINT // NIST SP 800-207 &bull; SP 800-193 &bull; NSA RAIN</div>
+      <h1 class="hero-title">Hardware Zero-Trust Crosswalk &amp; Autonomous Agent Containment (<span class="mono">SKILL.md &rarr; BAR0</span>)</h1>
+      <p class="hero-sub">Conventional Zero Trust (OSI Layers 3–7) trusts the host kernel, hypervisor, and CXL fabric manager once attached. Spectral Flit-Filter enforces non-bypassable (<span class="mono">RAIN</span>) capability projection directly on 512-bit CXL/UCIe flit wires at 250 MHz–693 MHz while <span class="mono">spectralc</span> gates cluster policy updates in 1.36 ms.</p>
+    </section>
+    <h2 class="sec-hdr">01. Seven-Pillar Federal Zero-Trust Hardware Mapping</h2>
+    <div class="table-scroll"><table class="spec-table">
+      <thead><tr><th>Zero-Trust / RAIN Pillar</th><th>Layer-1/2 Threat Vector</th><th>Physical Silicon Enforcement (128B BAR0 / RTL)</th><th>Formal Proof Gate</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. Tenant Identity</strong></td><td>Forged SPID=0, modulo-64 aliasing, or null vector</td><td>Write-once port prefix <span class="mono">CSR 0x78[7:0]</span> + 64-tenant bitmap <span class="mono">CSR 0x70</span></td><td>SVA 6; Lean 4 thm03, thm16</td></tr>
+        <tr><td><strong>2. Endpoint Resiliency</strong></td><td>Compromised DMA replaying OOO cacheline beats</td><td>4-channel 64-cacheline OOO DMA ratchet + Mode-C.2 write auto-lockout</td><td>SVA 7; Lean 4 thm11, thm14</td></tr>
+        <tr><td><strong>3. Micro-Segmentation</strong></td><td>Cyclic Confused-Deputy laundering (&beta;<sub>1</sub> &gt; 0) &amp; cable cuts</td><td>Anti-hairpinning, S<sub>64</sub> orbit chord clamp, &lt;4 ns PHY-gated (T<sub>0</sub>,T<sub>1</sub>) failover</td><td>SVA 2, 3; Lean 4 thm21, thm28</td></tr>
+        <tr><td><strong>4. Agent Containment</strong></td><td>Rogue AI agent exceeding TTL or holding dirty cachelines</td><td><span class="mono">spectralc</span> compiler, 64-bucket time-wheel (<span class="mono">CSR 0x68</span>), DirtyEvict bypass</td><td>SVA 4, 10; Lean 4 thm25, thm26</td></tr>
+        <tr><td><strong>5. Model Weight Guard</strong></td><td>Shared-HBM weight theft or Bank-0 timing side channels</td><td>Stage-2 fractured <span class="mono">LUT6_2</span> 4-tier BF16 clamp + 341-LUT Per-ARID scrub shim</td><td>SVA 8, 9; Lean 4 thm22, thm27</td></tr>
+        <tr><td><strong>6. Audit &amp; Provenance</strong></td><td>Unverifiable derivation egress or silent policy violations</td><td>Sticky-lockout digest <span class="mono">CSR 0x58</span> (I &le; log<sub>2</sub>(M+1)) + <span class="mono">CSR 0x48</span> tamper counter</td><td>SVA 5; Lean 4 thm04, thm09</td></tr>
+        <tr><td><strong>7. Non-Bypassable Ratchet</strong></td><td>Compromised OS issuing 0&rarr;1 MMIO writes or warm FLR</td><td>Cold-POR <span class="mono">AND2</span> hardware ratchet + Vieta GF(256)[Z] ideal + FIPS-204 ML-DSA-87</td><td>SVA 1; Lean 4 thm02, thm20</td></tr>
+      </tbody>
+    </table></div>
+    
+<footer class="site-ftr"><p><strong>Spectral Systems LLC</strong> (United States) &bull; Eric C. Murphy, Principal Architect &amp; Sole Human Inventor &bull; CAGE: <span class="mono">268E1</span> &bull; SAM.gov UEI: <span class="mono">VTP2JPCJU3D9</span> &bull; Release <span class="mono">v1.0.0</span> &bull; Contact: <span class="mono">eric@spectralsystems.org</span> &bull; <a href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer">GitHub Verification Repository</a> &bull; <a href="/llms.txt">llms.txt</a></p><p>Conceived and reduced to practice 100% exclusively at private expense under <span class="mono">DFARS 252.227-7018</span> and <span class="mono">DEAR 952.227-14</span>, compliant with <span class="mono">37 C.F.R. &sect; 1.41</span> and USPTO Guidance <span class="mono">90 FR 54636</span> (Nov. 28, 2025). Open verification artifacts licensed under <span class="mono">Apache-2.0</span>; commercial hardware synthesis and silicon implementation rights reserved (<strong>All Patents Pending</strong>).</p></footer>
+</main>
+</body>
+</html>

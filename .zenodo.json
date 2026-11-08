@@ -1,0 +1,15 @@
+{
+  "title": "SPECTRAL FLIT-FILTER v1.0.0: Stateless Sub-Flit Capability Sanitization, Algebraic Cohort Ratcheting, and Post-Route Formal Verification for Disaggregated CXL 3.0-4.0 and UCIe Memory Fabrics",
+  "version": "1.0.0",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "publication_date": "2026-11-08",
+  "creators": [
+    {
+      "name": "Murphy, Eric C.",
+      "affiliation": "Spectral Systems LLC, United States"
+    }
+  ],
+  "access_right": "open",
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,12 @@
+{
+  "afi_id": "afi-0f2ddd7dc87d81193",
+  "agfi_id": "agfi-08becf3b40b169674",
+  "s3_uploaded": true,
+  "dcp_name": "2026_11_05-165426.Developer_CL.tar",
+  "s3_bucket": "spectral-f2-afi-enclave-trl6",
+  "s3_dcp_key": "dcp_hbm2/2026_11_05-165426.Developer_CL.tar",
+  "wns_ns": 0.512,
+  "en_hbm": 1,
+  "hbm_capacity_gb": 16,
+  "bar4_hbm_offset": "0x1000000000"
+}

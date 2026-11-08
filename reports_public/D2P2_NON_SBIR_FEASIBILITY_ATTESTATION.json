@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0-TRL6.5",
+  "entity_name": "Spectral Systems LLC",
+  "cage_code": "268E1",
+  "sam_uei": "VTP2JPCJU3D9",
+  "uspto_customer_no": "Pending",
+  "funding_provenance": "100% Developed Exclusively at Private Expense (DFARS 252.227-7018 / DEAR 952.227-14)",
+  "afi_id": "afi-07282de69eecfd279",
+  "agfi_id": "agfi-03b742e2a9cd2c0f2",
+  "post_route_wns_ns": "+1.842",
+  "silicon_receipt_sha256": "eeca95b13d690c45f41643b1533229f1ff8fdab4be792d595c65187b4c1c6b54",
+  "sealed_utc": "2026-11-04T18:26:07.8230272Z"
+}

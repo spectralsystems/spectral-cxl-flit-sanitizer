@@ -1,0 +1,8 @@
+THE -F (--force-shell-reload) IS NOT SUPPORTED ON F2 AND IS IGNORED
+AFI          0       agfi-036c4a41d05661f64  loaded            0        ok               0       0x10212415
+AFIDEVICE    0       0x1d0f      0xf010      0000:34:00.0
+
+Type  FpgaImageSlot  FpgaImageId             StatusName    StatusCode   ErrorName    ErrorCode   ShVersion
+AFI          0       agfi-036c4a41d05661f64  loaded            0        ok               0       0x10212415
+Type  FpgaImageSlot  VendorId    DeviceId    DBDF
+AFIDEVICE    0       0x1d0f      0xf010      0000:34:00.0

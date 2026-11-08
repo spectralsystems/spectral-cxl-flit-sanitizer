@@ -1,0 +1,7 @@
+{
+  "standard": "ISO/IEC 17825 Welch t-test",
+  "total_traces": 19990,
+  "max_abs_t_statistic": 0.0,
+  "threshold": 4.5,
+  "pass": true
+}
