@@ -70,6 +70,6 @@ jobs:
       - name: Sigstore / GitHub OIDC SLSA Build Provenance Attestation
         if: github.event_name != 'pull_request'
         continue-on-error: true
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v4
         with:
           subject-path: 'preprint_Murphy_v1_0_0.pdf'
