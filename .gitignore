@@ -1,0 +1,38 @@
+# Python & Rust & Test Caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+target/
+
+# LaTeX Build Temporaries
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Strict DFARS 252.227-7018 / DEAR 952.227-14 Zone-1 Air-Gap Guard
+*.sv
+*.svh
+*.v
+*.vh
+*.edf
+*.edif
+*.dcp
+*.gds
+*.gds2
+*.oas
+*.spef
+*.bit
+*.mcs
+*.pem
+*.key
+PPA_19.*
+node_modules/
+package.json
+package-lock.json
+.wrangler/

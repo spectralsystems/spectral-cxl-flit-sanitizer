@@ -1,0 +1,60 @@
+{
+  "schema": "spectral.vendor.profile.v1.0.0",
+  "updated_utc": "2026-11-09T18:11:26Z",
+  "legal_name": "Spectral Systems LLC",
+  "jurisdiction": "United States",
+  "founder_and_pi": "Eric C. Murphy",
+  "contact_email": "eric@spectralsystems.org",
+  "website": "https://spectralsystems.org",
+  "capability_statement_pdf": "https://spectralsystems.org/capability-statement.pdf",
+  "monograph_pdf": "https://spectralsystems.org/preprint_Murphy_v1_0_0.pdf",
+  "verification_repository": "https://github.com/spectralsystems/spectral-cxl-flit-sanitizer",
+  "identifiers": {
+    "dla_cage_code": "268E1",
+    "sam_gov_uei": "VTP2JPCJU3D9",
+    "virginia_eva_id": "VA10140357",
+    "ntdc_status": "Non-Traditional Defense Contractor (10 U.S.C. 4022 Prototype OTA Eligible)",
+    "patent_portfolio": "19 U.S. Provisional Patent Applications (All Patents Pending; 100% Private Expense under DFARS 252.227-7018 & DEAR 952.227-14)"
+  },
+  "classifications": {
+    "naics_codes": [
+      "334413",
+      "541715",
+      "541512",
+      "513210"
+    ],
+    "psc_codes": [
+      "5962",
+      "AC12",
+      "AC13",
+      "7A21"
+    ]
+  },
+  "verified_hardware_baselines": {
+    "lean4_formal_kernel": "30 Constructive Term-Mode Theorems (Init.Prelude, 0 sorry, 0 axioms)",
+    "fpga_16nm_xcvu47p": "1,585 Core CLB LUTs (0.12%), 0 BRAM/URAM/DSP, 0.124 ns Stage-1 Sieve, +1.048 ns WNS (338.8 MHz), 35.0 mW",
+    "asic_7nm_asap7": "9,678 Core / 27,877 Enclave Cells (0.003335 mm2 enclave), 693.19 MHz Fmax, 3.728 mW, 0 SRAM",
+    "aws_f2_bist_agfi": "agfi-03b742e2a9cd2c0f2 (afi-07282de69eecfd279, 800,000 sub-flit slots, TVLA max |t| = 0.0)",
+    "aws_f2_hbm2_dma_agfi": "agfi-08becf3b40b169674 (afi-0f2ddd7dc87d81193, 16 GB HBM2 DMA, 100% sentinel survival, 0 CmpltTO)"
+  },
+  "commercial_cots_skus": [
+    {
+      "sku": "SKU-1",
+      "price_usd": 9850.0,
+      "vehicle": "FAR 13.201 GPC Micro-Purchase",
+      "scope": "45-Day 16nm FPGA & Lean 4 Formal Evaluation Package"
+    },
+    {
+      "sku": "SKU-2",
+      "price_usd": 24950.0,
+      "vehicle": "FAR 13.201 DoD Lab / University GPC (<= $25k)",
+      "scope": "90-Day Dual-AFI AWS F2 + 7nm ASAP7 + spectralc/k3s Operator Pilot"
+    },
+    {
+      "sku": "SKU-3",
+      "price_usd": 95000.0,
+      "vehicle": "FAR Part 12 Simplified Acquisition / 10 U.S.C. 4022 OTA",
+      "scope": "Single-Program Encrypted EDIF Netlist, SVA VIP & 12-Month Engineering Integration"
+    }
+  ]
+}

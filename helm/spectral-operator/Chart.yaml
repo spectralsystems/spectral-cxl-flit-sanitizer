@@ -1,0 +1,6 @@
+apiVersion: v2
+name: spectral-operator
+description: Spectral Flit-Filter Zero-Trust CXL/HBM2 Silicon & Digital-Twin Kubernetes Operator
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

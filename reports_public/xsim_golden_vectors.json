@@ -1,0 +1,13 @@
+{
+  "spid_mixed_hex": "0x4242110834209081",
+  "csr70_mixed_hex": "0xffffffffffffffeb",
+  "b2_csr78_hex": "0x000000000000ff42",
+  "b2_csr60_hex": "0x000000000000008d",
+  "b2_csr68_hex": "0xffffffffffffff7f",
+  "b2_cidtau_hex": "0x1c20410100300801",
+  "b2_ctrl1_hex": "0x000f0a00",
+  "drs_full_w0_hex": "0x00000000",
+  "drs_clamp_w0_hex": "0x3f803f80",
+  "pipeline_latency_cycles": 5,
+  "expected_mixed_wstrb": "0x0000ffff0000ffff"
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0-TRL7-CLOUD-HBM2-DMA",
+  "afi_id": "afi-0f2ddd7dc87d81193",
+  "agfi_id": "agfi-08becf3b40b169674",
+  "post_route_wns_ns": 0.512,
+  "pcie_bdf": "0000:34:00.0",
+  "hbm2_capacity_gb": 16,
+  "bar4_hbm_offset": "0x1000000000",
+  "pcie_512b_bursts_streamed": 25000,
+  "subflit_slots_enforced_inline": 100000,
+  "pcie_aer_cmplt_to": 0,
+  "telemetry": {
+    "magic": "0x5EC74B42",
+    "avx512_hw": 0,
+    "active_bar4_off": "0x1000000000",
+    "hbm_cal_0x300": "0x00000006",
+    "slot0_hbm": "0x5555555555555555",
+    "slot1_sentinel_hbm": "0xAAAAAAAAAAAAAAAA",
+    "slot2_hbm": "0x5555555555555555",
+    "slot3_sentinel_hbm": "0xAAAAAAAAAAAAAAAA",
+    "last_wstrb": "0x0000FFFF00000000",
+    "leak_trap": 0,
+    "hbm_flits": 50128,
+    "scrubbed_slots": 100000,
+    "tamper_0x48": 1,
+    "naks_0x40": 0,
+    "bf16_tier0_hbm": "0x3F8E3F8E",
+    "bf16_tier1_clamped_hbm": "0x3F803F80"
+  },
+  "allied_hbm2_writes_verified": true,
+  "rogue_hbm2_sentinels_intact": true,
+  "status": "PASS"
+}

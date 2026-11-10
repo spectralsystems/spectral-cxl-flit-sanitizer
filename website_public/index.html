@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="citation_title" content="Spectral Flit-Filter (v1.0.0): Zero-BRAM Sub-Flit Capability Sieve and Monotonic Cold-POR Ratchet for CXL 3.0-5.0 and UCIe Memory Fabrics">
+  <meta name="citation_author" content="Murphy, Eric C.">
+  <meta name="citation_publication_date" content="2026/11/08">
+  <meta name="citation_technical_report_institution" content="Spectral Systems LLC (CAGE: 268E1)">
+  <meta name="citation_pdf_url" content="https://spectralsystems.org/preprint_Murphy_v1_0_0.pdf">
+  <meta name="citation_doi" content="10.5281/zenodo.24047902">
+  <title>SPECTRAL FLIT-FILTER (v1.0.0) - Technical Monograph & Datasheet - Spectral Systems LLC (CAGE: 268E1)</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Spectral Systems LLC (CAGE: 268E1)">
+  <meta property="og:title" content="SPECTRAL FLIT-FILTER (v1.0.0) - Technical Monograph & Datasheet">
+  <meta property="og:description" content="1,585 CLB LUTs (0 BRAM) on 16nm xcvu47p | 9,678 core / 27,877 enclave cells (3.728 mW) on 7nm ASAP7 | 99.20% goodput | 30 zero-axiom Lean 4 theorems | Live AWS F2 16 GB HBM2 silicon.">
+  <meta property="og:image" content="https://spectralsystems.org/figures/og_datasheet_card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SPECTRAL FLIT-FILTER (v1.0.0) - Technical Monograph & Datasheet">
+  <meta name="twitter:description" content="Zero-BRAM sub-flit capability sieve and cold-POR hardware ratchet for CXL 3.0-5.0 and UCIe memory fabrics.">
+  <meta name="twitter:image" content="https://spectralsystems.org/figures/og_datasheet_card.png">
+  <style>
+:root {
+  --bg: #F4F1EA;
+  --paper: #FAF8F3;
+  --sub: #EAE6DC;
+  --ink: #111110;
+  --body: #222220;
+  --muted: #5E5C56;
+  --rule: #111110;
+  --hairline: #CFCBC0;
+  --accent: #B82E14;
+  --pass: #145A32;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", Consolas, "SFMono-Regular", Menlo, monospace;
+}
+[data-theme="ink"] {
+  --bg: #0E0F0E;
+  --paper: #141615;
+  --sub: #1C1F1D;
+  --ink: #EAE6DC;
+  --body: #D5D1C7;
+  --muted: #8E8B82;
+  --rule: #4A4842;
+  --hairline: #2A2C2A;
+  --accent: #E04F33;
+  --pass: #2ECC71;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; background: var(--bg); color: var(--ink); }
+body { font-family: var(--sans); color: var(--body); background: var(--bg); line-height: 1.62; padding: 0; }
+a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+.shell { max-width: 1320px; margin: 0 auto; border-left: 1px solid var(--rule); border-right: 1px solid var(--rule); background: var(--paper); min-height: 100vh; }
+.doc-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; padding: 0.55rem 1.5rem; border-bottom: 2px solid var(--rule); background: var(--sub); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.03em; color: var(--ink); }
+.nav-bar { display: flex; justify-content: space-between; align-items: stretch; flex-wrap: wrap; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.brand-box { padding: 1rem 1.5rem; border-right: 1px solid var(--rule); display: flex; flex-direction: column; justify-content: center; }
+.brand-title { font-family: var(--serif); font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
+.brand-sub { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); margin-top: 0.15rem; }
+.nav-links { display: flex; flex-wrap: wrap; align-items: stretch; }
+.nav-links a { display: flex; align-items: center; padding: 0 1.1rem; font-family: var(--mono); font-size: 0.73rem; text-transform: uppercase; letter-spacing: 0.04em; text-decoration: none; border-right: 1px solid var(--hairline); color: var(--ink); }
+.nav-links a:hover, .nav-links a.active { background: var(--ink); color: var(--paper); }
+.theme-btn { margin-left: auto; padding: 0 1.1rem; font-family: var(--mono); font-size: 0.72rem; background: transparent; border: none; border-left: 1px solid var(--rule); color: var(--ink); cursor: pointer; text-transform: uppercase; }
+.theme-btn:hover { background: var(--sub); }
+.grid-main { display: grid; grid-template-columns: 250px 1fr; border-bottom: 1px solid var(--rule); }
+@media (max-width: 960px) { .grid-main { grid-template-columns: 1fr; } .rail-left { border-right: none !important; border-bottom: 1px solid var(--rule); } }
+.rail-left { border-right: 1px solid var(--rule); padding: 1.5rem 1.25rem; background: var(--bg); font-family: var(--mono); font-size: 0.74rem; }
+.rail-sec { margin-bottom: 1.5rem; }
+.rail-h { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding-bottom: 0.4rem; border-bottom: 1px solid var(--hairline); margin-bottom: 0.6rem; }
+.rail-list { list-style: none; }
+.rail-list li { margin-bottom: 0.45rem; line-height: 1.35; }
+.rail-list a { text-decoration: none; color: var(--body); }
+.rail-list a:hover { color: var(--accent); text-decoration: underline; }
+.rail-kv { display: flex; justify-content: space-between; padding: 0.28rem 0; border-bottom: 1px dotted var(--hairline); font-variant-numeric: tabular-nums; }
+.content-col { padding: 2.25rem 2.75rem; max-width: 100%; overflow-x: hidden; }
+@media (max-width: 680px) { .content-col { padding: 1.35rem 1.15rem; } }
+.kicker { font-family: var(--mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 700; margin-bottom: 0.5rem; }
+h1 { font-family: var(--serif); font-size: 2.3rem; font-weight: 400; line-height: 1.16; letter-spacing: -0.015em; color: var(--ink); margin-bottom: 1rem; max-width: 28ch; }
+.lead { font-family: var(--serif); font-size: 1.16rem; line-height: 1.58; color: var(--body); max-width: 68ch; margin-bottom: 1.5rem; }
+.meta-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); border-top: 2px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--sub); margin: 1.75rem 0 2.25rem; }
+.meta-cell { padding: 0.85rem 1rem; border-right: 1px solid var(--hairline); }
+.meta-cell:last-child { border-right: none; }
+.meta-lbl { font-family: var(--mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.meta-val { font-family: var(--mono); font-size: 1.04rem; font-weight: 700; color: var(--ink); margin-top: 0.2rem; font-variant-numeric: tabular-nums; }
+.meta-note { font-family: var(--sans); font-size: 0.73rem; color: var(--muted); margin-top: 0.1rem; }
+h2 { font-family: var(--serif); font-size: 1.45rem; font-weight: 400; color: var(--ink); margin: 2.4rem 0 0.85rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--rule); display: flex; align-items: baseline; gap: 0.65rem; }
+h2 .sec-num { font-family: var(--mono); font-size: 0.82rem; color: var(--accent); font-weight: 700; }
+p { margin-bottom: 1.05rem; max-width: 70ch; }
+.prose-aside { display: grid; grid-template-columns: 1fr 240px; gap: 2rem; align-items: start; margin: 1.25rem 0; }
+@media (max-width: 900px) { .prose-aside { grid-template-columns: 1fr; gap: 0.75rem; } }
+.sidenote { font-family: var(--mono); font-size: 0.73rem; line-height: 1.45; color: var(--muted); border-left: 2px solid var(--accent); background: var(--bg); padding: 0.65rem 0.75rem; }
+.spec-table-wrap { overflow-x: auto; margin: 1.35rem 0 2rem; border: 1px solid var(--rule); background: var(--paper); }
+table.spec { width: 100%; border-collapse: collapse; font-size: 0.83rem; font-variant-numeric: tabular-nums; }
+table.spec th, table.spec td { padding: 0.56rem 0.8rem; border-bottom: 1px solid var(--hairline); border-right: 1px solid var(--hairline); text-align: left; vertical-align: top; }
+table.spec th { background: var(--sub); font-family: var(--mono); font-size: 0.71rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink); border-bottom: 1px solid var(--rule); }
+table.spec tr:last-child td { border-bottom: none; }
+table.spec td.num, table.spec th.num { text-align: right; font-family: var(--mono); }
+code, .mono { font-family: var(--mono); font-size: 0.84em; background: var(--sub); padding: 0.1rem 0.32rem; }
+pre { background: #141413; color: #EAE6DC; padding: 1rem 1.25rem; font-family: var(--mono); font-size: 0.78rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--rule); margin: 1rem 0 1.5rem; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.65rem; margin: 1.25rem 0; }
+.btn { display: inline-block; font-family: var(--mono); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.56rem 0.95rem; border: 1px solid var(--rule); background: var(--ink); color: var(--paper); text-decoration: none; cursor: pointer; }
+.btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-ghost { background: var(--paper); color: var(--ink); }
+.btn-ghost:hover { background: var(--sub); color: var(--ink); border-color: var(--rule); }
+.bench-box { border: 1px solid var(--rule); background: var(--bg); padding: 1.25rem; margin: 1.5rem 0 2rem; }
+.bench-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding-bottom: 0.65rem; border-bottom: 1px solid var(--rule); margin-bottom: 1rem; font-family: var(--mono); font-size: 0.74rem; font-weight: 700; text-transform: uppercase; }
+.ctrl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+.ctrl-item label { display: block; font-family: var(--mono); font-size: 0.71rem; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
+.ctrl-item input[type=range], .ctrl-item select, .ctrl-item input[type=text] { width: 100%; font-family: var(--mono); font-size: 0.8rem; padding: 0.38rem; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); }
+.plate-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.25rem; margin: 1.25rem 0 2rem; }
+.plate-card { border: 1px solid var(--rule); background: var(--paper); padding: 0.9rem; display: flex; flex-direction: column; justify-content: space-between; }
+.plate-card img { width: 100%; height: auto; border: 1px solid var(--hairline); background: #fff; cursor: zoom-in; }
+.plate-cap { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); margin-top: 0.65rem; line-height: 1.45; }
+.footer { padding: 1.5rem; background: var(--sub); border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 0.72rem; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+#lightbox { display: none; position: fixed; inset: 0; background: rgba(17,17,16,0.92); z-index: 9999; align-items: center; justify-content: center; padding: 2rem; flex-direction: column; }
+#lightbox img { max-width: 94vw; max-height: 82vh; background: #fff; border: 2px solid #fff; }
+#lightbox-cap { color: #FAF8F3; font-family: var(--mono); font-size: 0.8rem; margin-top: 0.85rem; max-width: 85ch; text-align: center; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="doc-bar">
+    <span>TECHNICAL MONOGRAPH &amp; DATASHEET // SPEC-FF-V1.0.0 // DISTRIBUTION A: PUBLIC RELEASE</span>
+    <span>SPECTRAL SYSTEMS LLC (UNITED STATES) &bull; CAGE: 268E1 &bull; SAM.GOV UEI: VTP2JPCJU3D9</span>
+  </header>
+  <nav class="nav-bar">
+    <div class="brand-box">
+      <a class="brand-title" href="index.html">Spectral Systems LLC</a>
+      <span class="brand-sub">Hardware-Enforced Memory Isolation &amp; Formal Silicon Verification</span>
+    </div>
+    <div class="nav-links"><a href="index.html" class="active">I. Monograph</a><a href="benchmarks.html">II. Silicon & PPA</a><a href="zero-trust.html">III. Zero-Trust & RAIN</a><a href="verification.html">IV. Formal Proofs</a><a href="cots-procurement.html">V. COTS & GPC</a><a href="patents.html">VI. IP & Compliance</a><a href="console-demo/index.html">VII. Bench Console</a></div>
+    <button class="theme-btn" onclick="toggleTheme()" id="theme-toggle">[PAPER / INK]</button>
+  </nav>
+  <div class="grid-main">
+    <aside class="rail-left">
+<div class="rail-sec">
+  <div class="rail-h">Document Control</div>
+  <div class="rail-kv"><span>Release</span><strong>v1.0.0</strong></div>
+  <div class="rail-kv"><span>DLA CAGE</span><strong>268E1</strong></div>
+  <div class="rail-kv"><span>SAM.gov UEI</span><strong>VTP2JPCJU3D9</strong></div>
+  <div class="rail-kv"><span>VA eVA ID</span><strong>VA10140357</strong></div>
+  <div class="rail-kv"><span>Lean 4 Kernel</span><strong>30 Thms / 0 Ax</strong></div>
+  <div class="rail-kv"><span>16nm Core Area</span><strong>1,585 LUTs</strong></div>
+  <div class="rail-kv"><span>Block RAM / DSP</span><strong>0 / 0</strong></div>
+  <div class="rail-kv"><span>7nm ASAP7 Core</span><strong>9,678 / 27,877</strong></div>
+  <div class="rail-kv"><span>7nm Die Area</span><strong>0.003335 mm&sup2;</strong></div>
+  <div class="rail-kv"><span>Patent Portfolio</span><strong>19 Pending</strong></div>
+</div>
+<div class="rail-sec">
+  <div class="rail-h">Executive Downloads</div>
+  <ul class="rail-list">
+    <li><a href="capability-statement.pdf">&rarr; 1-Page Capability PDF</a></li>
+    <li><a href="preprint_Murphy_v1_0_0.pdf">&rarr; Monograph PDF (v1.0.0)</a></li>
+    <li><a href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer">&rarr; GitHub Verification Repo</a></li>
+    <li><a href="console-demo/index.html">&rarr; Interactive BAR0 Bench</a></li>
+    <li><a href="cots-procurement.html">&rarr; FAR 13.201 GPC Quote</a></li>
+    <li><a href="vendor-profile.json">&rarr; Vendor JSON Profile</a></li>
+  </ul>
+</div>
+<div class="rail-sec">
+  <div class="rail-h">Live AWS F2 Silicon</div>
+  <div style="font-size:0.68rem; color:var(--muted); line-height:1.45;">
+    <strong>AFI-1 (Datapath + BIST):</strong><br><code>agfi-03b742e2a9cd2c0f2</code><br><br>
+    <strong>AFI-2 (16 GB HBM2 DMA):</strong><br><code>agfi-08becf3b40b169674</code>
+  </div>
+</div>
+</aside>
+    <main class="content-col">
+<div class="kicker">Monograph &amp; Reference Datasheet (v1.0.0) &bull; Eric C. Murphy, Principal Architect</div>
+<h1>Sub-Flit Capability Sieving and Cold-Reset Ratchets for Disaggregated Memory Fabrics</h1>
+<p class="lead">
+  When multiple processors and AI accelerators share High-Bandwidth Memory (HBM2e/HBM3/HBM4) and DDR5 pools over CXL 3.0&ndash;5.0 or UCIe links, enforcing isolation at line rate runs into an uncomfortable structural trade-off. If you store access-control tables in DRAM, you forfeit 1.5625% of pooled capacity (250 GB per 16 TB rack) and suffer cache-miss tail stalls (184.2 ns P99.99) under sparse traffic. If instead you place a stateless filter on the wire and poison the 512-bit flit CRC whenever a request faults, a single bad 128-bit slot triggers a link-layer retry storm that penalizes three innocent co-packaged slots and collapses allied link goodput to 48.90%.
+</p>
+<div class="btn-row">
+  <a class="btn" href="capability-statement.pdf">1-Page Executive Capability Statement (PDF)</a>
+  <a class="btn btn-ghost" href="preprint_Murphy_v1_0_0.pdf">Full Monograph PDF (v1.0.0)</a>
+  <a class="btn btn-ghost" href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer">Apache-2.0 Verification Repo</a>
+  <a class="btn btn-ghost" href="cots-procurement.html">Generate &lt;$25k FAR 13.201 GPC Quote</a>
+</div>
+
+<div class="meta-strip">
+  <div class="meta-cell"><div class="meta-lbl">16nm xcvu47p Area</div><div class="meta-val">1,585 LUTs</div><div class="meta-note">0 BRAM &bull; 0 URAM &bull; 0 DSPs</div></div>
+  <div class="meta-cell"><div class="meta-lbl">Stage-1 Sieve Delay</div><div class="meta-val">0.124 ns</div><div class="meta-note">+1.048 ns WNS (338.8 MHz)</div></div>
+  <div class="meta-cell"><div class="meta-lbl">Allied Link Goodput</div><div class="meta-val">99.20%</div><div class="meta-note">vs. 48.90% whole-flit CRC</div></div>
+  <div class="meta-cell"><div class="meta-lbl">7nm ASAP7 Standard-Cell</div><div class="meta-val">693.19 MHz</div><div class="meta-note">3.728 mW &bull; 0.003335 mm&sup2;</div></div>
+  <div class="meta-cell"><div class="meta-lbl">Formal Proof Kernel</div><div class="meta-val">30 Theorems</div><div class="meta-note">Pure Init.Prelude Lean 4 (0 sorry)</div></div>
+</div>
+
+<h2><span class="sec-num">&sect; 1.</span> Why Existing Memory Isolation Breaks Down at Line Rate</h2>
+<div class="prose-aside">
+  <div>
+    <p>Without structural assumptions on how requests are packed and how permissions evolve over a session, achieving zero-memory-tax isolation without link collapse is hopeless. Fortunately, real disaggregated memory protocols give us two concrete properties we can exploit directly in combinational logic:</p>
+    <p><strong>First, CXL 3.0&ndash;5.0 512-bit flits are partitioned into four independent 128-bit sub-flit slots.</strong> Rather than invalidating the outer 512-bit link CRC when one tenant violates an aperture bound, a hardware interposer can evaluate all four slots in parallel inside a single <code>LUT6_2</code> logic level (<code>0.124 ns</code>), overwrite only the offending 128-bit slot into an algebraic no-op (<code>CXL_NOP</code>, <code>WSTRB = 16&apos;h0000</code>), and recompute the flit parity linearly down the pipeline.</p>
+    <p><strong>Second, legitimate security policies tighten monotonically during workload execution.</strong> By wiring the capability register write path through a bitwise-AND latch (<code>reg &lt;= reg &amp; wdata</code>) whose preset pin is bound exclusively to physical cold power-on reset (<code>por_cold_rst_n</code>) rather than warm PCIe Function-Level Resets (<code>pcie_warm_flr_rst_n</code>), even a Ring-0 kernel compromise on the host cannot widen its own memory permissions without someone physically power-cycling the chassis.</p>
+  </div>
+  <div class="sidenote">
+    <strong>What does this really mean?</strong><br><br>
+    In plain terms: you do not need gigabytes of DRAM lookup tables to isolate shared HBM pools, and you do not have to trust the host OS kernel to keep an autonomous AI model inside its memory sandbox.
+  </div>
+</div>
+
+<h2><span class="sec-num">&sect; 2.</span> Interactive Engineering Bench: Sub-Flit Sieve &amp; Cluster TCO Model</h2>
+<p>Use the two analytical instruments below to inspect how sub-flit surgical clamping behaves on the 512-bit wire and how eliminating the 1.5625% DRAM permission-table carve-out scales across a facility under the LBNL-2001637 and ISO/IEC 30134-2/9 accounting methodology.</p>
+
+<div class="bench-box">
+  <div class="bench-head">
+    <span>Instrument A // 512-Bit CXL Sub-Flit Inspection &amp; Fault-Injection Bench</span>
+    <span id="flit-status-badge" style="color:var(--pass);">STATE: 4/4 SLOTS VALID &bull; GOODPUT 99.20% &bull; 0 CTO</span>
+  </div>
+  <div class="btn-row" style="margin-top:0;">
+    <button class="btn" onclick="setBenchMode(0)">1. Nominal 4-Slot Traffic</button>
+    <button class="btn btn-ghost" onclick="setBenchMode(1)">2. Inject Slot-1 Rogue Write (0xDEADBEEF)</button>
+    <button class="btn btn-ghost" onclick="setBenchMode(2)">3. Simulate Host Warm PCIe FLR Attack</button>
+    <button class="btn btn-ghost" onclick="setBenchMode(3)">4. Enable Tier-3 E8M0 Weight Clamp</button>
+  </div>
+  <div class="spec-table-wrap" style="margin-bottom:0.5rem;">
+    <table class="spec" id="slot-table">
+      <thead>
+        <tr><th>Sub-Flit Slot</th><th>Tenant Cohort &amp; Opcode</th><th>Target HPA / Payload</th><th>Stage-1 Sieve (0.124 ns)</th><th>Stage-2 Wire Egress (2.855 ns)</th><th>Victim HBM State</th></tr>
+      </thead>
+      <tbody id="slot-tbody"></tbody>
+    </table>
+  </div>
+  <div id="flit-narration" style="font-family:var(--mono); font-size:0.75rem; color:var(--muted);"></div>
+</div>
+
+<div class="bench-box">
+  <div class="bench-head">
+    <span>Instrument B // Renewal-Reward Goodput (Theorem 5.1) &amp; LBNL-2001637 Facility TCO Model</span>
+    <span>1.5625% DRAM CARVE-OUT RECLAMATION</span>
+  </div>
+  <div class="ctrl-grid">
+    <div class="ctrl-item">
+      <label>Disaggregated Racks (<span id="lbl-racks">10,000</span> racks @ 16 TB/rack)</label>
+      <input type="range" id="sl-racks" min="100" max="20000" step="100" value="10000" oninput="updateModels()">
+    </div>
+    <div class="ctrl-item">
+      <label>Rogue / Faulting Sub-Flit Arrival Rate p_bad (<span id="lbl-pbad">0.80%</span>)</label>
+      <input type="range" id="sl-pbad" min="0.1" max="5.0" step="0.1" value="0.8" oninput="updateModels()">
+    </div>
+    <div class="ctrl-item">
+      <label>Link Replay Pipeline Depth N_pipe (<span id="lbl-npipe">32</span> flits)</label>
+      <input type="range" id="sl-npipe" min="8" max="64" step="4" value="32" oninput="updateModels()">
+    </div>
+  </div>
+  <div class="spec-table-wrap" style="margin-bottom:0;">
+    <table class="spec">
+      <thead>
+        <tr><th>Metric / Physical Quantity</th><th class="num">Stateful DRAM Table / Whole-Flit CRC</th><th class="num">Spectral Flit-Filter (v1.0.0)</th><th class="num">Net Reclaimed / Advantage</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Effective Allied Link Goodput</td><td class="num" id="m-gp-base">48.90%</td><td class="num" id="m-gp-spec"><strong>99.20%</strong></td><td class="num" id="m-gp-diff">+50.30% goodput</td></tr>
+        <tr><td>Stranded Permission-Table DRAM (1.5625%)</td><td class="num" id="m-dram-base">2,500.0 TB</td><td class="num"><strong>0.0 TB (0 BRAM)</strong></td><td class="num" id="m-dram-save">2,500.0 TB reclaimed</td></tr>
+        <tr><td>Memory CapEx Avoided ($15/GB HBM/DDR5)</td><td class="num" id="m-capex-base">$37.50M</td><td class="num"><strong>$0.00M</strong></td><td class="num" id="m-capex-save"><strong>$37.50M saved</strong></td></tr>
+        <tr><td>Continuous Facility Power (PUE 1.25)</td><td class="num" id="m-pwr-base">8.01 &ndash; 39.44 MW</td><td class="num"><strong>0.00035 MW (35 mW/dev)</strong></td><td class="num" id="m-pwr-save">8.01 &ndash; 39.44 MW shed</td></tr>
+        <tr><td>Annual Cooling Water (ISO 30134-9 WUE)</td><td class="num" id="m-wtr-base">101.0M &ndash; 497.5M L/yr</td><td class="num"><strong>0 L/yr</strong></td><td class="num" id="m-wtr-save">101.0M &ndash; 497.5M L/yr</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2><span class="sec-num">&sect; 3.</span> Empirical Silicon &amp; Formal Verification Summary</h2>
+<p>Every architectural claim in the monograph is anchored by five reproducible verification artifacts in the public repository:</p>
+<div class="spec-table-wrap">
+  <table class="spec">
+    <thead>
+      <tr><th>Verification Pillar</th><th>Target Platform / Tool</th><th>Measured Result</th><th>Repository / Silicon Provenance</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>1. Constructive Formal Proofs</strong></td><td>Microsoft Lean 4 (<code>4.28.0</code>, pure <code>Init.Prelude</code>)</td><td><strong>30 Theorem Groups</strong> (<code>0 sorry</code>, <code>0 axioms</code>, 33 verified groups)</td><td><code>formal_lean4/CxlSubflitSanitizerFormal.lean</code></td></tr>
+      <tr><td><strong>2. 16nm FinFET Post-Route Sign-Off</strong></td><td>AMD Virtex UltraScale+ HBM <code>xcvu47p-fsvh2892-2L-e</code> (Vivado 2025.2)</td><td><strong>1,585 Core LUTs</strong> (0.12%, +341 Scrub Shim, 2,555 Cycle-0, 5,459 Wrapper LUTs), <strong>0 BRAM/DSP</strong>, <code>+1.048 ns</code> WNS (<code>338.8 MHz</code>), <code>35.0 mW</code></td><td><code>reports_public/AWS_VIVADO_SIGNOFF_SUMMARY.json</code></td></tr>
+      <tr><td><strong>3. 7nm FinFET Standard-Cell ASIC</strong></td><td>ASAP7 7nm FinFET PDK (OpenROAD + OpenRCX + OpenSTA)</td><td><strong>9,678 Core Cells</strong> (11,420 GE, 27,877 enclave cells, <code>0.003335 mm&sup2;</code>), <code>693.19 MHz</code> Fmax, <code>3.728 mW</code></td><td><code>reports_public/TRL6_ASIC_7NM_ASAP7_SIGNOFF.json</code></td></tr>
+      <tr><td><strong>4. Live Cloud FPGA Silicon (Dual-AFI)</strong></td><td>AWS EC2 <code>f2.6xlarge</code> (16nm <code>xcvu47p</code> + 16 GB HBM2, PCIe <code>0000:34:00.0</code>)</td><td><strong>800,000 BIST Slots</strong> (TVLA <code>max |t| = 0.0</code>), 100k DMA attacks blocked, <code>0xAAAAAAAAAAAAAAAA</code> intact</td><td><code>agfi-03b742e2a9cd2c0f2</code> &amp; <code>agfi-08becf3b40b169674</code></td></tr>
+      <tr><td><strong>5. Control-Plane Admission Operator</strong></td><td><code>spectralc</code> Policy Compiler + <code>spectral-operator</code> K8s Webhook</td><td><strong>1.36 ms</strong> HTTP <code>403 Forbidden</code> rejection of non-monotonic policy widening</td><td><code>reports_public/TRL8_K8S_OPERATOR_HIL_RECEIPT.json</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2><span class="sec-num">&sect; 4.</span> Canonical Vector Plates (Click Any Plate to Inspect at Full Resolution)</h2>
+<div class="plate-grid">
+  <div class="plate-card"><img src="figures/fig1_silicon_ppa.svg" alt="Plate 1" onclick="openLightbox(this.src, this.nextElementSibling.innerText)"><div class="plate-cap"><strong>Plate 1:</strong> 16nm xcvu47p FPGA (1,585 LUTs, 0 BRAM) &amp; 7nm ASAP7 FinFET (9,678 core / 27,877 enclave cells, 0.003335 mm&sup2;) PPA Sign-Off.</div></div>
+  <div class="plate-card"><img src="figures/fig2_hbm_goodput.svg" alt="Plate 2" onclick="openLightbox(this.src, this.nextElementSibling.innerText)"><div class="plate-cap"><strong>Plate 2:</strong> Renewal-Reward Goodput Trajectory (99.20% vs. 48.90% at p_bad = 0.8%) &amp; Live 16 GB HBM2 DMA Audit.</div></div>
+  <div class="plate-card"><img src="figures/fig3_martingale_latency.svg" alt="Plate 3" onclick="openLightbox(this.src, this.nextElementSibling.innerText)"><div class="plate-cap"><strong>Plate 3:</strong> Sparse-MoE Martingale Tail-Latency CCDF (8.0 ns Cut-Through vs. 184.2 ns DRAM Table Miss P99.99).</div></div>
+  <div class="plate-card"><img src="figures/fig4_vieta_scaling.svg" alt="Plate 4" onclick="openLightbox(this.src, this.nextElementSibling.innerText)"><div class="plate-cap"><strong>Plate 4:</strong> Dual-Submode Cycle-0 Vieta GF(256)[Z] Root Sieve &amp; 132,600-Cohort Tensor Scaling.</div></div>
+  <div class="plate-card"><img src="figures/fig5_tvla_dither.svg" alt="Plate 5" onclick="openLightbox(this.src, this.nextElementSibling.innerText)"><div class="plate-cap"><strong>Plate 5:</strong> Live AWS F2 19,990-Trace Welch TVLA (max |t| = 0.0 &lt; 4.5) &amp; Zero-LUT BF16 Mantissa Clamping Wall.</div></div>
+  <div class="plate-card"><img src="figures/fig6_k8s_tco.svg" alt="Plate 6" onclick="openLightbox(this.src, this.nextElementSibling.innerText)"><div class="plate-cap"><strong>Plate 6:</strong> TRL-8 CNCF k3s Admission Webhook (1.36 ms Block) &amp; 10,000-Rack Exascale TCO ($37.50M&ndash;$38.40M Reclaimed).</div></div>
+</div>
+
+<script>
+const BENCH_MODES = [
+  {
+    badge: "STATE: 4/4 SLOTS VALID | GOODPUT 100.0% | 0 CTO",
+    color: "var(--pass)",
+    note: "Nominal operation: all four 128-bit sub-flit slots carry authorized cohort credentials and pass cut-through in 8.0 ns (4 cycles @ 500 MHz).",
+    rows: [
+      ["Slot 0 [127:0]", "Cohort 0x11 (M2S_RwD)", "HPA 0x0000_1000_0040", "PASS (0.124 ns)", "FORWARD (WSTRB=0xFFFF)", "0xAAAAAAAAAAAAAAAA (Valid)"],
+      ["Slot 1 [255:128]", "Cohort 0x11 (M2S_RwD)", "HPA 0x0000_1000_0080", "PASS (0.124 ns)", "FORWARD (WSTRB=0xFFFF)", "0xAAAAAAAAAAAAAAAA (Valid)"],
+      ["Slot 2 [383:256]", "Cohort 0x24 (M2S_Req)", "HPA 0x0000_2000_0100", "PASS (0.124 ns)", "FORWARD (ARVALID=1)", "Read Completion Authorized"],
+      ["Slot 3 [511:384]", "Cohort 0x24 (M2S_RwD)", "HPA 0x0000_2000_0140", "PASS (0.124 ns)", "FORWARD (WSTRB=0xFFFF)", "0xAAAAAAAAAAAAAAAA (Valid)"]
+    ]
+  },
+  {
+    badge: "STATE: SLOT 1 CLAMPED TO CXL_NOP | NEIGHBOR SLOTS 0,2,3 INTACT (99.20% GOODPUT)",
+    color: "var(--accent)",
+    note: "Theorem 5.1 & thm04 in action: Slot 1 attempts an unauthorized write (0xDEADBEEF). Stage-1 LUT6_2 forces WSTRB=0x0000 and rewrites Slot 1 to CXL_NOP without poisoning the 512-bit flit CRC. Slots 0, 2, and 3 complete with zero replay stall.",
+    rows: [
+      ["Slot 0 [127:0]", "Cohort 0x11 (M2S_RwD)", "HPA 0x0000_1000_0040", "PASS (0.124 ns)", "FORWARD (WSTRB=0xFFFF)", "0xAAAAAAAAAAAAAAAA (Intact)"],
+      ["Slot 1 [255:128]", "ROGUE COHORT 0x9F", "HPA 0x0000_1000_0000 (0xDEADBEEF)", "FAULT -> TRAP CSR[0x48]", "CLAMPED: CXL_NOP (WSTRB=0x0000)", "0xAAAAAAAAAAAAAAAA (100% Protected)"],
+      ["Slot 2 [383:256]", "Cohort 0x24 (M2S_Req)", "HPA 0x0000_2000_0100", "PASS (0.124 ns)", "FORWARD (ARVALID=1)", "Zero Link Retry Stall"],
+      ["Slot 3 [511:384]", "Cohort 0x24 (M2S_RwD)", "HPA 0x0000_2000_0140", "PASS (0.124 ns)", "FORWARD (WSTRB=0xFFFF)", "0xAAAAAAAAAAAAAAAA (Intact)"]
+    ]
+  },
+  {
+    badge: "STATE: WARM PCIe FLR REJECTED BY COLD-POR AND2 RATCHET (thm06)",
+    color: "var(--accent)",
+    note: "A compromised root kernel triggers a warm PCIe Function-Level Reset (pcie_warm_flr_rst_n) and writes 0xFFFFFFFFFFFFFFFF to CSR[0x70] to re-open revoked bits. Because the AND2 latch resets only on por_cold_rst_n, CSR[0x70] remains locked at 0xFFFFFFFFFFFFFFEB.",
+    rows: [
+      ["BAR0 CSR[0x70]", "Host Root Write: 0xFFFF_FFFF_FFFF_FFFF", "Warm PCIe FLR Asserted", "AND2 Latch: q & wdata", "Locked: 0xFFFFFFFFFFFFFFEB", "Escalation Blocked (CSR[0x48]++)"],
+      ["Slot 1 [255:128]", "Revoked Tenant Retry", "HPA 0x0000_1000_0000", "BLOCKED BY RATCHET", "CXL_NOP (WSTRB=0x0000)", "0xAAAAAAAAAAAAAAAA (Intact)"]
+    ]
+  },
+  {
+    badge: "STATE: TIER-3 E8M0 MANTISSA CLAMP ACTIVE (+0 LUT WIRE SLICE, thm27/thm29)",
+    color: "var(--pass)",
+    note: "Read-side model-weight protection: BF16 tensor reads pass through a zero-LUT wire-slice mask that zeroes all 7 mantissa bits (preserving sign + 8-bit exponent), erecting an 85x Le Cam minimax query wall against weight extraction.",
+    rows: [
+      ["Slot 0 Read", "BF16 Weight Read (Tier 3)", "Raw: 0x3F8E_3F8E_3F8E_3F8E", "Sign+Exp Preserved", "Clamped: 0x3F80_3F80_3F80_3F80", "85x Query Complexity Wall (thm29)"]
+    ]
+  }
+];
+function setBenchMode(idx) {
+  const m = BENCH_MODES[idx];
+  const b = document.getElementById("flit-status-badge");
+  b.innerText = m.badge; b.style.color = m.color;
+  document.getElementById("flit-narration").innerText = m.note;
+  document.getElementById("slot-tbody").innerHTML = m.rows.map(r => `<tr><td><strong>${r[0]}</strong></td><td>${r[1]}</td><td class="mono">${r[2]}</td><td><strong>${r[3]}</strong></td><td class="mono">${r[4]}</td><td>${r[5]}</td></tr>`).join("");
+}
+function updateModels() {
+  const racks = parseFloat(document.getElementById("sl-racks").value);
+  const pbadPct = parseFloat(document.getElementById("sl-pbad").value);
+  const npipe = parseFloat(document.getElementById("sl-npipe").value);
+  document.getElementById("lbl-racks").innerText = racks.toLocaleString();
+  document.getElementById("lbl-pbad").innerText = pbadPct.toFixed(2) + "%";
+  document.getElementById("lbl-npipe").innerText = npipe;
+  const p = pbadPct / 100.0;
+  const pFlitClean = Math.pow(1.0 - p, 4);
+  const gpBase = (pFlitClean / (pFlitClean + (1.0 - pFlitClean) * npipe)) * 100.0;
+  const gpSpec = (1.0 - p) * 100.0;
+  document.getElementById("m-gp-base").innerText = gpBase.toFixed(2) + "%";
+  document.getElementById("m-gp-spec").innerHTML = "<strong>" + gpSpec.toFixed(2) + "%</strong>";
+  document.getElementById("m-gp-diff").innerText = "+" + (gpSpec - gpBase).toFixed(2) + "% goodput";
+  const dramTb = racks * 0.25;
+  const capexM = dramTb * 1000.0 * 15.0 / 1e6;
+  const pwrLow = (racks / 10000.0) * 8.01;
+  const pwrHigh = (racks / 10000.0) * 39.44;
+  const wtrLow = (racks / 10000.0) * 101.0;
+  const wtrHigh = (racks / 10000.0) * 497.5;
+  document.getElementById("m-dram-base").innerText = dramTb.toLocaleString(undefined,{minimumFractionDigits:1}) + " TB";
+  document.getElementById("m-dram-save").innerText = dramTb.toLocaleString(undefined,{minimumFractionDigits:1}) + " TB reclaimed";
+  document.getElementById("m-capex-base").innerText = "$" + capexM.toFixed(2) + "M";
+  document.getElementById("m-capex-save").innerHTML = "<strong>$" + capexM.toFixed(2) + "M saved</strong>";
+  document.getElementById("m-pwr-base").innerText = pwrLow.toFixed(2) + " - " + pwrHigh.toFixed(2) + " MW";
+  document.getElementById("m-pwr-save").innerText = pwrLow.toFixed(2) + " - " + pwrHigh.toFixed(2) + " MW shed";
+  document.getElementById("m-wtr-base").innerText = wtrLow.toFixed(1) + "M - " + wtrHigh.toFixed(1) + "M L/yr";
+  document.getElementById("m-wtr-save").innerText = wtrLow.toFixed(1) + "M - " + wtrHigh.toFixed(1) + "M L/yr";
+}
+setBenchMode(1); updateModels();
+</script>
+</main>
+  </div>
+  <div id="spec-lockstep-seal" style="font-size:0.68rem;color:var(--muted);padding:0.75rem 1.5rem;border-top:1px solid var(--hairline);background:var(--bg);font-family:var(--mono);">
+Canonical v1.0.0 Telemetry Ledger: 16nm xcvu47p-fsvh2892-2L-e (Vivado v2025.2): 1,585 Core CLB LUTs (0.12%, 321 CLBs), 1,157 FFs, 341 Scrub Shim LUTs, 2,555 Cycle-0 LUTs, 5,459 4-Stage Wrapper LUTs / 3,461 FFs, 0 BRAM, 0 URAM, 0 LUTRAM, 0 DSP, +1.048 ns WNS (338.8 MHz), 35.0 mW, 0 DRC.
+7nm ASAP7 FinFET CMOS (asap7sc7p5t): 9,678 core cells (11,420 NAND2 GE, 0.00224 mm2), 27,877 placed-and-routed enclave cells (3,335.45 um2 / 0.003335 mm2), 0 SRAM, +2,556.41 ps WNS, 1,443.59 ps critical path (693 MHz = 2.77x), 3.728 mW, 0 DRC.
+AWS EC2 f2.6xlarge Dual-AFI: agfi-03b742e2a9cd2c0f2 (afi-07282de69eecfd279, +1.842 ns WNS @ 250.0 MHz, 128.0 Gbps, 800,000 slots, 400,000 rogue scrubbed, CSR[0x70] = 0xFFFFFFFFFFFFFFEB, 19,990-trace Welch TVLA max |t| = 0.0) &amp; agfi-08becf3b40b169674 (afi-0f2ddd7dc87d81193, +0.512 ns WNS, 16 GB HBM2, PF0-BAR4 0x1000000000, 25,000 bursts, 50,128 flits, 100,000 slots, 0x5555555555555555, 0xAAAAAAAAAAAAAAAA, BF16 0x3F8E3F8E -&gt; 0x3F803F80, CmpltTO == 0).
+CNCF k3s + spectralc v1.0.0: 16-CSR (128 B) BAR0 ABI, ML-DSA-87, 1.36 ms HTTP 403. 30 zero-axiom Init.Prelude Lean 4 theorem groups (thm00-thm29, 33 verified groups, 0 sorry).
+10,000-Rack TCO: 99.20% vs. 48.90% goodput, 8.0 ns vs. 184.2 ns / 34.8 ns P99.99, 2,500.0 TB (250 GB/rack) HBM ($37.50M-$38.40M CapEx), 8.01-39.44 MW saved. CAGE: 268E1 | UEI: VTP2JPCJU3D9 | All Patents Pending | 90 FR 54636.</div>
+  <footer class="footer">
+    <div>Spectral Systems LLC is a privately held U.S. microelectronics R&amp;D company (CAGE: 268E1 | SAM.gov UEI: VTP2JPCJU3D9 | non-501(c)(3)). All Patents Pending (19 U.S. Provisional Patent Applications; 90 FR 54636).</div>
+    <div>Contact: <a href="mailto:eric@spectralsystems.org">eric@spectralsystems.org</a> &bull; <a href="capability-statement.pdf">1-Page Capability PDF</a> &bull; <a href="preprint_Murphy_v1_0_0.pdf">Preprint PDF</a> &bull; <a href="llms.txt">llms.txt</a> &bull; <a href="sitemap.xml">sitemap.xml</a></div>
+  </footer>
+</div>
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="Expanded Vector Figure">
+  <div id="lightbox-cap"></div>
+</div>
+<script>
+function toggleTheme() {
+  const root = document.documentElement;
+  const cur = root.getAttribute("data-theme");
+  const next = (cur === "ink") ? "paper" : "ink";
+  root.setAttribute("data-theme", next);
+  localStorage.setItem("spectral_theme", next);
+}
+(function() {
+  const saved = localStorage.getItem("spectral_theme");
+  if (saved === "ink") document.documentElement.setAttribute("data-theme", "ink");
+})();
+function openLightbox(src, cap) {
+  const lb = document.getElementById("lightbox");
+  document.getElementById("lightbox-img").src = src;
+  document.getElementById("lightbox-cap").innerText = cap;
+  lb.style.display = "flex";
+}
+function closeLightbox() { document.getElementById("lightbox").style.display = "none"; }
+</script>
+</body>
+</html>

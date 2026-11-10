@@ -1,0 +1,8 @@
+{
+  "FpgaImageId": "afi-01e1910295991cdf1",
+  "FpgaImageGlobalId": "agfi-036c4a41d05661f64",
+  "dcp_tar_name": "2026_11_03-235058.Developer_CL.tar",
+  "dcp_tar_sha256": "ad3a6d72e5aba480aa9270e1dbb535c011790e216bdbf77162c795db7c176ec3",
+  "s3_bucket": "spectral-f2-afi-enclave-trl6",
+  "s3_key": "dcp/2026_11_03-235058.Developer_CL.tar"
+}

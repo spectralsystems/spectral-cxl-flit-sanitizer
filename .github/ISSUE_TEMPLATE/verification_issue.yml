@@ -1,0 +1,18 @@
+name: Formal Verification / Attestation Audit Report
+description: Report a discrepancy in Lean 4 proof compilation or SHA-256 receipt verification
+labels: ["verification", "audit"]
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: Execution Environment
+      description: Lean 4 version, OS, or Google Colab runtime details
+    validations:
+      required: true
+  - type: textarea
+    id: stdout
+    attributes:
+      label: Compiler / Verifier Output
+      description: Paste the exact terminal output
+    validations:
+      required: true

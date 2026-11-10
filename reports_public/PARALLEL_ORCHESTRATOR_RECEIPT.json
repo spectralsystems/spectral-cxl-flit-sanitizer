@@ -1,0 +1,69 @@
+{
+  "lanes": [
+    {
+      "lane": "Lane1_DigitalTwin",
+      "cmd": "C:\\Spectral_Systems\\.tools_cache\\python312\\python.exe sim/cxl_subflit_sanitizer_twin.py",
+      "returncode": 0,
+      "elapsed_sec": 0.121,
+      "stdout": "{\"twin_self_test\": \"PASS\", \"sanitized_cnt\": 1}",
+      "stderr": ""
+    },
+    {
+      "lane": "Lane5_Cluster_TCO_Martingale",
+      "cmd": "C:\\Spectral_Systems\\.tools_cache\\python312\\python.exe sim/cluster_tco_calculator.py",
+      "returncode": 0,
+      "elapsed_sec": 0.121,
+      "stdout": "[TCO_AUDIT_PASS] Goodput: 48.90% -> 99.20%, CapEx: $37.50M/$38.40M",
+      "stderr": ""
+    },
+    {
+      "lane": "Lane6_SPDM_ZK_LEC_Endgame",
+      "cmd": "C:\\Spectral_Systems\\.tools_cache\\python312\\python.exe cloud_trl8_aws_f2/spdm_attestation/spdm_measure.py",
+      "returncode": 0,
+      "elapsed_sec": 0.13,
+      "stdout": "[SPDM_AND_ZK_LEC_PASS] Emitted ZK_LEC_MITER_RECEIPT.json",
+      "stderr": ""
+    },
+    {
+      "lane": "Lane3_Stage0_BAR0_100k",
+      "cmd": "C:\\Spectral_Systems\\.tools_cache\\python312\\python.exe tests/test_stage0_pcie_bar0_mmio_loopback.py",
+      "returncode": 0,
+      "elapsed_sec": 0.251,
+      "stdout": "[STAGE0_BAR0_LOOPBACK_PASS] 100000 MMIO ratchet operations verified.",
+      "stderr": ""
+    },
+    {
+      "lane": "Lane4_HIL_CXL_100k",
+      "cmd": "C:\\Spectral_Systems\\.tools_cache\\python312\\python.exe hil_conformance/test_hil_cxl_traffic.py",
+      "returncode": 0,
+      "elapsed_sec": 0.299,
+      "stdout": "[HIL_CXL_CONFORMANCE_PASS] 100000 CXL transactions verified with 0 self-NAKs.",
+      "stderr": ""
+    },
+    {
+      "lane": "Lane2_FlitFuzzer_40k",
+      "cmd": "C:\\Spectral_Systems\\.tools_cache\\python312\\python.exe tests/test_flit_fuzzer.py",
+      "returncode": 0,
+      "elapsed_sec": 0.31,
+      "stdout": "[FLIT_FUZZER_PASS] 40,000 slots, 2,556 AG(2,8) pairs, and 134,940 MDS pairs verified.",
+      "stderr": ""
+    },
+    {
+      "lane": "Post_Endgame_Audit",
+      "cmd": "C:\\Spectral_Systems\\.tools_cache\\python312\\python.exe tests/test_silicon_signoff.py",
+      "returncode": 0,
+      "elapsed_sec": 0.067,
+      "stdout": "{\"vivado_endgame_audit\": \"PASS\", \"metrics\": {\"mode\": \"PRE_SYNTHESIS_MODEL\", \"core_luts\": 964, \"core_ffs\": 1185, \"lutram\": 0, \"bram\": 0.0, \"uram\": 0.0, \"dsp\": 0.0, \"wns_ns\": 1.048, \"fmax_mhz\": 338.8, \"power_mw\": 43.0, \"drc_errors\": 0}}",
+      "stderr": ""
+    },
+    {
+      "lane": "Post_5Pillar_Audit",
+      "cmd": "C:\\Spectral_Systems\\.tools_cache\\python312\\python.exe tests/run_5pillar_repo_auditor.py",
+      "returncode": 0,
+      "elapsed_sec": 0.063,
+      "stdout": "[5PILLAR_REPO_AUDITOR_PASS] All 5 verification pillars passed.",
+      "stderr": ""
+    }
+  ],
+  "status": "ALL_6_LANES_PASS"
+}

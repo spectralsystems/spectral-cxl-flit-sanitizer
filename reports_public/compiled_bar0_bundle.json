@@ -1,0 +1,11 @@
+{
+  "compiler": "spectralc v1.0.0",
+  "status": "CERTIFIED",
+  "lean4_kernel_invoked": true,
+  "vertices": 6,
+  "tree_branches": 5,
+  "beta1_chords": 2,
+  "ag28_cohorts_verified": 64,
+  "bar0_csr_0x00_spatial": "0xFFFFFFFFFFFFFFE0",
+  "bar0_csr_0x60_fine_sp": "0xFEFEFEFEFEFEFEFE"
+}

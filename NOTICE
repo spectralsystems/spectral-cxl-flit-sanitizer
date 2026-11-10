@@ -1,0 +1,43 @@
+================================================================================
+SPECTRAL FLIT-FILTER (v1.0.0) -- STATUTORY ATTRIBUTION & LICENSE SCOPE NOTICE
+(Mandatory Downstream Attribution & Scope Notice under Apache License 2.0 Sec. 4(d))
+================================================================================
+
+Copyright (c) 2026 Spectral Systems LLC (Sole Human Inventor: Eric C. Murphy,
+eric@spectralsystems.org | https://spectralsystems.org | CAGE: 268E1 |
+SAM.gov UEI: VTP2JPCJU3D9). Conceived and reduced to practice 100% at private
+expense (DFARS 252.227-7018 / DEAR 952.227-14; 37 C.F.R. 1.41 & 90 FR 54636).
+
+1. TIER 1 -- APACHE-2.0 OPEN-SOURCE SOFTWARE & FORMAL VERIFICATION ("THE WORK"):
+   The "Work" licensed under the Apache License, Version 2.0 (including its
+   Section 2 copyright grant and Section 3 patent grant) consists strictly and
+   exclusively of the open-source verification and control-plane software files
+   located within the following five repository directories:
+     * formal_lean4/  (30 zero-axiom Init.Prelude Lean 4 theorem groups, thm00-thm29)
+     * spectralc/     (Rust policy compiler & FIPS-204 ML-DSA-87 attestation CLI)
+     * sim/           (Python cycle-accurate reference twins & martingale benchmarks)
+     * helm/          (Kubernetes admission webhook chart & operator manifests)
+     * tests/         (Repository verification & silicon receipt audit harnesses)
+
+2. TIER 2 -- SOVEREIGN SILICON, HARDWARE & PATENT RESERVATION (EXCLUDED):
+   Synthesizable hardware description language sources (.sv, .vhd), physical
+   netlists (.edf, .dcp), FPGA bitstreams, AWS EC2 f2.6xlarge AFIs
+   (agfi-03b742e2a9cd2c0f2 and agfi-08becf3b40b169674), and 7nm FinFET CMOS
+   standard-cell layouts (ASAP7 asap7sc7p5t GDSII/DEF/SPEF) are maintained in a
+   physically air-gapped vault under DFARS 252.227-7018 and ARE NOT PART OF
+   THE APACHE-2.0 LICENSED "WORK".
+
+   No patent license (express, implied, by exhaustion, or under Apache-2.0
+   Section 3) is granted to synthesize, place-and-route, flash onto FPGA/ASIC
+   silicon, manufacture, or commercially sell physical CXL 3.0-5.0, UCIe, or
+   HBM sub-flit capability sanitization hardware covered by Spectral Systems
+   LLC's 19 U.S. Provisional Patent Applications (All Patents Pending).
+
+3. TIER 3 -- MONOGRAPH, REGISTER ABI & EMPIRICAL SILICON RECEIPTS:
+   The technical monograph (preprint_Murphy_v1_0_0.pdf / .tex), MMIO register
+   specification (registers/bar0_abi_v1.json), and post-route silicon receipts
+   (reports_public/*.json) are published for scientific peer review, formal
+   reproducibility auditing, and grant/procurement inspection. Verbatim
+   redistribution with full attribution is permitted; all hardware fabrication
+   and patent rights remain expressly reserved under 35 U.S.C. 287(a).
+================================================================================

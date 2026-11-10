@@ -1,0 +1,16 @@
+{
+  "title": "SPECTRAL FLIT-FILTER v1.0.0: Stateless Sub-Flit Capability Sanitization, Algebraic Cohort Ratcheting, and Post-Route Formal Verification for Disaggregated CXL 3.0-5.0 and UCIe Memory Fabrics",
+  "version": "1.0.0",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "publication_date": "2026-11-09",
+  "creators": [
+    {
+      "name": "Murphy, Eric C.",
+      "affiliation": "Spectral Systems LLC"
+    }
+  ],
+  "access_right": "open",
+  "license": "Apache-2.0",
+  "description": "Open-source Apache-2.0 formal verification & software suite (30 zero-axiom Init.Prelude Lean 4 theorem groups thm00..thm29, spectralc v1.0.0, Python digital twin, CNCF k3s webhook 1.36 ms 403 block) + empirical silicon sign-off receipts on 16nm xcvu47p (1,585 LUTs, 0 BRAM, 338.8 MHz; AWS F2 BIST agfi-03b742e2a9cd2c0f2 & 16 GB HBM2 DMA agfi-08becf3b40b169674) and 7nm ASAP7 (9,678 core / 27,877 enclave cells, 0.003335 mm^2, 693 MHz, 3.728 mW). Physical hardware/silicon patent rights reserved (All Patents Pending, 19 U.S. Provisional Patent Applications; DFARS 252.227-7018)."
+}

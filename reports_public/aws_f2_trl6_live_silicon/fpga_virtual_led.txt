@@ -1,0 +1,4 @@
+PRE_SCRUB : FPGA slot id 0 have the following Virtual LED:
+0101-1110-0000-0000
+POST_SCRUB: FPGA slot id 0 have the following Virtual LED:
+0101-1110-0001-0000
