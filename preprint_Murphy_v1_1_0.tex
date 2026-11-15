@@ -1,0 +1,2122 @@
+\documentclass[10pt,twocolumn]{article}
+\ifdefined\pdfsuppressptexinfo\pdfsuppressptexinfo=15\fi
+\usepackage[letterpaper,top=0.60in,bottom=0.65in,left=0.625in,right=0.625in]{geometry}
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \IfFileExists{newtxtext.sty}{\let\Bbbk\relax\let\openbox\relax\usepackage{newtxtext,newtxmath}}{\usepackage{mathptmx}\usepackage{amssymb,amsfonts}}
+  \IfFileExists{zi4.sty}{\usepackage[scaled=0.86]{zi4}}{\IfFileExists{beramono.sty}{\usepackage[scaled=0.85]{beramono}}{}}
+  \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=16,shrink=16]{microtype}
+\else
+  \usepackage[T1]{fontenc}
+  \IfFileExists{newtxtext.sty}{\let\Bbbk\relax\let\openbox\relax\usepackage[nofontspec]{newtxtext}\usepackage{newtxmath}}{\usepackage{mathptmx}}
+  \IfFileExists{zi4.sty}{\usepackage[scaled=0.86]{zi4}}{}
+  \usepackage[final,protrusion=true]{microtype}
+\fi
+
+% Silent NFSS upright substitution for Inconsolata (zi4) inside italic theorem environments
+\makeatletter
+\AtBeginDocument{%
+  \begingroup\fontencoding{T1}\fontfamily{zi4}\selectfont\fontencoding{TS1}\fontfamily{zi4}\selectfont\endgroup
+  \DeclareFontShape{T1}{zi4}{m}{it}{<->ssub*zi4/m/n}{}%
+  \DeclareFontShape{T1}{zi4}{m}{sl}{<->ssub*zi4/m/n}{}%
+  \DeclareFontShape{T1}{zi4}{b}{it}{<->ssub*zi4/b/n}{}%
+  \DeclareFontShape{T1}{zi4}{b}{sl}{<->ssub*zi4/b/n}{}%
+  \DeclareFontShape{T1}{zi4}{bx}{it}{<->ssub*zi4/b/n}{}%
+  \DeclareFontShape{T1}{zi4}{bx}{sl}{<->ssub*zi4/b/n}{}%
+  \DeclareFontShape{TS1}{zi4}{m}{it}{<->ssub*zi4/m/n}{}%
+  \DeclareFontShape{TS1}{zi4}{m}{sl}{<->ssub*zi4/m/n}{}%
+  \DeclareFontShape{TS1}{zi4}{b}{it}{<->ssub*zi4/b/n}{}%
+  \DeclareFontShape{TS1}{zi4}{b}{sl}{<->ssub*zi4/b/n}{}%
+  \DeclareFontShape{TS1}{zi4}{bx}{it}{<->ssub*zi4/b/n}{}%
+  \DeclareFontShape{TS1}{zi4}{bx}{sl}{<->ssub*zi4/b/n}{}%
+}
+\makeatother
+
+\usepackage{multicol}
+\setlength{\columnsep}{0.26in}
+\setlength{\multicolsep}{6.5pt plus 2pt minus 1.5pt}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\graphicspath{{docs/figures/}{figures/}{website_public/figures/}}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc}
+\usepackage{enumitem}
+\usepackage[font={footnotesize},labelfont={bf},labelsep=period]{caption}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{letltxmacro}
+\usepackage[pdfencoding=auto,psdextra]{hyperref}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{\usepackage{url}}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black,
+  pdftitle={Space-to-Time Capability Duality, Shadow-Bank Bezout Deflation, and Split-Coset Syndrome Exactness for Disaggregated Memory Fabrics (Part II, v1.1.0)},
+  pdfauthor={Eric C. Murphy (Spectral Systems LLC)},
+  pdfsubject={Companion Structural Closure, Adversarial Self-Critique, and Zero-Axiom Lean 4 Expansion to Spectral Flit-Filter (v1.0.0)},
+  pdfcreator={LaTeX},
+  pdfproducer={Spectral Systems Clean-Room Companion Build v1.1.0}
+}
+
+\urlstyle{tt}
+\def\UrlBreaks{\do\_\do\/\do\-}
+\def\UrlBigBreaks{}
+
+% Math-mode-safe \id wrapper
+\newcommand{\id}[1]{\nolinkurl{#1}}
+\makeatletter
+\LetLtxMacro{\spec@orig@id}{\id}
+\renewcommand{\id}[1]{%
+  \ifmmode
+    \text{\normalfont\ttfamily\detokenize{#1}}%
+  \else
+    \spec@orig@id{#1}%
+  \fi
+}
+\makeatother
+
+% ============================================================================
+% BREATHING TYPOGRAPHY, FORMULA AIR, & SECTION HEADING DISCIPLINE
+% ============================================================================
+\linespread{1.062}
+\setlength{\parskip}{3.4pt plus 1.0pt minus 0.5pt}
+\setlength{\jot}{5.0pt}
+\raggedbottom
+\AtBeginDocument{%
+  \setlength{\abovedisplayskip}{7.5pt plus 2pt minus 2pt}%
+  \setlength{\belowdisplayskip}{7.5pt plus 2pt minus 2pt}%
+  \setlength{\abovedisplayshortskip}{5pt plus 2pt minus 1pt}%
+  \setlength{\belowdisplayshortskip}{5pt plus 2pt minus 1pt}%
+}
+
+\renewenvironment{abstract}{%
+  \par\vspace{2pt}%
+  \begin{center}%
+  \begin{minipage}{0.95\textwidth}%
+  \noindent{\color{black!55}\hrule height 0.4pt}\vspace{4pt}%
+  \centerline{\bfseries\small Abstract}\vspace{3pt}%
+  \fontsize{9.0}{11.0}\selectfont
+  \setlength{\parskip}{0.36\baselineskip}%
+  \setlength{\parindent}{0pt}%
+}{%
+  \par\vspace{4pt}\noindent{\color{black!55}\hrule height 0.4pt}%
+  \end{minipage}%
+  \end{center}%
+  \vspace{2pt}%
+}
+
+\titleformat{\section}
+  {\fontsize{10.5}{12.5}\selectfont\bfseries\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000}
+  {\thesection}{0.6em}{}
+\titlespacing*{\section}{0pt}{10pt plus 2.5pt minus 1pt}{4.5pt}
+
+\titleformat{\subsection}
+  {\fontsize{9.5}{11.5}\selectfont\bfseries\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000}
+  {\thesubsection}{0.55em}{}
+\titlespacing*{\subsection}{0pt}{8pt plus 2pt minus 1pt}{3.5pt}
+
+\setlist[enumerate]{leftmargin=1.4em,labelsep=0.35em,topsep=3.2pt,itemsep=2.4pt,parsep=0pt}
+\setlist[itemize]{leftmargin=1.4em,labelsep=0.35em,topsep=3.2pt,itemsep=2.4pt,parsep=0pt}
+
+\lefthyphenmin=3
+\righthyphenmin=3
+\hyphenpenalty=750
+\exhyphenpenalty=300
+\setlength{\emergencystretch}{1.6em}
+\binoppenalty=650
+\relpenalty=450
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+\allowdisplaybreaks[2]
+
+\hyphenation{micro-archi-tec-ture micro-archi-tec-tural sub-flit san-i-ti-za-tion san-i-ti-zer mono-tonic iso-morphic co-hort co-horts pipe-lined para-digm auton-o-mous}
+
+\let\bigsqcap\relax
+\newcommand{\bigsqcap}{\mathop{\vphantom{\bigcap}\mathchoice
+  {\vcenter{\hbox{\huge$\sqcap$}}}
+  {\vcenter{\hbox{\Large$\sqcap$}}}
+  {\vcenter{\hbox{\normalsize$\sqcap$}}}
+  {\vcenter{\hbox{\small$\sqcap$}}}}\displaylimits}
+
+% ============================================================================
+% ALAIN CONNES + TWO-COLUMN SYSTEMS HYBRID CONTROLLER & PLATES
+% ============================================================================
+\makeatletter
+\newif\ifspecintwocol \specintwocolfalse
+\newif\ifspecresume   \specresumefalse
+\newcommand{\StartTwoCol}{%
+  \if@twocolumn
+    \let\spec@next\@empty
+  \else
+    \ifspecintwocol
+      \let\spec@next\@empty
+    \else
+      \global\specintwocoltrue
+      \def\spec@next{\begin{multicols}{2}}%
+    \fi
+  \fi
+  \spec@next
+}
+\newcommand{\StopTwoCol}{%
+  \if@twocolumn
+    \onecolumn
+    \global\specintwocolfalse
+    \let\spec@next\@empty
+  \else
+    \ifspecintwocol
+      \global\specintwocolfalse
+      \def\spec@next{\end{multicols}}%
+    \else
+      \let\spec@next\@empty
+    \fi
+  \fi
+  \spec@next
+}
+\newcommand{\BeginConnesPlate}{%
+  \if@twocolumn
+    \onecolumn
+    \global\specresumetrue
+    \let\spec@platepre\@empty
+  \else
+    \ifspecintwocol
+      \global\specresumetrue
+      \let\spec@platepre\StopTwoCol
+    \else
+      \global\specresumefalse
+      \let\spec@platepre\@empty
+    \fi
+  \fi
+  \spec@platepre
+  \par\vspace{4pt}\noindent\textcolor{black!25}{\rule{\textwidth}{0.4pt}}\par\vspace{3pt}%
+}
+\newcommand{\EndConnesPlate}{%
+  \par\vspace{3pt}\noindent\textcolor{black!25}{\rule{\textwidth}{0.4pt}}\par\vspace{4pt}%
+  \ifspecresume
+    \global\specresumefalse
+    \let\spec@platepost\StartTwoCol
+  \else
+    \let\spec@platepost\@empty
+  \fi
+  \spec@platepost
+}
+\newcommand{\MidConnesRule}{%
+  \par\vspace{4pt}\noindent\textcolor{black!25}{\rule{\textwidth}{0.4pt}}\par\vspace{4pt}%
+}
+\makeatother
+
+% ============================================================================
+% FROZEN PART I (v1.0.0) SILICON RECEIPTS & PART II (v1.1.0) FORMAL MACROS
+% ============================================================================
+\providecommand{\ReleaseVersion}{v1.1.0}
+\providecommand{\BaselineVersion}{v1.0.0}
+\providecommand{\VivadoToolVersion}{v2025.2}
+\providecommand{\LeanPartOneTotal}{30}
+\providecommand{\LeanNewExpansion}{8}
+\providecommand{\LeanCumulativeTotal}{38}
+\providecommand{\LeanCoreGroups}{28}
+\providecommand{\LeanStructuralLemmas}{10}
+
+\providecommand{\CoreClbLuts}{1,585}
+\providecommand{\CoreLogicalPrimitives}{1,841}
+\providecommand{\CoreClbSites}{321}
+\providecommand{\CoreUtilPct}{0.12\%}
+\providecommand{\CoreFfs}{1,157}
+\providecommand{\CoreStageOneFfs}{645}
+\providecommand{\CoreStageTwoFfs}{512}
+\providecommand{\ScrubShimLuts}{341}
+\providecommand{\ScrubShimFfs}{22}
+\providecommand{\ScrubShimWns}{\ensuremath{+2.099\text{~ns}}}
+\providecommand{\CycleZeroLuts}{2,555}
+\providecommand{\CycleZeroFfs}{260}
+\providecommand{\WrapperLuts}{5,459}
+\providecommand{\WrapperFfs}{3,461}
+\providecommand{\CoreWns}{\ensuremath{+1.048\text{~ns}}}
+\providecommand{\CoreWhs}{\ensuremath{+0.047\text{~ns}}}
+\providecommand{\StageOneNs}{\ensuremath{0.124\text{~ns}}}
+\providecommand{\StageTwoNs}{\ensuremath{2.855\text{~ns}}}
+\providecommand{\StageTwoLogicNs}{\ensuremath{0.920\text{~ns}}}
+\providecommand{\StageTwoRouteNs}{\ensuremath{1.935\text{~ns}}}
+\providecommand{\CoreTminNs}{\ensuremath{2.952\text{~ns}}}
+\providecommand{\CoreFmax}{\ensuremath{338.8\text{~MHz}}}
+\providecommand{\CorePowerMw}{\ensuremath{35.0\text{~mW}}}
+\providecommand{\AwsAgfiId}{agfi-03b742e2a9cd2c0f2}
+\providecommand{\AwsHbmAgfiId}{agfi-08becf3b40b169674}
+\providecommand{\AsicCoreCells}{9,678}
+\providecommand{\AsicCoreGe}{11,420}
+\providecommand{\AsicCoreAreaMm}{\ensuremath{0.00224\text{~mm}^2}}
+\providecommand{\AsicStandardCells}{27,877}
+\providecommand{\AsicEnclaveAreaMm}{\ensuremath{0.003335\text{~mm}^2}}
+\providecommand{\AsicStageOneTwoDelayPs}{\ensuremath{1,443.59\text{~ps}}}
+\providecommand{\AsicFmaxMhz}{\ensuremath{693\text{~MHz}}}
+\providecommand{\AsicTotalPowerMw}{\ensuremath{3.728\text{~mW}}}
+
+% ============================================================================
+% RUNNING HEADERS & FOOTERS (DISTINCT COMPANION PART II IDENTITY)
+% ============================================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\color{black!70}\textit{E.~C.~Murphy}}
+\fancyhead[R]{\footnotesize\color{black!70}\itshape Space-to-Time Capability Duality, Shadow B\'{e}zout Deflation, \& Split-Coset Exactness (Part~II, \ReleaseVersion)}
+\fancyfoot[L]{\footnotesize\color{black!60}E.~C.~Murphy --- \textsc{Spectral Flit-Filter} Companion Monograph (Part~II, \ReleaseVersion)}
+\fancyfoot[R]{\footnotesize\color{black!75}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\footnotesize\color{black!75}\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
+
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{0}
+\setcounter{totalnumber}{2}
+\setcounter{dbltopnumber}{2}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.0}
+\renewcommand{\textfraction}{0.10}
+\renewcommand{\floatpagefraction}{0.75}
+\renewcommand{\dbltopfraction}{0.85}
+\renewcommand{\dblfloatpagefraction}{0.78}
+
+\newtheoremstyle{spectralthm}
+  {6pt}{6pt}{\itshape}{0pt}{\bfseries}{.}{0.45em}
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ (\mdseries\bfseries #3)}}
+\theoremstyle{spectralthm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\definecolor{specnavy}{HTML}{0B2545}
+
+\lstdefinelanguage{Lean4}{
+  keywords={def,theorem,inductive,where,forall,fun,let,set_option,abbrev},
+  sensitive=true,
+  morecomment=[l]{--},
+  basicstyle=\scriptsize\ttfamily\linespread{1.02}\selectfont,
+  keywordstyle=\bfseries\color{specnavy},
+  commentstyle=\color[HTML]{1E3A5F}\itshape,
+  columns=fullflexible,
+  keepspaces=true,
+  breaklines=true,
+  breakatwhitespace=true,
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{black!35},
+  captionpos=t
+}
+
+\lstdefinelanguage{SystemVerilog}{
+  keywords={property,endproperty,assert,disable,iff,posedge,generate,endgenerate,for,genvar,begin,end,module,endmodule,input,output,logic,wire},
+  sensitive=true,
+  morecomment=[l]{//},
+  basicstyle=\scriptsize\ttfamily\linespread{1.03}\selectfont,
+  keywordstyle=\bfseries\color{specnavy},
+  commentstyle=\color[HTML]{1E3A5F}\itshape,
+  literate={~}{{\raisebox{0.5ex}{\texttildelow}}}1,
+  columns=fullflexible,
+  keepspaces=true,
+  breaklines=true,
+  breakatwhitespace=true,
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{black!35},
+  captionpos=t
+}
+
+\title{\vspace{-2.1em}{\fontsize{14.0}{16.8}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000
+Space-to-Time Capability Duality, Shadow-Bank B\'{e}zout Deflation,\\
+and Split-Coset Syndrome Exactness for Disaggregated Memory Fabrics\par}
+\vspace{0.22em}{\fontsize{10.2}{12.4}\selectfont\mdseries\itshape
+Part~II (\ReleaseVersion): Adversarial Self-Critique, Lifecycle Closure, and Zero-Axiom Lean~4 Expansion\\
+of the \textsc{Spectral Flit-Filter} (\BaselineVersion) Silicon Architecture\par}\vspace{-0.40em}}
+
+\author{
+  \textbf{Eric C. Murphy}\thanks{Correspondence: \href{mailto:eric@spectralsystems.org}{\texttt{eric@spectralsystems.org}}. Companion Part~II (\ReleaseVersion) to Part~I (\BaselineVersion)~\cite{murphy2026part1}. Open-source Lean~4 proofs (\texttt{thm00}--\texttt{thm37}), falsification scripts, and silicon receipts: \url{https://github.com/spectralsystems/spectral-cxl-flit-sanitizer} (\texttt{Apache-2.0}; commercial hardware synthesis and silicon implementation rights reserved; all patents pending).}\\
+  {\small Spectral Systems LLC}\\
+  {\footnotesize\href{mailto:eric@spectralsystems.org}{\texttt{eric@spectralsystems.org}} \;|\; \url{https://github.com/spectralsystems/spectral-cxl-flit-sanitizer}}
+}
+
+\date{\vspace{-0.35em}November 2026\vspace{-0.35em}}
+
+\begin{document}
+
+\onecolumn
+\maketitle
+\thispagestyle{plain}
+
+\vspace{-0.65em}
+\begin{center}
+\begin{minipage}{0.92\textwidth}
+\centering\footnotesize\itshape
+``The world little knows how many of the thoughts and theories which have passed through the mind of a scientific investigator have been crushed in silence and secrecy by his own severe criticism and adverse examination.'' ---~\upshape Michael~Faraday~(1854)~\cite{faraday1854mental}.\vspace{0.10em}\\
+\itshape
+``The first principle is that you must not fool yourself---and you are the easiest person to fool.'' ---~\upshape Richard~P.~Feynman~(1974)~\cite{feynman1974cargocult}.
+\end{minipage}
+\end{center}
+\vspace{-0.25em}
+
+\begin{abstract}
+In Part~I (\BaselineVersion)~\cite{murphy2026part1}, we introduced \textsc{Spectral Flit-Filter}, a zero-BRAM cut-through capability sanitizer for disaggregated \mbox{CXL~3.0--4.0}~\cite{cxl2025spec,dassharma2024cxl} and \mbox{UCIe~1.1--3.0}~\cite{ucie2025spec30} memory fabrics (\CoreClbLuts\ CLB LUTs on 16nm \texttt{xcvu47p}; \AsicCoreCells\ core / \AsicStandardCells\ enclave cells at \AsicTotalPowerMw\ in 7nm \texttt{ASAP7}~\cite{clark2016asap7}; live Dual-AFI AWS F2 silicon; and \LeanPartOneTotal\ zero-axiom Lean~4 theorems \texttt{thm00}--\texttt{thm29}~\cite{demoura2021lean4}). Subjecting Part~I to adversarial self-examination immediately after sealing its silicon baseline exposed eight operational and theoretical questions left open in Part~I: \emph{Why does $O(1)$ register state not violate $\Omega(M)$ information-theoretic storage bounds? How can a single shootdown-completed root be reclaimed from a degree-8 $\mathbb{F}_{2^8}[Z]$ Vieta polynomial without general polynomial division or violating \texttt{SVA 1} monotonicity? How does Mode~C synthesize reverse \texttt{S2M\_BISnp} probes after stripping upper address bits? Can singular-value decomposition (SVD) across $Q$ dithered reads extract rank-$r$ LoRA adapters? Can Stage~2 compute inner-product sketches at $+0$ LUTs? What defeats common-mode synthesis and rail faults across redundant \texttt{RAIN} channels, or online same-slope wipeouts under dynamic arrivals and departures?}
+
+Rather than republishing Part~I, this standalone Part~II monograph (\ReleaseVersion) keeps the Part~I netlist $100\%$ frozen ($+0$ core logic gates) and resolves all eight gaps from first principles, adding \LeanNewExpansion\ upgraded, non-trivial zero-axiom \texttt{Init.Prelude} Lean~4 theorems (\texttt{thm30}--\texttt{thm37}, bringing the cumulative formal corpus to \LeanCumulativeTotal\ theorems: \LeanCoreGroups\ core groups + \LeanStructuralLemmas\ structural lemmas). First, the \textbf{Landauer--Little--Vieta Transient Horizon Law} (Proposition~\ref{prop:little_vieta}) separates steady-state mean occupancy via Little's Law~\cite{little1961proof} and $O(1)$ timing-wheel expiration (\texttt{CSR 0x68}~\cite{varghese1997timing}, $\Delta d_{\mathrm{rev}}=0$) from token-bucket admission-paced worst-case degree ($d_{\mathrm{rev}}^{(t)} \le 8$), proving that controller state tracks only emergency mid-lease revocations across the $\Delta T_{\mathrm{shootdown}} \le 548.0\text{~ns}$ cache-shootdown and FIFO-drain airlock ($B_{\mathrm{state}} \le 64\text{~bits} \perp M \to \infty$). Second, \textbf{unified 8-step shadow-bank B\'{e}zout--Horner deflation}, \textbf{0-LUT normal-basis Frobenius equivariance}~\cite{mullin1989optimal,diamond2025binius} ($\mathrm{Gal}(\mathbb{F}_{2^8}/\mathbb{F}_2) \cong C_8$), and \textbf{bijective Mode-C forward-Feistel snoop closure} sustain $1.095 \times 10^7\text{~rev/s}$ perpetually without polynomial saturation (Theorems~\ref{thm:vieta_deflation_galois}--\ref{thm:bijective_snoop_compaction}). Third, we separate non-subtractive randomized-rounding variance ($\Delta_u^2/(6Q)$~\cite{wannamaker2000nonsubtractive}) from subtractive dither ($\Delta_u^2/(12Q)$~\cite{schuchman1964dither,gray1993dithered}) to establish \textbf{rectangular Benaych-Georges--Nadakuditi / BBP LoRA matrix immunity}~\cite{baik2005phase,benaych2012singular,gavish2014optimal} with a cross-tenant-safe \texttt{CSR 0x38} epoch dither-seed auto-ratchet (Theorem~\ref{thm:bbp_spectral_wall}) and reprogram Stage~2's 252 \mbox{\texttt{LUT6\_2}}s into $+0$-LUT slot-broadcast 2-bit dot-product sketchers (\texttt{64'h060C0A00\_08000000}, Proposition~\ref{prop:lut6_functional_sketch}). Fourth, \textbf{De~Morgan negative-logic \texttt{RAIN} dual-sieves} (\texttt{64'hABABABAB\_FEFEFEFE}~\cite{mitra2000commonmode}, Theorem~\ref{thm:rain_demorgan_duality}), non-abelian $\mathbb{F}_{2^8}$ affine / Davies--Meyer path-history chaining (Proposition~\ref{prop:nonabelian_ifc}), \textbf{online water-filling Schur-convexity}~\cite{marshall2011inequalities}, coarse-aperture switch HDM gauge flattening ($L_j \equiv 1$), and \textbf{CSS split-coset linear-code syndrome exactness} ($H_{\mathrm{FEC}} \circ E_{\mathrm{fold}} \equiv \mathbf{0}$~\cite{calderbank1996good}, Theorem~\ref{thm:homological_unification}) close the architecture while delineating four wide-open Phase~I R\&D frontiers.
+\end{abstract}
+
+\StartTwoCol
+
+\section{Introduction: Adversarial Self-Critique and Why Part~II Exists}
+\label{sec:intro}
+
+In classical mathematical and systems publishing, when a foundational hardware-verified construction (Part~I) exposes deeper algebraic questions and boundary assumptions under post-release scrutiny, the clean scholarly response is not to pad Part~I, but to issue a self-contained companion monograph (Part~II) that takes Part~I's sealed silicon receipts as immutable axioms and closes every open lifecycle proof obligation.
+
+In Part~I (\textsc{Spectral Flit-Filter} \BaselineVersion~\cite{murphy2026part1}), we designed, synthesized, and verified on live 16nm AWS EC2 \texttt{f2.6xlarge} HBM2 silicon (\texttt{\AwsAgfiId} and \texttt{\AwsHbmAgfiId}) and in the 7nm FinFET \texttt{ASAP7} predictive PDK~\cite{clark2016asap7} a cut-through Layer-1/2 capability sanitizer~\cite{rose2020zta} for disaggregated \mbox{CXL~3.0--4.0}~\cite{cxl2025spec,dassharma2024cxl,li2023pond,sun2023demystifying} and \mbox{UCIe~1.1--3.0}~\cite{ucie2025spec30} pools. Part~I eliminated the $1.5625\%$ ($250\text{~GB/rack}$) DRAM carve-out and $32$--$68\text{~ns}$ cache-miss stalls of stateful permission tables (\textit{Space-Control}~\cite{goswami2026spacecontrol}), the $12.5\%$ tag carve-out of \textit{CHERI / Morello}~\cite{woodruff2014cheri,watson2015cheri}, multi-cycle offloaded memory re-encryption overheads~\cite{li2025aiore,xu2024dataenclave}, and the $51.1\%$ Go-Back-N replay collapse of tail-CRC poisoning, using \CoreClbLuts\ CLB LUTs and $0\text{~BRAM}$.
+
+Yet as Faraday~\cite{faraday1854mental} and Feynman~\cite{feynman1974cargocult} emphasize, a researcher's primary obligation after building a working instrument is to try ruthlessly to falsify its underlying theory. Subjecting Part~I's \LeanPartOneTotal\ formal theorems (\texttt{thm00}--\texttt{thm29}) and operational claims to adversarial cross-examination uncovered eight substantive lifecycle omissions---alongside four analytical traps in our own preliminary scratch notes (Table~\ref{tab:falsification_ledger}) and frozen baseline constraints (Table~\ref{tab:v100_baseline}):
+\begin{enumerate}
+  \item \textbf{The Missing Information-Theoretic Foundation:} Part~I demonstrated \emph{how} 64-bit registers check cohorts in $0\text{~BRAM}$, but never answered how $64\text{~bits}$ of controller state can police an arbitrarily large memory pool $M \to \infty$ without violating Pigeonhole counting lower bounds, nor separated stochastic mean queue occupancy from deterministic worst-case degree bounds.
+  \item \textbf{Selective Polynomial Root Reclamation:} Part~I (\texttt{thm20}) proved monotonic root insertion into the degree-8 $\mathbb{F}_{2^8}[Z]$ Vieta annihilator $\Lambda^{(t)}(Z)$, but could not reclaim an individual cohort $\alpha_j$ that had finished cache shootdown without wiping newer mid-shootdown roots or violating active-bank \texttt{SVA 1}.
+  \item \textbf{Mode-C Reverse Snoop Synthesis \& Perpetual Uptime:} Part~I bounded \texttt{S2M\_BISnp} invalidation to $\le 500\text{~ns}$, but omitted how the Home Agent synthesizes Feistel-sealed Mode-C wire addresses in $0$ duplicate BRAM after Cycle~0 stripped the upper $(c_{\mathrm{bits}}+g)$ HPA bits, and how a degree-8 polynomial runs indefinitely without saturating at $d_{\mathrm{rev}}=8$.
+  \item \textbf{Global SVD Attacks on Low-Rank LoRA Matrices:} Part~I bounded \emph{scalar} weight localization ($Q = \Omega((\Delta_u/\delta w)^2)$), ignoring whether an attacker knowing $W_{\mathrm{base}}$ could average $Q$ dithered reads of a $4096 \times 4096$ matrix and run SVD~\cite{carlini2024stealing} to extract coherent rank-$r$ LoRA adapters~\cite{hu2022lora}.
+  \item \textbf{In-Flight Functional Inner-Product Sketching:} Part~I used Stage~2's 252 payload \mbox{\texttt{LUT6\_2}}s solely as truncation gates~\cite{rouhani2023microscaling}, overlooking their capacity to evaluate slot-broadcast 2-bit dot-product half-adders at $+0$ CLB LUTs.
+  \item \textbf{Common-Mode Synthesis \& Rail Faults in \texttt{RAIN} Gateways:} Duplicating identical positive-logic \mbox{\texttt{LUT6\_2}} netlists in cross-domain NSA \texttt{RAIN} gateways~\cite{ncdsmo2020rain} leaves both channels vulnerable to identical synthesis-mapping bugs and common-mode rail faults~\cite{mitra2000commonmode}.
+  \item \textbf{Multi-Hop Agent Delegation Order:} Part~I's single-hop capability attenuation (\texttt{thm29}) did not formalize non-commutativity across multi-hop agent trajectories ($A \to B$ vs.\ $B \to A$).
+  \item \textbf{Online Arrivals/Departures, Gauge Granularity, \& Linear-Code Exactness:} Part~I's compiler (\texttt{spectralc}) assumed static offline batches, tolerated $L_j \le 64$ chord orbit bleed even on coarse-aperture switches, and did not formalize Mode~B.2's CSS split-coset syndrome exactness~\cite{calderbank1996good}.
+\end{enumerate}
+
+\noindent\textbf{AI-Assisted Adversarial Falsification Velocity \& Human Provenance:}
+As Terence Tao recently observed in the \textit{Notices of the American Mathematical Society}~\cite{tao2025machine}, pairing human mathematical conception with adversarial conjecture stress-testing behind an unforgiving formal verification kernel (\texttt{Lean~4}~\cite{demoura2021lean4}) alters the cadence of mathematical iteration---provided generative outputs are treated with strict Popperian distrust~\cite{popper1959logic}. Every hardware primitive, algebraic cohort mechanism, and physical silicon reduction to practice across Part~I and Part~II is $100\%$ conceived and engineered by the human author at private expense; deterministic Python counterexample sweeps (\texttt{2.02~s} consolidated sweep) and pure \texttt{Init.Prelude} Lean~4 kernel checks (\texttt{0 sorry}, \texttt{0 axioms}) immediately refuted imprecise scratch conjectures across \textbf{months to years of equivalent sequential cross-examination} compressed into days (Table~\ref{tab:falsification_ledger}).
+
+\noindent\textbf{Lockstep Organization of Part~II:}
+Section~\ref{sec:duality} records the frozen Part~I axioms (Table~\ref{tab:v100_baseline}) and establishes the Landauer--Little--Vieta Space-to-Time Duality (Proposition~\ref{prop:little_vieta}, Figure~\ref{fig:airlock_lifecycle}). Sections~\ref{sec:vieta_snoop}--\ref{sec:homological} develop each advance in three-beat lockstep: \textbf{(1)~Motivation}, \textbf{(2)~Theorem \& Proof} (linked to \texttt{thm30}--\texttt{thm37}), and \textbf{(3)~Implications \& Boundary Conditions} (Figures~\ref{fig:bbp_dither_plate}--\ref{fig:cochain_architecture}, Table~\ref{tab:multimodal_matrix}). Section~\ref{sec:frontier} summarizes the upgraded Lean~4 mechanization (Table~\ref{tab:lean_v110}) and four open Phase~I R\&D frontiers (Table~\ref{tab:phase1_frontier}).
+
+\begin{table*}[!tp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{5.0pt}
+\renewcommand{\arraystretch}{1.19}
+\caption{Adversarial Self-Critique \& Falsification Ledger: Part~I (\BaselineVersion) Omissions and Scratch-Conjecture Refutations Resolved in Part~II (\ReleaseVersion)}
+\label{tab:falsification_ledger}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\hyphenpenalty=10000\arraybackslash}p{3.05cm} >{\raggedright\arraybackslash}p{4.85cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{2.95cm}@{}}
+\toprule
+\textbf{Architectural Layer} & \textbf{Gap Left Open in Part~I (\BaselineVersion) or Scratch Fallacy Caught by Python/Lean~4} & \textbf{Exact Part~II (\ReleaseVersion) Mathematical Resolution ($+0$ Core Logic Gates)} & \textbf{Proof \& Lean~4 Gate} \\
+\midrule
+\textbf{1. Space-to-Time State Complexity} & Omitted why $64\text{~bits}$ avoids $\Omega(M)$ bounds and conflated mean Little's Law occupancy with worst-case degree. & Self-authenticating wire tags ($B_{\mathrm{rest}}=0$) + \texttt{CSR 0x68} timing wheel~\cite{varghese1997timing} ($\Delta d_{\mathrm{rev}}=0$); Little's Law~\cite{little1961proof} bounds mean $\mathbb{E}[d_{\mathrm{rev}}]$ while token-bucket pacing ($\le 6/\text{window}$) bounds peak $d_{\mathrm{rev}}^{(t)} \le 8$ ($O(1)$ vs.\ $\Theta(M)$ Cornucopia sweeps~\cite{filardo2020cornucopia,filardo2024cornucopiareloaded}). & Prop.~\ref{prop:little_vieta} \newline (Fig.~\ref{fig:airlock_lifecycle}) \\
+\textbf{2. Unified 8-Step B\'{e}zout Deflation} & Conflated unshifted ideal $\langle P^{(t)}(Z)\rangle$ with $Z^{8-d}$-padded $\Lambda^{(t)}(Z)$; lacked single-root reclamation and square-free guard. & Square-free insertion idempotence ($\Lambda^{(t)}(\alpha)=0 \Rightarrow$ no-op) + unified 8-step shadow recurrence $q_k = \sigma_k^{(t)} \oplus (\alpha_j \odot q_{k-1})$ ($k=1..8$) auto-verifies $q_8 = \Lambda^{(t)}(\alpha_j) = 0$ and restores $Z^{8-(d-1)}$ padding; 128 normal elements ($\beta_{\min}=\texttt{0x20}$)~\cite{mullin1989optimal}. & Thm.~\ref{thm:vieta_deflation_galois}; \newline Lean~4 \texttt{thm35} \\
+\textbf{3. Mode-C Snoop \& Uptime Closure} & Cycle~0 stripped upper HPA bits; left source of $u_{\mathrm{page}}$ during reverse \texttt{S2M\_BISnp} walks implicit. & Home-Agent snoop-filter tag RAM supplies $(u_{\mathrm{page}},\mathrm{SPID},\alpha)$ so $\mathrm{Enc}^{(6)}(\alpha \parallel \mathbf{0}_g \parallel u_{\mathrm{page}})$ synthesizes $\mathrm{HPA}_{\mathrm{wire}}$ with $0$ duplicate BRAM; $\texttt{2'b11}$ compaction sustains $1.095\times 10^7\text{~rev/s}$ across all $t \in \mathbb{N}$. & Thm.~\ref{thm:bijective_snoop_compaction}; \newline Lean~4 \texttt{thm30}, \texttt{thm31} \\
+\textbf{4. LoRA Matrix SVD \& Dither Variance} & Conflated subtractive dither $\frac{\Delta_u^2}{12Q}$ with non-subtractive rounding; global \texttt{CSR 0x38} lockout risked cross-tenant DoS. & Conditional variance $\frac{p(1-p)\Delta_u^2}{Q}$ integrates to $\sigma_{\mathrm{avg}}^2 = \frac{\Delta_u^2}{6Q}$~\cite{wannamaker2000nonsubtractive} ($2\times \sigma_{\mathrm{sub}}^2$~\cite{schuchman1964dither}); rectangular BBP wall~\cite{benaych2012singular} $Q_{\mathrm{BBP}}^* \in [21.8\text{k}, 43.7\text{k}]$; global \texttt{CSR 0x38} triggers hitless dither-seed rekey without cross-tenant DoS. & Thm.~\ref{thm:bbp_spectral_wall} \newline (Fig.~\ref{fig:bbp_dither_plate}); \texttt{thm33} \\
+\textbf{5. Stage-2 Broadcast Functional Sketch} & Early mask \texttt{64'h060A0C00..} swapped $(1,0)/(0,1)$ bytes; needed explicit 2-bit \texttt{c\_i[1:0]} routing scope. & \textbf{\texttt{64'h060C0A00\_08000000}} evaluates $2\,\texttt{O5}+\texttt{O6} = (1-\mathrm{viol}_i)(f_1 x_1 + f_0 x_0)$ across all 32 states ($+0$ core gates for slot-broadcast $(x_1,x_0)$ on \texttt{c\_i[1:0]}; heterogeneous vectors/popcount in wrapper persona). & Prop.~\ref{prop:lut6_functional_sketch}; \newline Lean~4 \texttt{thm36} \\
+\textbf{6. \texttt{RAIN} Diversity \& $\mathbb{F}_{2^8}$ Hop IFC} & Identical positive-logic \texttt{RAIN} copies share synthesis/rail faults; 1-hop attenuation lacked multi-hop non-commutativity. & De~Morgan dual \mbox{\texttt{LUT6\_2}} (\textbf{\texttt{64'hABABABAB\_FEFEFEFE}}, \texttt{OR3}/\texttt{OAI21}) complements \texttt{64'h2A..80} (\texttt{AND3}/\texttt{AOI21})~\cite{mitra2000commonmode}; $\mathbb{F}_{2^8}$ affine / Davies--Meyer hops satisfy $T_{a_2,b_2}\circ T_{a_1,b_1} \neq T_{a_1,b_1}\circ T_{a_2,b_2}$. & Thm.~\ref{thm:rain_demorgan_duality} (Fig.~\ref{fig:rain_dual_plate}), Prop.~\ref{prop:nonabelian_ifc}; \texttt{thm33, 37} \\
+\textbf{7. Water-Filling \& CSS Exactness} & Scratch formula $64(1-\prod \frac{56-k}{64})$ failed at $R=2$ ($15.875$); needed coarse-aperture gauge \& CSS vs.\ Boolean distinction. & Schur-convexity~\cite{marshall2011inequalities} holds $W_8(\mathbf{n}^{(t)}) \equiv 0$ for all online $N_{\mathrm{tot}}^{(t)} \le 63$; coarse-aperture HDM gauge $\widetilde{\pi}_{e^*}$ yields $L_j \equiv 1$; Mode~B.2 satisfies $\mathbb{F}_2$-linear CSS coset exactness $H_{\mathrm{FEC}}E_{\mathrm{fold}} = \mathbf{0}$~\cite{calderbank1996good}. & Thm.~\ref{thm:homological_unification} (Fig.~\ref{fig:cochain_architecture}); \newline Lean~4 \texttt{thm32}, \texttt{thm34} \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\begin{table*}[!tp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{5.2pt}
+\renewcommand{\arraystretch}{1.18}
+\caption{Frozen Part~I (\BaselineVersion) Physical Silicon Receipts, Cloud Enclave Attestations, \& Formal Invariants~\cite{murphy2026part1} Preserved Unchanged ($+0$ Core Logic Gates) Throughout Part~II}
+\label{tab:v100_baseline}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.55cm} >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Part~I Baseline Axis} & \textbf{Sealed Physical Silicon, Cloud Enclave, \& Formal Specification (\BaselineVersion)} \\
+\midrule
+\textbf{16nm \texttt{xcvu47p-fsvh2892-2L-e} Core} & \CoreClbLuts\ Core CLB LUTs (\CoreLogicalPrimitives\ primitives, \CoreClbSites\ CLBs, \CoreUtilPct), \CoreFfs\ FDCE FFs (\CoreStageOneFfs\ Stage-1 + \CoreStageTwoFfs\ Stage-2), $0\text{~BRAM/URAM/LUTRAM/DSP}$, \CoreWns\ WNS (\StageTwoNs\ datapath = \StageTwoLogicNs\ logic + \StageTwoRouteNs\ route, $T_{\min}=\CoreTminNs$, \CoreFmax\ $F_{\max}$, \CoreWhs\ WHS, \CorePowerMw\ dynamic power, $0$ DRC) \\
+\textbf{Modular Periphery \& 4-Stage Wrapper} & +\ScrubShimLuts\ LUTs / \ScrubShimFfs\ FFs (\ScrubShimWns\ WNS) Per-\texttt{ARID} Scrub Shim; \CycleZeroLuts\ LUTs / \CycleZeroFfs\ FFs Cycle-0 evaluator; \WrapperLuts\ LUTs / \WrapperFfs\ FFs 4-stage wrapper \\
+\textbf{7nm \texttt{ASAP7} Standard-Cell CMOS~\cite{clark2016asap7}} & \AsicCoreCells\ core cells (\AsicCoreGe\ GE, \AsicCoreAreaMm, $0$ SRAM); \AsicStandardCells\ routed enclave cells (\AsicEnclaveAreaMm, \AsicStageOneTwoDelayPs\ critical path, \AsicFmaxMhz, \AsicTotalPowerMw, $0$ SRAM) \\
+\textbf{AWS EC2 \texttt{f2.6xlarge} Dual-AFI \& \texttt{k3s}} & \texttt{\AwsAgfiId} ($800,000$ BIST slots, $19,990$-trace Welch TVLA $\max|t|=0.0 < 4.5$~\cite{gross2016dom}); \texttt{\AwsHbmAgfiId} ($25,000$ $16\text{~GB}$ HBM2 DMA bursts, $100,000$ slots, \texttt{0xAAAAAAAAAAAAAAAA} intact); $1.36\text{~ms}$ warm / $5,934.19\text{~ms}$ cold Lean~4 + FIPS-204 \texttt{ML-DSA-87}~\cite{fips204mldsa} \texttt{k3s} admission webhook \\
+\textbf{16-CSR \texttt{BAR0} ABI \& Formal Baseline} & \texttt{0x00..0x78} ($128\text{~B}$): coarse \texttt{0x00/08}, portals \texttt{0x10/18}, status \texttt{0x20}, crd/qry/NAK/trap/FIFO/egress \texttt{0x28..58}, dual-bank \texttt{0x60\_bank[0:1]}, 64-bucket wheel \texttt{0x68}, live SPID \texttt{0x70}, cfg \texttt{0x78}; \texttt{SVA 1..10}; \LeanPartOneTotal\ Lean~4 theorems (\texttt{thm00}--\texttt{thm29}) \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\section{Frozen Part~I Hardware Axioms and the Space-to-Time Duality of Wire-Speed Trust}
+\label{sec:duality}
+
+Table~\ref{tab:v100_baseline} summarizes the physical silicon invariants and 16-CSR \texttt{BAR0} ABI of \textsc{Spectral Flit-Filter} (\BaselineVersion~\cite{murphy2026part1}) that remain $100\%$ unmodified in Part~II. Every 512-bit CXL/UCIe flit phase ($4 \times 128\text{-bit}$ slots $s_0,\ldots,s_3$ at $250\text{~MHz}$--$693\text{~MHz}$) traverses Cycle~0 multiscale address splitting ($\mathcal{X}_{n+1} = \mathcal{X}_n \oplus \mathcal{W}_n$~\cite{chen2001multilevel}) and Carter--Wegman / $\mathcal{X}_{31,33}$ authentication~\cite{carter1979universal,daemen1995cipher}, Stage~1's 256 pin-locked \mbox{\texttt{LUT6\_2}} pass/violation projections $\Pi_{P_{\mathrm{eff}}}(r_i) = r_i \wedge P_{\mathrm{eff}}$ (\texttt{O5}) and $\Delta_{P_{\mathrm{eff}}}(r_i) = r_i \wedge \neg P_{\mathrm{eff}}$ (\texttt{O6}) over $J(64,w)$ and $\mathbb{F}_8$ Steiner $S(2,8,64)$ codes~\cite{kautz1964nonrandom,welch1974lower,erdos1985families} (\StageOneNs\ on 16nm FPGA, cold-POR protected per NIST SP~800-193~\cite{regenscheid2018pfr}), Stage~2's surgical \texttt{CXL\_NOP} / $\mathcal{A}_{\mathrm{scrub}}$ / MOESI / mantissa clamp (\StageTwoNs\ mux, preserving Goguen--Meseguer unwinding~\cite{goguen1982security}), and Stages~3--4's folded Reed--Solomon / CRC coset generator, \ScrubShimLuts-LUT Per-\texttt{ARID} ordered AXI4 read-scrub responder shim, Martingale-bounded cut-through queue~\cite{poloczek2014martingale}, and constant-delay credit equalizer ($\Delta t_{\mathrm{CRD}} \equiv 0$, saving cluster refresh/stall power and embodied carbon~\cite{shehabi2024lbnl,siddik2021water,gupta2022act,thornton2026renesis} under locked-epoch schedules~\cite{azar2009buffer,azar2013metric,azar2026lossless}). Order-theoretically, $\Pi_P(s) = s \wedge P$ is an idempotent, monotone, deflationary interior projection on the finite Boolean lattice $(\mathbb{F}_2^{64}, \le, \wedge)$ ($\Pi_P^2 = \Pi_P \le \mathrm{Id}$), implemented directly in silicon as 64 parallel \texttt{AND} gates on Stage-1 \mbox{\texttt{LUT6\_2}} pin \texttt{O5}.
+
+\StopTwoCol
+\BeginConnesPlate
+\noindent\textbf{Motivation (What Part~I Missed --- Resolving the $\Theta(1)$ vs.\ $\Omega(M)$ Counting Paradox and Mean vs.\ Peak Occupancy).}\;At first sight, enforcing 4-KB cohort isolation across a disaggregated memory pool of capacity $M$ bytes~\cite{li2023pond,sun2023demystifying} using $0\text{~BRAM}$ and $128\text{~B}$ of \texttt{BAR0} registers appears to contradict Pigeonhole counting: if $M/4096$ pages held independent, unauthenticated states stored solely inside the controller, $\Omega(M)$ bits of memory and $\Theta(M)$ revocation sweeps would be unavoidable (as in \textit{Space-Control}'s $M/64$ DRAM table~\cite{goswami2026spacecontrol} or \textit{CHERI Cornucopia}'s background capability-bitmap sweeps and load barriers~\cite{woodruff2014cheri,watson2015cheri,filardo2020cornucopia,filardo2024cornucopiareloaded}). \textsc{Spectral Flit-Filter} escapes this linear scaling law because stationary capabilities travel cryptographically self-authenticated on the wire ($B_{\mathrm{rest}} \equiv 0$) and routine TTL leases expire in $O(1)$ hardware ticks on the 64-bucket timing wheel (\texttt{CSR 0x68}~\cite{varghese1997timing}, $\Delta d_{\mathrm{rev}} = 0$). Consequently, \texttt{CSR 0x60} stores \emph{only emergency mid-lease revocations during the transient shootdown-and-drain airlock} $\Delta T_{\mathrm{shootdown}}$. Furthermore, rigor demands separating steady-state \emph{mean} occupancy under Little's Law~\cite{little1961proof} from the \emph{deterministic worst-case ceiling} enforced by control-plane admission pacing, while framing Landauer's principle~\cite{landauer1961irreversibility} strictly in terms of CMOS dynamic bit-transition complexity ($O(1)$ register swaps vs.\ $\Theta(M)$ DRAM scrub sweeps).
+
+\begin{proposition}[The Landauer--Little--Vieta Transient Horizon Law: Mean Occupancy vs.\ Admission-Paced Worst-Case Ceiling]
+\label{prop:little_vieta}
+Let a disaggregated memory pool of capacity $M$ bytes experience emergency mid-lease cohort revocations at stationary mean rate $\lambda_{\mathrm{rev}}$ (revocations/second, excluding scheduled TTL lease expirations handled at $\Delta d_{\mathrm{rev}} = 0$ on the 64-bucket timing wheel \texttt{CSR 0x68}~\cite{varghese1997timing}). Define the physical shootdown-and-drain airlock horizon:
+\begin{equation}
+\label{eq:shootdown_horizon}
+\Delta T_{\mathrm{shootdown}} := \Delta T_{\mathrm{res}}\bigl(K_{\mathrm{dir}}, K_{\mathrm{dirty}}\bigr) + T_{\mathrm{pipe+FIFO}},
+\end{equation}
+where $\Delta T_{\mathrm{res}} \le \max(\lceil K_{\mathrm{dir}}/R_{\mathrm{snp}}\rceil, \lceil 5K_{\mathrm{dirty}}/4\rceil)t_{\mathrm{clk}} + T_{\mathrm{snp\_lookup}} + \mathrm{RTT}_{\mathrm{CXL}} \le 500.0\text{~ns}$ is the deterministic worst-case 64-line all-dirty \texttt{S2M\_BISnp} + \texttt{DirtyEvict} cache shootdown bound (Part~I Proposition~5.4) and $T_{\mathrm{pipe+FIFO}} = (4 + 8)t_{\mathrm{clk}} = 12\,t_{\mathrm{clk}}$ ($48.0\text{~ns}$ at $250\text{~MHz}$ on \texttt{xcvu47p}, giving $\Delta T_{\mathrm{shootdown}} \le 548.0\text{~ns}$; $17.3\text{~ns}$ at $693\text{~MHz}$ in 7nm \texttt{ASAP7}, giving $\Delta T_{\mathrm{shootdown}} \approx 269.0\text{~ns}$) is the 4-stage pipeline plus 32-slot \texttt{M2S\_RwD} FIFO drain time during dual-bank rotation ($\texttt{bank\_valid} = \texttt{2'b11}$). Then:
+\begin{enumerate}
+  \item[(i)] \textbf{Steady-State Mean Active Degree via Little's Law~\cite{little1961proof}:} Viewing the active Vieta annihilator bank $\Lambda_b^{(t)}(Z) \in \mathbb{F}_{2^8}[Z]$ as a transient airlock with deterministic residency $\Delta T_{\mathrm{shootdown}}$, Little's Law bounds the time-average active degree to $\mathbb{E}[d_{\mathrm{rev}}^{(t)}] = \lambda_{\mathrm{rev}} \cdot \Delta T_{\mathrm{shootdown}}$;
+  \item[(ii)] \textbf{Deterministic Worst-Case Ceiling ($d_{\mathrm{rev}}^{(t)} \le 8$) via Token-Bucket Admission Pacing:} When the \texttt{BAR0} control plane enforces token-bucket admission pacing admitting at most $d^* = 6$ emergency \texttt{CSR 0x60} revocations per $\Delta T_{\mathrm{shootdown}}$ window (and at most $\Delta d \le 2$ arrivals during an active $\texttt{2'b11}$ drain, queueing any excess emergency request on the host by $\le 548.0\text{~ns}$), the active degree satisfies $d_{\mathrm{rev}}^{(t)} \le d^* + 2 = 8$ deterministically for all $t \in \mathbb{N}$ (Lean~4 \texttt{thm31}), bounding datapath register state to:
+  \begin{equation}
+  \label{eq:little_vieta}
+  B_{\mathrm{state}} \le d_{\max} \cdot \log_2\bigl|\mathbb{F}_{2^8}\bigr| = 8 \times 8 = 64\text{~bits}\quad(0\text{~BRAM}) \;\perp\; M \to \infty,
+  \end{equation}
+  sustaining $\lambda_{\mathrm{rev,max}} = d^* / \Delta T_{\mathrm{shootdown}} = 6 / 548.0\text{~ns} \approx 1.095 \times 10^7\text{~rev/s}$ per port at $250\text{~MHz}$ ($2.23 \times 10^7\text{~rev/s}$ at $693\text{~MHz}$) while reducing CMOS dynamic state-erasure bit transitions per revocation sweep~\cite{landauer1961irreversibility} from $\Theta(M)$ DRAM bitmap sweeps~\cite{filardo2020cornucopia,filardo2024cornucopiareloaded} to $O(1)$ ($\le 64$ flip-flop transitions).
+\end{enumerate}
+\end{proposition}
+\begin{proof}[Proof of Proposition~\ref{prop:little_vieta}]
+By Little's Law~\cite{little1961proof}, any stationary arrival stream of rate $\lambda_{\mathrm{rev}}$ with residency $\Delta T_{\mathrm{shootdown}}$ has mean occupancy $\mathbb{E}[d_{\mathrm{rev}}^{(t)}] = \lambda_{\mathrm{rev}}\Delta T_{\mathrm{shootdown}}$. Under token-bucket admission pacing ($d_{\mathrm{base}} \le 6$ prior to rotation and $\Delta d \le 2$ during the $\Delta T_{\mathrm{shootdown}}$ drain), $d_{\mathrm{base}} + \Delta d \le 8$ holds deterministically until atomic shadow-bank compaction swaps in a bank of degree $\le 6$ (Theorem~\ref{thm:vieta_deflation_galois}(i), Lean~4 \texttt{thm31}), establishing Eq.~\eqref{eq:little_vieta} independently of $M$.
+\end{proof}
+
+\noindent\textbf{Implications (\emph{So What?}, Lifecycle Unification, \& Applicable Variations).}\;Proposition~\ref{prop:little_vieta} organizes all \LeanCumulativeTotal\ theorems across Part~I and Part~II into the four chronological phases of a single capability's lifecycle (Figure~\ref{fig:airlock_lifecycle}): \textbf{Phase~I ($t<0$, Compile \& Seal)}, \textbf{Phase~II ($t=0$, \StageOneNs\ Sieve \& Sketch)}, \textbf{Phase~III ($t=t_{\mathrm{rev}}$, $4.0\text{~ns}$ Block \& $\le 500\text{~ns}$ Bijective Shootdown)}, and \textbf{Phase~IV ($t=t_{\mathrm{rev}}+\Delta T_{\mathrm{shootdown}}$, Compaction \& Deflation)}. \emph{Applicable Variation \& Price Paid:} For LLM KV-caches, Flux/Slurm batch jobs, and DOE \texttt{SKILL.md} agents~\cite{doe2025genesis} ($\lambda_{\mathrm{rev}} \le 10^7\text{~rev/s}$), $0\text{-BRAM}$ airlock state reclaims $100\%$ of table DRAM; workloads generating $>10^7$ ungrouped single-page revocations/s queue at the admission token bucket or motivate the two-tier hot/cold hierarchy in Section~\ref{sec:frontier}.
+\MidConnesRule
+\noindent\begin{minipage}{\textwidth}
+\captionsetup{hypcap=false}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  node distance=1.15cm,
+  pbox/.style={
+    rectangle, rounded corners=3pt, draw=black!80, line width=0.65pt,
+    text width=3.95cm, minimum height=2.35cm, align=center,
+    font=\footnotesize, inner sep=4.5pt
+  },
+  arr/.style={-{Stealth[length=2.3mm,width=1.7mm]}, line width=0.75pt, draw=black!85}
+]
+\node[pbox, fill=gray!8] (p1) {
+  \textbf{Phase I ($t < 0$: Wire State)}\\
+  \textbf{0 Bits Controller RAM}\\[2pt]
+  \texttt{spectralc} $\mathcal{M}_{\mathrm{slope}}$ Water-Fill\\
+  + Coarse Gauge $\widetilde{\pi}_{e^*}$ ($L_j\equiv 1$)\\
+  + MAC / Feistel / CSS Seal\\
+  (\texttt{thm18, 32, 34}; $B_{\mathrm{rest}} \equiv 0$)
+};
+\node[pbox, fill=blue!6, right=0.95cm of p1] (p2) {
+  \textbf{Phase II ($t = 0$: Wire Sieve)}\\
+  \textbf{Every $4.0\text{~ns}$ ($0.124\text{~ns}$ LUT)}\\[2pt]
+  $\Pi_{P_{\mathrm{eff}}} \oplus \Delta_{P_{\mathrm{eff}}} = \mathrm{Id}$ + \texttt{RAIN} Dual\\
+  + TTL Wheel \texttt{0x68} ($\Delta d_{\mathrm{rev}} = 0$)\\
+  + BBP Clamp / 2-Wt Sketch\\
+  (\texttt{thm05, 26, 33, 36, 37})
+};
+\node[pbox, fill=orange!8, right=0.95cm of p2] (p3) {
+  \textbf{Phase III ($t_{\mathrm{rev}}$: Airlock)}\\
+  \textbf{$\Delta T_{\mathrm{shootdown}} \le 548.0\text{~ns}$}\\[2pt]
+  Paced $4.0\text{~ns}$ Vieta Multiply\\
+  + Snoop-Dir \texttt{Enc}$^{(6)}$ \texttt{S2M\_BISnp}\\
+  + Commutative \texttt{DirtyEvict}\\
+  (\texttt{thm20, 29, 30}; $d_{\mathrm{rev}}^{(t)} \le 8$)
+};
+\node[pbox, fill=teal!8, right=0.95cm of p3] (p4) {
+  \textbf{Phase IV (Compaction)}\\
+  \textbf{$1.095\times 10^7\text{~rev/s}$ Perpetual}\\[2pt]
+  Bellman $d^*=6 \to \texttt{2'b11}$ Grace\\
+  + Unified 8-Step B\'{e}zout Deflate\\
+  ($q_8 = r_{\mathrm{rem}} = 0$) or Rekey\\
+  (\texttt{thm25, 31, 35} $\to d_{\mathrm{rev}} \le 6$)
+};
+\draw[arr] (p1.east) -- node[above=1pt, font=\scriptsize\bfseries] {Self-Auth} (p2.west);
+\draw[arr] (p2.east) -- node[above=1pt, font=\scriptsize\bfseries] {Paced} node[below=1pt, font=\scriptsize] {Revoke} (p3.west);
+\draw[arr] (p3.east) -- node[above=1pt, font=\scriptsize\bfseries] {Drain} node[below=1pt, font=\scriptsize] {Done} (p4.west);
+\draw[arr, rounded corners=4pt] (p4.south) -- ++(0,-0.42cm) -| node[pos=0.25, below=1pt, font=\scriptsize\itshape] {Recycled $64\text{-bit}$ Vieta Bank (\texttt{CSR 0x60\_bank[0:1]}) $\perp$ Pool Capacity $M \to \infty$} (p2.south);
+\end{tikzpicture}%
+}
+\captionof{figure}{The Landauer--Little--Vieta Transient Shootdown Airlock and Four-Phase Capability Lifecycle (Proposition~\ref{prop:little_vieta}). Self-authenticating wire tags ($B_{\mathrm{rest}}=0$) and $O(1)$ timing-wheel expiration (\texttt{CSR 0x68}~\cite{varghese1997timing}, $\Delta d_{\mathrm{rev}}=0$) confine \texttt{CSR 0x60} to admission-paced emergency revocations across $\Delta T_{\mathrm{shootdown}} \le 548.0\text{~ns}$.}
+\label{fig:airlock_lifecycle}
+\end{minipage}
+\EndConnesPlate
+
+\section{Closing the Polynomial and Coherency Lifecycle: Shadow-Bank B\'{e}zout--Horner Deflation and Bijective Mode-C Shootdown}
+\label{sec:vieta_snoop}
+
+\BeginConnesPlate
+\noindent\textbf{Motivation (What Part~I Missed --- Unified 8-Step Root Reclamation, Square-Free Invariance, \& Normal Bases).}\;In Part~I (\texttt{thm20}), revoking cohort $\alpha \in \mathbb{F}_{2^8}^\times$ multiplied $P^{(t)}(Z) = \prod_{j=1}^d (Z \oplus \alpha_j)$~\cite{macwilliams1977theory} inside $\Lambda^{(t)}(Z) = Z^{8-d} P^{(t)}(Z)$, but could not evict an individual shootdown-completed cohort $\alpha_j$ while newer cohorts $\alpha_m \neq \alpha_j$ were still draining~\cite{filardo2024cornucopiareloaded}. Theorem~\ref{thm:vieta_deflation_galois} establishes that under square-free insertion idempotence, a single unified 8-step Horner recurrence on the inactive shadow bank simultaneously computes the deflated coefficients, verifies root membership via $q_8 = \Lambda^{(t)}(\alpha_j) = 0_{\mathbb{F}_{2^8}}$, and automatically restores $Z^{8-(d-1)}$ zero-padding (even at full degree $d=8$), while normal bases~\cite{mullin1989optimal,diamond2025binius} realize Galois Frobenius automorphisms in $0$ LUTs.
+
+\begin{theorem}[Unified 8-Step Shadow-Bank B\'{e}zout--Horner Deflation \& Galois Frobenius Normal-Basis Equivariance over $\mathbb{F}_{2^8}$]
+\label{thm:vieta_deflation_galois}
+Let $\Lambda^{(t)}(Z) = Z^8 \oplus \bigoplus_{k=1}^8 \sigma_k^{(t)} \odot Z^{8-k} = Z^{8 - d_{\mathrm{rev}}^{(t)}} \odot \prod_{m=1}^{d_{\mathrm{rev}}^{(t)}}(Z \oplus \alpha_m) \in \mathbb{F}_{2^8}[Z]$ over $\mathbb{F}_{2^8} \cong \mathbb{F}_2[z]/(z^8 + z^4 + z^3 + z + 1)$ ($1 \le d_{\mathrm{rev}}^{(t)} \le 8$), maintained as a \textbf{square-free} root set via duplicate-filtering insertion idempotence ($\Lambda^{(t)}(\alpha) = 0_{\mathbb{F}_{2^8}} \implies \boldsymbol{\sigma}^{(t+1)} := \boldsymbol{\sigma}^{(t)}$, so $(Z \oplus \alpha)^2 \nmid P^{(t)}(Z)$). Then:
+\begin{enumerate}
+  \item[(i)] \textbf{Unified 8-Step Inactive Shadow-Bank B\'{e}zout--Horner Deflation (Preserving Active-Bank \texttt{SVA 1'}):} Suppose cohort $\alpha_j \in \mathrm{Roots}^\times(\Lambda^{(t)})$ has completed its $\Delta T_{\mathrm{shootdown}}$ shootdown window. On the \emph{inactive shadow bank} ($\texttt{bank\_valid\_q}[b_{\mathrm{shad}}] = 0$), evaluating the unified 8-step recurrence with $q_0 := 1_{\mathbb{F}_{2^8}}$:
+  \begin{equation}
+  \label{eq:bezout_horner}
+  q_k := \sigma_k^{(t)} \oplus \bigl(\alpha_j \odot q_{k-1}\bigr)\quad\text{for all } k \in \{1,\ldots,8\},
+  \end{equation}
+  satisfies $q_8 = r_{\mathrm{rem}} = \Lambda^{(t)}(\alpha_j)$. Whenever $\alpha_j \in \mathrm{Roots}^\times(\Lambda^{(t)})$, $q_8 = 0_{\mathbb{F}_{2^8}}$ holds identically---both confirming root membership (rejecting non-roots fail-closed whenever $q_8 \neq 0_{\mathbb{F}_{2^8}}$) and automatically zero-padding $\sigma_8^{\mathrm{defl}} := q_8 = 0_{\mathbb{F}_{2^8}}$ so $\boldsymbol{\sigma}^{\mathrm{defl}} := (q_1,\ldots,q_8)$ represents $\Lambda^{\mathrm{defl}}(Z) = Z^{8-(d_{\mathrm{rev}}^{(t)}-1)} \prod_{m \neq j}(Z \oplus \alpha_m)$ ($d_{\mathrm{rev}}^{\mathrm{defl}} = d_{\mathrm{rev}}^{(t)} - 1$) satisfying:
+  \begin{equation}
+  \label{eq:bezout_exact}
+  \bigl(Z \oplus \alpha_j\bigr) \odot \Lambda^{\mathrm{defl}}(Z) = Z \odot \Lambda^{(t)}(Z),\qquad
+  \mathrm{Roots}^\times\bigl(\Lambda^{\mathrm{defl}}\bigr) = \mathrm{Roots}^\times\bigl(\Lambda^{(t)}\bigr) \setminus \{\alpha_j\};
+  \end{equation}
+  \item[(ii)] \textbf{0-LUT Normal-Basis Frobenius Galois Equivariance ($\mathrm{Gal}(\mathbb{F}_{2^8}/\mathbb{F}_2) \cong C_8$)~\cite{mullin1989optimal,diamond2025binius}:} Over $\mathbb{F}_{2^8}$, there exist exactly $\Phi_{\mathbb{F}_2}(x^8 - 1) = 128$ normal elements $\beta \in \mathbb{F}_{2^8}$ (minimal element $\beta_{\min} = z^5 = \texttt{8'h20}$ with $\mathrm{Tr}_{\mathbb{F}_{2^8}/\mathbb{F}_2}(\beta_{\min}) = 1$ and $\mathbb{F}_2$-linearly independent conjugates $\{\beta_{\min}^{2^r}\}_{r=0}^7$). In normal-basis coordinates, Frobenius $\phi^k(x) = x^{2^k}$ ($k \in \{0,\ldots,7\}$) is a \textbf{0-LUT cyclic wire rotation} $\mathrm{RotL}_k(x)$ ($\phi^8 = \mathrm{Id}$) satisfying $\Lambda_{\phi^k(\boldsymbol{\sigma})}(\phi^k(x)) = \phi^k(\Lambda_{\boldsymbol{\sigma}}(x))$ and $P_{\mathcal{O}(\beta_{\min})}(Z) = Z^8 \oplus Z^7 \oplus Z^4 \oplus Z^3 \oplus Z^2 \oplus Z \oplus 1 \in \mathbb{F}_2[Z]$ (Lean~4 \texttt{thm35}, Table~\ref{tab:lean_v110}, Row~6).
+\end{enumerate}
+\end{theorem}
+\begin{proof}[Proof of Theorem~\ref{thm:vieta_deflation_galois}]
+Rearranging Eq.~\eqref{eq:bezout_horner} gives $\sigma_k^{(t)} = q_k \oplus (\alpha_j \odot q_{k-1})$ for $1 \le k \le 8$, so $(Z \oplus \alpha_j)\odot(Z^7 \oplus \bigoplus_{k=1}^7 q_k Z^{7-k}) \oplus q_8 = \Lambda^{(t)}(Z)$ identically (\texttt{thm35}). Evaluating at $Z = \alpha_j \in \mathbb{F}_{2^8}^\times$ yields $q_8 = \Lambda^{(t)}(\alpha_j) = 0_{\mathbb{F}_{2^8}}$ iff $\alpha_j \in \mathrm{Roots}^\times(\Lambda^{(t)})$; multiplying by $Z$ sets $\sigma_8^{\mathrm{defl}} = q_8 = 0_{\mathbb{F}_{2^8}}$ and square-freeness removes $\alpha_j$ completely (Eq.~\eqref{eq:bezout_exact}). Normal-basis $\mathrm{RotL}_k$ equivariance follows from $\mathbb{F}_2$-linearity of $x \mapsto x^2$ and $\phi(\beta^{2^r}) = \beta^{2^{(r+1)\bmod 8}}$~\cite{mullin1989optimal} (\texttt{thm35}).
+\end{proof}
+
+\noindent\textbf{Implications (\emph{So What?} \& Applicable Variations).}\;(1)~\emph{Selective Root Garbage Collection:} Running Eq.~\eqref{eq:bezout_horner} on the inactive shadow bank ($\texttt{bank\_valid\_q}[b_{\mathrm{shad}}] = 0$) reuses the $\alpha \odot (\cdot) \oplus (\cdot)$ multiplier while preserving active-bank \texttt{SVA 1'}. (2)~\emph{SIMD Job Orbits \& Binary-Tower Provers:} Grouping 8-rank MPI sub-jobs into $\mathcal{O}(\beta_{\min})$ compresses $\boldsymbol{\sigma}$ to 1-bit $\mathbb{F}_2$ coefficients, and $\mathrm{RotL}_k$ squaring maps directly onto binary-tower sumcheck folding~\cite{diamond2025binius}.
+\MidConnesRule
+\noindent\textbf{Motivation (What Part~I Missed --- Snoop-Filter Tag Supply for Mode-C Reverse Snoops \& Perpetual Compaction).}\;In Mode~C, hosts cache lines under Feistel-sealed $\mathrm{HPA}_{\mathrm{wire}}$~\cite{li2025aiore}, whereas Cycle~0 strips the upper $(c_{\mathrm{bits}}+g)$ bits before HBM storage. Theorem~\ref{thm:bijective_snoop_compaction} specifies how the CXL~3.0 Home Agent's standard architectural snoop-filter tag directory supplies $(u_{\mathrm{page}}, \mathrm{SPID}, \alpha)$ during invalidation walks~\cite{cxl2025spec,dassharma2024cxl,sun2023demystifying} to reconstruct $\mathrm{HPA}_{\mathrm{wire}}$ on the fly with $0$ duplicate $\mathrm{HPA}_{\mathrm{wire}}$ BRAM.
+
+\begin{theorem}[Mode-C Snoop-Filter Forward-Feistel Synthesis, \texttt{DirtyEvict} Commutativity, \& Perpetual Dual-Bank Non-Saturation]
+\label{thm:bijective_snoop_compaction}
+Under Part~I Mode-C 6-round Feistel sealing $\mathrm{Enc}_{K_{\mathrm{seal}}, T_{\mathrm{SPID}}}^{(6)}$ ($2n \in \{24,34,36,40\}$), dual-banked Vieta compaction ($d^* = 6$), and PCS-gated edge-disjoint spanning forests $(T_0, T_1)$~\cite{tutte1961problem,nashwilliams1961edge,ucie2025spec30}:
+\begin{enumerate}
+  \item[(i)] \textbf{Zero-Duplicate-BRAM Snoop Synthesis \& \texttt{DirtyEvict} Commutative Closure:} During cohort $\alpha$'s shootdown walk, the CXL~3.0 Home Agent reads $(u_{\mathrm{page}}, \mathrm{SPID}, \alpha)$ directly from its standard architectural snoop-filter tag directory and synthesizes each cached line's host wire address $\mathrm{HPA}_{\mathrm{wire}}(\alpha, u_{\mathrm{page}}, \ell) := [\mathrm{HPA}_{\mathrm{hi}} \parallel \mathrm{Enc}_{K_{\mathrm{seal}}, T_{\mathrm{SPID}}}^{(6)}(\alpha \parallel \mathbf{0}_g \parallel u_{\mathrm{page}}) \parallel \ell]$ ($\ell \in \{0,\ldots,63\}$) with \textbf{$0$ duplicate $\mathrm{HPA}_{\mathrm{wire}}$ BRAM}. On a returning snoop-solicited \texttt{DirtyEvict} ($\texttt{slot\_is\_snoop\_evict\_i}[i] = 1$), Cycle~0 decrypts, verifies $(\widehat{\mathrm{cid}}_i == \alpha) \wedge (\widehat{\mathrm{guard}}_{g,i} == \mathbf{0}_g)$ against an active Home-Agent snoop tag, and strips the upper $(c_{\mathrm{bits}}+g)$ bits:
+  \begin{equation}
+  \label{eq:snoop_commute}
+  \mathrm{Strip}_{c_{\mathrm{bits}}+g}\!\Bigl(\mathrm{Dec}_{K_{\mathrm{seal}}, T_{\mathrm{SPID}}}^{(6)}\!\bigl(\mathrm{Enc}_{K_{\mathrm{seal}}, T_{\mathrm{SPID}}}^{(6)}(\alpha \parallel \mathbf{0}_g \parallel u_{\mathrm{page}})\bigr)\Bigr) \parallel \ell
+  \equiv \bigl(\mathbf{0}_{c_{\mathrm{bits}}+g} \parallel u_{\mathrm{page}} \parallel \ell\bigr)
+  = \mathrm{HPA}_{\mathrm{HBM}}\bigl(u_{\mathrm{page}}, \ell\bigr),
+  \end{equation}
+  while rejecting forged guards ($\widehat{\mathrm{guard}}_{g,i} \neq \mathbf{0}_g \implies \texttt{WSTRB}_i = \texttt{16'h0000}$; Lean~4 \texttt{thm30}, Table~\ref{tab:lean_v110}, Row~1);
+  \item[(ii)] \textbf{Perpetual Infinite-Horizon Non-Saturation ($t \to \infty$):} Under admission-paced arrivals ($d_{\mathrm{base}} \le 6$ plus $\Delta d \le 2$ during the $\Delta T_{\mathrm{shootdown}} \le 548.0\text{~ns}$ $\texttt{2'b11}$ drain) followed by atomic shadow-bank swap ($d_{\mathrm{shad}} \le 6 \implies d_{\mathrm{act}}' = d_{\mathrm{shad}} \le 8$) and 32-slot non-destructive FIFO clamping, $d_{\mathrm{rev}}^{[b_{\mathrm{act}}]}(t) \le 8$ and $\mathrm{cnt}_{\mathrm{RwD}}(t) \le 32$ hold across all $t \in \mathbb{N}$ (Lean~4 \texttt{thm31}, Table~\ref{tab:lean_v110}, Row~2); and
+  \item[(iii)] \textbf{Multi-Hop $(T_0, T_1)$ Cable-Cut Shootdown Bound:} Across an $H_{\mathrm{tree}}(p_{\mathrm{phy}})$-hop switch fabric with per-hop delay $d_{\mathrm{sw}}$ and $<4.0\text{~ns}$ PCS failover~\cite{ucie2025spec30}, shootdown completes in $\Delta T_{\mathrm{res}}^{\mathrm{fabric}}(p_{\mathrm{phy}}) \le \Delta T_{\mathrm{res}} + 2 H_{\mathrm{tree}}(p_{\mathrm{phy}}) d_{\mathrm{sw}} + 4.0\text{~ns}\cdot\mathbb{I}(p_{\mathrm{phy}}:1\to 0)$ with $\beta_1(\mathcal{G}_{\mathrm{wait}}^{\mathrm{fabric}}) = 0$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}[Proof of Theorem~\ref{thm:bijective_snoop_compaction}]
+Exact 6-round Feistel inversion $\mathrm{Dec}^{(6)} \circ \mathrm{Enc}^{(6)} = \mathrm{Id}$ over half-word pairs and upper-tag stripping establish Eq.~\eqref{eq:snoop_commute} (\texttt{thm30}). Induction on $t \in \mathbb{N}$ over `(activeDeg, shadowDeg, fifoCnt)` with $d_{\mathrm{base}} \le 6 \wedge \Delta d \le 2 \implies d_{\mathrm{base}} + \Delta d \le 8$ and $d_{\mathrm{shad}} \le 6 \implies d_{\mathrm{shad}} \le 8$ proves Claim~(ii) (\texttt{thm31}), and tree acyclicity proves Claim~(iii).
+\end{proof}
+\EndConnesPlate
+
+\section{Beyond Scalar Rate-Distortion: LoRA Rectangular Spiked SVD Phase Transitions and \texorpdfstring{\texttt{LUT6\_2}}{LUT6\_2} Sketching}
+\label{sec:spectral_sketch}
+
+\BeginConnesPlate
+\noindent\textbf{Motivation (What Part~I Missed --- White-Box-$W_{\mathrm{base}}$ SVD Extraction of LoRA Adapters, Non-Subtractive Variance, \& Safe Epoch Ratcheting).}\;Part~I (Theorem~4.5) analyzed only scalar localization, whereas production model-stealing attacks~\cite{carlini2024stealing,xu2024dataenclave} target proprietary low-rank LoRA adapters~\cite{hu2022lora} $\Delta W_{\mathrm{LoRA}} = \sum_{k=1}^r s_k u_k v_k^\top \in \mathbb{R}^{d_{\mathrm{out}} \times d_{\mathrm{in}}}$ layered atop a \emph{publicly known} foundation model $W_{\mathrm{base}}$ via SVD of $\widehat{\Delta W}_Q = \overline{Y}_Q - W_{\mathrm{base}}$. Furthermore, non-subtractive randomized rounding~\cite{wannamaker2000nonsubtractive} must be distinguished from classical subtractive dither~\cite{schuchman1964dither,gray1993dithered}, additive rectangular perturbations require the Benaych-Georges--Nadakuditi threshold~\cite{benaych2012singular} alongside BBP~\cite{marchenko1967distribution,baik2005phase,gavish2014optimal}, and global \texttt{CSR 0x38} budgeting must trigger hitless epoch dither-seed rekeying rather than cross-tenant SPID DoS.
+
+\begin{theorem}[Non-Subtractive vs.\ Subtractive Dither Variance, Rectangular BBP LoRA Phase Transition, \& Hitless Epoch Auto-Ratchet]
+\label{thm:bbp_spectral_wall}
+Consider the worst-case white-box-$W_{\mathrm{base}}$ / black-box-$\Delta W_{\mathrm{LoRA}}$ threat model where $W = W_{\mathrm{base}} + \Delta W_{\mathrm{LoRA}} \in \mathbb{R}^{d_{\mathrm{out}} \times d_{\mathrm{in}}}$ ($W_{\mathrm{base}}$ known to the adversary, $\Delta W_{\mathrm{LoRA}} = \sum_{k=1}^r s_k u_k v_k^\top$ unknown~\cite{hu2022lora}) is read $Q$ times under Stage-2 Tier~1 ($u=9$ \texttt{E8M0}~\cite{rouhani2023microscaling}, $\Delta_9 = 128\text{~ULP}$) or Tier~2 ($u=12$ \texttt{BF12}, $\Delta_{12} = 16\text{~ULP}$) using spatial-temporally decorrelated Cycle-0 dither $\eta_{i,j}^{(q)} \stackrel{\mathrm{i.i.d.}}{\sim} \mathrm{Unif}[0, \Delta_u)$ mixed with sub-flit coordinate $(i,j)$ and query counter $q$. Let $p_{i,j} := \{W_{i,j}/\Delta_u\} \in [0,1)$ and $\widehat{\Delta W}_Q := \frac{1}{Q}\sum_{q=1}^Q Y^{(q)} - W_{\mathrm{base}} = \Delta W_{\mathrm{LoRA}} + E_Q$. Then:
+\begin{enumerate}
+  \item[(i)] \textbf{Conditional vs.\ Prior-Averaged Non-Subtractive Variance~\cite{schuchman1964dither,gray1993dithered,wannamaker2000nonsubtractive}:} Each entry $(E_Q)_{i,j}$ has $\mathbb{E}[(E_Q)_{i,j} \mid p_{i,j}] = 0$ and conditional Bernoulli variance $\mathrm{Var}((E_Q)_{i,j} \mid p_{i,j}) = \frac{p_{i,j}(1 - p_{i,j})\Delta_u^2}{Q}$ (peaking at $\frac{\Delta_u^2}{4Q}$ at $p_{i,j}=1/2$, $\ge \frac{3\Delta_u^2}{16Q}$ on $[1/4,3/4]$, and vanishing at exact grid points $p_{i,j}=0$ under rectangular $\mathrm{Unif}[0,\Delta_u)$ rounding unless triangular TPDF dither $\eta_1^{(q)}+\eta_2^{(q)}$~\cite{wannamaker2000nonsubtractive} is used). Under dispersed continuous weights $p_{i,j} \stackrel{\mathrm{i.i.d.}}{\sim} \mathrm{Unif}[0,1)$, the unconditional variance is $\sigma_{\mathrm{avg}}^2(Q) = \int_0^1 p(1-p)\,dp\,\frac{\Delta_u^2}{Q} = \frac{\Delta_u^2}{6Q}$ ($c_{\mathrm{div}} = 6, c_{\mathrm{var}} = 1/6$), exactly $2\times$ the classical subtractive-dither variance $\sigma_{\mathrm{sub}}^2(Q) = \frac{\Delta_u^2}{12Q}$ ($c_{\mathrm{div}} = 12, c_{\mathrm{var}} = 1/12$);
+  \item[(ii)] \textbf{Rectangular Benaych-Georges--Nadakuditi / BBP Singular-Value Phase Transition~\cite{marchenko1967distribution,baik2005phase,benaych2012singular,gavish2014optimal}:} As $d_{\mathrm{out}}, d_{\mathrm{in}} \to \infty$ ($d_{\mathrm{out}}/d_{\mathrm{in}} \to \gamma \in (0,\infty)$) under $\sigma_{\mathrm{eff}}^2(Q) = \frac{c_{\mathrm{var}}\Delta_u^2}{Q} = \frac{\Delta_u^2}{c_{\mathrm{div}} Q}$ ($c_{\mathrm{div}} = 1/c_{\mathrm{var}} \in \{6, 12\}$), $\|E_Q\|_{\mathrm{op}} \to \sigma_{\mathrm{eff}}(Q)(\sqrt{d_{\mathrm{out}}} + \sqrt{d_{\mathrm{in}}})$. By Benaych-Georges and Nadakuditi~\cite[Thm.~2.8]{benaych2012singular}, empirical singular vectors $(\hat{u}_r, \hat{v}_r)$ achieve positive asymptotic correlation $|\langle \hat{u}_r, u_r \rangle|^2 > 0$ iff $s_r > \sigma_{\mathrm{eff}}(Q)(d_{\mathrm{out}} d_{\mathrm{in}})^{1/4}$, requiring:
+  \begin{equation}
+  \label{eq:bbp_thresholds}
+  Q > Q_{\mathrm{BBP}}^*\bigl(c_{\mathrm{div}}\bigr) := \frac{\Delta_u^2 \sqrt{d_{\mathrm{out}} d_{\mathrm{in}}}}{c_{\mathrm{div}}\,s_r^2},
+  \qquad
+  Q_{\mathrm{Weyl}}^*\bigl(c_{\mathrm{div}}\bigr) := \frac{4\,\Delta_u^2 \bigl(\sqrt{d_{\mathrm{out}}} + \sqrt{d_{\mathrm{in}}}\bigr)^2}{c_{\mathrm{div}}\,s_r^2},
+  \end{equation}
+  yielding at $d_{\mathrm{out}} = d_{\mathrm{in}} = 4096$, $\Delta_9 = 128\text{~ULP}$, $s_r = 16\text{~ULP}$: $Q_{\mathrm{BBP}}^*(12) = 21,845.33$ under conservative $\sigma_{\mathrm{sub}}^2$ ($c_{\mathrm{div}}=12$) and $Q_{\mathrm{BBP}}^*(6) = 43,690.67$ under non-subtractive $\sigma_{\mathrm{avg}}^2$ ($c_{\mathrm{div}}=6$); for all $Q \le Q_{\mathrm{BBP}}^*$, $|\langle \hat{u}_r, u_r \rangle|^2 \xrightarrow{\mathrm{a.s.}} 0$; and
+  \item[(iii)] \textbf{Cross-Tenant-Safe \texttt{CSR 0x38} Epoch Dither-Seed Rotation vs.\ Qualified SPID Lockout:} When global port counter \texttt{CSR 0x38} reaches $Q_{\max} \le \lfloor Q_{\mathrm{BBP}}^*(12)/2 \rfloor$ (e.g., $Q_{\max} = 10,000$), the outer BAR0 epoch monitor triggers a \textbf{hitless Cycle-0 dither-seed rekey} ($\texttt{rot\_epoch\_rekey\_rst\_n}$ / shadow-bank swap, resetting $\texttt{CSR 0x38} \leftarrow 0$ without dropping benign co-tenants; Lean~4 \texttt{thm33}), whereas per-tenant $\texttt{CSR 0x70}[s] \leftarrow 0$ lockout is asserted strictly when \texttt{CSR 0x38} is SPID-filtered via target qualifier \texttt{CSR 0x78}.
+\end{enumerate}
+\end{theorem}
+\begin{proof}[Proof of Theorem~\ref{thm:bbp_spectral_wall}]
+Since $Y_{i,j}^{(q)} - W_{i,j} \in \{-p_{i,j}\Delta_u, (1-p_{i,j})\Delta_u\}$ with probabilities $(1-p_{i,j}, p_{i,j})$, conditional mean is $0$ and conditional variance is $p_{i,j}(1-p_{i,j})\Delta_u^2$, integrating over $\mathrm{Unif}[0,1)$ to $\Delta_u^2/6$~\cite{wannamaker2000nonsubtractive}. Rectangular additive spiked SVD theory~\cite{baik2005phase,benaych2012singular,gavish2014optimal} gives outlier emergence iff $s_r^2 > \sigma_{\mathrm{eff}}^2(Q)\sqrt{d_{\mathrm{out}}d_{\mathrm{in}}}$, yielding Eq.~\eqref{eq:bbp_thresholds}; resetting \texttt{CSR 0x38} at $Q_{\max}$ rotates the PRF dither key before $Q_{\mathrm{BBP}}^*$ is reached (\texttt{thm33}).
+\end{proof}
+\MidConnesRule
+\noindent\begin{minipage}{\textwidth}
+\captionsetup{hypcap=false}
+\centering
+\resizebox{0.97\textwidth}{!}{%
+\begin{tikzpicture}[font=\scriptsize]
+  % === PANEL A: Conditional & Averaged Dither Variance ===
+  \begin{scope}[shift={(0,0)}]
+    \node[anchor=west, font=\footnotesize\bfseries] at (0.0, 3.65) {A. Non-Subtractive vs.\ Subtractive Quantization Variance ($\mathrm{Var}/\Delta_u^2$)};
+    \draw[gray!22] (0.8,0.4) grid[xstep=1.3,ystep=0.75] (6.0,3.4);
+    \fill[blue!8, opacity=0.65] (2.1,0.4) rectangle (4.7,3.4);
+    \draw[-{Stealth}, thick] (0.8,0.4) -- (6.25,0.4) node[right] {$p = \{W/\Delta_u\}$};
+    \draw[-{Stealth}, thick] (0.8,0.4) -- (0.8,3.55);
+    % Ticks X: p in [0,1] -> x = 0.8 + 5.2*p
+    \foreach \p/\lbl in {0.0/0.00, 0.25/0.25, 0.50/0.50, 0.75/0.75, 1.0/1.00} {
+      \pgfmathsetmacro{\xx}{0.8 + 5.2*\p}
+      \draw (\xx,0.4) -- (\xx,0.32) node[below] {\lbl};
+    }
+    % Ticks Y: v in [0, 0.25] -> y = 0.4 + 12.0*v
+    \foreach \v/\lbl in {0.0/0.000, 0.0833/0.083, 0.1667/0.167, 0.25/0.250} {
+      \pgfmathsetmacro{\yy}{0.4 + 12.0*\v}
+      \draw (0.8,\yy) -- (0.72,\yy) node[left] {\lbl};
+    }
+    % Parabola p(1-p)
+    \draw[specnavy, line width=1.15pt] plot[domain=0:1, samples=50] ({0.8 + 5.2*\x}, {0.4 + 12.0*\x*(1-\x)});
+    % Avg 1/6 line (y = 2.40)
+    \draw[teal!75!black, line width=1.0pt, dashed] (0.8,2.40) -- (6.0,2.40)
+      node[pos=0.98, anchor=south east, fill=white, inner sep=1pt] {$\sigma_{\mathrm{avg}}^2 = \Delta_u^2/6$ ($c_{\mathrm{div}}=6$)};
+    % Subtractive 1/12 line (y = 1.40)
+    \draw[red!75!black, line width=1.0pt, dashdotted] (0.8,1.40) -- (6.0,1.40)
+      node[pos=0.98, anchor=south east, fill=white, inner sep=1pt] {$\sigma_{\mathrm{sub}}^2 = \Delta_u^2/12$ ($c_{\mathrm{div}}=12$)};
+    \node[specnavy, font=\tiny\bfseries, fill=white, inner sep=1pt] at (3.4, 3.18) {Conditional $p(1-p)\Delta_u^2$};
+    \node[blue!65!black, font=\tiny] at (3.4, 0.65) {Interior $[\frac{1}{4},\frac{3}{4}]$: $\ge \frac{3}{16}\Delta_u^2$};
+  \end{scope}
+
+  % === PANEL B: Calibrated Rectangular BBP Singular-Vector Alignment vs log10(Q) ===
+  \begin{scope}[shift={(7.55,0)}]
+    \node[anchor=west, font=\footnotesize\bfseries] at (0.0, 3.65) {B. Rectangular BBP LoRA Alignment $|\langle\hat{u}_r,u_r\rangle|^2$ ($4096^2, \Delta_9\!=\!128, s_r\!=\!16$)};
+    % X-axis: u = log10(Q) in [2.0, 6.0] -> x = 0.8 + 1.35*(u - 2.0) (width 5.4: 0.8..6.2)
+    % Y-axis: align in [0.0, 1.0] -> y = 0.4 + 3.0*align (height 3.0: 0.4..3.4)
+    \draw[gray!22] (0.8,0.4) grid[xstep=1.35,ystep=0.75] (6.2,3.4);
+    % Safe zone Q <= 10,000 (u <= 4.0 -> x <= 3.50)
+    \fill[teal!10, opacity=0.75] (0.8,0.4) rectangle (3.50,3.4);
+    \draw[-{Stealth}, thick] (0.8,0.4) -- (6.45,0.4) node[right] {$Q$ Reads};
+    \draw[-{Stealth}, thick] (0.8,0.4) -- (0.8,3.55);
+    \foreach \u/\lbl in {2.0/$10^2$, 3.0/$10^3$, 4.0/$10^4$, 5.0/$10^5$, 6.0/$10^6$} {
+      \pgfmathsetmacro{\xx}{0.8 + 1.35*(\u - 2.0)}
+      \draw (\xx,0.4) -- (\xx,0.32) node[below] {\lbl};
+    }
+    \foreach \a/\lbl in {0.0/0.00, 0.25/0.25, 0.50/0.50, 0.75/0.75, 1.0/1.00} {
+      \pgfmathsetmacro{\yy}{0.4 + 3.0*\a}
+      \draw (0.8,\yy) -- (0.72,\yy) node[left] {\lbl};
+    }
+    % Q_max = 10,000 ratchet wall (u = 4.0 -> x = 3.50)
+    \draw[orange!85!black, line width=1.1pt, densely dotted] (3.50,0.4) -- (3.50,3.4);
+    \node[orange!80!black, font=\tiny\bfseries, align=center, fill=white, inner sep=1pt] at (2.15, 2.85) {\texttt{CSR 0x38} Rekey\\$Q_{\max} = 10{,}000$\\($|\langle\hat{u}_r,u_r\rangle|^2 \to 0$)};
+    % Subtractive BBP curve: Q* = 21,845.33 (log10 = 4.3394 -> x = 3.958)
+    \draw[red!75!black, line width=1.1pt, dashdotted] (0.8,0.4) -- (3.958,0.4);
+    \draw[red!75!black, line width=1.1pt, dashdotted] plot[domain=4.3394:6.0, samples=45]
+      ({0.8 + 1.35*(\x - 2.0)}, {0.4 + 3.0*(1.0 - exp((4.3394 - \x) * 2.302585))});
+    % Non-subtractive BBP curve: Q* = 43,690.67 (log10 = 4.6404 -> x = 4.365)
+    \draw[specnavy, line width=1.2pt] (0.8,0.4) -- (4.365,0.4);
+    \draw[specnavy, line width=1.2pt] plot[domain=4.6404:6.0, samples=45]
+      ({0.8 + 1.35*(\x - 2.0)}, {0.4 + 3.0*(1.0 - exp((4.6404 - \x) * 2.302585))});
+    % Threshold markers
+    \fill[red!75!black] (3.958,0.4) circle (1.6pt);
+    \fill[specnavy] (4.365,0.4) circle (1.6pt);
+    \node[red!75!black, font=\tiny\bfseries, anchor=west] at (3.62, 1.85) {$Q_{\mathrm{BBP}}^*(12)\!=\!21{,}845$};
+    \node[specnavy, font=\tiny\bfseries, anchor=west] at (4.42, 1.15) {$Q_{\mathrm{BBP}}^*(6)\!=\!43{,}691$};
+  \end{scope}
+\end{tikzpicture}%
+}
+\captionof{figure}{Calibrated Dual-Panel Quantization Variance and Rectangular BBP Singular-Value Phase Transition Plate (Theorem~\ref{thm:bbp_spectral_wall}). (A)~Non-subtractive conditional rounding variance $p(1-p)\Delta_u^2$ integrates to $\sigma_{\mathrm{avg}}^2 = \Delta_u^2/6$~\cite{wannamaker2000nonsubtractive}, $2\times$ the subtractive floor $\Delta_u^2/12$~\cite{schuchman1964dither,gray1993dithered}. (B)~Asymptotic LoRA singular-vector squared alignment $|\langle\hat{u}_r,u_r\rangle|^2 = \max(0, 1 - Q_{\mathrm{BBP}}^*/Q)$~\cite{benaych2012singular} remains identically zero below $Q_{\mathrm{BBP}}^* \in \{21{,}845, 43{,}691\}$ and is preempted by hitless \texttt{CSR 0x38} epoch dither-seed rotation at $Q_{\max} = 10{,}000$.}
+\label{fig:bbp_dither_plate}
+\end{minipage}
+\MidConnesRule
+\noindent\textbf{Motivation (What Part~I Missed --- Slot-Broadcast Stage-2 Functional Sketching vs.\ Bitstream Persona Scope).}\;In quantized KV-cache similarity scoring~\cite{rouhani2023microscaling}, a consumer needs $f_{2m+1}x_{2m+1} + f_{2m}x_{2m} \in \{0,1,2\}$ rather than raw bits $(f_{2m+1}, f_{2m})$. Because Stage~2's 252 payload \mbox{\texttt{LUT6\_2}} cells in the frozen \BaselineVersion\ core wire $\texttt{I4},\texttt{I3}$ to the 2-bit per-slot bus \texttt{c\_i[1:0]}, Proposition~\ref{prop:lut6_functional_sketch} cleanly distinguishes zero-wire-change slot-broadcast 2-bit inner products from a pin-retargeted bitstream persona.
+
+\begin{proposition}[Stage-2 Fractured \texttt{LUT6\_2} Streaming 2-Weight Functional Sketch (\texttt{64'h060C0A00\_08000000}) \& Routing Scope]
+\label{prop:lut6_functional_sketch}
+In Stage~2's 252 payload fractured \mbox{\texttt{LUT6\_2}} primitives ($\texttt{I5}=\texttt{1'b1},\allowbreak \texttt{I4}=x_1,\allowbreak \texttt{I3}=x_0,\allowbreak \texttt{I2}=\mathrm{viol}_i,\allowbreak \texttt{I1}=f_{2m+1},\allowbreak \texttt{I0}=f_{2m}$, address $a = 16x_1 + 8x_0 + 4\mathrm{viol}_i + 2f_{2m+1} + f_{2m} \in \{0,\ldots,31\}$), loading configuration mask $\texttt{INIT}_{\mathrm{Sketch}} := \texttt{64'h060C0A00\_08000000}$ evaluates across all 32 states in 1~LUT delay:
+\begin{equation}
+\label{eq:functional_sketch}
+\begin{aligned}
+\texttt{O6}_{\mathrm{sum}} &= \neg\mathrm{viol}_i \wedge \bigl((f_{2m+1} \wedge x_1) \oplus (f_{2m} \wedge x_0)\bigr),
+&\qquad
+\texttt{O5}_{\mathrm{carry}} &= \neg\mathrm{viol}_i \wedge \bigl((f_{2m+1} \wedge x_1) \wedge (f_{2m} \wedge x_0)\bigr),\\
+2\,\texttt{O5}_{\mathrm{carry}} + \texttt{O6}_{\mathrm{sum}} &= (1 - \mathrm{viol}_i)\bigl(f_{2m+1}x_1 + f_{2m}x_0\bigr) \in \{0, 1, 2\},
+&&
+\end{aligned}
+\end{equation}
+compressing uniform bit-pair entropy at $(x_1,x_0)=(1,1)$ from $2.0\text{~bits}$ to $1.5\text{~bits}$. In the frozen \BaselineVersion\ routing topology, driving the existing 2-bit per-slot bus \texttt{c\_i[1:0]} with a \textbf{slot-broadcast weight pair} $(x_1,x_0) \in \{0,1\}^2$ computes 64 parallel 2-bit inner products per slot at $+0$ core logic gates and $+0$ wire changes, whereas lane-heterogeneous weight vectors $x \in \{0,1\}^{128}$ and the 64-pair popcount reduction adder tree reside in a dedicated FPGA bitstream persona / downstream telemetry wrapper~\cite{koch2021fabulous} (Lean~4 \texttt{thm36}, Table~\ref{tab:lean_v110}, Row~7).
+\end{proposition}
+\begin{proof}[Proof of Proposition~\ref{prop:lut6_functional_sketch}]
+In $\texttt{32'h060C\_0A00}$ (\texttt{O6}), the bytes for $(x_1,x_0) \in \{(0,0),(0,1),(1,0),(1,1)\}$ are $\texttt{8'h00}$, $\texttt{8'h0A}$ ($\neg\mathrm{viol}_i \wedge f_{2m}$), $\texttt{8'h0C}$ ($\neg\mathrm{viol}_i \wedge f_{2m+1}$), and $\texttt{8'h06}$ ($\neg\mathrm{viol}_i \wedge (f_{2m+1}\oplus f_{2m})$); in $\texttt{32'h0800\_0000}$ (\texttt{O5}), byte $(1,1)$ is $\texttt{8'h08}$ ($\neg\mathrm{viol}_i \wedge f_{2m+1} \wedge f_{2m}$), establishing Eq.~\eqref{eq:functional_sketch} across all 32 states (\texttt{thm36}).
+\end{proof}
+\EndConnesPlate
+
+\section{Supply-Chain Design Diversity and Non-Abelian Workflow Containment}
+\label{sec:rain_ifc}
+
+\BeginConnesPlate
+\noindent\textbf{Motivation (What Part~I Missed --- Hardware Design Diversity Against Common-Mode Synthesis \& Rail Faults in \texttt{RAIN} Gateways).}\;NSA NCDSMO \texttt{RAIN} guidelines~\cite{ncdsmo2020rain} and VLSI reliability theory~\cite{mitra2000commonmode} show that duplicating two identical positive-logic RTL modules leaves both channels vulnerable to identical EDA technology-mapping bugs and common-mode $(0,0)/(1,1)$ power-rail faults. Theorem~\ref{thm:rain_demorgan_duality} pairs the positive-logic sieve with an inverted-input negative-logic De~Morgan dual \mbox{\texttt{LUT6\_2}} inside the outer Mode-D gateway wrapper (Figure~\ref{fig:rain_dual_plate}).
+
+\begin{theorem}[De~Morgan Negative-Logic \texttt{RAIN} Dual-Sieve Bi-Simulation (\texttt{64'hABABABAB\_FEFEFEFE}) \& Common-Mode Rail-Fault Detection]
+\label{thm:rain_demorgan_duality}
+In the outer Mode-D \texttt{RAIN} gateway wrapper~\cite{ncdsmo2020rain,mitra2000commonmode}, pair Stage~1's positive-logic \mbox{\texttt{LUT6\_2}} sieve ($\texttt{INIT}_{\mathrm{pos}} = \texttt{64'h2A2A2A2A\_80808080}$ on $(p_{t,i}, p_{s,i}, s_i)$, Part~I \texttt{thm05}) with a negative-logic shadow \mbox{\texttt{LUT6\_2}} driven by inverted wires $(\bar{p}_{t,i}, \bar{p}_{s,i}, \bar{s}_i) := (\neg p_{t,i}, \neg p_{s,i}, \neg s_i)$ at address $\bar{a}_i = 4\bar{p}_{t,i} + 2\bar{p}_{s,i} + \bar{s}_i \in \{0,\ldots,7\}$ and programmed with $\texttt{INIT}_{\mathrm{RAIN}} := \texttt{64'hABABABAB\_FEFEFEFE}$. Across all $8$ input states:
+\begin{equation}
+\label{eq:rain_dual}
+\begin{aligned}
+\mathrm{LUT6\_O5}_{\mathrm{FE}}\bigl(\bar{p}_{t,i}, \bar{p}_{s,i}, \bar{s}_i\bigr)
+  &= \bar{s}_i \vee \bar{p}_{s,i} \vee \bar{p}_{t,i} = \neg \mathrm{LUT6\_O5}_{80}\bigl(p_{t,i}, p_{s,i}, s_i\bigr),\\
+\mathrm{LUT6\_O6}_{\mathrm{AB}}\bigl(\bar{p}_{t,i}, \bar{p}_{s,i}, \bar{s}_i\bigr)
+  &= \bar{s}_i \vee \bigl(\neg\bar{p}_{s,i} \wedge \neg\bar{p}_{t,i}\bigr) = \neg \mathrm{LUT6\_O6}_{2\mathrm{A}}\bigl(p_{t,i}, p_{s,i}, s_i\bigr),
+\end{aligned}
+\end{equation}
+mapping onto disjoint ASIC cells (\texttt{8'hFE} weight-$7$ \texttt{OR3} and \texttt{8'hAB} weight-$5$ \texttt{OAI21} vs.\ \texttt{8'h80} weight-$1$ \texttt{AND3} and \texttt{8'h2A} weight-$3$ \texttt{AOI21}), while $\mathrm{dualRailFault}(y_{\mathrm{pos}}, y_{\mathrm{RAIN}}) := \neg(y_{\mathrm{pos}} \oplus y_{\mathrm{RAIN}})$ is $\mathrm{false}$ across all $8$ fault-free states and $\mathrm{true}$ on $100\%$ of stuck-at $(0,0)$ and $(1,1)$ common-mode rail faults (Lean~4 \texttt{thm37}, Table~\ref{tab:lean_v110}, Row~8).
+\end{theorem}
+\begin{proof}[Proof of Theorem~\ref{thm:rain_demorgan_duality}]
+By De~Morgan's laws, $\neg(s_i \wedge p_{s,i} \wedge p_{t,i}) = \bar{s}_i \vee \bar{p}_{s,i} \vee \bar{p}_{t,i}$ (\texttt{8'hFE}) and $\neg(s_i \wedge \neg(p_{s,i} \wedge p_{t,i})) = \bar{s}_i \vee (\neg\bar{p}_{s,i} \wedge \neg\bar{p}_{t,i})$ (\texttt{8'hAB}); $\neg(y \oplus \neg y) = \mathrm{false}$ whereas $\neg(0 \oplus 0) = \neg(1 \oplus 1) = \mathrm{true}$ (\texttt{thm37}).
+\end{proof}
+\MidConnesRule
+\noindent\begin{minipage}{\textwidth}
+\captionsetup{hypcap=false}
+\centering
+\resizebox{0.97\textwidth}{!}{%
+\begin{tikzpicture}[font=\scriptsize,
+  box/.style={rectangle, rounded corners=2pt, draw=black!80, line width=0.6pt, align=center, inner sep=3.5pt},
+  arr/.style={-{Stealth[length=1.9mm,width=1.4mm]}, line width=0.65pt, draw=black!85}
+]
+  % === PANEL A: Dual-Channel Positive / Negative RAIN Schematic ===
+  \begin{scope}[shift={(0,0)}]
+    \node[anchor=west, font=\footnotesize\bfseries] at (0.0, 3.25) {A. Mode-D \texttt{RAIN} Positive/Negative Dual-Sieve Diversity};
+    \node[box, fill=gray!10, minimum width=1.35cm, minimum height=2.1cm] (in) at (0.75, 1.55) {Inputs\\$(p_{t,i},p_{s,i},s_i)$\\$\in \mathbb{F}_2^3$};
+    \node[box, fill=blue!7, minimum width=2.75cm, minimum height=0.92cm] (pos) at (3.35, 2.25) {\textbf{Pos \texttt{LUT6\_2} (Ch.\ A)}\\\texttt{64'h2A..80} (\texttt{AND3}/\texttt{AOI21})};
+    \node[box, fill=orange!9, minimum width=2.75cm, minimum height=0.92cm] (neg) at (3.35, 0.85) {\textbf{Neg \texttt{LUT6\_2} (Ch.\ B)}\\\texttt{64'hAB..FE} (\texttt{OR3}/\texttt{OAI21})};
+    \node[box, fill=teal!9, minimum width=1.95cm, minimum height=2.1cm] (chk) at (6.20, 1.55) {\textbf{Wrapper}\\\textbf{Rail Check}\\$\neg(y_{\mathrm{pos}}\!\oplus\!y_{\mathrm{RAIN}})$\\$\downarrow$\\\texttt{CSR 0x48}};
+    \draw[arr] (in.east |- pos.west) -- node[above, font=\tiny] {$a_i$} (pos.west);
+    \draw[arr] (in.east |- neg.west) -- node[above, font=\tiny] {$\neg(\cdot)\to\bar{a}_i$} (neg.west);
+    \draw[arr] (pos.east) -- node[above, font=\tiny] {\texttt{O5,O6}} (chk.west |- pos.east);
+    \draw[arr] (neg.east) -- node[below, font=\tiny] {$\overline{\texttt{O5}},\overline{\texttt{O6}}$} (chk.west |- neg.east);
+  \end{scope}
+
+  % === PANEL B: Complete 8-State + Common-Mode Rail Fault Matrix ===
+  \begin{scope}[shift={(7.65,0)}]
+    \node[anchor=west, font=\footnotesize\bfseries] at (0.0, 3.25) {B. Exhaustive 8-State Complementary Rail \& Fault Matrix (\texttt{thm37})};
+    \node[anchor=north west, inner sep=0pt] at (0.0, 2.98) {%
+      \setlength{\tabcolsep}{3.6pt}
+      \renewcommand{\arraystretch}{0.96}
+      \begin{tabular}{@{}cccccc@{}}
+        \toprule
+        $(p_t,p_s,s)$ & $(a_i,\bar{a}_i)$ & $(\texttt{O5}_{80},\texttt{O5}_{\mathrm{FE}})$ & $(\texttt{O6}_{2\mathrm{A}},\texttt{O6}_{\mathrm{AB}})$ & $\mathrm{Fault}_{\mathrm{O5/O6}}$ & \textbf{Status} \\
+        \midrule
+        $(0,0,0)\dots(0,1,0)$ & $(0..2,\,7..5)$ & $(0,\,1)$ & $(0,\,1)$ & $(0,\,0)$ & \textcolor{teal!70!black}{\textbf{COMP.\ OK}} \\
+        $(0,1,1)$ & $(3,\,4)$ & $(0,\,1)$ & $(1,\,0)$ & $(0,\,0)$ & \textcolor{teal!70!black}{\textbf{COMP.\ OK}} \\
+        $(1,0,0),\,(1,1,0)$ & $(4/6,\,3/1)$ & $(0,\,1)$ & $(0,\,1)$ & $(0,\,0)$ & \textcolor{teal!70!black}{\textbf{COMP.\ OK}} \\
+        $(1,0,1)$ & $(5,\,2)$ & $(0,\,1)$ & $(1,\,0)$ & $(0,\,0)$ & \textcolor{teal!70!black}{\textbf{COMP.\ OK}} \\
+        $(1,1,1)$ & $(7,\,0)$ & $(1,\,0)$ & $(0,\,1)$ & $(0,\,0)$ & \textcolor{teal!70!black}{\textbf{COMP.\ OK}} \\
+        \midrule
+        \textbf{Stuck-$(0,0)$ / $(1,1)$} & \textbf{Rail Fault} & $(0,0)\text{ or }(1,1)$ & $(0,0)\text{ or }(1,1)$ & $\mathbf{(1,\,1)}$ & \textcolor{red!75!black}{\textbf{TRAP \texttt{0x48}}} \\
+        \bottomrule
+      \end{tabular}%
+    };
+  \end{scope}
+\end{tikzpicture}%
+}
+\captionof{figure}{Dual-Panel De~Morgan Negative-Logic \texttt{RAIN} Design-Diversity Plate (Theorem~\ref{thm:rain_demorgan_duality}, Lean~4 \texttt{thm37}). (A)~Inverted-input shadow \mbox{\texttt{LUT6\_2}} (\texttt{64'hABABABAB\_FEFEFEFE}) forces disjoint standard-cell synthesis (\texttt{OR3}/\texttt{OAI21} vs.\ \texttt{AND3}/\texttt{AOI21}~\cite{mitra2000commonmode}). (B)~All $8$ input states maintain 1-of-2 complementarity ($\mathrm{Fault}=0$), whereas common-mode stuck-at $(0,0)$ or $(1,1)$ rail faults trigger \texttt{CSR 0x48} ($\mathrm{Fault}=1$).}
+\label{fig:rain_dual_plate}
+\end{minipage}
+\MidConnesRule
+\noindent\textbf{Motivation (What Part~I Missed --- Non-Abelian Hop Ordering in Multi-Agent Delegation).}\;In DOE Genesis \texttt{SKILL.md} workflows~\cite{doe2025genesis,birgisson2014macaroons}, delegating from classified dataset $A$ to exporter $B$ ($A \to B$) must produce a distinct cryptographic ticket from $B \to A$, even when bitwise masks commute ($M_A \wedge M_B = M_B \wedge M_A$).
+
+\begin{proposition}[Non-Abelian $\mathbb{F}_{2^8}$ Affine / Davies--Meyer Path-History Chaining \& Zero-Leakage Checklists]
+\label{prop:nonabelian_ifc}
+Iterating $\tau^{(m)} := \mathcal{X}_{31,33}^{(8)}(\tau^{(m-1)}, K_{\mathrm{ctx}}^{(m)}) \oplus \tau^{(m-1)}$~\cite{carter1979universal,daemen1995cipher} across an $m$-hop path $\gamma = (v_0 \to v_1 \to \cdots \to v_m)$ defines a non-abelian trajectory operator. Already over $\mathbb{F}_{2^8}$ (\texttt{0x11B}), 2-parameter affine hops $T_{a,b}(x) := (a \odot x) \oplus b$ compose via the non-abelian affine group law $T_{a_2,b_2}(T_{a_1,b_1}(x)) = ((a_2 \odot a_1)\odot x) \oplus ((a_2 \odot b_1) \oplus b_2)$ with concrete witness $T_{\texttt{03},\texttt{05}}(T_{\texttt{02},\texttt{01}}(\texttt{00})) = \texttt{8'h06} \neq \texttt{8'h0B} = T_{\texttt{02},\texttt{01}}(T_{\texttt{03},\texttt{05}}(\texttt{00}))$ (Lean~4 \texttt{thm33}, Table~\ref{tab:lean_v110}, Row~4). Cycle~0 verifies both lattice monotonicity ($\mathrm{Perms}^{(m)} \le \mathrm{Perms}^{(0)}$) and exact hop order $\gamma$ in $<2\text{~ns}$, while Part~I's $\mathrm{GF}(2^{64})$ monomial birth ratchet (\texttt{thm18}) and \texttt{CSR 0x58} (\texttt{thm04}) enforce $t_{\mathrm{birth}} < t_{\mathrm{use}}$ with $0\text{~bits}$ of witness leakage~\cite{goguen1982security}.
+\end{proposition}
+\begin{proof}[Proof of Proposition~\ref{prop:nonabelian_ifc}]
+Left distributivity and associativity of $\odot$ over $\mathbb{F}_{2^8}$ yield $a_2 \odot ((a_1 \odot x) \oplus b_1) \oplus b_2 = ((a_2 \odot a_1)\odot x) \oplus ((a_2 \odot b_1)\oplus b_2)$, and evaluating at $(a_1,b_1)=(\texttt{02},\texttt{01}), (a_2,b_2)=(\texttt{03},\texttt{05}), x=\texttt{00}$ gives $\texttt{06} \neq \texttt{0B}$ (\texttt{thm33}).
+\end{proof}
+\EndConnesPlate
+
+\section{Online Water-Filling Schur-Convexity, Coarse-Aperture Gauge Flattening, and CSS Split-Coset Syndrome Exactness}
+\label{sec:homological}
+
+\BeginConnesPlate
+\noindent\textbf{Motivation (What Part~I Missed --- Online Arrivals/Departures, Coarse-Aperture Gauge Scope, \& Honest Linear-Code Exactness).}\;Part~I (\texttt{spectralc}~\cite{mcconnell2011certifying,calinescu2011maximizing,tarjan1983data,spielman2011graph,kamal2026cheeger}) proved only static offline packing, tolerated $L_j \le 64$ orbit clamping everywhere, and left Mode~B.2's coding-theoretic structure~\cite{ramananandro2025secure} disconnected from classical CSS split-coset codes~\cite{calderbank1996good}. Theorem~\ref{thm:homological_unification} proves online Schur-convex wipeout elimination~\cite{marshall2011inequalities}, scopes 0-LUT switch gauge flattening accurately to coarse-aperture HDM tables, and distinguishes Mode~B.2's genuine $\mathbb{F}_2$-linear CSS syndrome/coset exact sequence from Stage~1's elementary Boolean complementation.
+
+\begin{theorem}[Online Water-Filling Schur-Convexity, Coarse-Aperture Switch Gauge Flattening, \& CSS Split-Coset Linear-Code Exactness]
+\label{thm:homological_unification}
+Across dynamic cohort streams on $\mathrm{AG}(2,8) \cong S(2,8,64)$~\cite{kautz1964nonrandom,welch1974lower,macwilliams1977theory} ($9$ parallel slopes $\mathcal{P}_0,\ldots,\mathcal{P}_8$ of $8$ disjoint lines each), cyclic switch fabrics $G = (V,E)$, and 256-byte CXL/UCIe flits:
+\begin{enumerate}
+  \item[(i)] \textbf{Online Water-Filling Slope Allocation \& Schur-Convex Wipeout Elimination~\cite{marshall2011inequalities}:} Under online arrivals and departures with slope occupancy $\mathbf{n}^{(t)} = (n_0^{(t)},\ldots,n_8^{(t)}) \in \{0,\ldots,7\}^9$ and $N_{\mathrm{tot}}^{(t)} = \sum_{b=0}^8 n_b^{(t)} \le 63$, assigning each arriving cohort to $b^* = \arg\min_{b : n_b^{(t)} < 7} n_b^{(t)}$ always succeeds with \emph{zero migrations} (by Pigeonhole, $N_{\mathrm{tot}}^{(t)} \le 62 \implies \min_b n_b^{(t)} \le \lfloor 62/9 \rfloor = 6 < 7$) and holds same-slope 8-line wipeouts identically at $W_8(\mathbf{n}^{(t)}) := \sum_{b=0}^8 \binom{n_b^{(t)}}{8} \equiv 0$ across all arrival/departure streams with $N_{\mathrm{tot}}^{(t)} \le 63$. Since $\Delta^2 \binom{x}{k} = \binom{x}{k-2} \ge 0$ ($k \ge 2$), $W_k(\mathbf{n}) := \sum_{b=0}^8 \binom{n_b}{k}$ is \textbf{Schur-convex}~\cite{marshall2011inequalities}, so water-filled occupancies uniquely minimize intra-slope concentration $W_k$ ($k \ge 2$) and maximize inter-slope pairs $\Omega_{\mathrm{pairs}}(\mathbf{n}) = \binom{N_{\mathrm{tot}}}{2} - W_2(\mathbf{n})$~\cite{calinescu2011maximizing};
+  \item[(ii)] \textbf{Coarse-Aperture Switch HDM Gauge Flattening ($L_j \equiv 1$) \& Periodic \texttt{Word64} Double-Tap Involution:} When \texttt{CSR 0x00} arena indices map 1-to-1 onto programmable CXL switch HDM coarse-aperture decoder entries ($\mathrm{HPA}[51:29]$, Modes~A/C) or \texttt{spectralc} chord-boundary coordinate relabeling, setting chord $e^* = (u,v)$'s permutation to $\widetilde{\pi}_{e^*} := \pi_{e^*}^{-1} \circ \Pi_v \circ \Pi_u^{-1} \in S_{64}$ flattens cycle holonomy to $H_{C(e^*)}^{\mathrm{flat}} = \Pi_v^{-1} \circ \pi_{e^*} \circ \widetilde{\pi}_{e^*} \circ \Pi_u = \mathrm{Id}_{S_{64}}$ ($L_j \equiv 1\;\forall j$ at $0\text{~LUTs}$, falling back to Part~I's $L_j \le 64$ orbit clamp when switch hardware bit-lanes are fixed), while Stage~2/3's 3-tap operator $\mathcal{L}_a(m)_i = m_i \oplus m_{(i+a)\bmod 64} \oplus m_{(i+32)\bmod 64}$ satisfies $\mathcal{L}_a(\mathcal{L}_a(m))_i = m_{(i+2a)\bmod 64}$ ($\mathcal{L}_a^{-1} = \mathrm{RotR}_{2a}\circ\mathcal{L}_a$; Lean~4 \texttt{thm34}, Table~\ref{tab:lean_v110}, Row~5); and
+  \item[(iii)] \textbf{Mode~B.2 $\mathbb{F}_2$-Linear CSS Split-Coset Syndrome Exactness~\cite{calderbank1996good} \& Graph Cycle-Rank Induction:} Whereas Stage~1's $(r \wedge P) \wedge \neg P = \mathbf{0}_{64}$ is elementary Boolean orthogonal complementation, Mode~B.2's folded RS-FEC / CRC split-coset construction forms a genuine $\mathbb{F}_2$-linear code exact sequence $\mathcal{D}_{\mathrm{sub}} \xrightarrow{E_{\mathrm{fold}}} \mathrm{GF}(2^8)^{256} \xrightarrow{H_{\mathrm{FEC}}} \mathrm{GF}(2^8)^6$ satisfying $H_{\mathrm{FEC}} \circ E_{\mathrm{fold}} \equiv \mathbf{0}$ (classical Calderbank--Shor--Steane~\cite{calderbank1996good} split-coset orthogonality $C_2^\perp \subset C_1$, Figure~\ref{fig:cochain_architecture}A): sanitization differentials $\delta_i$ lie in $\mathrm{im}(E_{\mathrm{fold}}) \subset \ker(H_{\mathrm{FEC}})$ ($H_{\mathrm{FEC}}(m \oplus c) = H_{\mathrm{FEC}}(m)$ for $c \in \ker(H_{\mathrm{FEC}})$), while the 6 split-coset descriptors $(\boldsymbol{\tau}_{\mathrm{out}}^{(0)}, \boldsymbol{\tau}_{\mathrm{out}}^{(1)})$ occupy nontrivial syndrome cosets with $(\tau_0 \oplus \tau_0) \oplus \tau_1 = \tau_1$ alongside structural Euler Betti invariance $|E| + \beta_0 = |V| + \beta_1$ across tree/chord graph extensions~\cite{tutte1961problem,nashwilliams1961edge,tarjan1983data} (Lean~4 \texttt{thm32}, Table~\ref{tab:lean_v110}, Row~3).
+\end{enumerate}
+\end{theorem}
+\begin{proof}[Proof of Theorem~\ref{thm:homological_unification}]
+Claim~(i) follows from $\lfloor 62/9 \rfloor = 6 < 7 \implies \binom{n_b^{(t)}}{8} = 0$ and Karamata's majorization theorem~\cite{marshall2011inequalities} applied to convex $\binom{x}{k}$. Claim~(ii) follows by cancelling $\Pi_u^{-1}\Pi_u$, $\pi_{e^*}\pi_{e^*}^{-1}$, and $\Pi_v^{-1}\Pi_v$, and cancelling duplicate XOR taps using $m_{i+64} = m_i$ (\texttt{thm34}). Claim~(iii) follows from $\mathbb{F}_2$-linearity of $H_{\mathrm{FEC}}$ on $\ker(H_{\mathrm{FEC}})$ and structural induction over vertex, tree-edge, and chord-edge insertions (\texttt{thm32}).
+\end{proof}
+
+\noindent\textbf{Implications (\emph{So What?} \& Qualified Portability Across External Verticals).}\;Table~\ref{tab:multimodal_matrix} maps the algebraic primitives of the frozen \CoreClbLuts-LUT / \AsicTotalPowerMw\ core onto seven infrastructure domains, paired with FIPS-204 \texttt{ML-DSA-87}~\cite{fips204mldsa} \texttt{.sbundle} capsules. \emph{Explicit Architectural Qualification:} Outside native CXL.mem/CXL.cache, each external vertical in Table~\ref{tab:multimodal_matrix} represents an \textbf{algebraic primitive portability mapping} that requires a protocol-specific physical/link-layer framing shim upstream of the 512-bit digital datapath.
+\MidConnesRule
+\noindent\begin{minipage}{\textwidth}
+\captionsetup{hypcap=false}
+\centering
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[
+  cnode/.style={rectangle, rounded corners=2pt, draw=black!75, line width=0.55pt, fill=blue!4, minimum width=2.45cm, minimum height=0.68cm, align=center, font=\scriptsize},
+  arr/.style={-{Stealth[length=2.0mm,width=1.5mm]}, line width=0.65pt, draw=black!85}
+]
+% Left: Mode B.2 CSS Linear Code Exactness vs Boolean / Graph / Ring Primitives
+\node[font=\footnotesize\bfseries] at (3.6, 2.55) {A. Mode~B.2 CSS Linear-Code Exactness \& Layer Annihilation (\texttt{thm32, 34})};
+\foreach \y/\lbl/\A/\dzero/\B/\done/\C in {
+  1.85/1. CSS FEC/$\mathcal{D}_{\mathrm{sub}}\!\oplus\!\mathrm{Cosets}$/$E_{\mathrm{fold}}$/$\mathrm{GF}(2^8)^{256}$/$H_{\mathrm{FEC}}$/$\mathbf{0}_6\;(C_2^\perp\!\subset\!C_1)$,
+  1.05/2. Graph/$C^0(G;\mathcal{L})$/$\delta_{\mathrm{edge}}^0$/$C^1(G;\mathcal{L})$/$\mathrm{Hol}_{\mathcal{C}}\circ\widetilde{\pi}_{e^*}$/$\mathrm{Id}\;(|E|\!+\!\beta_0\!=\!|V|\!+\!\beta_1)$,
+  0.25/3. Ring/DAG/$C^0(C_4)$/$\delta^0$/$C^1(C_4)$/$\delta^1$/$\mathrm{skew}\;(\texttt{thm15})$,
+  -0.55/4. Bool Sieve/$\mathbb{F}_2^{64}$/$\wedge\,P_{\mathrm{eff}}$/$\mathbb{F}_2^{64}$/$\wedge\,\neg P_{\mathrm{eff}}$/$\mathbf{0}_{64}\;(\text{Boolean }\perp)$
+}{
+  \node[anchor=east, font=\scriptsize\bfseries] at (-0.15, \y) {\lbl:};
+  \node[cnode] (a) at (1.15, \y) {\A};
+  \node[cnode, fill=teal!6] (b) at (4.15, \y) {\B};
+  \node[cnode, fill=gray!10, minimum width=2.15cm] (c) at (7.05, \y) {\C};
+  \draw[arr] (a) -- node[above=0.5pt, font=\tiny] {\dzero} (b);
+  \draw[arr] (b) -- node[above=0.5pt, font=\tiny] {\done} (c);
+}
+% Right: Mode-C Bijective Snoop Commutative Square
+\node[font=\footnotesize\bfseries] at (11.85, 2.55) {B. Snoop-Directory Mode-C Closure (\texttt{thm30})};
+\node[cnode, fill=orange!8, minimum width=2.85cm] (tl) at (10.05, 1.55) {Snoop Dir $(u_{\mathrm{page}},\mathrm{SPID},\alpha)$};
+\node[cnode, fill=orange!8, minimum width=2.85cm] (tr) at (13.75, 1.55) {$\mathrm{HPA}_{\mathrm{wire}}$ (\texttt{S2M\_BISnp})};
+\node[cnode, fill=teal!8, minimum width=2.85cm] (bl) at (10.05, -0.15) {$\mathrm{HPA}_{\mathrm{HBM}}(u_{\mathrm{page}}, \ell)$};
+\node[cnode, fill=blue!6, minimum width=2.85cm] (br) at (13.75, -0.15) {Host \texttt{DirtyEvict} Return};
+\draw[arr] (tl) -- node[above=1pt, font=\tiny\bfseries] {$\mathrm{Enc}^{(6)}(\alpha\parallel\mathbf{0}_g\parallel u)$} (tr);
+\draw[arr] (tr) -- node[right=1pt, font=\tiny] {L1/LLC Flush} (br);
+\draw[arr] (br) -- node[below=1pt, font=\tiny\bfseries] {$\mathrm{Strip}\circ\mathrm{Dec}^{(6)}$} (bl);
+\draw[arr, dashed] (tl) -- node[left=1pt, font=\tiny] {0 Dup.\ BRAM} (bl);
+\end{tikzpicture}%
+}
+\captionof{figure}{(A)~Distinguishing Mode~B.2's genuine $\mathbb{F}_2$-linear CSS split-coset syndrome exactness ($H_{\mathrm{FEC}} \circ E_{\mathrm{fold}} \equiv \mathbf{0}$, $C_2^\perp \subset C_1$~\cite{calderbank1996good}) and coarse-aperture gauge flattening ($L_j \equiv 1$, Theorem~\ref{thm:homological_unification}(ii)--(iii)) from Stage~1's elementary Boolean complementation. (B)~Mode-C bijective snoop-evict commutative square reading $(u_{\mathrm{page}}, \mathrm{SPID}, \alpha)$ from the Home-Agent snoop directory with $0$ duplicate BRAM (Theorem~\ref{thm:bijective_snoop_compaction}(i), \texttt{thm30}).}
+\label{fig:cochain_architecture}
+\end{minipage}
+\EndConnesPlate
+
+\begin{table*}[!tp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{5.0pt}
+\renewcommand{\arraystretch}{1.19}
+\caption{Algebraic Primitive Portability Matrix Across Infrastructure Domains (Requires Protocol-Specific PHY/Link Shims Outside Native CXL.mem)}
+\label{tab:multimodal_matrix}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\hyphenpenalty=10000\arraybackslash}p{3.35cm} >{\raggedright\arraybackslash}p{3.95cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{3.65cm}@{}}
+\toprule
+\textbf{Deployment Vertical} & \textbf{Target Bus (+ Required PHY Shim)} & \textbf{Portable Algebraic Primitive Mapping ($+0$ Core Logic Gates)} & \textbf{Part~II \& Lean~4 Gate} \\
+\midrule
+\textbf{1. Disaggregated AI/HPC \& LoRA Weight Defense} & \mbox{CXL~3.0--4.0} \texttt{.mem/.cache} \& \mbox{UCIe~1.1--3.0} FDI (Native) & Snoop-dir Mode-C closure; 8-step shadow B\'{e}zout deflation ($1.095\times 10^7\text{~rev/s}$); OCP \texttt{MXFP8}~\cite{rouhani2023microscaling} ($u=9$); rectangular BBP LoRA wall~\cite{benaych2012singular} + \texttt{CSR 0x38} rekey & Prop.~\ref{prop:little_vieta}, Thms.~\ref{thm:vieta_deflation_galois}--\ref{thm:bbp_spectral_wall}; \texttt{thm30, 31, 33, 35, 36} \\
+\textbf{2. Autonomous Agent IFC \& Safety Checklists} & DOE Genesis \texttt{SKILL.md}~\cite{doe2025genesis} IPC (+ Host PCIe/CXL Shim) & Non-abelian $\mathbb{F}_{2^8}$ / Davies--Meyer path-history tickets ($T_{a_2,b_2}\circ T_{a_1,b_1} \neq T_{a_1,b_1}\circ T_{a_2,b_2}$); $\mathrm{GF}(2^{64})$ checklist; \texttt{CSR 0x58} trace strip ($I\equiv 0\text{b}$) & Prop.~\ref{prop:nonabelian_ifc}; Part~I \texttt{thm04, 18, 29}; Part~II \texttt{thm33} \\
+\textbf{3. 4K Cryogenic Quantum Error Correction} & Cryo-QPU Readout Bus (+ 4K SerDes/Frame Shim) & \AsicTotalPowerMw\ 7nm CMOS fits 4K cryo-budgets: Vieta $\Lambda^{(t)}(Z)$ quarantines $R_{\mathrm{exact}}=8$ burst-erased stabilizer patches; shadow B\'{e}zout deflates relaxed patches; CSS cosets~\cite{calderbank1996good} & Thms.~\ref{thm:vieta_deflation_galois}, \ref{thm:homological_unification}(iii); \texttt{thm32, 35} (\AsicTotalPowerMw) \\
+\textbf{4. Space, Avionics \& Subsea Optical RS-FEC} & 400G/800G Optical \& SpaceFibre (+ Framer Shim) & CSS folded $\tilde{H}_{\mathrm{FEC},m}^{(i)}$ + split-coset CRC48/CRC64 tunnels 6 command/telemetry tags per frame at $0\%$ payload tax, $0\%$ FEC margin loss, $d_{\mathrm{super}}=5$ & Thm.~\ref{thm:homological_unification}(iii); Part~I Thms.~5.2--5.3; \texttt{thm32} \\
+\textbf{5. Power-Grid (\texttt{IEC 61850}) \& \texttt{RAIN} CDS Gateways} & \texttt{IEC 61850} GOOSE \& CDS (+ MAC/Wrapper Shim) & Cold-POR \texttt{AND2} ratchet, 64-bucket TTL wheel (\texttt{CSR 0x68}~\cite{varghese1997timing}), $<4\text{~ns}$ PCS $(T_0,T_1)$ failover, \& Mode-D De~Morgan \texttt{RAIN} dual-sieve (\texttt{64'hAB..FE}~\cite{mitra2000commonmode}) & Thm.~\ref{thm:rain_demorgan_duality}; Part~I \texttt{thm02, 26, 28}; Part~II \texttt{thm37} \\
+\textbf{6. Real-Time Genomics \& Streaming Sketches} & Nanopore DMA (+ AXI/CXL Ingress Shim) & Stage-1 $132,600$-cohort tensor sieve filters $k$-mers in \StageOneNs; Stage-2 \mbox{\texttt{LUT6\_2}} slot-broadcast 2-weight sketch (\texttt{64'h060C0A00\_08000000}) \& dither & Prop.~\ref{prop:lut6_functional_sketch}, Thm.~\ref{thm:bbp_spectral_wall}; \texttt{thm33, 36} \\
+\textbf{7. Financial Gateways \& Binary-Tower Provers} & FPGA Order / \texttt{Binius}~\cite{diamond2025binius} (+ PCIe/MAC Shim) & Pre-trade credit limits in \StageOneNs\ with $\Delta t_{\mathrm{CRD}}\equiv 0$ ($\mathrm{Var}\equiv 0\text{~ps}^2$); normal-basis $\mathbb{F}_{2^8}$ $\mathrm{RotL}_k$ ($\beta_{\min}=\texttt{0x20}$~\cite{mullin1989optimal}) accelerates binary-tower folding~\cite{diamond2025binius} & Thm.~\ref{thm:vieta_deflation_galois}(ii); Part~I \texttt{thm08, 17}; Part~II \texttt{thm35} \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\StartTwoCol
+\section{Upgraded Zero-Axiom Lean~4 Mechanization (\texorpdfstring{\texttt{thm30}--\texttt{thm37}}{thm30--thm37}) and Open Phase~I R\&D Frontiers}
+\label{sec:frontier}
+
+\subsection{Pure \texorpdfstring{\texttt{Init.Prelude}}{Init.Prelude} Term-Mode Verification of \texorpdfstring{\texttt{thm30}--\texttt{thm37}}{thm30--thm37}}
+Contrasted with high-level Coq hardware DSLs such as Kami~\cite{choi2017kami}, Table~\ref{tab:lean_v110} catalogs the \LeanNewExpansion\ pure \texttt{Init.Prelude} Lean~4~\cite{demoura2021lean4} theorem groups mechanized for Part~II (complete source in Appendix~\ref{app:lean_code}, Listing~\ref{lst:lean_v110}), expanding Part~I's \LeanPartOneTotal\ theorems (\texttt{thm00}--\texttt{thm29}) to \LeanCumulativeTotal\ total theorems (\texttt{0 sorry}, \texttt{0 propext}, \texttt{0 Classical.choice}, \texttt{0 Lean.ofReduceBool}). Every theorem proves the full structural mathematical statement rather than a 1-bit surrogate: \texttt{thm30} proves 6-round Feistel bijectivity over $\mathrm{B8}\times\mathrm{B8}$ for arbitrary round functions \texttt{f0..f5}; \texttt{thm31} proves inductive degree/FIFO invariance (\texttt{actDeg <= 8}, \texttt{shadDeg <= 6}, \texttt{fifoCnt <= 32}) over \texttt{(Nat, Nat, Nat)} across unbounded horizons $t \in \mathbb{N}$; \texttt{thm32} proves $\mathbb{F}_2$-linear \texttt{B8}-codeword syndrome cancellation and structural Euler Betti induction over \texttt{GraphBuild}; \texttt{thm33} proves full distributive/associative $\mathrm{GF}(2^8)$ (\texttt{0x11B}) affine hop composition without exponential case-splitting via an 8-element basis Cayley--Hamilton decomposition; \texttt{thm34} proves periodic \texttt{Word64} double-tap involution $\mathcal{L}_a(\mathcal{L}_a(m))_i = m_{i+2a}$ and \texttt{Perm64} bijection holonomy cancellation; and \texttt{thm35}--\texttt{thm37} verify full 8-coefficient \texttt{Poly8} B\'{e}zout--Horner reconstruction, normal element \texttt{0x20} Frobenius squaring/trace, 32-state sketch bi-simulation, and 8-state \texttt{RAIN} complementarity plus stuck-at rail fault detection.
+
+\begin{table*}[!tp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4.8pt}
+\renewcommand{\arraystretch}{1.19}
+\binoppenalty=400
+\relpenalty=300
+\caption{Upgraded Part~II (\ReleaseVersion) Pure \texttt{Init.Prelude} Lean~4 Theorem Groups (\texttt{thm30}--\texttt{thm37}: Core Groups 21--28 of \LeanCoreGroups; \texttt{0 sorry}, \texttt{0} Axioms; Full Source in Appendix~\ref{app:lean_code})}
+\label{tab:lean_v110}
+\begin{tabularx}{\textwidth}{@{} p{0.030\textwidth} >{\raggedright\hyphenpenalty=10000\arraybackslash}p{0.245\textwidth} >{\raggedright\arraybackslash}p{0.440\textwidth} >{\raggedright\arraybackslash}X @{}}
+\toprule
+\textbf{Grp} & \textbf{Part~II Lean~4 Theorem (\ReleaseVersion)} & \textbf{Machine-Checked Universal Kernel Statement} & \textbf{Closed Part~I Gap \& Hardware Mechanism} \\
+\midrule
+21 & \id{thm30_bijective_snoop_evict_commutative_closure} & $\forall f_0..f_5 : \mathrm{B8}\!\to\!\mathrm{B8},\; \forall x, y : \mathrm{PairB8},\; \forall \alpha, u : \mathrm{B8},$ \newline $(\mathrm{feistelDec6}(f_0..f_5,\mathrm{feistelEnc6}(f_0..f_5,x)) = x)$ \newline $\wedge\; (\mathrm{feistelEnc6}(f_0..f_5,\mathrm{feistelDec6}(f_0..f_5,y)) = y)$ \newline $\wedge\; (\mathrm{snoopEvictRestore}(f_0..f_5,\mathrm{true},\alpha,u) = (0_{\mathrm{B8}}, u))$ & Arbitrary-round-function 6-round Feistel bijection on $\mathrm{B8}\times\mathrm{B8}$ \& Mode-C \texttt{DirtyEvict} canonical restoration (Thm.~\ref{thm:bijective_snoop_compaction}(i)) \\
+22 & \id{thm31_unbounded_horizon_ic3_and_dual_bank_compaction} & $\forall t : \mathrm{Nat},\; \forall \mathrm{sched} : \mathrm{Nat}\!\to\!\mathrm{AirlockEvent},\; \forall d_b, \Delta d : \mathrm{Nat},$ \newline $(\mathrm{airlockInv}(\mathrm{runAirlock}(t,(0,0,0),\mathrm{sched})) = \mathrm{true})$ \newline $\wedge\; (\mathrm{actDeg}(t) \le 8) \wedge (d_b \le 6 \to \Delta d \le 2 \to d_b + \Delta d \le 8)$ & Inductive \texttt{(actDeg, shadDeg, fifoCnt)} invariance across $t \in \mathbb{N}$ under window-paced arrivals \& shadow-bank compaction swap (Prop.~\ref{prop:little_vieta}, Thm.~\ref{thm:bijective_snoop_compaction}(ii)) \\
+23 & \id{thm32_spanning_forest_cycle_rank_and_cochain_exactness} & $\forall g : \mathrm{GraphBuild},\; \forall \mathrm{synH} : \mathrm{CodewordB8}\!\to\!\mathrm{B8},\; \forall m, c, \tau_0, \tau_1,$ \newline $\mathrm{Lin}(\mathrm{synH}) \to \mathrm{synH}(c) = 0_{\mathrm{B8}} \to (|E(g)|+\beta_0(g) = |V(g)|+\beta_1(g))$ \newline $\wedge\; (\mathrm{synH}(m \oplus c) = \mathrm{synH}(m)) \wedge (((\tau_0\oplus\tau_0)\oplus\tau_1) = \tau_1)$ & Structural \texttt{GraphBuild} Euler Betti induction (\texttt{addTreeEdge} / \texttt{addChordEdge}) \& $\mathbb{F}_2$-linear \texttt{B8} CSS coset cancellation (Thm.~\ref{thm:homological_unification}(iii)) \\
+24 & \id{thm33_nonabelian_path_history_and_query_budget_ratchet} & $\forall a_2, b_2, a_1, b_1, x : \mathrm{B8},\; \forall \mathrm{cnt} : \mathrm{Nat},$ \newline $(T_{a_2,b_2}(T_{a_1,b_1}(x)) = T_{a_2\odot a_1, (a_2\odot b_1)\oplus b_2}(x))$ \newline $\wedge\; (T_{\texttt{03},\texttt{05}}(T_{\texttt{02},\texttt{01}}(0)) \neq T_{\texttt{02},\texttt{01}}(T_{\texttt{03},\texttt{05}}(0))) \wedge (\mathrm{epochBudgetReset}(\mathrm{cnt},\mathrm{cnt}) = 0)$ & Associative/distributive $\mathrm{GF}(2^8)$ (\texttt{0x11B}) affine hop composition, non-commutativity witness (\texttt{0x06 != 0x0B}), \& \texttt{CSR 0x38} epoch rekey reset (Thm.~\ref{thm:bbp_spectral_wall}(iii), Prop.~\ref{prop:nonabelian_ifc}) \\
+25 & \id{thm34_autonomous_discovery_involutive_and_gauge_invariance} & $\forall m : \mathrm{Word64},\; (\forall k, m(k+64)=m(k)) \to \forall u, v, \pi : \mathrm{Perm64},$ \newline $\mathrm{Bij}(u,v,\pi) \to \forall a, i : \mathrm{Nat},\; (\mathcal{L}_a(\mathcal{L}_a(m))_i = m_{i+2a})$ \newline $\wedge\; (v^{-1}(\pi(\widetilde{\pi}_{u,v,\pi}(u(i)))) = i)$ & Periodic \texttt{Word64} double-tap $\mathcal{L}_a^2 = \mathrm{RotL}_{2a}$ \& \texttt{Perm64} bijection coarse-aperture gauge holonomy trivialization (Thm.~\ref{thm:homological_unification}(ii)) \\
+26 & \id{thm35_vieta_bezout_deflation_and_frobenius_normal_basis} & $\forall P : \mathrm{Poly8},\; \forall \alpha, x, y : \mathrm{B8},\; (\mathrm{bezoutReconstruct8}(\mathrm{bezoutDeflate8}(P,\alpha),\alpha) = P)$ \newline $\wedge\; (\phi^8(\texttt{0x20}) = \texttt{0x20}) \wedge (\mathrm{Tr}(\texttt{0x20}) = \texttt{0x01})$ \newline $\wedge\; (\mathrm{b8RotL1}(x \oplus y) = \mathrm{b8RotL1}(x) \oplus \mathrm{b8RotL1}(y)) \wedge (\mathrm{b8RotL8}(x) = x)$ & Unified 8-step \texttt{Poly8} B\'{e}zout--Horner deflation reconstruction \& normal element \texttt{0x20} ($z^5$) Frobenius / trace check (Thm.~\ref{thm:vieta_deflation_galois}) \\
+27 & \id{thm36_lut6_2_streaming_functional_sketch_bisimulation} & $\forall x_1, x_0, v, f_1, f_0 : \mathrm{Bool},\; (\mathrm{lut6SketchO6} = \neg v \wedge ((f_1\wedge x_1)\oplus(f_0\wedge x_0)))$ \newline $\wedge\; (\mathrm{lut6SketchO5} = \neg v \wedge ((f_1\wedge x_1)\wedge(f_0\wedge x_0)))$ \newline $\wedge\; (2\,\mathrm{b2n}(\mathrm{O5}) + \mathrm{b2n}(\mathrm{O6}) = \mathrm{if}\;v\;\mathrm{then}\;0\;\mathrm{else}\;\mathrm{b2n}(f_1\!\wedge\!x_1) + \mathrm{b2n}(f_0\!\wedge\!x_0))$ & Stage-2 fractured \texttt{LUT6\_2} (\texttt{64'h060C0A00\_08000000}) 32-state 2-weight dot-product sketch bi-simulation (Prop.~\ref{prop:lut6_functional_sketch}) \\
+28 & \id{thm37_rain_demorgan_dual_sieve_bisimulation} & $\forall p_t, p_s, s : \mathrm{Bool},\; (\mathrm{lut6RainDualO5}(\neg p_t,\neg p_s,\neg s) = \neg\mathrm{lut6O5}_{80}(p_t,p_s,s))$ \newline $\wedge\; (\mathrm{lut6RainDualO6}(\neg p_t,\neg p_s,\neg s) = \neg\mathrm{lut6O6}_{2\mathrm{A}}(p_t,p_s,s))$ \newline $\wedge\; (\mathrm{Fault}(\mathrm{pos},\mathrm{RAIN}) = \mathrm{false}) \wedge \mathrm{Fault}(0,0) \wedge \mathrm{Fault}(1,1)$ & De~Morgan negative-logic \texttt{RAIN} shadow \texttt{LUT6\_2} (\texttt{64'hABABABAB\_FEFEFEFE}) 8-state complementarity \& stuck-at $(0,0)/(1,1)$ trap (Thm.~\ref{thm:rain_demorgan_duality}) \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\subsection{What Part~I and Part~II Do \emph{Not} Solve: Four Wide-Open Phase~I Research Frontiers}
+\label{sec:open_frontiers}
+
+Because Proposition~\ref{prop:little_vieta} and Theorems~\ref{thm:vieta_deflation_galois}--\ref{thm:homological_unification} establish exact single-port boundaries, they cleanly expose \textbf{four genuinely open, high-risk R\&D frontiers} that single-port algebra cannot resolve without cycle-accurate cluster co-simulation and empirical model/silicon campaigns (Table~\ref{tab:phase1_frontier}):
+\begin{enumerate}
+  \item \textbf{Open Frontier 1 --- Coupled Snoop/Data Queueing Contention \& Asynchronous Epoch Skew in Multi-Switch Fabrics:} Proposition~\ref{prop:little_vieta} and Theorem~\ref{thm:bijective_snoop_compaction} bound $\Delta T_{\mathrm{shootdown}} \le 548.0\text{~ns}$ under deterministic $\mathrm{RTT}_{\mathrm{CXL}} = 120\text{~ns}$~\cite{sun2023demystifying}. Characterizing P99.99 shootdown tails under multi-rack CXL~3.1/4.0 virtual-channel head-of-line blocking, all-to-all AI collectives, and distributed adaptive $d^*(\lambda_{\mathrm{rev}})$ admission pacing requires cycle-accurate \texttt{gem5} / \texttt{SST} (\texttt{CXL-ClusterSim}) co-simulation~\cite{poloczek2014martingale}.
+  \item \textbf{Open Frontier 2 --- Two-Tier Hot/Cold Capability Inclusion, Promotion, \& Thrashing Control:} Coupling \textsc{Spectral Flit-Filter} as a wire-speed $0\text{-BRAM}$ \textbf{L0 Hot Capability Sieve} with a cold-tier DRAM capability manager (\textit{Space-Control}~\cite{goswami2026spacecontrol} or OS/FM tables) under high-churn DOE \texttt{AmSC} / \texttt{SKILL.md} traces~\cite{doe2025genesis} without re-introducing $32$--$68\text{~ns}$ miss-stall cliffs remains open systems research.
+  \item \textbf{Open Frontier 3 --- Heavy-Tailed Anisotropic Neural Spectra vs.\ Hardware Rate-Distortion Calibration:} Theorem~\ref{thm:bbp_spectral_wall} assumes uniform fractional offsets $p_{i,j} \sim \mathrm{Unif}[0,1)$ and isotropic noise, whereas production \texttt{BF16}/\texttt{MXFP8} foundation models~\cite{rouhani2023microscaling,hu2022lora} exhibit heavy-tailed singular spectra and grid-aligned quantized outliers requiring empirical perplexity-vs.-extraction calibration~\cite{carlini2024stealing}.
+  \item \textbf{Open Frontier 4 --- Sub-Second Full-Shell \texttt{VOLE-ZK} Proving \& Sub-7nm / 4K Cryo-CMOS Analog Physics:} Scaling Tier-2 \texttt{VOLE-ZK} provers to multi-SLR shells and characterizing 64--128~GT/s PAM-4 analog SerDes jitter, $C_{\mathrm{true}} \neq C_{\mathrm{comp}}$ routing asymmetry, and $4\text{~K}$ cryogenic CMOS physics require GPU prover engineering and physical test-chip tapeout.
+\end{enumerate}
+
+\begin{table*}[!tp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{5.0pt}
+\renewcommand{\arraystretch}{1.19}
+\caption{Delineation of Private-Expense Background IP (Part~I \BaselineVersion\ + Part~II \ReleaseVersion) vs.\ Unexplored Phase~I R\&D Feasibility Territory}
+\label{tab:phase1_frontier}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\hyphenpenalty=10000\arraybackslash}p{3.15cm} >{\raggedright\arraybackslash}p{5.55cm} >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Technical Domain} & \textbf{Closed Background IP (Part~I \BaselineVersion\ + Part~II \ReleaseVersion, Private Expense)} & \textbf{Unexplored Territory Requiring Phase~I Feasibility R\&D} \\
+\midrule
+\textbf{1. Fabric Scale \& Shootdown Dynamics} & Single-port Little--Vieta law ($\Delta T_{\mathrm{shootdown}} \le 548\text{~ns}$, Prop.~\ref{prop:little_vieta}), snoop-dir Mode-C closure (\texttt{thm30}), \& paced dual-bank non-saturation (\texttt{thm31}). & Multi-switch VC credit contention, cross-traffic HOL blocking, \& distributed token-bucket $d^*$ pacing in multi-rack \texttt{gem5}/\texttt{SST} CXL~3.1/4.0 fabrics. \\
+\textbf{2. Capability Hierarchy \& Online Churn} & Online water-filling Schur-convexity ($W_8 \equiv 0$ for $N_{\mathrm{tot}}\le 63$, Thm.~\ref{thm:homological_unification}(i)), 8-step shadow B\'{e}zout deflation (\texttt{thm35}), \& single-cluster \texttt{k3s} webhook. & Two-tier hot/cold inclusion, promotion/demotion, \& cohort coalescing pairing $0\text{-BRAM}$ \textsc{Spectral} hot sieves with cold DRAM tables (\textit{Space-Control}~\cite{goswami2026spacecontrol}) at $10^5$-agent Flux scale. \\
+\textbf{3. Model Weight \& Scientific Data Privacy} & Stage-2 $+0$-LUT 4-tier clamp (\texttt{thm27}), broadcast 2-weight sketch (\texttt{thm36}), \& uniform-prior rectangular BBP wall + \texttt{CSR 0x38} epoch rekey (Thm.~\ref{thm:bbp_spectral_wall}, \texttt{thm33}). & Empirical perplexity vs.\ adaptive SVD/gradient extraction~\cite{carlini2024stealing} on heavy-tailed, grid-quantized \texttt{BF16}/\texttt{MXFP8}~\cite{rouhani2023microscaling} foundation models \& LoRA adapters~\cite{hu2022lora}. \\
+\textbf{4. Supply Chain \& Physical Silicon Physics} & \LeanCumulativeTotal\ zero-axiom Lean~4 digital proofs (\texttt{thm00}--\texttt{thm37}), Mode-D De~Morgan \texttt{RAIN} dual-sieve (\texttt{thm37}), 16nm AWS F2 TVLA, \& 7nm \texttt{ASAP7} P\&R. & GPU-accelerated full-shell Tier-2 \texttt{VOLE-ZK} prover scaling; 64--128~GT/s PAM-4 analog SerDes jitter, $C_{\mathrm{true}}\neq C_{\mathrm{comp}}$ mismatch, \& 4K cryo-CMOS / heavy-ion SEU physics. \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\section*{Research Methodology, Empirical AI-Assisted Falsification Velocity, and Disclosures}
+\noindent\textbf{Human Conception \& AI-Accelerated Popperian Self-Falsification:}
+All hardware architectures, algebraic cohort mechanisms, unified 8-step shadow-bank B\'{e}zout--Horner circuits, fractured \mbox{\texttt{LUT6\_2}} functional sketchers, Mode-D De~Morgan \texttt{RAIN} dual-sieves, and silicon reductions to practice across Part~I and Part~II were conceived and reduced to practice solely by the human author. Following Tao~\cite{tao2025machine} and Popper~\cite{popper1959logic}, frontier LLMs were utilized strictly as adversarial sparring partners to attack draft assumptions while five deterministic oracles---(i)~the pure \texttt{Init.Prelude} Lean~4 kernel (\LeanCumulativeTotal\ theorems, \texttt{0 sorry}, \texttt{0 axioms}), (ii)~consolidated Python finite-field, Monte Carlo SVD, and truth-table falsification sweeps (\texttt{2.02~s} full pass), (iii)~CNF/LRAT \texttt{ZK-IC3} miters, (iv)~Vivado~\VivadoToolVersion\ / \texttt{OpenROAD} post-route STA, and (v)~live AWS F2 Dual-AFI silicon receipts---gated every claim, compressing \textbf{months to years} of sequential verification into days.
+
+\noindent\textbf{Artifact Availability \& Private-Expense Provenance:}
+All \LeanCumulativeTotal\ Lean~4 proofs (\id{formal_lean4/}), simulators (\id{sim/}), \texttt{spectralc} compiler artifacts, and silicon receipts (\id{reports_public/}) are available under \texttt{Apache-2.0} at \url{https://github.com/spectralsystems/spectral-cxl-flit-sanitizer}. Conceived and reduced to practice exclusively at private expense by Spectral Systems LLC (CAGE: \texttt{268E1}; SAM.gov UEI: \texttt{VTP2JPCJU3D9}), compliant with 37~C.F.R.\ \S\,1.41, USPTO Guidance (90~FR~54636), DFARS 252.227-7018 / DEAR 952.227-14, and 15~C.F.R.\ \S\,742.15(b). All patents pending; commercial hardware synthesis and silicon implementation rights reserved (\texttt{PATENTS.md}); Zone-1 \texttt{.sv}/\texttt{.edf} netlists remain air-gapped.
+
+\begin{thebibliography}{99}
+\footnotesize
+
+\bibitem{murphy2026part1}
+E.~C.~Murphy, ``Stateless sub-flit capability sanitization, algebraic cohort ratcheting, and post-route formal verification for disaggregated CXL~3.0--4.0 and UCIe memory fabrics,'' Spectral Systems LLC, Preprint \texttt{v1.0.0} (Part~I), Nov.\ 2026, \url{https://doi.org/10.5281/zenodo.24047902}.
+
+\bibitem{faraday1854mental}
+M.~Faraday, ``Observations on mental education,'' Lecture at the Royal Institution of Great Britain, May~6, 1854; reprinted in \textit{Experimental Researches in Chemistry and Physics}, London, UK: Taylor and Francis, 1859, pp.~463--491.
+
+\bibitem{feynman1974cargocult}
+R.~P.~Feynman, ``Cargo cult science,'' Caltech Commencement Address, \textit{Engineering and Science}, vol.~37, no.~7, pp.~10--13, Jun.\ 1974.
+
+\bibitem{landauer1961irreversibility}
+R.~Landauer, ``Irreversibility and heat generation in the computing process,'' \textit{IBM J.\ Res.\ Dev.}, vol.~5, no.~3, pp.~183--191, Jul.\ 1961; see also R.~Landauer, ``Information is physical,'' \textit{Phys.\ Today}, vol.~44, no.~5, pp.~23--29, May 1991.
+
+\bibitem{cxl2025spec}
+Compute Express Link Consortium, \textit{Compute Express Link (CXL) Specification}, Rev.~3.1, Nov.\ 2023, and Rev.~4.0, Nov.\ 2025.
+
+\bibitem{ucie2025spec30}
+Universal Chiplet Interconnect Express (UCIe) Consortium, \textit{Universal Chiplet Interconnect Express (UCIe) Specification}, Revision~3.0, Aug.\ 2025.
+
+\bibitem{dassharma2024cxl}
+D.~Das~Sharma, R.~Blankenship, and D.~S.~Berger, ``An introduction to the Compute Express Link (CXL) interconnect,'' \textit{ACM Comput.\ Surv.}, vol.~56, no.~11, Art.~290, pp.~1--37, Nov.\ 2024.
+
+\bibitem{li2023pond}
+H.~Li, D.~S.~Berger, S.~Novakovic, L.~Hsu, D.~Ernst, P.~Zardoshti, M.~Shah, S.~Rajadnya, S.~Lee, I.~Agarwal, M.~D.~Hill, M.~Fontoura, and R.~Bianchini, ``Pond: CXL-based memory pooling systems for cloud platforms,'' in \textit{Proc.\ 28th ACM Int.\ Conf.\ Archit.\ Support Program.\ Lang.\ Oper.\ Syst.\ (ASPLOS)}, vol.~2, 2023, pp.~574--587.
+
+\bibitem{sun2023demystifying}
+Y.~Sun, Y.~Yuan, Z.~Yu, R.~Kuper, C.~Song, J.~Huang, H.~Ji, S.~Agarwal, J.~Lou, I.~Jeong, R.~Wang, J.~H.~Ahn, T.~Xu, and N.~S.~Kim, ``Demystifying CXL memory with genuine CXL-ready systems and devices,'' in \textit{Proc.\ 56th IEEE/ACM Int.\ Symp.\ Microarchitecture (MICRO)}, 2023, pp.~105--121.
+
+\bibitem{li2025aiore}
+C.~Li, J.~Zhao, and Y.~Xu, ``Efficient security support for CXL memory through adaptive incremental offloaded (re-)encryption,'' in \textit{Proc.\ 58th IEEE/ACM Int.\ Symp.\ Microarchitecture (MICRO)}, Oct.\ 2025, doi:~10.1145/3725843.3756119.
+
+\bibitem{xu2024dataenclave}
+Y.~Xu, J.~Pangia, C.~Ye, Y.~Solihin, and X.~Shen, ``Data Enclave: A data-centric trusted execution environment,'' in \textit{Proc.\ 30th IEEE Int.\ Symp.\ High-Perform.\ Comput.\ Archit.\ (HPCA)}, 2024, pp.~218--232.
+
+\bibitem{goswami2026spacecontrol}
+K.~Goswami, S.~Peisert, V.~Akella, and J.~Lowe-Power, ``Space-Control: Process-level isolation for sharing CXL-based disaggregated memory,'' \textit{arXiv preprint} \texttt{arXiv:2603.06951v2}, May 2026.
+
+\bibitem{woodruff2014cheri}
+J.~Woodruff, R.~N.~M.~Watson, D.~Chisnall, S.~W.~Moore, J.~Anderson, B.~Davis, B.~Laurie, P.~G.~Neumann, R.~Norton, and M.~Roe, ``The CHERI capability model: Revisiting RISC in an age of risk,'' in \textit{Proc.\ 41st ACM/IEEE Int.\ Symp.\ Comput.\ Archit.\ (ISCA)}, 2014, pp.~457--468.
+
+\bibitem{watson2015cheri}
+R.~N.~M.~Watson, J.~Woodruff, P.~G.~Neumann, S.~W.~Moore, J.~Anderson, D.~Chisnall, N.~Davis, B.~Laurie, S.~J.~Murdoch, and R.~Norton, ``CHERI: A hybrid capability-system architecture for scalable software compartmentalization,'' in \textit{Proc.\ 2015 IEEE Symp.\ Security and Privacy (S\&P)}, San Jose, CA, USA, 2015, pp.~20--37.
+
+\bibitem{filardo2020cornucopia}
+N.~W.~Filardo \textit{et al.}, ``Cornucopia: Temporal safety for CHERI heaps,'' in \textit{Proc.\ 2020 IEEE Symp.\ Security and Privacy (S\&P)}, 2020, pp.~608--625.
+
+\bibitem{filardo2024cornucopiareloaded}
+N.~W.~Filardo \textit{et al.}, ``Cornucopia Reloaded: Load barriers for CHERI heap temporal safety,'' in \textit{Proc.\ 29th ACM Int.\ Conf.\ Archit.\ Support Program.\ Lang.\ Oper.\ Syst.\ (ASPLOS)}, vol.~2, 2024, pp.~251--268.
+
+\bibitem{little1961proof}
+J.~D.~C.~Little, ``A proof for the queuing formula: $L = \lambda W$,'' \textit{Oper.\ Res.}, vol.~9, no.~3, pp.~383--387, May--Jun.\ 1961.
+
+\bibitem{varghese1997timing}
+G.~Varghese and A.~Lauck, ``Hashed and hierarchical timing wheels: Efficient data structures for implementing a timer facility,'' \textit{IEEE/ACM Trans.\ Netw.}, vol.~5, no.~6, pp.~824--834, Dec.\ 1997.
+
+\bibitem{chen2001multilevel}
+Z.~Chen, C.~A.~Micchelli, and Y.~Xu, ``A multilevel method for solving operator equations,'' \textit{J.\ Math.\ Anal.\ Appl.}, vol.~262, no.~2, pp.~688--699, Oct.\ 2001.
+
+\bibitem{welch1974lower}
+L.~R.~Welch, ``Lower bounds on the maximum cross correlation of signals,'' \textit{IEEE Trans.\ Inf.\ Theory}, vol.~20, no.~3, pp.~397--399, May 1974; see also V.~M.~Sidelnikov, ``On mutual correlation of sequences,'' \textit{Soviet Math.\ Dokl.}, vol.~12, pp.~197--201, 1971.
+
+\bibitem{kautz1964nonrandom}
+W.~H.~Kautz and R.~C.~Singleton, ``Nonrandom binary superimposed codes,'' \textit{IEEE Trans.\ Inf.\ Theory}, vol.~10, no.~4, pp.~363--377, Oct.\ 1964.
+
+\bibitem{tutte1961problem}
+W.~T.~Tutte, ``On the problem of decomposing a graph into $n$ connected factors,'' \textit{J.\ London Math.\ Soc.}, vol.~36, no.~1, pp.~221--230, 1961.
+
+\bibitem{nashwilliams1961edge}
+C.~St.~J.~A.~Nash-Williams, ``Edge-disjoint spanning trees of finite graphs,'' \textit{J.\ London Math.\ Soc.}, vol.~36, no.~1, pp.~445--450, 1961.
+
+\bibitem{mcconnell2011certifying}
+R.~M.~McConnell, K.~Mehlhorn, S.~N\"{a}her, and P.~Schweitzer, ``Certifying algorithms,'' \textit{Comput.\ Sci.\ Rev.}, vol.~5, no.~2, pp.~119--161, May 2011.
+
+\bibitem{doe2025genesis}
+U.S.\ Department of Energy and Argonne National Laboratory, \textit{DOE Genesis Mission, American Science Cloud (\texttt{AmSC}), and Model-Contract (\texttt{AI-ModCon/genesis-skills}) Autonomous Scientific Agent Specification}, pursuant to Executive Order~14363, Washington, DC, USA, 2025--2026.
+
+\bibitem{poloczek2014martingale}
+F.~Poloczek and F.~Ciucu, ``Service-martingales: Stochastic tighter bounds in network calculus,'' in \textit{Proc.\ IEEE INFOCOM}, Toronto, ON, Canada, 2014, pp.~1671--1679.
+
+\bibitem{daemen1995cipher}
+J.~Daemen, \textit{Cipher and Hash Function Design: Strategies Based on Linear and Differential Cryptanalysis}, Ph.D.\ dissertation, KU Leuven, 1995; see also J.~Daemen and V.~Rijmen, \textit{The Design of Rijndael}, Berlin, Germany: Springer, 2002.
+
+\bibitem{birgisson2014macaroons}
+A.~Birgisson, J.~G.~Politz, \'{U}.~Erlingsson, A.~Taly, M.~Vrable, and M.~Lentczner, ``Macaroons: Cookies with contextual caveats for decentralized authorization in the cloud,'' in \textit{Proc.\ Netw.\ Distrib.\ Syst.\ Secur.\ Symp.\ (NDSS)}, San Diego, CA, USA, 2014.
+
+\bibitem{gross2016dom}
+H.~Gro\ss, S.~Mangard, and T.~Korak, ``Domain-oriented masking: Compact masked hardware implementations with arbitrary protection order,'' in \textit{Proc.\ ACM Workshop Theory of Implementation Security (TIS)}, Vienna, Austria, 2016.
+
+\bibitem{demoura2021lean4}
+L.~de~Moura and S.~Ullrich, ``The Lean~4 theorem prover and programming language,'' in \textit{Proc.\ 28th Int.\ Conf.\ Automated Deduction (CADE-28)}, LNAI, vol.~12699, Springer, 2021, pp.~625--635.
+
+\bibitem{clark2016asap7}
+L.~T.~Clark, V.~Vashishtha, L.~Shifren, A.~Gujja, S.~Sinha, B.~Cline, C.~Ramamurthy, and G.~Yeric, ``ASAP7: A 7-nm finFET predictive process design kit,'' \textit{Microelectron.\ J.}, vol.~53, pp.~105--115, Jul.\ 2016.
+
+\bibitem{rose2020zta}
+S.~Rose, O.~Borchert, S.~Mitchell, and S.~Connelly, \textit{Zero Trust Architecture}, NIST Special Publication~800-207, National Institute of Standards and Technology, Gaithersburg, MD, USA, Aug.\ 2020.
+
+\bibitem{ncdsmo2020rain}
+National Cross Domain Strategy and Management Office (NCDSMO), \textit{Raise-the-Bar (RTB) Cross Domain Solution Design and Implementation Requirements: Redundant, Always-Invoked, Independent, and Non-Bypassable (RAIN) Architecture}, National Security Agency (NSA), Fort George G.\ Meade, MD, USA, 2020.
+
+\bibitem{mitra2000commonmode}
+S.~Mitra, N.~R.~Saxena, and E.~J.~McCluskey, ``Common-mode failures in redundant VLSI systems: A survey,'' \textit{IEEE Trans.\ Rel.}, vol.~49, no.~3, pp.~285--295, Sep.\ 2000; see also ``Design diversity for redundant systems,'' \textit{IEEE Trans.\ Comput.}, vol.~53, no.~11, pp.~1483--1492, Nov.\ 2004.
+
+\bibitem{carter1979universal}
+J.~L.~Carter and M.~N.~Wegman, ``Universal classes of hash functions,'' \textit{J.\ Comput.\ Syst.\ Sci.}, vol.~18, no.~2, pp.~143--154, Apr.\ 1979.
+
+\bibitem{choi2017kami}
+J.~Choi, M.~Vijayaraghavan, B.~Sherman, A.~Chlipala, and Arvind, ``Kami: A platform for high-level parametric hardware specification and its modular verification,'' \textit{Proc.\ ACM Program.\ Lang.}, vol.~1, no.~ICFP, Art.~24, pp.~1--30, Sep.\ 2017.
+
+\bibitem{goguen1982security}
+J.~A.~Goguen and J.~Meseguer, ``Security policies and security models,'' in \textit{Proc.\ 1982 IEEE Symp.\ Security and Privacy (S\&P)}, Oakland, CA, USA, 1982, pp.~11--20; see also ``Unwinding and inference control,'' in \textit{Proc.\ 1984 IEEE S\&P}, 1984, pp.~75--87.
+
+\bibitem{regenscheid2018pfr}
+A.~Regenscheid, \textit{Platform Firmware Resiliency Guidelines}, NIST Special Publication~800-193, National Institute of Standards and Technology, Gaithersburg, MD, USA, May 2018.
+
+\bibitem{fips204mldsa}
+National Institute of Standards and Technology, \textit{Module-Lattice-Based Digital Signature Standard}, FIPS~204 (\texttt{ML-DSA-87}), U.S.\ Department of Commerce, Gaithersburg, MD, USA, Aug.\ 2024.
+
+\bibitem{macwilliams1977theory}
+F.~J.~MacWilliams and N.~J.~A.~Sloane, \textit{The Theory of Error-Correcting Codes}, Amsterdam, Netherlands: North-Holland, 1977.
+
+\bibitem{erdos1985families}
+P.~Erd\H{o}s, P.~Frankl, and Z.~F\"{u}redi, ``Families of finite sets in which no set is covered by the union of $r$ others,'' \textit{Israel J.\ Math.}, vol.~51, no.~1--2, pp.~79--89, Mar.\ 1985.
+
+\bibitem{mullin1989optimal}
+R.~C.~Mullin, I.~M.~Onyszchuk, S.~A.~Vanstone, and R.~M.~Wilson, ``Optimal normal bases in $\mathrm{GF}(p^n)$,'' \textit{Discrete Appl.\ Math.}, vol.~22, no.~2, pp.~149--161, 1989.
+
+\bibitem{diamond2025binius}
+B.~E.~Diamond and J.~Posen, ``Succinct arguments over towers of binary fields,'' in \textit{Advances in Cryptology -- EUROCRYPT 2025}, Part~IV, LNCS, Springer, 2025, pp.~93--122.
+
+\bibitem{schuchman1964dither}
+L.~Schuchman, ``Dither signals and their effect on quantization noise,'' \textit{IEEE Trans.\ Commun.\ Technol.}, vol.~12, no.~4, pp.~162--165, Dec.\ 1964.
+
+\bibitem{gray1993dithered}
+R.~M.~Gray and T.~G.~Stockham, ``Dithered quantizers,'' \textit{IEEE Trans.\ Inf.\ Theory}, vol.~39, no.~3, pp.~805--812, May 1993.
+
+\bibitem{wannamaker2000nonsubtractive}
+R.~A.~Wannamaker, S.~P.~Lipshitz, J.~Vanderkooy, and J.~N.~Wright, ``A theory of non-subtractive dither,'' \textit{IEEE Trans.\ Signal Process.}, vol.~48, no.~2, pp.~499--516, Feb.\ 2000.
+
+\bibitem{hu2022lora}
+E.~J.~Hu, Y.~Shen, P.~Wallis, Z.~Allen-Zhu, Y.~Li, S.~Wang, L.~Wang, and W.~Chen, ``LoRA: Low-rank adaptation of large language models,'' in \textit{Proc.\ 10th Int.\ Conf.\ Learn.\ Represent.\ (ICLR)}, 2022.
+
+\bibitem{rouhani2023microscaling}
+B.~D.~Rouhani \textit{et al.}, ``Microscaling data formats for deep learning,'' \textit{Open Compute Project (OCP) Specification v1.0} / \texttt{arXiv:2310.10537}, Oct.\ 2023.
+
+\bibitem{carlini2024stealing}
+N.~Carlini, D.~Paleka, K.~Dvijotham, T.~Steinke, J.~Hayase, A.~F.~Cooper, K.~Lee, M.~Jagielski, M.~Nasr, A.~Conmy, I.~Yona, E.~Wallace, D.~Rolnick, and F.~Tram\`{e}r, ``Stealing part of a production language model,'' in \textit{Proc.\ 41st Int.\ Conf.\ Mach.\ Learn.\ (ICML)}, PMLR, vol.~235, Jul.\ 2024.
+
+\bibitem{marchenko1967distribution}
+V.~A.~Mar\v{c}enko and L.~A.~Pastur, ``Distribution of eigenvalues for some sets of random matrices,'' \textit{Math.\ USSR-Sb.}, vol.~1, no.~4, pp.~457--483, 1967.
+
+\bibitem{baik2005phase}
+J.~Baik, G.~Ben~Arous, and S.~P\'{e}ch\'{e}, ``Phase transition of the largest eigenvalue for nonnull complex sample covariance matrices,'' \textit{Ann.\ Probab.}, vol.~33, no.~5, pp.~1643--1697, Sep.\ 2005.
+
+\bibitem{benaych2012singular}
+F.~Benaych-Georges and R.~R.~Nadakuditi, ``The singular values and vectors of low rank perturbations of large rectangular random matrices,'' \textit{J.\ Multivariate Anal.}, vol.~111, pp.~120--135, Oct.\ 2012.
+
+\bibitem{gavish2014optimal}
+M.~Gavish and D.~L.~Donoho, ``The optimal hard threshold for singular values is $4/\sqrt{3}$,'' \textit{IEEE Trans.\ Inf.\ Theory}, vol.~60, no.~8, pp.~5040--5053, Aug.\ 2014.
+
+\bibitem{marshall2011inequalities}
+A.~W.~Marshall, I.~Olkin, and B.~C.~Arnold, \textit{Inequalities: Theory of Majorization and Its Applications}, 2nd~ed., New York, NY, USA: Springer, 2011.
+
+\bibitem{calderbank1996good}
+A.~R.~Calderbank and P.~W.~Shor, ``Good quantum error-correcting codes exist,'' \textit{Phys.\ Rev.\ A}, vol.~54, no.~2, pp.~1098--1105, Aug.\ 1996; see also A.~M.~Steane, ``Multiple-particle interference and quantum error correction,'' \textit{Proc.\ R.\ Soc.\ Lond.\ A}, vol.~452, pp.~2551--2577, 1996.
+
+\bibitem{tao2025machine}
+T.~Tao, ``Machine-assisted proof,'' \textit{Notices Amer.\ Math.\ Soc.}, vol.~72, no.~1, pp.~6--13, Jan.\ 2025.
+
+\bibitem{popper1959logic}
+K.~R.~Popper, \textit{The Logic of Scientific Discovery}, London, UK: Hutchinson, 1959.
+
+\bibitem{tarjan1983data}
+R.~E.~Tarjan, \textit{Data Structures and Network Algorithms}, CBMS-NSF Regional Conference Series in Applied Mathematics, vol.~44, Philadelphia, PA, USA: SIAM, 1983.
+
+\bibitem{azar2009buffer}
+Y.~Azar, U.~Feige, I.~Gamzu, T.~Moscibroda, and P.~Raghavendra, ``Buffer management for colored packets with deadlines,'' in \textit{Proc.\ 21st Annu.\ ACM Symp.\ Parallelism Algorithms Archit.\ (SPAA)}, Calgary, AB, Canada, Aug.\ 2009, pp.~40--49.
+
+\bibitem{azar2013metric}
+Y.~Azar and S.~Vardi, ``Buffer management with metric space transition cost,'' in \textit{Proc.\ 40th Int.\ Colloq.\ Automata, Lang., Program.\ (ICALP)}, LNCS, vol.~7965, Springer, Jul.\ 2013, pp.~73--84.
+
+\bibitem{azar2026lossless}
+Y.~Azar and S.~Vardi, ``Lossless robustification of packet scheduling algorithms,'' in \textit{Proc.\ 38th ACM Symp.\ Parallelism Algorithms Archit.\ (SPAA)}, 2026.
+
+\bibitem{ramananandro2025secure}
+T.~Ramananandro, G.~Ebner, G.~Mart\'{i}nez, and N.~Swamy, ``Secure parsing and serializing with separation logic applied to CBOR, CDDL and COSE,'' in \textit{Proc.\ 2025 ACM SIGSAC Conf.\ Comput.\ Commun.\ Secur.\ (CCS)}, 2025.
+
+\bibitem{koch2021fabulous}
+D.~Koch, N.~Dao, B.~Healy, J.~Yu, and A.~Attwood, ``FABulous: An embedded FPGA framework,'' in \textit{Proc.\ 2021 ACM/SIGDA Int.\ Symp.\ Field-Programmable Gate Arrays (FPGA)}, 2021, pp.~45--56.
+
+\bibitem{spielman2011graph}
+D.~A.~Spielman and N.~Srivastava, ``Graph sparsification by effective resistances,'' \textit{SIAM J.\ Comput.}, vol.~40, no.~6, pp.~1913--1926, 2011.
+
+\bibitem{thornton2026renesis}
+M.~A.~Thornton, ``RENESIS: Energy-aware synthesis of adiabatic logic from irreversible netlists,'' \textit{arXiv preprint} \texttt{arXiv:2608.17139v1}, Aug.\ 17, 2026.
+
+\bibitem{kamal2026cheeger}
+R.~Kamal and A.~Bagchi, ``A Cheeger inequality for hypergraphs and its applications,'' \textit{arXiv preprint} \texttt{arXiv:2609.16286v1}, Sep.\ 2026.
+
+\bibitem{shehabi2024lbnl}
+A.~Shehabi, S.~J.~Smith, A.~Hubbard, A.~Newkirk, N.~Lei, M.~A.~B.~Siddik, B.~Holecek, J.~Koomey, E.~Masanet, and D.~Sartor, \textit{2024 United States Data Center Energy Usage Report}, Lawrence Berkeley National Laboratory, Tech.\ Rep.\ LBNL-2001637, Dec.\ 2024.
+
+\bibitem{siddik2021water}
+M.~A.~B.~Siddik, A.~Shehabi, and L.~Marston, ``The environmental footprint of data centers in the United States,'' \textit{Environ.\ Res.\ Lett.}, vol.~16, no.~6, Art.\ no.~064017, Jun.\ 2021.
+
+\bibitem{gupta2022act}
+U.~Gupta \textit{et al.}, ``ACT: Designing sustainable computer systems with an architectural carbon modeling tool,'' in \textit{Proc.\ ACM/IEEE 49th Annu.\ Int.\ Symp.\ Comput.\ Archit.\ (ISCA)}, Jun.\ 2022, pp.~784--799.
+
+\bibitem{calinescu2011maximizing}
+G.~Calinescu, C.~Chekuri, M.~P\'{a}l, and J.~Vondr\'{a}k, ``Maximizing a monotone submodular function subject to a matroid constraint,'' \textit{SIAM J.\ Comput.}, vol.~40, no.~6, pp.~1740--1766, 2011.
+
+\end{thebibliography}
+
+\StopTwoCol
+\clearpage
+\appendix
+
+\section{Standalone Pure \texorpdfstring{\texttt{Init.Prelude}}{Init.Prelude} Lean~4 Proofs (\texorpdfstring{\texttt{thm30}--\texttt{thm37}}{thm30--thm37})}
+\label{app:lean_code}
+
+Listing~\ref{lst:lean_v110} provides the complete, standalone, \texttt{lean.exe}-compilable pure \texttt{Init.Prelude} Lean~4 source for all \LeanNewExpansion\ upgraded Part~II theorems (\texttt{thm30}--\texttt{thm37}, \texttt{0 sorry}, \texttt{0 axioms}), matching the exact baseline types and identifier conventions of Part~I's \id{formal_lean4/CxlSubflitSanitizerFormal.lean} and \id{formal_lean4/CxlSubflitSanitizerExtensions.lean}~\cite{murphy2026part1}.
+
+\begin{lstlisting}[language=Lean4,caption={Standalone Pure Init.Prelude Term-Mode Lean 4 Expansion (thm30--thm37, v1.1.0, 0 sorry, 0 axioms).},label={lst:lean_v110}]
+-- File: formal_lean4/CxlSubflitSanitizerV110Expansion.lean
+-- Spectral Systems LLC (CAGE: 268E1 | UEI: VTP2JPCJU3D9)
+-- Part II (v1.1.0) Pure Init.Prelude Term-Mode Expansion: thm30..thm37 (0 sorry, 0 axioms)
+-- Baseline helpers below match CxlSubflitSanitizerFormal.lean & CxlSubflitSanitizerExtensions.lean verbatim.
+set_option linter.unusedVariables false
+
+def bNot (a : Bool) : Bool := Bool.casesOn a true false
+def bAnd (a b : Bool) : Bool := Bool.casesOn a false b
+def bOr  (a b : Bool) : Bool := Bool.casesOn a b true
+def bXor (a b : Bool) : Bool := Bool.casesOn a b (bNot b)
+abbrev Word64 := Nat -> Bool
+
+def lut6O5_80 (pt ps s : Bool) : Bool := Bool.casesOn pt false (Bool.casesOn ps false s)
+def lut6O6_2A (pt ps s : Bool) : Bool := Bool.casesOn pt s (Bool.casesOn ps s false)
+def dualRailFault (okRail violRail : Bool) : Bool := bNot (bXor okRail violRail)
+
+def sramLut3 (b0 b1 b2 b3 b4 b5 b6 b7 a2 a1 a0 : Bool) : Bool :=
+  Bool.casesOn a2
+    (Bool.casesOn a1 (Bool.casesOn a0 b0 b1) (Bool.casesOn a0 b2 b3))
+    (Bool.casesOn a1 (Bool.casesOn a0 b4 b5) (Bool.casesOn a0 b6 b7))
+
+inductive B8 : Type where
+  | mk : Bool -> Bool -> Bool -> Bool -> Bool -> Bool -> Bool -> Bool -> B8
+
+def b8Zero : B8 := B8.mk false false false false false false false false
+
+def b8Xor (a b : B8) : B8 :=
+  B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 =>
+    B8.casesOn b (fun b7 b6 b5 b4 b3 b2 b1 b0 =>
+      B8.mk (bXor a7 b7) (bXor a6 b6) (bXor a5 b5) (bXor a4 b4)
+            (bXor a3 b3) (bXor a2 b2) (bXor a1 b1) (bXor a0 b0)))
+
+def gf256Xtime (a : B8) : B8 :=
+  B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 =>
+    B8.mk a6 a5 a4 (bXor a3 a7) (bXor a2 a7) a1 (bXor a0 a7) a7)
+
+def b8Mask (bit : Bool) (a : B8) : B8 := Bool.casesOn bit b8Zero a
+
+def gf256Mul (a b : B8) : B8 :=
+  B8.casesOn b (fun b7 b6 b5 b4 b3 b2 b1 b0 =>
+    let x0 := a; let x1 := gf256Xtime x0; let x2 := gf256Xtime x1; let x3 := gf256Xtime x2
+    let x4 := gf256Xtime x3; let x5 := gf256Xtime x4; let x6 := gf256Xtime x5; let x7 := gf256Xtime x6
+    b8Xor (b8Xor (b8Xor (b8Mask b0 x0) (b8Mask b1 x1)) (b8Xor (b8Mask b2 x2) (b8Mask b3 x3)))
+          (b8Xor (b8Xor (b8Mask b4 x4) (b8Mask b5 x5)) (b8Xor (b8Mask b6 x6) (b8Mask b7 x7))))
+
+-- === Part II (v1.1.0) Foundational Algebraic & Arithmetic Lemmas (Pure Init.Prelude) ===
+
+theorem lem_false_imp (P : Prop) (h : false = true) : P :=
+  @Eq.rec Bool false (fun b _ => Bool.casesOn b True P) True.intro true h
+
+theorem lem_bxor_cancel : forall (u v : Bool), bXor (bXor u v) v = u :=
+  fun u v => Bool.casesOn u (Bool.casesOn v rfl rfl) (Bool.casesOn v rfl rfl)
+
+theorem lem_bxor_false_right : forall (u : Bool), bXor u false = u :=
+  fun u => Bool.casesOn u rfl rfl
+
+theorem lem_bxor_self : forall (u : Bool), bXor u u = false :=
+  fun u => Bool.casesOn u rfl rfl
+
+theorem lem_bxor_assoc : forall (u v w : Bool), bXor (bXor u v) w = bXor u (bXor v w) :=
+  fun u v w =>
+    Bool.casesOn u
+      (Bool.casesOn v (Bool.casesOn w rfl rfl) (Bool.casesOn w rfl rfl))
+      (Bool.casesOn v (Bool.casesOn w rfl rfl) (Bool.casesOn w rfl rfl))
+
+theorem lem_bxor_four : forall (p q r s : Bool), bXor (bXor p q) (bXor r s) = bXor (bXor p r) (bXor q s) :=
+  fun p q r s =>
+    Bool.casesOn p
+      (Bool.casesOn q
+        (Bool.casesOn r (Bool.casesOn s rfl rfl) (Bool.casesOn s rfl rfl))
+        (Bool.casesOn r (Bool.casesOn s rfl rfl) (Bool.casesOn s rfl rfl)))
+      (Bool.casesOn q
+        (Bool.casesOn r (Bool.casesOn s rfl rfl) (Bool.casesOn s rfl rfl))
+        (Bool.casesOn r (Bool.casesOn s rfl rfl) (Bool.casesOn s rfl rfl)))
+
+theorem b8Cong {x7 y7 x6 y6 x5 y5 x4 y4 x3 y3 x2 y2 x1 y1 x0 y0 : Bool}
+  (h7 : x7 = y7) (h6 : x6 = y6) (h5 : x5 = y5) (h4 : x4 = y4)
+  (h3 : x3 = y3) (h2 : x2 = y2) (h1 : x1 = y1) (h0 : x0 = y0) :
+  B8.mk x7 x6 x5 x4 x3 x2 x1 x0 = B8.mk y7 y6 y5 y4 y3 y2 y1 y0 :=
+  congr (congr (congr (congr (congr (congr (congr (congrArg B8.mk h7) h6) h5) h4) h3) h2) h1) h0
+
+theorem b8Xor2 {u1 u2 v1 v2 : B8} (hu : u1 = u2) (hv : v1 = v2) : b8Xor u1 v1 = b8Xor u2 v2 :=
+  congr (congrArg b8Xor hu) hv
+
+theorem lem_b8xor_cancel : forall (a m : B8), b8Xor (b8Xor a m) m = a :=
+  fun a m =>
+    B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 =>
+      B8.casesOn m (fun m7 m6 m5 m4 m3 m2 m1 m0 =>
+        b8Cong (lem_bxor_cancel a7 m7) (lem_bxor_cancel a6 m6)
+               (lem_bxor_cancel a5 m5) (lem_bxor_cancel a4 m4)
+               (lem_bxor_cancel a3 m3) (lem_bxor_cancel a2 m2)
+               (lem_bxor_cancel a1 m1) (lem_bxor_cancel a0 m0)))
+
+theorem lem_b8xor_zero_left : forall (a : B8), b8Xor b8Zero a = a :=
+  fun a => B8.casesOn a (fun _ _ _ _ _ _ _ _ => rfl)
+
+theorem lem_b8xor_zero_right : forall (a : B8), b8Xor a b8Zero = a :=
+  fun a =>
+    B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 =>
+      b8Cong (lem_bxor_false_right a7) (lem_bxor_false_right a6)
+             (lem_bxor_false_right a5) (lem_bxor_false_right a4)
+             (lem_bxor_false_right a3) (lem_bxor_false_right a2)
+             (lem_bxor_false_right a1) (lem_bxor_false_right a0))
+
+theorem lem_b8xor_self : forall (a : B8), b8Xor a a = b8Zero :=
+  fun a =>
+    B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 =>
+      b8Cong (lem_bxor_self a7) (lem_bxor_self a6) (lem_bxor_self a5) (lem_bxor_self a4)
+             (lem_bxor_self a3) (lem_bxor_self a2) (lem_bxor_self a1) (lem_bxor_self a0))
+
+theorem lem_b8xor_assoc : forall (a b c : B8), b8Xor (b8Xor a b) c = b8Xor a (b8Xor b c) :=
+  fun a b c =>
+    B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 =>
+      B8.casesOn b (fun b7 b6 b5 b4 b3 b2 b1 b0 =>
+        B8.casesOn c (fun c7 c6 c5 c4 c3 c2 c1 c0 =>
+          b8Cong (lem_bxor_assoc a7 b7 c7) (lem_bxor_assoc a6 b6 c6)
+                 (lem_bxor_assoc a5 b5 c5) (lem_bxor_assoc a4 b4 c4)
+                 (lem_bxor_assoc a3 b3 c3) (lem_bxor_assoc a2 b2 c2)
+                 (lem_bxor_assoc a1 b1 c1) (lem_bxor_assoc a0 b0 c0))))
+
+theorem lem_b8xor_four : forall (p q r s : B8), b8Xor (b8Xor p q) (b8Xor r s) = b8Xor (b8Xor p r) (b8Xor q s) :=
+  fun p q r s =>
+    B8.casesOn p (fun p7 p6 p5 p4 p3 p2 p1 p0 =>
+      B8.casesOn q (fun q7 q6 q5 q4 q3 q2 q1 q0 =>
+        B8.casesOn r (fun r7 r6 r5 r4 r3 r2 r1 r0 =>
+          B8.casesOn s (fun s7 s6 s5 s4 s3 s2 s1 s0 =>
+            b8Cong (lem_bxor_four p7 q7 r7 s7) (lem_bxor_four p6 q6 r6 s6)
+                   (lem_bxor_four p5 q5 r5 s5) (lem_bxor_four p4 q4 r4 s4)
+                   (lem_bxor_four p3 q3 r3 s3) (lem_bxor_four p2 q2 r2 s2)
+                   (lem_bxor_four p1 q1 r1 s1) (lem_bxor_four p0 q0 r0 s0)))))
+
+-- === thm30: 6-Round Feistel Bijection over B8xB8 & Mode-C Snoop-Evict Closure ===
+
+inductive PairB8 : Type where
+  | mk : B8 -> B8 -> PairB8
+
+def feistelEncRound (f : B8 -> B8) (p : PairB8) : PairB8 :=
+  PairB8.casesOn p (fun l r => PairB8.mk r (b8Xor l (f r)))
+
+def feistelDecRound (f : B8 -> B8) (p : PairB8) : PairB8 :=
+  PairB8.casesOn p (fun l r => PairB8.mk (b8Xor r (f l)) l)
+
+theorem lem_feistel_dec_enc (f : B8 -> B8) (p : PairB8) : feistelDecRound f (feistelEncRound f p) = p :=
+  PairB8.casesOn p (fun l r => congrArg (fun z => PairB8.mk z r) (lem_b8xor_cancel l (f r)))
+
+theorem lem_feistel_enc_dec (f : B8 -> B8) (p : PairB8) : feistelEncRound f (feistelDecRound f p) = p :=
+  PairB8.casesOn p (fun l r => congrArg (PairB8.mk l) (lem_b8xor_cancel r (f l)))
+
+def feistelEnc6 (f0 f1 f2 f3 f4 f5 : B8 -> B8) (p : PairB8) : PairB8 :=
+  feistelEncRound f5 (feistelEncRound f4 (feistelEncRound f3 (feistelEncRound f2 (feistelEncRound f1 (feistelEncRound f0 p)))))
+
+def feistelDec6 (f0 f1 f2 f3 f4 f5 : B8 -> B8) (p : PairB8) : PairB8 :=
+  feistelDecRound f0 (feistelDecRound f1 (feistelDecRound f2 (feistelDecRound f3 (feistelDecRound f4 (feistelDecRound f5 p)))))
+
+theorem lem_peel {A : Type} (d : A -> A) {u v w : A} (hInner : u = v) (hOuter : d v = w) : d u = w :=
+  Eq.trans (congrArg d hInner) hOuter
+
+theorem lem_feistel_dec6_enc6 (f0 f1 f2 f3 f4 f5 : B8 -> B8) (x : PairB8) :
+  feistelDec6 f0 f1 f2 f3 f4 f5 (feistelEnc6 f0 f1 f2 f3 f4 f5 x) = x :=
+  let x1 := feistelEncRound f0 x
+  let x2 := feistelEncRound f1 x1
+  let x3 := feistelEncRound f2 x2
+  let x4 := feistelEncRound f3 x3
+  let x5 := feistelEncRound f4 x4
+  let p5 := lem_feistel_dec_enc f5 x5
+  let p4 := lem_peel (feistelDecRound f4) p5 (lem_feistel_dec_enc f4 x4)
+  let p3 := lem_peel (feistelDecRound f3) p4 (lem_feistel_dec_enc f3 x3)
+  let p2 := lem_peel (feistelDecRound f2) p3 (lem_feistel_dec_enc f2 x2)
+  let p1 := lem_peel (feistelDecRound f1) p2 (lem_feistel_dec_enc f1 x1)
+  lem_peel (feistelDecRound f0) p1 (lem_feistel_dec_enc f0 x)
+
+theorem lem_feistel_enc6_dec6 (f0 f1 f2 f3 f4 f5 : B8 -> B8) (y : PairB8) :
+  feistelEnc6 f0 f1 f2 f3 f4 f5 (feistelDec6 f0 f1 f2 f3 f4 f5 y) = y :=
+  let y1 := feistelDecRound f5 y
+  let y2 := feistelDecRound f4 y1
+  let y3 := feistelDecRound f3 y2
+  let y4 := feistelDecRound f2 y3
+  let y5 := feistelDecRound f1 y4
+  let q0 := lem_feistel_enc_dec f0 y5
+  let q1 := lem_peel (feistelEncRound f1) q0 (lem_feistel_enc_dec f1 y4)
+  let q2 := lem_peel (feistelEncRound f2) q1 (lem_feistel_enc_dec f2 y3)
+  let q3 := lem_peel (feistelEncRound f3) q2 (lem_feistel_enc_dec f3 y2)
+  let q4 := lem_peel (feistelEncRound f4) q3 (lem_feistel_enc_dec f4 y1)
+  lem_peel (feistelEncRound f5) q4 (lem_feistel_enc_dec f5 y)
+
+def stripUpperB8 (p : PairB8) : PairB8 := PairB8.casesOn p (fun _ uPage => PairB8.mk b8Zero uPage)
+
+def snoopEvictRestore (f0 f1 f2 f3 f4 f5 : B8 -> B8) (guardOk : Bool) (alpha uPage : B8) : PairB8 :=
+  Bool.casesOn guardOk (PairB8.mk b8Zero b8Zero)
+    (stripUpperB8 (feistelDec6 f0 f1 f2 f3 f4 f5 (feistelEnc6 f0 f1 f2 f3 f4 f5 (PairB8.mk alpha uPage))))
+
+theorem thm30_bijective_snoop_evict_commutative_closure :
+  forall (f0 f1 f2 f3 f4 f5 : B8 -> B8) (x y : PairB8) (alpha uPage : B8),
+    And (feistelDec6 f0 f1 f2 f3 f4 f5 (feistelEnc6 f0 f1 f2 f3 f4 f5 x) = x)
+        (And (feistelEnc6 f0 f1 f2 f3 f4 f5 (feistelDec6 f0 f1 f2 f3 f4 f5 y) = y)
+             (And (snoopEvictRestore f0 f1 f2 f3 f4 f5 true alpha uPage = PairB8.mk b8Zero uPage)
+                  (snoopEvictRestore f0 f1 f2 f3 f4 f5 false alpha uPage = PairB8.mk b8Zero b8Zero))) :=
+  fun f0 f1 f2 f3 f4 f5 x y alpha uPage =>
+    And.intro (lem_feistel_dec6_enc6 f0 f1 f2 f3 f4 f5 x)
+      (And.intro (lem_feistel_enc6_dec6 f0 f1 f2 f3 f4 f5 y)
+        (And.intro (congrArg stripUpperB8 (lem_feistel_dec6_enc6 f0 f1 f2 f3 f4 f5 (PairB8.mk alpha uPage))) rfl))
+
+-- === thm31: Bounded Vieta Degree (<= 8), Shadow Compaction, & 32-Slot FIFO Invariant ===
+
+def natBle : Nat -> Nat -> Bool :=
+  @Nat.rec (fun _ => Nat -> Bool)
+    (fun _ => true)
+    (fun _ ih b => @Nat.rec (fun _ => Bool) false (fun bPred _ => ih bPred) b)
+
+def clampNat (lim cand fallback : Nat) : Nat :=
+  Bool.casesOn (natBle cand lim) fallback cand
+
+theorem lem_band_true_left : forall (x y : Bool), bAnd x y = true -> x = true :=
+  fun x y => Bool.casesOn x (fun h => lem_false_imp (false = true) h) (fun _ => rfl)
+
+theorem lem_band_true_right : forall (x y : Bool), bAnd x y = true -> y = true :=
+  fun x y => Bool.casesOn x (fun h => lem_false_imp (y = true) h) (fun h => h)
+
+theorem lem_band_intro : forall (x y : Bool), x = true -> y = true -> bAnd x y = true :=
+  fun x y hx hy => Eq.trans (congrArg (fun u => bAnd u y) hx) hy
+
+theorem lem_clampNat_ble :
+  forall (lim cand fallback : Nat),
+    natBle fallback lim = true -> natBle (clampNat lim cand fallback) lim = true :=
+  fun lim cand fallback hFall =>
+    ((fun (b : Bool) =>
+      Bool.casesOn b
+        (fun (_ : natBle cand lim = false) => hFall)
+        (fun (hTrue : natBle cand lim = true) => hTrue))
+      : forall (b : Bool), natBle cand lim = b -> natBle (Bool.casesOn b fallback cand) lim = true)
+    (natBle cand lim) rfl
+
+theorem lem_ble6_add_const (d : Nat) (hBase : natBle d 6 = true) :
+  And (natBle d 8 = true) (And (natBle (Nat.succ d) 8 = true) (natBle (Nat.succ (Nat.succ d)) 8 = true)) :=
+  (@Nat.rec (fun x => natBle x 6 = true ->
+      And (natBle x 8 = true) (And (natBle (Nat.succ x) 8 = true) (natBle (Nat.succ (Nat.succ x)) 8 = true)))
+    (fun _ => And.intro rfl (And.intro rfl rfl))
+    (fun x1 _ =>
+      @Nat.rec (fun y1 => natBle (Nat.succ y1) 6 = true ->
+          And (natBle (Nat.succ y1) 8 = true)
+              (And (natBle (Nat.succ (Nat.succ y1)) 8 = true) (natBle (Nat.succ (Nat.succ (Nat.succ y1))) 8 = true)))
+        (fun _ => And.intro rfl (And.intro rfl rfl))
+        (fun x2 _ =>
+          @Nat.rec (fun y2 => natBle (Nat.succ (Nat.succ y2)) 6 = true ->
+              And (natBle (Nat.succ (Nat.succ y2)) 8 = true)
+                  (And (natBle (Nat.succ (Nat.succ (Nat.succ y2))) 8 = true)
+                       (natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ y2)))) 8 = true)))
+            (fun _ => And.intro rfl (And.intro rfl rfl))
+            (fun x3 _ =>
+              @Nat.rec (fun y3 => natBle (Nat.succ (Nat.succ (Nat.succ y3))) 6 = true ->
+                  And (natBle (Nat.succ (Nat.succ (Nat.succ y3))) 8 = true)
+                      (And (natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ y3)))) 8 = true)
+                           (natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ y3))))) 8 = true)))
+                (fun _ => And.intro rfl (And.intro rfl rfl))
+                (fun x4 _ =>
+                  @Nat.rec (fun y4 => natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ y4)))) 6 = true ->
+                      And (natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ y4)))) 8 = true)
+                          (And (natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ y4))))) 8 = true)
+                               (natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ y4)))))) 8 = true)))
+                    (fun _ => And.intro rfl (And.intro rfl rfl))
+                    (fun x5 _ =>
+                      @Nat.rec (fun y5 => natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ y5))))) 6 = true ->
+                          And (natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ y5))))) 8 = true)
+                              (And (natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ y5)))))) 8 = true)
+                                   (natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ y5))))))) 8 = true)))
+                        (fun _ => And.intro rfl (And.intro rfl rfl))
+                        (fun x6 _ =>
+                          @Nat.rec (fun y6 => natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ y6)))))) 6 = true ->
+                              And (natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ y6)))))) 8 = true)
+                                  (And (natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ y6))))))) 8 = true)
+                                       (natBle (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ (Nat.succ y6)))))))) 8 = true)))
+                            (fun _ => And.intro rfl (And.intro rfl rfl))
+                            (fun x7 _ h7 => lem_false_imp _ h7)
+                            x6)
+                        x5)
+                    x4)
+                x3)
+            x2)
+        x1)
+    d) hBase
+
+theorem lem_ble6_ble2_sum_ble8 :
+  forall (baseDeg drainArr : Nat),
+    natBle baseDeg 6 = true -> natBle drainArr 2 = true -> natBle (baseDeg + drainArr) 8 = true :=
+  fun baseDeg drainArr hBase =>
+    @Nat.rec (fun k => natBle k 2 = true -> natBle (baseDeg + k) 8 = true)
+      (fun _ => And.left (lem_ble6_add_const baseDeg hBase))
+      (fun k1 _ =>
+        @Nat.rec (fun m1 => natBle (Nat.succ m1) 2 = true -> natBle (baseDeg + Nat.succ m1) 8 = true)
+          (fun _ => And.left (And.right (lem_ble6_add_const baseDeg hBase)))
+          (fun k2 _ =>
+            @Nat.rec (fun m2 => natBle (Nat.succ (Nat.succ m2)) 2 = true -> natBle (baseDeg + Nat.succ (Nat.succ m2)) 8 = true)
+              (fun _ => And.right (And.right (lem_ble6_add_const baseDeg hBase)))
+              (fun k3 _ h3 => lem_false_imp _ h3)
+              k2)
+          k1)
+      drainArr
+
+inductive AirlockState : Type where
+  | mk : Nat -> Nat -> Nat -> AirlockState
+
+inductive AirlockEvent : Type where
+  | mk : Bool -> Nat -> Nat -> Nat -> AirlockEvent
+
+def actDegOf (s : AirlockState) : Nat := AirlockState.casesOn s (fun a _ _ => a)
+
+def airlockInv (s : AirlockState) : Bool :=
+  AirlockState.casesOn s (fun actDeg shadDeg fifoCnt =>
+    bAnd (natBle actDeg 8) (bAnd (natBle shadDeg 6) (natBle fifoCnt 32)))
+
+def stepActDeg (actDeg drainArr : Nat) : Nat :=
+  Bool.casesOn (bAnd (natBle actDeg 6) (natBle drainArr 2)) actDeg (actDeg + drainArr)
+
+def airlockStep (s : AirlockState) (ev : AirlockEvent) : AirlockState :=
+  AirlockState.casesOn s (fun actDeg shadDeg fifoCnt =>
+    AirlockEvent.casesOn ev (fun doSwap drainArr nextShad nextFifo =>
+      Bool.casesOn doSwap
+        (AirlockState.mk (stepActDeg actDeg drainArr) (clampNat 6 nextShad shadDeg) (clampNat 32 nextFifo fifoCnt))
+        (AirlockState.mk shadDeg 0 0)))
+
+theorem lem_stepActDeg_ble8 :
+  forall (actDeg drainArr : Nat),
+    natBle actDeg 8 = true -> natBle (stepActDeg actDeg drainArr) 8 = true :=
+  fun actDeg drainArr hAct8 =>
+    ((fun (g : Bool) =>
+      Bool.casesOn g
+        (fun (_ : bAnd (natBle actDeg 6) (natBle drainArr 2) = false) => hAct8)
+        (fun (hG : bAnd (natBle actDeg 6) (natBle drainArr 2) = true) =>
+          lem_ble6_ble2_sum_ble8 actDeg drainArr
+            (lem_band_true_left (natBle actDeg 6) (natBle drainArr 2) hG)
+            (lem_band_true_right (natBle actDeg 6) (natBle drainArr 2) hG)))
+      : forall (g : Bool),
+          bAnd (natBle actDeg 6) (natBle drainArr 2) = g ->
+          natBle (Bool.casesOn g actDeg (actDeg + drainArr)) 8 = true)
+    (bAnd (natBle actDeg 6) (natBle drainArr 2)) rfl
+
+theorem lem_airlockStep_inv :
+  forall (s : AirlockState) (ev : AirlockEvent),
+    airlockInv s = true -> airlockInv (airlockStep s ev) = true :=
+  fun s ev hInv =>
+    AirlockState.casesOn s (fun actDeg shadDeg fifoCnt =>
+      fun (hI : bAnd (natBle actDeg 8) (bAnd (natBle shadDeg 6) (natBle fifoCnt 32)) = true) =>
+        let hA8 := lem_band_true_left (natBle actDeg 8) _ hI
+        let hRest := lem_band_true_right (natBle actDeg 8) _ hI
+        let hS6 := lem_band_true_left (natBle shadDeg 6) (natBle fifoCnt 32) hRest
+        let hF32 := lem_band_true_right (natBle shadDeg 6) (natBle fifoCnt 32) hRest
+        AirlockEvent.casesOn ev (fun doSwap drainArr nextShad nextFifo =>
+          Bool.casesOn doSwap
+            (lem_band_intro _ _
+              (lem_stepActDeg_ble8 actDeg drainArr hA8)
+              (lem_band_intro _ _
+                (lem_clampNat_ble 6 nextShad shadDeg hS6)
+                (lem_clampNat_ble 32 nextFifo fifoCnt hF32)))
+            (lem_band_intro (natBle shadDeg 8) true
+              (And.left (lem_ble6_add_const shadDeg hS6)) rfl))) hInv
+
+def runAirlock (t : Nat) (s0 : AirlockState) (sched : Nat -> AirlockEvent) : AirlockState :=
+  @Nat.rec (fun _ => AirlockState) s0 (fun k prev => airlockStep prev (sched k)) t
+
+theorem thm31_unbounded_horizon_ic3_and_dual_bank_compaction :
+  forall (t : Nat) (sched : Nat -> AirlockEvent) (baseDeg drainArr : Nat),
+    And (airlockInv (runAirlock t (AirlockState.mk 0 0 0) sched) = true)
+        (And (natBle (actDegOf (runAirlock t (AirlockState.mk 0 0 0) sched)) 8 = true)
+             (natBle baseDeg 6 = true -> natBle drainArr 2 = true -> natBle (baseDeg + drainArr) 8 = true)) :=
+  fun t sched baseDeg drainArr =>
+    let hRun := @Nat.rec (fun n => airlockInv (runAirlock n (AirlockState.mk 0 0 0) sched) = true)
+                  rfl (fun k ih => lem_airlockStep_inv (runAirlock k (AirlockState.mk 0 0 0) sched) (sched k) ih) t
+    let hDeg := AirlockState.casesOn (runAirlock t (AirlockState.mk 0 0 0) sched)
+                  (fun a sh fi hI => lem_band_true_left (natBle a 8) (bAnd (natBle sh 6) (natBle fi 32)) hI) hRun
+    And.intro hRun (And.intro hDeg (lem_ble6_ble2_sum_ble8 baseDeg drainArr))
+
+-- === thm32: CSS Split-Coset Folded Syndrome Exactness & Graph Betti Cycle-Rank Induction ===
+
+abbrev CodewordB8 := Nat -> B8
+def xorVecB8 (u v : CodewordB8) : CodewordB8 := fun i => b8Xor (u i) (v i)
+
+theorem lem_succ_add : forall (a b : Nat), Nat.succ a + b = Nat.succ (a + b) :=
+  fun a b => @Nat.rec (fun k => Nat.succ a + k = Nat.succ (a + k)) rfl (fun _ ih => congrArg Nat.succ ih) b
+
+inductive GraphBuild : Type where
+  | empty        : GraphBuild
+  | addVertex    : GraphBuild -> GraphBuild
+  | addTreeEdge  : GraphBuild -> GraphBuild
+  | addChordEdge : GraphBuild -> GraphBuild
+
+noncomputable def gEdges  : GraphBuild -> Nat := @GraphBuild.rec (fun _ => Nat) 0 (fun _ e => e) (fun _ e => Nat.succ e) (fun _ e => Nat.succ e)
+noncomputable def gComps  : GraphBuild -> Nat := @GraphBuild.rec (fun _ => Nat) 0 (fun _ c => Nat.succ c) (fun _ c => c) (fun _ c => c)
+noncomputable def gVerts  : GraphBuild -> Nat := @GraphBuild.rec (fun _ => Nat) 0 (fun _ v => Nat.succ v) (fun _ v => Nat.succ v) (fun _ v => v)
+noncomputable def gBetti1 : GraphBuild -> Nat := @GraphBuild.rec (fun _ => Nat) 0 (fun _ b => b) (fun _ b => b) (fun _ b => Nat.succ b)
+
+theorem lem_graph_euler_betti : forall (g : GraphBuild), gEdges g + gComps g = gVerts g + gBetti1 g :=
+  fun g =>
+    @GraphBuild.rec (fun x => gEdges x + gComps x = gVerts x + gBetti1 x)
+      rfl
+      (fun x ih => Eq.trans (congrArg Nat.succ ih) (Eq.symm (lem_succ_add (gVerts x) (gBetti1 x))))
+      (fun x ih =>
+        Eq.trans (lem_succ_add (gEdges x) (gComps x))
+          (Eq.trans (congrArg Nat.succ ih) (Eq.symm (lem_succ_add (gVerts x) (gBetti1 x)))))
+      (fun x ih => Eq.trans (lem_succ_add (gEdges x) (gComps x)) (congrArg Nat.succ ih))
+      g
+
+theorem thm32_spanning_forest_cycle_rank_and_cochain_exactness :
+  forall (g : GraphBuild) (synH : CodewordB8 -> B8) (m c : CodewordB8) (tau0 tau1 : B8),
+    (forall u v : CodewordB8, synH (xorVecB8 u v) = b8Xor (synH u) (synH v)) ->
+    synH c = b8Zero ->
+    And (gEdges g + gComps g = gVerts g + gBetti1 g)
+        (And (synH (xorVecB8 m c) = synH m)
+             (b8Xor (b8Xor tau0 tau0) tau1 = tau1)) :=
+  fun g synH m c tau0 tau1 hLin hKer =>
+    And.intro (lem_graph_euler_betti g)
+      (And.intro
+        (Eq.trans (hLin m c) (Eq.trans (congrArg (b8Xor (synH m)) hKer) (lem_b8xor_zero_right (synH m))))
+        (Eq.trans (congrArg (fun z => b8Xor z tau1) (lem_b8xor_self tau0)) (lem_b8xor_zero_left tau1)))
+
+-- === thm33: Non-Abelian GF(2^8) [0x11B] Affine Hop Composition & Epoch Query-Budget Ratchet ===
+
+theorem lem_b8xor8_merge (a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 : B8) :
+  b8Xor (b8Xor (b8Xor (b8Xor a0 b0) (b8Xor a1 b1)) (b8Xor (b8Xor a2 b2) (b8Xor a3 b3)))
+        (b8Xor (b8Xor (b8Xor a4 b4) (b8Xor a5 b5)) (b8Xor (b8Xor a6 b6) (b8Xor a7 b7)))
+  =
+  b8Xor (b8Xor (b8Xor (b8Xor a0 a1) (b8Xor a2 a3)) (b8Xor (b8Xor a4 a5) (b8Xor a6 a7)))
+        (b8Xor (b8Xor (b8Xor b0 b1) (b8Xor b2 b3)) (b8Xor (b8Xor b4 b5) (b8Xor b6 b7))) :=
+  let m03 := Eq.trans (b8Xor2 (lem_b8xor_four a0 b0 a1 b1) (lem_b8xor_four a2 b2 a3 b3))
+               (lem_b8xor_four (b8Xor a0 a1) (b8Xor b0 b1) (b8Xor a2 a3) (b8Xor b2 b3))
+  let m47 := Eq.trans (b8Xor2 (lem_b8xor_four a4 b4 a5 b5) (lem_b8xor_four a6 b6 a7 b7))
+               (lem_b8xor_four (b8Xor a4 a5) (b8Xor b4 b5) (b8Xor a6 a7) (b8Xor b6 b7))
+  Eq.trans (b8Xor2 m03 m47)
+    (lem_b8xor_four (b8Xor (b8Xor a0 a1) (b8Xor a2 a3)) (b8Xor (b8Xor b0 b1) (b8Xor b2 b3))
+                    (b8Xor (b8Xor a4 a5) (b8Xor a6 a7)) (b8Xor (b8Xor b4 b5) (b8Xor b6 b7)))
+
+theorem lem_mask_xor_bit (u v : Bool) (x : B8) : b8Mask (bXor u v) x = b8Xor (b8Mask u x) (b8Mask v x) :=
+  Bool.casesOn u
+    (Bool.casesOn v rfl (Eq.symm (lem_b8xor_zero_left x)))
+    (Bool.casesOn v (Eq.symm (lem_b8xor_zero_right x)) (Eq.symm (lem_b8xor_self x)))
+
+theorem lem_gf256_distrib_left (a u v : B8) : gf256Mul a (b8Xor u v) = b8Xor (gf256Mul a u) (gf256Mul a v) :=
+  B8.casesOn u (fun u7 u6 u5 u4 u3 u2 u1 u0 =>
+    B8.casesOn v (fun v7 v6 v5 v4 v3 v2 v1 v0 =>
+      let x0 := a; let x1 := gf256Xtime x0; let x2 := gf256Xtime x1; let x3 := gf256Xtime x2
+      let x4 := gf256Xtime x3; let x5 := gf256Xtime x4; let x6 := gf256Xtime x5; let x7 := gf256Xtime x6
+      Eq.trans
+        (b8Xor2
+          (b8Xor2 (b8Xor2 (lem_mask_xor_bit u0 v0 x0) (lem_mask_xor_bit u1 v1 x1))
+                  (b8Xor2 (lem_mask_xor_bit u2 v2 x2) (lem_mask_xor_bit u3 v3 x3)))
+          (b8Xor2 (b8Xor2 (lem_mask_xor_bit u4 v4 x4) (lem_mask_xor_bit u5 v5 x5))
+                  (b8Xor2 (lem_mask_xor_bit u6 v6 x6) (lem_mask_xor_bit u7 v7 x7))))
+        (lem_b8xor8_merge
+          (b8Mask u0 x0) (b8Mask u1 x1) (b8Mask u2 x2) (b8Mask u3 x3)
+          (b8Mask u4 x4) (b8Mask u5 x5) (b8Mask u6 x6) (b8Mask u7 x7)
+          (b8Mask v0 x0) (b8Mask v1 x1) (b8Mask v2 x2) (b8Mask v3 x3)
+          (b8Mask v4 x4) (b8Mask v5 x5) (b8Mask v6 x6) (b8Mask v7 x7))))
+
+theorem lem_xtime_xor (a b : B8) : gf256Xtime (b8Xor a b) = b8Xor (gf256Xtime a) (gf256Xtime b) :=
+  B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 =>
+    B8.casesOn b (fun b7 b6 b5 b4 b3 b2 b1 b0 =>
+      b8Cong rfl rfl rfl (lem_bxor_four a3 b3 a7 b7) (lem_bxor_four a2 b2 a7 b7)
+             rfl (lem_bxor_four a0 b0 a7 b7) rfl))
+
+theorem lem_xtime_xor_step {w u v : B8} (h : w = b8Xor u v) :
+  gf256Xtime w = b8Xor (gf256Xtime u) (gf256Xtime v) :=
+  Eq.trans (congrArg gf256Xtime h) (lem_xtime_xor u v)
+
+theorem lem_xtime_mask (bit : Bool) (x : B8) : gf256Xtime (b8Mask bit x) = b8Mask bit (gf256Xtime x) :=
+  Bool.casesOn bit rfl rfl
+
+theorem lem_mul_mask_right (a : B8) (bit : Bool) (y : B8) : gf256Mul a (b8Mask bit y) = b8Mask bit (gf256Mul a y) :=
+  Bool.casesOn bit rfl rfl
+
+def b8E0 : B8 := B8.mk false false false false false false false true
+def b8E1 : B8 := B8.mk false false false false false false true  false
+def b8E2 : B8 := B8.mk false false false false false true  false false
+def b8E3 : B8 := B8.mk false false false false true  false false false
+def b8E4 : B8 := B8.mk false false false true  false false false false
+def b8E5 : B8 := B8.mk false false true  false false false false false
+def b8E6 : B8 := B8.mk false true  false false false false false false
+def b8E7 : B8 := B8.mk true  false false false false false false false
+
+def b8Unit0 (b : Bool) : B8 := B8.mk false false false false false false false b
+def b8Unit1 (b : Bool) : B8 := B8.mk false false false false false false b     false
+def b8Unit2 (b : Bool) : B8 := B8.mk false false false false false b     false false
+def b8Unit3 (b : Bool) : B8 := B8.mk false false false false b     false false false
+def b8Unit4 (b : Bool) : B8 := B8.mk false false false b     false false false false
+def b8Unit5 (b : Bool) : B8 := B8.mk false false b     false false false false false
+def b8Unit6 (b : Bool) : B8 := B8.mk false b     false false false false false false
+def b8Unit7 (b : Bool) : B8 := B8.mk b     false false false false false false false
+
+def b8FromBasis (y : B8) : B8 :=
+  B8.casesOn y (fun y7 y6 y5 y4 y3 y2 y1 y0 =>
+    b8Xor (b8Xor (b8Xor (b8Mask y0 b8E0) (b8Mask y1 b8E1)) (b8Xor (b8Mask y2 b8E2) (b8Mask y3 b8E3)))
+          (b8Xor (b8Xor (b8Mask y4 b8E4) (b8Mask y5 b8E5)) (b8Xor (b8Mask y6 b8E6) (b8Mask y7 b8E7))))
+
+theorem lem_mask_eq_unit (f : Bool -> B8) (e : B8) (h0 : b8Zero = f false) (h1 : e = f true) (b : Bool) :
+  b8Mask b e = f b :=
+  Bool.casesOn b h0 h1
+
+theorem lem_bxor_f1 (b : Bool) : bXor b false = b := Bool.casesOn b rfl rfl
+theorem lem_bxor_f2 (b : Bool) : bXor (bXor b false) false = b := Bool.casesOn b rfl rfl
+theorem lem_bxor_f3 (b : Bool) : bXor (bXor (bXor b false) false) false = b := Bool.casesOn b rfl rfl
+
+theorem lem_b8_basis (y : B8) : b8FromBasis y = y :=
+  B8.casesOn y (fun y7 y6 y5 y4 y3 y2 y1 y0 =>
+    let uEq : b8FromBasis (B8.mk y7 y6 y5 y4 y3 y2 y1 y0) =
+              b8Xor (b8Xor (b8Xor (b8Unit0 y0) (b8Unit1 y1)) (b8Xor (b8Unit2 y2) (b8Unit3 y3)))
+                    (b8Xor (b8Xor (b8Unit4 y4) (b8Unit5 y5)) (b8Xor (b8Unit6 y6) (b8Unit7 y7))) :=
+      b8Xor2
+        (b8Xor2 (b8Xor2 (lem_mask_eq_unit b8Unit0 b8E0 rfl rfl y0) (lem_mask_eq_unit b8Unit1 b8E1 rfl rfl y1))
+                (b8Xor2 (lem_mask_eq_unit b8Unit2 b8E2 rfl rfl y2) (lem_mask_eq_unit b8Unit3 b8E3 rfl rfl y3)))
+        (b8Xor2 (b8Xor2 (lem_mask_eq_unit b8Unit4 b8E4 rfl rfl y4) (lem_mask_eq_unit b8Unit5 b8E5 rfl rfl y5))
+                (b8Xor2 (lem_mask_eq_unit b8Unit6 b8E6 rfl rfl y6) (lem_mask_eq_unit b8Unit7 b8E7 rfl rfl y7)))
+    Eq.trans uEq
+      (b8Cong rfl (lem_bxor_f1 y6) (lem_bxor_f1 y5) (lem_bxor_f2 y4)
+              (lem_bxor_f1 y3) (lem_bxor_f2 y2) (lem_bxor_f2 y1) (lem_bxor_f3 y0)))
+
+def gf256Xt8 (a : B8) : B8 :=
+  gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime a)))))))
+
+def gf256PolyRhs (a : B8) : B8 :=
+  let x1 := gf256Xtime a; let x2 := gf256Xtime x1; let x3 := gf256Xtime x2; let x4 := gf256Xtime x3
+  b8Xor (b8Xor a x1) (b8Xor x3 x4)
+
+theorem lem_ch_xor {u v : B8} (hu : gf256Xt8 u = gf256PolyRhs u) (hv : gf256Xt8 v = gf256PolyRhs v) :
+  gf256Xt8 (b8Xor u v) = gf256PolyRhs (b8Xor u v) :=
+  let s1 := lem_xtime_xor u v; let s2 := lem_xtime_xor_step s1
+  let s3 := lem_xtime_xor_step s2; let s4 := lem_xtime_xor_step s3
+  let s5 := lem_xtime_xor_step s4; let s6 := lem_xtime_xor_step s5
+  let s7 := lem_xtime_xor_step s6; let s8 := lem_xtime_xor_step s7
+  let rhsEq : gf256PolyRhs (b8Xor u v) = b8Xor (gf256PolyRhs u) (gf256PolyRhs v) :=
+    Eq.trans
+      (b8Xor2 (Eq.trans (b8Xor2 rfl s1) (lem_b8xor_four u v (gf256Xtime u) (gf256Xtime v)))
+              (Eq.trans (b8Xor2 s3 s4) (lem_b8xor_four _ _ _ _)))
+      (lem_b8xor_four (b8Xor u (gf256Xtime u)) (b8Xor v (gf256Xtime v)) _ _)
+  Eq.trans s8 (Eq.trans (b8Xor2 hu hv) (Eq.symm rhsEq))
+
+theorem lem_ch_mask (bit : Bool) (e : B8) (he : gf256Xt8 e = gf256PolyRhs e) :
+  gf256Xt8 (b8Mask bit e) = gf256PolyRhs (b8Mask bit e) :=
+  Bool.casesOn bit rfl he
+
+theorem lem_cayley_hamilton (a : B8) : gf256Xt8 a = gf256PolyRhs a :=
+  B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 =>
+    let hb := lem_ch_xor
+      (lem_ch_xor (lem_ch_xor (lem_ch_mask a0 b8E0 rfl) (lem_ch_mask a1 b8E1 rfl))
+                  (lem_ch_xor (lem_ch_mask a2 b8E2 rfl) (lem_ch_mask a3 b8E3 rfl)))
+      (lem_ch_xor (lem_ch_xor (lem_ch_mask a4 b8E4 rfl) (lem_ch_mask a5 b8E5 rfl))
+                  (lem_ch_xor (lem_ch_mask a6 b8E6 rfl) (lem_ch_mask a7 b8E7 rfl)))
+    let bEq := lem_b8_basis (B8.mk a7 a6 a5 a4 a3 a2 a1 a0)
+    Eq.trans (congrArg gf256Xt8 (Eq.symm bEq)) (Eq.trans hb (congrArg gf256PolyRhs bEq)))
+
+theorem lem_xr2 (z : B8) : b8Xor (b8Xor z b8Zero) b8Zero = z :=
+  Eq.trans (congrArg (fun w => b8Xor w b8Zero) (lem_b8xor_zero_right z)) (lem_b8xor_zero_right z)
+
+theorem lem_xr3 (z : B8) : b8Xor (b8Xor (b8Xor z b8Zero) b8Zero) b8Zero = z :=
+  Eq.trans (congrArg (fun w => b8Xor w b8Zero) (lem_xr2 z)) (lem_b8xor_zero_right z)
+
+theorem lem_mul_e0 (a : B8) : gf256Mul a b8E0 = a := lem_xr3 a
+theorem lem_mul_e1 (a : B8) : gf256Mul a b8E1 = gf256Xtime a :=
+  B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 => lem_xr2 (gf256Xtime (B8.mk a7 a6 a5 a4 a3 a2 a1 a0)))
+theorem lem_mul_e2 (a : B8) : gf256Mul a b8E2 = gf256Xtime (gf256Xtime a) :=
+  B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 => lem_xr2 (gf256Xtime (gf256Xtime (B8.mk a7 a6 a5 a4 a3 a2 a1 a0))))
+theorem lem_mul_e3 (a : B8) : gf256Mul a b8E3 = gf256Xtime (gf256Xtime (gf256Xtime a)) :=
+  B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 => lem_b8xor_zero_right (gf256Xtime (gf256Xtime (gf256Xtime (B8.mk a7 a6 a5 a4 a3 a2 a1 a0)))))
+theorem lem_mul_e4 (a : B8) : gf256Mul a b8E4 = gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime a))) :=
+  B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 => lem_xr2 (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (B8.mk a7 a6 a5 a4 a3 a2 a1 a0))))))
+theorem lem_mul_e5 (a : B8) : gf256Mul a b8E5 = gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime a)))) :=
+  B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 => lem_b8xor_zero_right (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (B8.mk a7 a6 a5 a4 a3 a2 a1 a0)))))))
+theorem lem_mul_e6 (a : B8) : gf256Mul a b8E6 = gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime a))))) :=
+  B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 => lem_b8xor_zero_right (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (B8.mk a7 a6 a5 a4 a3 a2 a1 a0))))))))
+theorem lem_mul_e7 (a : B8) : gf256Mul a b8E7 = gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime (gf256Xtime a)))))) :=
+  B8.casesOn a (fun _ _ _ _ _ _ _ _ => rfl)
+
+theorem lem_mxr_xor (a : B8) {u v : B8}
+  (hu : gf256Mul a (gf256Xtime u) = gf256Xtime (gf256Mul a u))
+  (hv : gf256Mul a (gf256Xtime v) = gf256Xtime (gf256Mul a v)) :
+  gf256Mul a (gf256Xtime (b8Xor u v)) = gf256Xtime (gf256Mul a (b8Xor u v)) :=
+  Eq.trans (congrArg (gf256Mul a) (lem_xtime_xor u v))
+    (Eq.trans (lem_gf256_distrib_left a (gf256Xtime u) (gf256Xtime v))
+      (Eq.trans (b8Xor2 hu hv)
+        (Eq.trans (Eq.symm (lem_xtime_xor (gf256Mul a u) (gf256Mul a v)))
+          (congrArg gf256Xtime (Eq.symm (lem_gf256_distrib_left a u v))))))
+
+theorem lem_mxr_mask (a : B8) (bit : Bool) (e : B8)
+  (he : gf256Mul a (gf256Xtime e) = gf256Xtime (gf256Mul a e)) :
+  gf256Mul a (gf256Xtime (b8Mask bit e)) = gf256Xtime (gf256Mul a (b8Mask bit e)) :=
+  Bool.casesOn bit rfl he
+
+theorem lem_mxr_e7 (a : B8) : gf256Mul a (gf256Xtime b8E7) = gf256Xtime (gf256Mul a b8E7) :=
+  let h1B : gf256Xtime b8E7 = b8Xor (b8Xor b8E0 b8E1) (b8Xor b8E3 b8E4) := rfl
+  let hD := Eq.trans (congrArg (gf256Mul a) h1B)
+              (Eq.trans (lem_gf256_distrib_left a (b8Xor b8E0 b8E1) (b8Xor b8E3 b8E4))
+                (b8Xor2 (Eq.trans (lem_gf256_distrib_left a b8E0 b8E1) (b8Xor2 (lem_mul_e0 a) (lem_mul_e1 a)))
+                        (Eq.trans (lem_gf256_distrib_left a b8E3 b8E4) (b8Xor2 (lem_mul_e3 a) (lem_mul_e4 a)))))
+  Eq.trans hD (Eq.trans (Eq.symm (lem_cayley_hamilton a)) (congrArg gf256Xtime (Eq.symm (lem_mul_e7 a))))
+
+theorem lem_mul_xtime_right (a y : B8) : gf256Mul a (gf256Xtime y) = gf256Xtime (gf256Mul a y) :=
+  let he0 : gf256Mul a (gf256Xtime b8E0) = gf256Xtime (gf256Mul a b8E0) := Eq.trans (lem_mul_e1 a) (congrArg gf256Xtime (Eq.symm (lem_mul_e0 a)))
+  let he1 : gf256Mul a (gf256Xtime b8E1) = gf256Xtime (gf256Mul a b8E1) := Eq.trans (lem_mul_e2 a) (congrArg gf256Xtime (Eq.symm (lem_mul_e1 a)))
+  let he2 : gf256Mul a (gf256Xtime b8E2) = gf256Xtime (gf256Mul a b8E2) := Eq.trans (lem_mul_e3 a) (congrArg gf256Xtime (Eq.symm (lem_mul_e2 a)))
+  let he3 : gf256Mul a (gf256Xtime b8E3) = gf256Xtime (gf256Mul a b8E3) := Eq.trans (lem_mul_e4 a) (congrArg gf256Xtime (Eq.symm (lem_mul_e3 a)))
+  let he4 : gf256Mul a (gf256Xtime b8E4) = gf256Xtime (gf256Mul a b8E4) := Eq.trans (lem_mul_e5 a) (congrArg gf256Xtime (Eq.symm (lem_mul_e4 a)))
+  let he5 : gf256Mul a (gf256Xtime b8E5) = gf256Xtime (gf256Mul a b8E5) := Eq.trans (lem_mul_e6 a) (congrArg gf256Xtime (Eq.symm (lem_mul_e5 a)))
+  let he6 : gf256Mul a (gf256Xtime b8E6) = gf256Xtime (gf256Mul a b8E6) := Eq.trans (lem_mul_e7 a) (congrArg gf256Xtime (Eq.symm (lem_mul_e6 a)))
+  B8.casesOn y (fun y7 y6 y5 y4 y3 y2 y1 y0 =>
+    let hb := lem_mxr_xor a
+      (lem_mxr_xor a (lem_mxr_xor a (lem_mxr_mask a y0 b8E0 he0) (lem_mxr_mask a y1 b8E1 he1))
+                     (lem_mxr_xor a (lem_mxr_mask a y2 b8E2 he2) (lem_mxr_mask a y3 b8E3 he3)))
+      (lem_mxr_xor a (lem_mxr_xor a (lem_mxr_mask a y4 b8E4 he4) (lem_mxr_mask a y5 b8E5 he5))
+                     (lem_mxr_xor a (lem_mxr_mask a y6 b8E6 he6) (lem_mxr_mask a y7 b8E7 (lem_mxr_e7 a))))
+    let bEq := lem_b8_basis (B8.mk y7 y6 y5 y4 y3 y2 y1 y0)
+    Eq.trans (congrArg (fun z => gf256Mul a (gf256Xtime z)) (Eq.symm bEq))
+      (Eq.trans hb (congrArg (fun z => gf256Xtime (gf256Mul a z)) bEq)))
+
+theorem lem_mul_xt_step {a y z : B8} (h : gf256Mul a y = z) : gf256Mul a (gf256Xtime y) = gf256Xtime z :=
+  Eq.trans (lem_mul_xtime_right a y) (congrArg gf256Xtime h)
+
+theorem lem_mul_mask_step (a : B8) (bit : Bool) {y z : B8} (h : gf256Mul a y = z) :
+  gf256Mul a (b8Mask bit y) = b8Mask bit z :=
+  Eq.trans (lem_mul_mask_right a bit y) (congrArg (b8Mask bit) h)
+
+theorem lem_assoc_xor (a2 : B8) {u v w1 w2 : B8}
+  (hu : gf256Mul a2 u = w1) (hv : gf256Mul a2 v = w2) :
+  gf256Mul a2 (b8Xor u v) = b8Xor w1 w2 :=
+  Eq.trans (lem_gf256_distrib_left a2 u v) (b8Xor2 hu hv)
+
+theorem lem_gf256_assoc (a2 a1 x : B8) : gf256Mul a2 (gf256Mul a1 x) = gf256Mul (gf256Mul a2 a1) x :=
+  let m0 : gf256Mul a2 a1 = gf256Mul a2 a1 := rfl
+  let m1 := lem_mul_xt_step m0; let m2 := lem_mul_xt_step m1; let m3 := lem_mul_xt_step m2
+  let m4 := lem_mul_xt_step m3; let m5 := lem_mul_xt_step m4; let m6 := lem_mul_xt_step m5
+  let m7 := lem_mul_xt_step m6
+  B8.casesOn x (fun x7 x6 x5 x4 x3 x2 x1 x0 =>
+    lem_assoc_xor a2
+      (lem_assoc_xor a2
+        (lem_assoc_xor a2 (lem_mul_mask_step a2 x0 m0) (lem_mul_mask_step a2 x1 m1))
+        (lem_assoc_xor a2 (lem_mul_mask_step a2 x2 m2) (lem_mul_mask_step a2 x3 m3)))
+      (lem_assoc_xor a2
+        (lem_assoc_xor a2 (lem_mul_mask_step a2 x4 m4) (lem_mul_mask_step a2 x5 m5))
+        (lem_assoc_xor a2 (lem_mul_mask_step a2 x6 m6) (lem_mul_mask_step a2 x7 m7))))
+
+def gf256AffHop (a b x : B8) : B8 := b8Xor (gf256Mul a x) b
+def b8Bit0Proj (x : B8) : Bool := B8.casesOn x (fun _ _ _ _ _ _ _ z0 => z0)
+def b8Hex03 : B8 := B8.mk false false false false false false true true
+def b8Hex05 : B8 := B8.mk false false false false false true false true
+def chooseReset (cnt : Nat) (g : Bool) : Nat := Bool.casesOn g (Nat.succ cnt) 0
+def epochBudgetReset (cnt qMax : Nat) : Nat := chooseReset cnt (natBle qMax cnt)
+
+theorem thm33_nonabelian_path_history_and_query_budget_ratchet :
+  forall (a2 b2 a1 b1 x : B8) (cnt : Nat),
+    And (gf256AffHop a2 b2 (gf256AffHop a1 b1 x) = gf256AffHop (gf256Mul a2 a1) (b8Xor (gf256Mul a2 b1) b2) x)
+        (And (Not (gf256AffHop b8Hex03 b8Hex05 (gf256AffHop b8E1 b8E0 b8Zero)
+                   = gf256AffHop b8E1 b8E0 (gf256AffHop b8Hex03 b8Hex05 b8Zero)))
+             (epochBudgetReset cnt cnt = 0)) :=
+  fun a2 b2 a1 b1 x cnt =>
+    let hComp := Eq.trans (congrArg (fun z => b8Xor z b2) (lem_gf256_distrib_left a2 (gf256Mul a1 x) b1))
+                   (Eq.trans (congrArg (fun z => b8Xor (b8Xor z (gf256Mul a2 b1)) b2) (lem_gf256_assoc a2 a1 x))
+                     (lem_b8xor_assoc (gf256Mul (gf256Mul a2 a1) x) (gf256Mul a2 b1) b2))
+    let hReflBle : forall n : Nat, natBle n n = true :=
+      fun n => @Nat.rec (fun k => natBle k k = true) rfl (fun _ ih => ih) n
+    And.intro hComp
+      (And.intro
+        (fun hEq => lem_false_imp False (congrArg b8Bit0Proj hEq))
+        (congrArg (chooseReset cnt) (hReflBle cnt)))
+
+-- === thm34: Word64 Double-Tap Involution (L_a^2 = RotL_2a) & Perm64 Gauge Flattening ===
+
+theorem lem_zero_add : forall (a : Nat), 0 + a = a :=
+  fun a => @Nat.rec (fun k => 0 + k = k) rfl (fun _ ih => congrArg Nat.succ ih) a
+
+theorem lem_add_assoc : forall (x y z : Nat), (x + y) + z = x + (y + z) :=
+  fun x y z => @Nat.rec (fun k => (x + y) + k = x + (y + k)) rfl (fun _ ih => congrArg Nat.succ ih) z
+
+theorem lem_add_comm : forall (x y : Nat), x + y = y + x :=
+  fun x y =>
+    @Nat.rec (fun k => x + k = k + x)
+      (Eq.symm (lem_zero_add x))
+      (fun k ih => Eq.trans (congrArg Nat.succ ih) (Eq.symm (lem_succ_add k x))) y
+
+theorem lem_two_mul : forall (a : Nat), 2 * a = a + a :=
+  fun a =>
+    @Nat.rec (fun k => 2 * k = k + k) rfl
+      (fun k ih => Eq.trans (congrArg (fun z => Nat.succ (Nat.succ z)) ih)
+                            (Eq.symm (congrArg Nat.succ (lem_succ_add k k)))) a
+
+def L_op (a : Nat) (m : Word64) (i : Nat) : Bool :=
+  bXor (bXor (m i) (m (i + a))) (m (i + 32))
+
+theorem lem_double_tap_bool :
+  forall (b1 b2 b3 b5 b6 : Bool),
+    bXor (bXor (bXor (bXor b1 b2) b3) (bXor (bXor b2 b5) b6)) (bXor (bXor b3 b6) b1) = b5 :=
+  fun b1 b2 b3 b5 b6 =>
+    Bool.casesOn b1
+      (Bool.casesOn b2
+        (Bool.casesOn b3 (Bool.casesOn b5 (Bool.casesOn b6 rfl rfl) (Bool.casesOn b6 rfl rfl))
+                         (Bool.casesOn b5 (Bool.casesOn b6 rfl rfl) (Bool.casesOn b6 rfl rfl)))
+        (Bool.casesOn b3 (Bool.casesOn b5 (Bool.casesOn b6 rfl rfl) (Bool.casesOn b6 rfl rfl))
+                         (Bool.casesOn b5 (Bool.casesOn b6 rfl rfl) (Bool.casesOn b6 rfl rfl))))
+      (Bool.casesOn b2
+        (Bool.casesOn b3 (Bool.casesOn b5 (Bool.casesOn b6 rfl rfl) (Bool.casesOn b6 rfl rfl))
+                         (Bool.casesOn b5 (Bool.casesOn b6 rfl rfl) (Bool.casesOn b6 rfl rfl)))
+        (Bool.casesOn b3 (Bool.casesOn b5 (Bool.casesOn b6 rfl rfl) (Bool.casesOn b6 rfl rfl))
+                         (Bool.casesOn b5 (Bool.casesOn b6 rfl rfl) (Bool.casesOn b6 rfl rfl))))
+
+inductive Perm64 : Type where
+  | mk : (Nat -> Nat) -> (Nat -> Nat) -> Perm64
+
+def permFwd (p : Perm64) : Nat -> Nat := Perm64.casesOn p (fun f _ => f)
+def permBwd (p : Perm64) : Nat -> Nat := Perm64.casesOn p (fun _ b => b)
+def isPermBijection (p : Perm64) : Prop :=
+  And (forall k : Nat, permBwd p (permFwd p k) = k)
+      (forall k : Nat, permFwd p (permBwd p k) = k)
+
+def piTilde (u v pi : Perm64) (k : Nat) : Nat :=
+  permBwd pi (permFwd v (permBwd u k))
+
+theorem thm34_autonomous_discovery_involutive_and_gauge_invariance :
+  forall (m : Word64), (forall k : Nat, m (k + 64) = m k) ->
+  forall (u v pi : Perm64), isPermBijection u -> isPermBijection v -> isPermBijection pi ->
+  forall (a i : Nat),
+    And (L_op a (L_op a m) i = m (i + 2 * a))
+        (permBwd v (permFwd pi (piTilde u v pi (permFwd u i))) = i) :=
+  fun m hPer u v pi hu hv hpi a i =>
+    let hIdx5 : (i + a) + a = i + 2 * a :=
+      Eq.trans (lem_add_assoc i a a) (congrArg (fun z => i + z) (Eq.symm (lem_two_mul a)))
+    let hIdx8 : (i + 32) + a = (i + a) + 32 :=
+      Eq.trans (lem_add_assoc i 32 a)
+        (Eq.trans (congrArg (fun z => i + z) (lem_add_comm 32 a)) (Eq.symm (lem_add_assoc i a 32)))
+    let hIdx9 : m ((i + 32) + 32) = m i :=
+      Eq.trans (congrArg m (lem_add_assoc i 32 32)) (hPer i)
+    let hRewrite :=
+      congr
+        (congrArg bXor
+          (congrArg (fun z5 => bXor (bXor (bXor (m i) (m (i + a))) (m (i + 32)))
+                                    (bXor (bXor (m (i + a)) z5) (m ((i + a) + 32))))
+                    (congrArg m hIdx5)))
+        (congr (congrArg (fun z8 => bXor (bXor (m (i + 32)) z8)) (congrArg m hIdx8)) hIdx9)
+    let hGauge :=
+      Eq.trans (congrArg (fun z => permBwd v (permFwd pi (permBwd pi (permFwd v z)))) (And.left hu i))
+        (Eq.trans (congrArg (permBwd v) (And.right hpi (permFwd v i))) (And.left hv i))
+    And.intro (Eq.trans hRewrite (lem_double_tap_bool (m i) (m (i + a)) (m (i + 32)) (m (i + 2 * a)) (m ((i + a) + 32))))
+              hGauge
+
+-- === thm35: Unified 8-Step Bezout-Horner Polynomial Deflation & 0x20 Normal-Basis Frobenius ===
+
+inductive Poly8 : Type where
+  | mk : B8 -> B8 -> B8 -> B8 -> B8 -> B8 -> B8 -> B8 -> Poly8
+
+theorem poly8Cong {x1 y1 x2 y2 x3 y3 x4 y4 x5 y5 x6 y6 x7 y7 x8 y8 : B8}
+  (h1 : x1 = y1) (h2 : x2 = y2) (h3 : x3 = y3) (h4 : x4 = y4)
+  (h5 : x5 = y5) (h6 : x6 = y6) (h7 : x7 = y7) (h8 : x8 = y8) :
+  Poly8.mk x1 x2 x3 x4 x5 x6 x7 x8 = Poly8.mk y1 y2 y3 y4 y5 y6 y7 y8 :=
+  congr (congr (congr (congr (congr (congr (congr (congrArg Poly8.mk h1) h2) h3) h4) h5) h6) h7) h8
+
+def bezoutDeflate8 (p : Poly8) (alpha : B8) : Poly8 :=
+  Poly8.casesOn p (fun s1 s2 s3 s4 s5 s6 s7 s8 =>
+    let q1 := b8Xor s1 (gf256Mul alpha b8E0)
+    let q2 := b8Xor s2 (gf256Mul alpha q1)
+    let q3 := b8Xor s3 (gf256Mul alpha q2)
+    let q4 := b8Xor s4 (gf256Mul alpha q3)
+    let q5 := b8Xor s5 (gf256Mul alpha q4)
+    let q6 := b8Xor s6 (gf256Mul alpha q5)
+    let q7 := b8Xor s7 (gf256Mul alpha q6)
+    let q8 := b8Xor s8 (gf256Mul alpha q7)
+    Poly8.mk q1 q2 q3 q4 q5 q6 q7 q8)
+
+def bezoutReconstruct8 (q : Poly8) (alpha : B8) : Poly8 :=
+  Poly8.casesOn q (fun q1 q2 q3 q4 q5 q6 q7 q8 =>
+    Poly8.mk (b8Xor q1 (gf256Mul alpha b8E0))
+             (b8Xor q2 (gf256Mul alpha q1))
+             (b8Xor q3 (gf256Mul alpha q2))
+             (b8Xor q4 (gf256Mul alpha q3))
+             (b8Xor q5 (gf256Mul alpha q4))
+             (b8Xor q6 (gf256Mul alpha q5))
+             (b8Xor q7 (gf256Mul alpha q6))
+             (b8Xor q8 (gf256Mul alpha q7)))
+
+def b8BetaMin : B8 := b8E5
+def gf256Sq (x : B8) : B8 := gf256Mul x x
+def gf256Frob8 (x : B8) : B8 :=
+  gf256Sq (gf256Sq (gf256Sq (gf256Sq (gf256Sq (gf256Sq (gf256Sq (gf256Sq x)))))))
+def gf256Trace (x : B8) : B8 :=
+  let c0 := x; let c1 := gf256Sq c0; let c2 := gf256Sq c1; let c3 := gf256Sq c2
+  let c4 := gf256Sq c3; let c5 := gf256Sq c4; let c6 := gf256Sq c5; let c7 := gf256Sq c6
+  b8Xor (b8Xor (b8Xor c0 c1) (b8Xor c2 c3)) (b8Xor (b8Xor c4 c5) (b8Xor c6 c7))
+
+def b8RotL1 (x : B8) : B8 := B8.casesOn x (fun x7 x6 x5 x4 x3 x2 x1 x0 => B8.mk x6 x5 x4 x3 x2 x1 x0 x7)
+def b8RotL8 (x : B8) : B8 := b8RotL1 (b8RotL1 (b8RotL1 (b8RotL1 (b8RotL1 (b8RotL1 (b8RotL1 (b8RotL1 x)))))))
+
+theorem thm35_vieta_bezout_deflation_and_frobenius_normal_basis :
+  forall (p : Poly8) (alpha x y : B8),
+    And (bezoutReconstruct8 (bezoutDeflate8 p alpha) alpha = p)
+        (And (And (gf256Frob8 b8BetaMin = b8BetaMin) (gf256Trace b8BetaMin = b8E0))
+             (And (b8RotL1 (b8Xor x y) = b8Xor (b8RotL1 x) (b8RotL1 y)) (b8RotL8 x = x))) :=
+  fun p alpha x y =>
+    And.intro
+      (Poly8.casesOn p (fun s1 s2 s3 s4 s5 s6 s7 s8 =>
+        let q1 := b8Xor s1 (gf256Mul alpha b8E0)
+        let q2 := b8Xor s2 (gf256Mul alpha q1)
+        let q3 := b8Xor s3 (gf256Mul alpha q2)
+        let q4 := b8Xor s4 (gf256Mul alpha q3)
+        let q5 := b8Xor s5 (gf256Mul alpha q4)
+        let q6 := b8Xor s6 (gf256Mul alpha q5)
+        let q7 := b8Xor s7 (gf256Mul alpha q6)
+        poly8Cong (lem_b8xor_cancel s1 (gf256Mul alpha b8E0))
+                  (lem_b8xor_cancel s2 (gf256Mul alpha q1))
+                  (lem_b8xor_cancel s3 (gf256Mul alpha q2))
+                  (lem_b8xor_cancel s4 (gf256Mul alpha q3))
+                  (lem_b8xor_cancel s5 (gf256Mul alpha q4))
+                  (lem_b8xor_cancel s6 (gf256Mul alpha q5))
+                  (lem_b8xor_cancel s7 (gf256Mul alpha q6))
+                  (lem_b8xor_cancel s8 (gf256Mul alpha q7))))
+      (And.intro
+        (And.intro rfl rfl)
+        (And.intro
+          (B8.casesOn x (fun _ _ _ _ _ _ _ _ => B8.casesOn y (fun _ _ _ _ _ _ _ _ => rfl)))
+          (B8.casesOn x (fun _ _ _ _ _ _ _ _ => rfl))))
+
+-- === thm36: Stage-2 LUT6_2 Functional Sketch (64'h060C0A00_08000000) 32-State Bisimulation ===
+
+def sketchByte00 (_v _f1 _f0 : Bool) : Bool := false
+def sketchByte0A (v f1 f0 : Bool) : Bool := sramLut3 false true false true false false false false v f1 f0
+def sketchByte0C (v f1 f0 : Bool) : Bool := sramLut3 false false true true false false false false v f1 f0
+def sketchByte06 (v f1 f0 : Bool) : Bool := sramLut3 false true true false false false false false v f1 f0
+def sketchByte08 (v f1 f0 : Bool) : Bool := sramLut3 false false false true false false false false v f1 f0
+
+def lut6SketchO6 (x1 x0 v f1 f0 : Bool) : Bool :=
+  Bool.casesOn x1 (Bool.casesOn x0 (sketchByte00 v f1 f0) (sketchByte0A v f1 f0))
+                  (Bool.casesOn x0 (sketchByte0C v f1 f0) (sketchByte06 v f1 f0))
+def lut6SketchO5 (x1 x0 v f1 f0 : Bool) : Bool :=
+  Bool.casesOn x1 (Bool.casesOn x0 (sketchByte00 v f1 f0) (sketchByte00 v f1 f0))
+                  (Bool.casesOn x0 (sketchByte00 v f1 f0) (sketchByte08 v f1 f0))
+def b2n (b : Bool) : Nat := Bool.casesOn b 0 1
+
+theorem thm36_lut6_2_streaming_functional_sketch_bisimulation :
+  forall (x1 x0 v f1 f0 : Bool),
+    And (lut6SketchO6 x1 x0 v f1 f0 = bAnd (bNot v) (bXor (bAnd f1 x1) (bAnd f0 x0)))
+        (And (lut6SketchO5 x1 x0 v f1 f0 = bAnd (bNot v) (bAnd (bAnd f1 x1) (bAnd f0 x0)))
+             (2 * b2n (lut6SketchO5 x1 x0 v f1 f0) + b2n (lut6SketchO6 x1 x0 v f1 f0)
+               = Bool.casesOn v (b2n (bAnd f1 x1) + b2n (bAnd f0 x0)) 0)) :=
+  fun x1 x0 v f1 f0 =>
+    Bool.casesOn x1
+      (Bool.casesOn x0
+        (Bool.casesOn v (Bool.casesOn f1 (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl)))
+                                         (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl))))
+                        (Bool.casesOn f1 (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl)))
+                                         (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl)))))
+        (Bool.casesOn v (Bool.casesOn f1 (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl)))
+                                         (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl))))
+                        (Bool.casesOn f1 (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl)))
+                                         (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl))))))
+      (Bool.casesOn x0
+        (Bool.casesOn v (Bool.casesOn f1 (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl)))
+                                         (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl))))
+                        (Bool.casesOn f1 (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl)))
+                                         (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl)))))
+        (Bool.casesOn v (Bool.casesOn f1 (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl)))
+                                         (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl))))
+                        (Bool.casesOn f1 (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl)))
+                                         (Bool.casesOn f0 (And.intro rfl (And.intro rfl rfl)) (And.intro rfl (And.intro rfl rfl))))))
+
+-- === thm37: De Morgan Negative-Logic RAIN Dual-Sieve (64'hABABABAB_FEFEFEFE) & Rail Fault Trap ===
+
+def lut6RainDualO5 (ptb psb sb : Bool) : Bool := sramLut3 false true true true true true true true ptb psb sb
+def lut6RainDualO6 (ptb psb sb : Bool) : Bool := sramLut3 true true false true false true false true ptb psb sb
+
+theorem thm37_rain_demorgan_dual_sieve_bisimulation :
+  forall (pt ps s : Bool),
+    And (lut6RainDualO5 (bNot pt) (bNot ps) (bNot s) = bNot (lut6O5_80 pt ps s))
+        (And (lut6RainDualO6 (bNot pt) (bNot ps) (bNot s) = bNot (lut6O6_2A pt ps s))
+             (And (And (dualRailFault (lut6O5_80 pt ps s) (lut6RainDualO5 (bNot pt) (bNot ps) (bNot s)) = false)
+                       (dualRailFault (lut6O6_2A pt ps s) (lut6RainDualO6 (bNot pt) (bNot ps) (bNot s)) = false))
+                  (And (dualRailFault false false = true) (dualRailFault true true = true)))) :=
+  fun pt ps s =>
+    Bool.casesOn pt
+      (Bool.casesOn ps
+        (Bool.casesOn s (And.intro rfl (And.intro rfl (And.intro (And.intro rfl rfl) (And.intro rfl rfl))))
+                        (And.intro rfl (And.intro rfl (And.intro (And.intro rfl rfl) (And.intro rfl rfl)))))
+        (Bool.casesOn s (And.intro rfl (And.intro rfl (And.intro (And.intro rfl rfl) (And.intro rfl rfl))))
+                        (And.intro rfl (And.intro rfl (And.intro (And.intro rfl rfl) (And.intro rfl rfl))))))
+      (Bool.casesOn ps
+        (Bool.casesOn s (And.intro rfl (And.intro rfl (And.intro (And.intro rfl rfl) (And.intro rfl rfl))))
+                        (And.intro rfl (And.intro rfl (And.intro (And.intro rfl rfl) (And.intro rfl rfl)))))
+        (Bool.casesOn s (And.intro rfl (And.intro rfl (And.intro (And.intro rfl rfl) (And.intro rfl rfl))))
+                        (And.intro rfl (And.intro rfl (And.intro (And.intro rfl rfl) (And.intro rfl rfl))))))
+
+#print axioms thm30_bijective_snoop_evict_commutative_closure
+#print axioms thm31_unbounded_horizon_ic3_and_dual_bank_compaction
+#print axioms thm32_spanning_forest_cycle_rank_and_cochain_exactness
+#print axioms thm33_nonabelian_path_history_and_query_budget_ratchet
+#print axioms thm34_autonomous_discovery_involutive_and_gauge_invariance
+#print axioms thm35_vieta_bezout_deflation_and_frobenius_normal_basis
+#print axioms thm36_lut6_2_streaming_functional_sketch_bisimulation
+#print axioms thm37_rain_demorgan_dual_sieve_bisimulation
+\end{lstlisting}
+
+\section{Part~II Delta SystemVerilog Assertions (\texorpdfstring{\texttt{SVA 1'}}{SVA 1'}, Outer Wrapper \texorpdfstring{\texttt{SVA 11}--\texttt{SVA 12}}{SVA 11--SVA 12})}
+\label{app:sva_delta}
+
+Leaving Part~I's core port list and \texttt{SVA 2}--\texttt{SVA 10}~\cite{murphy2026part1} $100\%$ untouched, Listing~\ref{lst:sva_delta} specifies: (1)~\texttt{SVA 1'} bound strictly to existing dual-bank registers (\texttt{bank\_valid\_q[b]}, \texttt{d\_rev\_q[b]}, \texttt{csr\_0x60\_bank\_q[b]}), enforcing active-bank monotonicity while permitting unified 8-step B\'{e}zout--Horner deflation ($q_8 == \texttt{8'h00}$) solely on the inactive shadow bank; and (2)~outer-shell assertions \texttt{SVA 11} and \texttt{SVA 12} explicitly encapsulated inside \texttt{cxl\_sanitizer\_mode\_d\_wrapper\_sva} so zero unported wires enter the frozen \CoreClbLuts-LUT core.
+
+\begin{lstlisting}[language=SystemVerilog,caption={Part II (v1.1.0) Delta IEEE 1800-2017 Assertions: Core Shadow Bezout SVA 1' and Outer Wrapper Shell SVA 11--12.},label={lst:sva_delta}]
+// === Core-Level Refinement: SVA 1' (Bound Strictly to Frozen v1.0.0 Dual-Bank Registers) ===
+property p_active_vieta_monotone_and_shadow_bezout_rem_zero;
+  @(posedge clk_bar_axi) disable iff (!por_cold_rst_n || !rot_epoch_rekey_rst_n)
+  ($past(por_cold_rst_n && rot_epoch_rekey_rst_n) && vieta_mode_en_q)
+  |-> (((!bank_valid_q[0] || (d_rev_q[0] >= $past(d_rev_q[0]))) &&
+        (!bank_valid_q[1] || (d_rev_q[1] >= $past(d_rev_q[1])))) &&
+       ((!bank_valid_q[0] && (d_rev_q[0] < $past(d_rev_q[0])))
+         |-> (csr_0x60_bank_q[0][7:0] == 8'h00)) &&
+       ((!bank_valid_q[1] && (d_rev_q[1] < $past(d_rev_q[1])))
+         |-> (csr_0x60_bank_q[1][7:0] == 8'h00)));
+endproperty
+assert property (p_active_vieta_monotone_and_shadow_bezout_rem_zero);
+
+// === Outer Mode-D / BAR0 Wrapper Shell Assertions (Zero Added Ports on 1,585-LUT Core) ===
+module cxl_sanitizer_mode_d_wrapper_sva (
+  input logic        clk_f2_250mhz,
+  input logic        por_cold_rst_n,
+  input logic        rot_epoch_rekey_rst_n,
+  input logic        s_flit_valid_i,
+  input logic        epoch_budget_en_q,
+  input logic        spid_filter_qual_en_q,
+  input logic [5:0]  target_query_spid_q,
+  input logic [63:0] csr_0x38_query_cnt_q,
+  input logic [63:0] bbp_qmax_threshold_q,
+  input logic [63:0] csr_0x70_spid_live_q,
+  input logic        rain_dual_mode_en_q,
+  input logic [63:0] s1_o5_pos_w,
+  input logic [63:0] s1_o5_rain_fe_w,
+  input logic [63:0] s1_o6_pos_w,
+  input logic [63:0] s1_o6_rain_ab_w,
+  input logic [63:0] csr_0x48_tamper_trap_cnt_q
+);
+  // SVA 11: Cross-Tenant-Safe CSR 0x38 Epoch Dither-Seed Rekey or Qualified SPID Lockout (Thm. 4.1(iii))
+  property p_bbp_epoch_rekey_or_qualified_spid_ratchet;
+    @(posedge clk_f2_250mhz) disable iff (!por_cold_rst_n)
+    (epoch_budget_en_q && (csr_0x38_query_cnt_q >= bbp_qmax_threshold_q))
+    |=> (spid_filter_qual_en_q
+          ? (csr_0x70_spid_live_q[$past(target_query_spid_q)] == 1'b0)
+          : (!rot_epoch_rekey_rst_n || (csr_0x38_query_cnt_q == 64'd0)));
+  endproperty
+  assert property (p_bbp_epoch_rekey_or_qualified_spid_ratchet);
+
+  // SVA 12: Outer Mode-D De Morgan Negative-Logic RAIN Dual-Sieve Rail Check (Thm. 5.1, thm37)
+  property p_rain_demorgan_dual_sieve_complement_check;
+    @(posedge clk_f2_250mhz) disable iff (!por_cold_rst_n)
+    (rain_dual_mode_en_q && s_flit_valid_i &&
+     ((s1_o5_pos_w != ~s1_o5_rain_fe_w) || (s1_o6_pos_w != ~s1_o6_rain_ab_w)))
+    |=> (csr_0x48_tamper_trap_cnt_q == $past(csr_0x48_tamper_trap_cnt_q) + 64'd1);
+  endproperty
+  assert property (p_rain_demorgan_dual_sieve_complement_check);
+endmodule
+\end{lstlisting}
+
+\end{document}

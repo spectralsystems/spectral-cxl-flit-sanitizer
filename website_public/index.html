@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inline CXL 3.x Sub-Flit Capability Gate &mdash; Spectral Systems LLC</title>
+  <meta name="description" content="Physical CXL 3.x sub-flit capability lock: 8.0 ns 2-cycle cut-through, 99.20% surgical goodput, Cold-POR CSR 0x70.">
+  <link rel="canonical" href="https://spectralsystems.org/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+  <style id="spectral-elegant-editorial-theme">
+:root {
+  --bg-canvas: #090B10;
+  --bg-bay: #0D1119;
+  --bg-card: #111622;
+  --bg-elevated: #161D2C;
+  --ink-ivory: #F8F7F4;
+  --ink-body: #D8DEE9;
+  --ink-mono: #CBD5E1;
+  --ink-dim: #94A3B8;
+  --hairline: #1E2636;
+  --hairline-strong: #2C3850;
+  --accent-orange: #FF5722;
+  --accent-orange-soft: rgba(255, 87, 34, 0.14);
+  --state-legal: #34D399;
+  --state-trap: #F87171;
+  --state-noop: #FBBF24;
+  --state-nop: #38BDF8;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg-canvas); color: var(--ink-body); scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg-canvas);
+  color: var(--ink-body);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16.5px;
+  line-height: 1.74;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, .serif-display {
+  font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  color: var(--ink-ivory);
+  margin-top: 0;
+}
+code, pre, kbd, .mono, .copy-pill, .haptic-badge, .csr-table, .metric-val {
+  font-family: 'JetBrains Mono', Consolas, 'Liberation Mono', monospace;
+  font-variant-numeric: tabular-nums slashed-zero;
+  color: var(--ink-mono);
+}
+  .proof-notation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.45rem;
+}
+.pn-cell {
+  background: #070C15;
+  border: 1px solid #172A42;
+  border-left: 2px solid #0EA5E9;
+  padding: 0.55rem 0.75rem;
+}
+.pn-cell.pn-elem { border-left-color: #F59E0B; }
+.pn-cell.pn-res  { border-left-color: #10B981; }
+.pn-k {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #38BDF8;
+  margin-bottom: 0.2rem;
+  font-weight: 600;
+}
+.pn-cell.pn-elem .pn-k { color: #FBBF24; }
+.pn-cell.pn-res  .pn-k { color: #34D399; }
+.pn-v {
+  font-size: 0.83rem;
+  line-height: 1.48;
+  color: #B8C7D9 !important;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+.proof-pulse-active {
+  outline: 2px solid #0EA5E9 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 22px rgba(14, 165, 233, 0.45) !important;
+  transition: outline 0.2s ease, box-shadow 0.2s ease !important;
+}
+@media (max-width: 920px) { .proof-notation-grid { grid-template-columns: 1fr; } }
+.nl-lens-bar { background:#080F1C; border:1px solid #162840; padding:0.9rem 1.15rem; margin:0 0 1.25rem; clip-path:polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px)); }
+.nl-lens-top { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.55rem; margin-bottom:0.65rem; }
+.nl-lens-lbl { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:#38BDF8; font-weight:600; }
+.nl-lens-pills { display:flex; flex-wrap:wrap; gap:0.4rem; }
+.nl-pill { background:#0C1626 !important; border:1px solid #1C314E !important; color:#8FA3B8 !important; padding:0.35rem 0.72rem !important; font-size:0.76rem !important; font-family:ui-monospace,SFMono-Regular,Consolas,monospace !important; cursor:pointer; }
+.nl-pill.active { background:#0D2742 !important; border-color:#0EA5E9 !important; color:#7DD3FC !important; box-shadow:inset 2px 0 0 #0EA5E9 !important; }
+.nl-lens-body { font-size:0.94rem; line-height:1.62; color:#B0C0D2 !important; margin:0; padding-top:0.45rem; border-top:1px solid #132236; }
+.nl-gauntlet { background:linear-gradient(180deg,#091220 0%,#060B14 100%); border:1px solid #1A314D; border-left:3px solid #E11D48; padding:1.15rem 1.3rem; margin:0 0 1.35rem; }
+.nl-g-hdr { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.6rem; margin-bottom:0.75rem; }
+.nl-g-title { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:0.74rem; text-transform:uppercase; letter-spacing:0.08em; color:#FB7185; font-weight:600; }
+.nl-g-score { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:0.74rem; color:#34D399; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); padding:0.25rem 0.65rem; }
+.nl-g-btns { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0.55rem; margin-bottom:0.85rem; }
+.nl-atk-btn { background:#130D16 !important; border:1px solid #4C1D2E !important; color:#FDA4AF !important; padding:0.6rem 0.75rem !important; font-family:ui-monospace,SFMono-Regular,Consolas,monospace !important; font-size:0.76rem !important; cursor:pointer; text-align:left !important; }
+.nl-atk-btn:hover, .nl-atk-btn.active { background:#24101B !important; border-color:#E11D48 !important; color:#FFE4E6 !important; box-shadow:inset 3px 0 0 #E11D48 !important; }
+.nl-f2-term { background:#04070D; border:1px solid #15253B; padding:0.85rem 1.0rem; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:0.79rem; line-height:1.58; color:#94A8BE; overflow-x:auto; }
+.nl-f2-term .t-cmd { color:#38BDF8; } .nl-f2-term .t-pass { color:#34D399; } .nl-f2-term .t-warn { color:#FBBF24; }
+.nl-cmd-bar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.6rem; background:#070C16; border:1px solid #16263B; padding:0.55rem 0.9rem; margin:0 0 1.25rem; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:0.76rem; color:#8496AA; }
+.nl-cmd-code { color:#7DD3FC; overflow-x:auto; }
+.nl-copy-btn { background:#0D1E33 !important; border:1px solid #0284C7 !important; color:#7DD3FC !important; padding:0.28rem 0.65rem !important; font-size:0.72rem !important; cursor:pointer; }
+.nl-next-funnel { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; background:linear-gradient(90deg,#091424 0%,#0B111D 100%); border:1px solid #1B3350; border-left:4px solid #0EA5E9; padding:1.25rem 1.45rem; margin:1.6rem 0 0.8rem; }
+.nl-nf-kicker { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:#38BDF8; margin-bottom:0.25rem; }
+.nl-nf-title { font-size:1.15rem; color:#C2D0E0 !important; font-weight:600; margin:0 0 0.25rem; }
+.nl-nf-desc { font-size:0.9rem; color:#8496AA !important; margin:0; }
+.nl-nf-btn { display:inline-flex; align-items:center; gap:0.45rem; background:#0C253E !important; border:1px solid #0EA5E9 !important; color:#7DD3FC !important; padding:0.65rem 1.1rem !important; font-family:ui-monospace,SFMono-Regular,Consolas,monospace !important; font-size:0.82rem !important; font-weight:600 !important; }
+.nl-nf-btn:hover { background:#123558 !important; color:#BAE6FD !important; }
+.hw-gloss { border-bottom:1px dotted #38BDF8; cursor:help; position:relative; color:#B4C4D6; }
+@media (max-width: 900px) { .nl-g-btns { grid-template-columns:1fr; } }
+.hv-panel { background:linear-gradient(180deg,#08101D 0%,#060A12 100%); border:1px solid #182C46; border-left:3px solid #0EA5E9; padding:1.05rem 1.25rem; margin:0 0 1.15rem; }
+.hv-hdr { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.5rem; margin-bottom:0.65rem; }
+.hv-tag { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:0.71rem; text-transform:uppercase; letter-spacing:0.08em; color:#38BDF8; font-weight:600; }
+.hv-sub { font-size:0.86rem; color:#8FA3B8; margin:0 0 0.7rem; }
+.hv-cv { width:100% !important; display:block !important; background:#04070D; border:1px solid #15253A; }
+.hv-btn-row { display:flex; flex-wrap:wrap; gap:0.45rem; margin-top:0.6rem; }
+.hv-btn { background:#0C1D31 !important; border:1px solid #0284C7 !important; color:#7DD3FC !important; padding:0.4rem 0.8rem !important; font-family:ui-monospace,SFMono-Regular,Consolas,monospace !important; font-size:0.75rem !important; cursor:pointer; }
+.hv-btn:hover { background:#122B47 !important; color:#BAE6FD !important; }
+</style>
+  <link rel="stylesheet" href="assets/spectral-showcase.css?v=20261116T224052Z">
+<style id="spectral-lambda-awwwards-theme">
+:root {
+  --bg-void: #05070B !important;
+  --bg-canvas: #05070B !important;
+  --bg-chassis: #080C14 !important;
+  --bg-bay: #080C14 !important;
+  --bg-panel: #0B111D !important;
+  --bg-card: #0B111D !important;
+  --bg-titanium: #0B111D !important;
+  --bg-lift: #101929 !important;
+  --bg-card-hover: #101929 !important;
+  --border-hairline: #162235 !important;
+  --line-hair: #162235 !important;
+  --border-strong: #1E324D !important;
+  --line-active: #0284C7 !important;
+  --ink-ivory: #BCCAD8 !important;
+  --ink-primary: #BCCAD8 !important;
+  --ink-body: #8496AA !important;
+  --ink-secondary: #6C7F94 !important;
+  --ink-muted: #556678 !important;
+  --te-orange: #0EA5E9 !important;
+  --sig-cyan: #0EA5E9 !important;
+  --trace-ice: #0EA5E9 !important;
+  --phosphor-cyan: #0EA5E9 !important;
+  --sig-mint: #10B981 !important;
+  --trace-emerald: #10B981 !important;
+  --sig-amber: #D97706 !important;
+  --trace-amber: #D97706 !important;
+  --sig-rose: #E11D48 !important;
+  --trace-rose: #E11D48 !important;
+}
+html, body {
+  background: radial-gradient(circle at 50% 0%, #0B1526 0%, #05070B 65%) !important;
+  background-image: radial-gradient(circle at 50% 0%, #0B1526 0%, #05070B 65%) !important;
+  color: #8496AA !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-size: 16.5px !important;
+  line-height: 1.74 !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+h1, h2, .hero-title, .sec-title {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  color: #C2D0E0 !important;
+  letter-spacing: -0.025em !important;
+  font-weight: 600 !important;
+  background: none !important;
+  -webkit-text-fill-color: #C2D0E0 !important;
+}
+h3, strong, b, th, .ro-v, .kpi-val {
+  color: #B4C4D6 !important;
+  font-weight: 600 !important;
+}
+p, li, td { color: #8496AA !important; }
+a { color: #38BDF8 !important; text-decoration: none; }
+a:hover { color: #7DD3FC !important; }
+.eyebrow, .kicker, .sec-idx, .inst-id, .bay-tag {
+  color: #38BDF8 !important;
+  background: rgba(14, 165, 233, 0.08) !important;
+  border: 1px solid rgba(14, 165, 233, 0.24) !important;
+  border-left: 3px solid #0284C7 !important;
+  border-radius: 2px !important;
+  letter-spacing: 0.07em !important;
+}
+.kpi-card, .beat-card, .bay, .thm-card, .card-slate, .inst-frame, .kpi-cell, .ro-box, .ro-cell, .plain-box {
+  background: linear-gradient(180deg, #0B111E 0%, #080C15 100%) !important;
+  border: 1px solid #162438 !important;
+  box-shadow: inset 0 1px 0 rgba(56, 189, 248, 0.06), 0 10px 28px rgba(0, 0, 0, 0.45) !important;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.plain-en-lead {
+  background: #09101C;
+  border: 1px solid #172A42;
+  border-left: 3px solid #0284C7;
+  padding: 1.15rem 1.35rem;
+  margin: 1.0rem 0 1.25rem;
+}
+.plain-en-lead .pe-tag {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #38BDF8;
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+}
+.plain-en-lead p {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: #A8B9CC !important;
+  max-width: 78ch;
+}
+.artifact-link-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-items: center;
+  margin: 0 0 1.4rem;
+  padding: 0.65rem 0.9rem;
+  background: #080D17;
+  border: 1px solid #152236;
+}
+.artifact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.82rem;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.76rem;
+  background: #0D1626;
+  border: 1px solid #1C304B;
+  color: #9FB2C8 !important;
+}
+.artifact-btn:hover { border-color: #0EA5E9; color: #C2D0E0 !important; background: #122036; }
+.artifact-btn.primary {
+  background: rgba(2, 132, 199, 0.16);
+  border-color: rgba(14, 165, 233, 0.42);
+  color: #7DD3FC !important;
+}
+/* Interactive Guided Demo Coach Pop-Up Banner + Floating Toast */
+.cyber-coach-bar {
+  background: linear-gradient(90deg, #091526 0%, #0A111D 100%);
+  border: 1px solid #1B3554;
+  border-left: 4px solid #0EA5E9;
+  padding: 0.95rem 1.2rem;
+  margin: 0 0 1.0rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+.cyber-coach-left { flex: 1; min-width: 250px; }
+.cyber-coach-step {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.71rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #38BDF8;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.25rem;
+}
+.cyber-coach-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #0EA5E9;
+  box-shadow: 0 0 8px #0EA5E9;
+  display: inline-block;
+}
+.cyber-coach-msg {
+  font-size: 0.95rem;
+  line-height: 1.58;
+  color: #B8C7D9 !important;
+  margin: 0;
+}
+.cyber-coach-actions { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.cyber-coach-next {
+  background: #0B253C !important;
+  border: 1px solid #0EA5E9 !important;
+  color: #7DD3FC !important;
+  padding: 0.5rem 0.95rem !important;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+}
+.cyber-coach-next:hover { background: #103352 !important; color: #BAE6FD !important; }
+#cyber-floating-helper {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 9999;
+  max-width: 350px;
+  background: #08111E;
+  border: 1px solid #1E3A5F;
+  border-left: 3px solid #0EA5E9;
+  padding: 0.85rem 1.05rem;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.75);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: #A8B9CC;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+#cyber-floating-helper .fh-hdr {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.69rem; color: #38BDF8; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.3rem;
+}
+#cyber-floating-helper .fh-close {
+  background: none; border: none; color: #64748B; cursor: pointer; font-size: 0.85rem; padding: 0 4px;
+}
+.btn, button.step-btn, .nav-link, .nav-a, .rpill {
+  background: #0C1422 !important;
+  border: 1px solid #1A2B42 !important;
+  color: #98ABC0 !important;
+  border-radius: 2px !important;
+}
+.btn:hover, button.step-btn:hover, .nav-link:hover {
+  border-color: #0284C7 !important;
+  color: #C2D0E0 !important;
+  background: #101C30 !important;
+}
+.btn.active, .step-active, .nav-link.active, .nav-a.active {
+  background: #0C2136 !important;
+  border-color: #0EA5E9 !important;
+  color: #7DD3FC !important;
+  box-shadow: inset 3px 0 0 #0EA5E9 !important;
+}
+.nfl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.85rem; margin-top: 0.85rem; }
+.nfl-card { background: #090E18; border: 1px solid #162336; padding: 0.95rem 1.1rem; }
+.nfl-card h3 { font-size: 0.94rem; margin: 0 0 0.35rem; color: #B8C7D9 !important; }
+.nfl-card p  { font-size: 0.87rem; line-height: 1.62; margin: 0; color: #8496AA !important; }
+@media (max-width: 920px) { .nfl-grid { grid-template-columns: 1fr; } #cyber-floating-helper { max-width: 290px; bottom: 10px; right: 10px; } }
+</style>
+</head>
+<body>
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a class="brand-block" href="index.html">
+        <span class="brand-mark">SPECTRAL SYSTEMS</span>
+        <span class="brand-sub">CXL 3.x INLINE SILICON</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary Routes">
+        <a class="nav-link active" href="index.html">01 / Live Wire</a>
+        <a class="nav-link" href="benchmarks.html">02 / Benchmarks</a>
+        <a class="nav-link" href="zero-trust.html">03 / Zero-Trust</a>
+        <a class="nav-link" href="verification.html">04 / Verification</a>
+        <a class="nav-link" href="cots-procurement.html">05 / COTS &amp; TCO</a>
+        <a class="nav-link" href="patents.html">06 / DFARS &amp; ZK-IC3</a>
+        <a class="nav-link" href="console-demo/index.html">07 / Compiler &amp; BAR0</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section id="spectral-guided-discovery" class="triage-lens" aria-label="Reviewer Triage Lens">
+      <div class="triage-top">
+        <span class="eyebrow">4-Persona Reviewer Triage Lens</span>
+        <div class="persona-tabs" role="tablist">
+          <button type="button" class="persona-btn active" data-persona="darpa">DARPA / DoD PM</button>
+          <button type="button" class="persona-btn" data-persona="arch">CXL / HBM4 Architect</button>
+          <button type="button" class="persona-btn" data-persona="formal">Formal / Crypto Auditor</button>
+          <button type="button" class="persona-btn" data-persona="gpc">Federal GPC Contracting</button>
+        </div>
+      </div>
+      <div id="spectral-guided-story" class="guided-story">
+        Mission &amp; DoD Program View: A compromised host OS or PCIe Warm Function-Level Reset (FLR) cannot re-enable a revoked tenant bit because CSR 0x70 passes through a physical AND2 gate reset solely by cold chassis power (por_cold_rst_n). Bad writes are zeroed in 16-byte sub-flit slots at 99.20% goodput instead of collapsing shared memory links to 48.90%. All Patents Pending (DFARS 252.227-7018 Private-Expense IP).
+      </div>
+      <div class="copy-pill-row">
+        <button type="button" class="copy-pill" data-copy="268E1">CAGE: 268E1</button>
+        <button type="button" class="copy-pill" data-copy="VTP2JPCJU3D9">UEI: VTP2JPCJU3D9</button>
+        <button type="button" class="copy-pill" data-copy="10.5281/zenodo.24047902">DOI: 10.5281/zenodo.24047902</button>
+        <button type="button" class="copy-pill" data-copy="agfi-08becf3b40b169674">agfi-08becf3b40b169674</button>
+        <button type="button" class="copy-pill" data-copy="agfi-03b742e2a9cd2c0f2">agfi-03b742e2a9cd2c0f2</button>
+      </div>
+    </section>
+
+    <section class="monograph-bar" aria-label="Monograph Downloads">
+      <div class="monograph-actions">
+        <a class="btn-monograph-active" href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener noreferrer">
+          Part I Monograph (v1.0.0 PDF &middot; DOI 10.5281/zenodo.24047902)
+        </a>
+        <span class="btn-monograph-disabled" aria-disabled="true" role="status">
+          Part II Monograph (v1.1.0 PDF &mdash; Final Typesetting in Progress)
+        </span>
+      </div>
+      <div class="monograph-note">
+        All 8 Part II Lean 4 proofs (<code>thm30..thm37</code>) are already live on <a href="verification.html">/verification</a>.
+      </div>
+    </section>
+
+
+    <section class="hero-header">
+      <span class="eyebrow">Route 01 &middot; Inline CXL 3.x Sub-Flit Capability Gate</span>
+      <h1 class="hero-title">A hardware filter on the memory wire. It zeroes out bad writes in 4 nanoseconds.</h1>
+<div class="plain-en-lead"><div class="pe-tag">REDUCTION TO PRACTICE // THE CORE IDEA IN 20 SECONDS</div><p>Four apps share every 64-byte packet on a server memory wire (16 bytes per app). When one app sends a bad write, old hardware throws away the whole 64-byte packet—cutting everyone's speed to 48.9%. Our chip zeroes out only the bad 16 bytes so the other three apps keep running at 99.2% speed.</p></div>
+<p>In modern AI servers, four different jobs or users share every 64-byte packet on the CXL memory wire. When one user sends an unauthorized write, standard hardware panics and drops the entire 64-byte packet—cutting everyone else's speed in half (48.90%). Our 1,585-gate circuit zeroes out only the bad 16-byte slot in 2.85 nanoseconds so the other three users keep running at 99.20% speed, using zero bytes of lookup RAM.</p></div><div class="artifact-link-strip"><a class="artifact-btn primary" href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer" target="_blank" rel="noopener noreferrer">GitHub Repository (Apache-2.0) &rarr;</a><a class="artifact-btn primary" href="preprint_Murphy_v1_0_0.pdf" target="_blank" rel="noopener">Read Preprint PDF (v1.0.0) &rarr;</a><a class="artifact-btn" href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener noreferrer">Zenodo DOI: 10.5281/zenodo.24047902</a><a class="artifact-btn" href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer/wiki/One-Click-Verification-and-Oracle-Architecture" target="_blank" rel="noopener noreferrer">1-Click 5-Oracle Test Wiki</a></div>
+<p>Four users share every 64-byte packet on a CXL memory wire. When one user sends a bad write, existing hardware panics and dumps the whole 64-byte packet—cutting everyone else's speed in half (48.90%). Our chip zeroes out only the bad 16-byte slot in 2.85 nanoseconds so the other three users keep running at 99.20% speed. It uses 1,585 logic gates, zero bytes of lookup RAM, and locks permissions with a physical one-way gate that only unplugging the server rack resets.</p></div>
+      <h2 class="hero-sub">Kill the Bad Write, Not the Whole Wire.</h2>
+      <div class="beat-grid">
+        <div class="beat-card">
+          <span class="beat-tag">Beat 1 &middot; Motivation</span>
+          <p>A 64-byte <span class="hw-term" tabindex="0" data-tip="Compute Express Link 3.x cache-coherent memory-pooling interconnect carrying 512-bit flits at 250 MHz+.">CXL 3.x flit</span> carries four 16-byte tenant slots side-by-side every <code>4.0 ns</code>. Legacy whole-flit CRC poisoning wrecks all four slots whenever one rogue write arrives&mdash;collapsing shared link goodput to <code>48.90%</code> at a <span class="tangle-num" data-tangle-var="idx_pbad" data-min="0.2" data-max="8.0" data-step="0.2" data-unit="%" data-val="0.8">0.8%</span> bad-slot arrival rate.</p>
+        </div>
+        <div class="beat-card">
+          <span class="beat-tag">Beat 2 &middot; Plain Physical Meaning</span>
+          <p>Our 2-cycle (<code>8.0 ns</code>) gate splits each slot through a physical <span class="hw-term" tabindex="0" data-tip="Dual-output 6-input Xilinx UltraScale+ lookup primitive computing O5 = r_i & P_eff and O6 = r_i & ~P_eff simultaneously.">LUT6_2</span> mask, pulling only the bad 16-byte slot&rsquo;s byte strobes (<code>WSTRB[15:0] = 16&apos;h0000</code>) to silent <code>CXL_NOP</code> at <code>99.20%</code> goodput while locking revocation in <span class="hw-term" tabindex="0" data-tip="64-bit live SPID bitmap wired through a one-way AND2 gate (reg_q & wdata) reset solely by cold chassis power por_cold_rst_n.">CSR 0x70</span>.</p>
+        </div>
+        <div class="beat-card">
+          <span class="beat-tag">Beat 3 &middot; Scope &amp; Price Paid</span>
+          <p>CXL IDE (<code>AES-GCM</code>) still encrypts the physical cable; Spectral enforces tenant capability isolation inside the flit stream. Inline emergency revocation buffers <code>d_rev &le; 8</code> roots in <code>CSR 0x60</code> across the <code>&le; 548 ns</code> dual-bank drain before shadow Bezout deflation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cad-bay" aria-label="Instrument 01 Sub-Flit Logic Analyzer">
+      <div class="workbench-head">
+        <div>
+          <span class="eyebrow">Instrument 01 &middot; 250 MHz Cut-Through Logic Analyzer &amp; Airlock FSM</span>
+          <h3 style="margin:4px 0 0;">Live Memory Wire Demo: 4 App Slots Per Packet (4.0 ns Clock)</h3>
+        </div>
+        <span id="idx-haptic-badge" class="haptic-badge">[LEGAL TRANSITION] Pipeline Nominal (99.20% Goodput)</span>
+      </div>
+
+      <div class="ctrl-row">
+        <button type="button" id="btn-inject-bad" class="hw-btn danger">1. Inject Bad Write in Seat 1 (0xDEADBEEF)</button>
+        <button type="button" id="btn-toggle-mode" class="hw-btn primary">2. Mode: Spectral Surgical CXL_NOP (99.20%) [ACTIVE]</button>
+        <button type="button" id="btn-fire-flr" class="hw-btn">3. Fire Warm PCIe Reboot (FLR) Survival Test</button>
+        <button type="button" id="btn-pause-clk" class="hw-btn">Pause 250 MHz Clock</button>
+        <button type="button" id="btn-step-clk" class="hw-btn">Step +1 Cycle (4.0 ns)</button>
+      </div>
+
+      <div class="ctrl-row">
+        <span class="eyebrow" style="margin-right:6px;">Token-Bucket Airlock (thm31):</span>
+        <button type="button" id="btn-airlock-base" class="hw-btn">Admit Base Revocation d_base&le;6</button>
+        <button type="button" id="btn-airlock-drain" class="hw-btn">Start 2&apos;b11 Dual-Bank Drain</button>
+        <button type="button" id="btn-airlock-middrain" class="hw-btn">Mid-Drain Arrival Delta_d&le;2</button>
+        <button type="button" id="btn-airlock-swap" class="hw-btn primary">Complete Shootdown Swap</button>
+      </div>
+
+      <canvas id="sim-pipeline-cv" class="sim-canvas" width="1040" height="400"></canvas>
+
+      <div class="spec-card" style="margin-top:12px;">
+        <span class="telemetry-label">FLOATING LOGIC-ANALYZER PROBE (HOVER ANY MOVING SLOT ON CANVAS &middot; thm01, thm05, SVA 9)</span>
+        <div id="idx-probe-readout" class="mono" style="font-size:12.4px; margin-top:4px; color:var(--ink-ivory);">Initializing 512-bit flit probe...</div>
+      </div>
+
+      <div class="telemetry-strip">
+        <div class="telemetry-cell"><span class="telemetry-label">LINK GOODPUT (THM 5.1)</span><span id="idx-tel-goodput" class="telemetry-val">99.20%</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">CSR 0x70 (por_cold_rst_n)</span><span id="idx-tel-csr70" class="telemetry-val">0xFFFFFFFFFFFFFFEB</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">CSR 0x28 / 0x30 (WARM FLR)</span><span id="idx-tel-credits" class="telemetry-val">0x40 / 0x40</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">CSR 0x20 / 0x60 AIRLOCK</span><span id="idx-tel-airlock" class="telemetry-val">2&apos;b00 IDLE | d_rev=2/8</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">PIPELINE CLOCK</span><span id="idx-tel-cycle" class="telemetry-val">250 MHz (8.0 ns)</span></div>
+      </div>
+    </section>
+
+    <section class="cad-bay" aria-label="1080p Executive Briefing Video">
+      <div class="workbench-head">
+        <div>
+          <span class="eyebrow">CDAO / Tradewinds Technical Walkthrough (1080p Native Stream)</span>
+          <h3 style="margin:4px 0 0;">Hardware Demonstration &amp; AWS F2 Post-Route Sign-Off Briefing</h3>
+        </div>
+      </div>
+      <video controls preload="metadata" playsinline style="width:100%; border:1px solid var(--hairline); background:#05070B;" src="assets/videos/cdao_tradewinds_v1.mp4">
+        Your browser supports standard HTML5 MP4 playback at <code>assets/videos/cdao_tradewinds_v1.mp4</code>.
+      </video>
+    </section>
+
+
+    <footer class="site-footer">
+      <section id="spectral-scope-and-differentiation" class="section" style="padding:2.2rem 0 1.2rem;border-top:1px solid #23262E;"><div class="container wrap"><div class="bay scope-box" style="padding:1.25rem 1.4rem;background:#121419;border:1px solid #252832;border-left:3px solid #C9933B;"><div class="pe-tag" style="color:#C9933B;font-family:monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.3rem;">NO FREE LUNCH // ENGINEERING SCOPE &amp; PHYSICAL TRADE-OFFS ON THIS PAGE</div><h2 class="sec-title" style="font-size:1.38rem;margin:0 0 0.35rem;">No Free Lunch on the Wire — Surgical Slot Zeroing vs. Full-Link Encryption</h2><p style="margin:0;font-size:0.94rem;color:#A8A69E;">What this 4-slot cut-through filter solves on the CXL wire, and what it deliberately leaves to other layers:</p><div class="nfl-grid"><div class="nfl-card"><h3>1. Access Control, Not Payload Encryption</h3><p>Zeroing out an unauthorized 16-byte slot (wstrb = 0x0000) stops cross-tenant memory writes and reads in 2.85 ns, but it does not encrypt data in transit. If you need wire-level AES-GCM encryption, this filter sits right behind your standard CXL IDE encryption block.</p></div><div class="nfl-card"><h3>2. The Scrubbed 16 Bytes Still Ride the Clock Beat</h3><p>To avoid pausing the wire or changing packet credits (crd_rsp = 0), a blocked 16-byte slot is turned into a harmless no-op (CXL_NOP) rather than squeezed out. Those 16 bytes carry zero data for that one 4.0 ns beat, while the other 48 bytes deliver at 99.20% goodput.</p></div><div class="nfl-card"><h3>3. Needs CXL.mem / AXI4 Sub-Flit Framing</h3><p>This circuit inspects 512-bit (64-byte) flits broken into four 128-bit slots at the memory controller or FPGA shell boundary. It does not inspect encrypted TCP/IP Ethernet packets.</p></div></div></div></div></section>
+          <div class="spec-card">
+            <strong>Emergency Vieta Horizon (d_rev &le; 8)</strong><br>
+            <code>CSR 0x60</code> holds up to 8 emergency roots in <code>GF(2^8)</code> during the <code>&le; 548 ns</code> dual-bank shootdown window before 8-step shadow Bezout deflation merges them into coarse masks.
+          </div>
+          <div class="spec-card">
+            <strong>Mode-D WDDL Energy Conservation</strong><br>
+            Enabling dual-rail precharge Mode-D achieves <code>TVLA |t| = 0.00</code> and traps stuck rails in <code>CSR 0x48</code>, trading a <code>50%</code> precharge duty ceiling and <code>2/alpha_data &ge; 4x</code> switching energy.
+          </div>
+          <div class="spec-card">
+            <strong>Silicon Provenance (16nm Physical + 7nm Predictive)</strong><br>
+            <code>16nm xcvu47p</code> metrics (<code>250 MHz</code>, <code>+0.491 ns</code> WNS, <code>394 LUTs</code>, <code>0 BRAM</code>) come from routed AWS F2 AGFIs; <code>7nm ASAP7</code> (<code>0.003335 mm^2</code>, <code>3.728 mW</code>) uses the open predictive PDK (Clark et al., 2016).
+          </div>
+        </div>
+      </section>
+      <div class="footer-meta">
+        <span>Spectral Systems LLC &middot; Principal Architect: Eric C. Murphy &middot; CAGE: 268E1 &middot; SAM.gov UEI: VTP2JPCJU3D9</span>
+        <span>All Patents Pending (DFARS 252.227-7018 Private-Expense IP) &middot; DOI: 10.5281/zenodo.24047902</span>
+      </div>
+    </footer>
+  <div class="container wrap"><div class="nl-next-funnel"><div style="flex:1;min-width:260px;"><div class="nl-nf-kicker">NEXT IN THE 2-MINUTE WALKTHROUGH // STEP 2 OF 7</div><div class="nl-nf-title">02 / Silicon Benchmarks — See the 16nm FPGA & 7nm ASIC Measurements</div><p class="nl-nf-desc">See how zeroing out bad slots keeps cluster speed at 99.20% with a flat 8.0 ns delay and saves $37.50M across 10,000 AI racks.</p></div><div><a class="nl-nf-btn" href="/benchmarks">Continue to 02 / Benchmarks -></a></div></div></div>
+</main>
+  <script src="assets/spectral-sims.js?v=20261116T224052Z"></script>
+<style id="spectral-responsive-canvas-fix">
+header, nav, .nav-bar, .top-nav, .nav-links, .nav-row, .ctrl-row, .ctrl-bar, .btn-grp, .ctrl-grp {
+  display: flex !important; flex-wrap: wrap !important; gap: 0.45rem !important; max-width: 100% !important; box-sizing: border-box !important;
+}
+button, .btn, .nav-link, .nav-a, .kripke-banner, #r1-state-vector {
+  white-space: normal !important; word-break: break-word !important; max-width: 100% !important; box-sizing: border-box !important; line-height: 1.4 !important;
+}
+/* Hide confusing secondary token-bucket airlock row on Route 1 so demo is elementary */
+#r1-btn-admit-base, #r1-btn-start-drain, #r1-btn-admit-mid, #r1-btn-complete-swap { display: none !important; }
+canvas { display: block !important; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; }
+</style>
+
+<script id="spectral-collision-free-pipeline">
+(function(){
+  var STEPS = [["STEP 1 OF 3 // WATCH SLOT 2 GET CAUGHT", "Look at Slot 2 (second row) in the diagram below: a hacked app is trying to write 0xDEADBEEF into memory it doesn't own. Notice how our chip turns ONLY Slot 2 into harmless zeroes while Slots 1, 3, and 4 pass through green. Click [Next Step] to see what happens on old hardware.", "Switch to Old Hardware Mode (48.9% Speed) ->"], ["STEP 2 OF 3 // SEE WHY OLD HARDWARE CRASHES", "Now look at the right column: without our chip, one bad write in Slot 2 poisons the whole 64-byte packet. Slots 1, 3, and 4 all turn red and get dropped, cutting server speed in half (48.9%). Click [Next Step] to switch back to our chip and freeze the clock.", "Restore Our Chip (99.2%) & Step 1 Clock Beat ->"], ["STEP 3 OF 3 // STEP ONE 4.0 ns CLOCK BEAT", "The 250 MHz clock is now stepped one beat (4.0 nanoseconds). Hover your mouse over any box in the diagram to see the exact wire switch state, or click any button below to test on your own.", "Reset Guided Tour to Step 1 \u21ba"]];
+  var stepIdx = 0;
+  var tagEl = document.getElementById('cc-step-tag');
+  var msgEl = document.getElementById('cc-step-msg');
+  var nxtBtn = document.getElementById('cc-btn-next');
+  var fhBox = document.getElementById('cyber-floating-helper');
+  var fhTxt = document.getElementById('fh-body-txt');
+  var fhCls = document.getElementById('fh-close-btn');
+  if (fhCls && fhBox) fhCls.addEventListener('click', function(){ fhBox.style.display = 'none'; });
+
+  function popHelper(title, text) {
+    if (tagEl && title) tagEl.textContent = title;
+    if (msgEl && text) msgEl.textContent = text;
+    if (fhBox && fhTxt && text) {
+      fhBox.style.display = 'block';
+      fhTxt.innerHTML = '<strong style=\"color:#7DD3FC\">' + (title || 'WHAT JUST HAPPENED') + ':</strong> ' + text;
+    }
+  }
+
+  /* Hide raw TOKEN-BUCKET AIRLOCK label if present */
+  var allSpans = document.querySelectorAll('span, div');
+  for (var k = 0; k < allSpans.length; k++) {
+    if (allSpans[k].children.length === 0 && (allSpans[k].textContent || '').indexOf('TOKEN-BUCKET AIRLOCK') >= 0) {
+      allSpans[k].style.display = 'none';
+    }
+  }
+
+  /* Route 1 Elementary 3-Column Pipeline Demo */
+  var pipeApi = null;
+  function installElementaryPipeline() {
+    var origCv = document.getElementById('sim-pipeline-cv');
+    if (!origCv) return;
+    var cv = origCv.cloneNode(true);
+    origCv.parentNode.replaceChild(cv, origCv);
+    var ctx = cv.getContext('2d');
+    var probe = document.getElementById('sim-pipeline-probe');
+
+    var st = { mode: 'spectral', paused: false, rogueActive: true, phase: 0.0 };
+    function bindClean(btn, fn) {
+      if (!btn) return null;
+      var nb = btn.cloneNode(true);
+      btn.parentNode.replaceChild(nb, btn);
+      nb.addEventListener('click', fn);
+      return nb;
+    }
+    var allBtns = Array.prototype.slice.call(document.querySelectorAll('button'));
+    function findBtn(idList, textSub) {
+      for (var i = 0; i < idList.length; i++) { var el = document.getElementById(idList[i]); if (el) return el; }
+      for (var j = 0; j < allBtns.length; j++) { if ((allBtns[j].textContent || '').indexOf(textSub) >= 0) return allBtns[j]; }
+      return null;
+    }
+    var bInj = findBtn(['r1-btn-inject', 'btn-inject-rogue'], 'Inject');
+    var bMod = findBtn(['r1-btn-mode', 'btn-toggle-mode'], 'Mode:');
+    var bPau = findBtn(['r1-btn-pause'], 'Clock');
+    var bStp = findBtn(['r1-btn-step'], 'Step');
+    var bFlr = findBtn(['r1-btn-flr', 'btn-fire-flr'], 'FLR');
+    var banner = document.getElementById('r1-state-vector') || document.querySelector('.kripke-banner');
+
+    function syncLabels(bannerText) {
+      if (bInj) bInj.textContent = st.rogueActive ? '1. Bad Write in Slot 2: ON (Click to Send All Clean Traffic)' : '1. Bad Write in Slot 2: OFF (Click to Inject Bad Write)';
+      if (bMod) bMod.textContent = (st.mode === 'spectral') ? '2. Filter Mode: Our Chip (Zeroes Only Slot 2 -> 99.2% Speed)' : '2. Filter Mode: Old Hardware (Crashes Whole Packet -> 48.9% Speed)';
+      if (bPau) bPau.textContent = st.paused ? '3. Resume Wire Clock' : '3. Pause Wire Clock';
+      if (bStp) bStp.textContent = '4. Step +1 Clock Beat (4.0 ns)';
+      if (bFlr) bFlr.textContent = '5. Test Warm Server Reboot (Hardware Lock Stays ON)';
+      if (banner && bannerText) banner.textContent = bannerText;
+      var gEl = document.getElementById('r1-ro-goodput');
+      if (gEl) gEl.textContent = (st.mode === 'spectral') ? '99.20% (Only Bad Slot Zeroed)' : '48.90% (Whole Packet Crashed)';
+    }
+
+    bInj = bindClean(bInj, function(){
+      st.rogueActive = !st.rogueActive;
+      syncLabels(st.rogueActive ? '[BAD WRITE INJECTED IN SLOT 2] Our chip zeroes out only Slot 2; Slots 1, 3, and 4 pass untouched at 99.2% speed.' : '[ALL 4 SLOTS NORMAL] All 4 apps have valid permissions and pass straight to memory at 100% speed.');
+      popHelper('BUTTON 1 // SLOT 2 BAD WRITE TOGGLED', st.rogueActive ? 'You injected a bad write into Slot 2 (second row). Watch it turn from Red (Incoming) -> Amber (Caught by Gate) -> Blue (Replaced with harmless zeroes) while Slots 1, 3, and 4 stay green!' : 'You turned off the bad write. All 4 slots are now green normal app traffic.');
+    });
+    bMod = bindClean(bMod, function(){
+      st.mode = (st.mode === 'spectral') ? 'legacy' : 'spectral';
+      st.rogueActive = true;
+      syncLabels((st.mode === 'spectral') ? '[OUR CHIP: 99.2% SPEED] Only Slot 2 is zeroed out; innocent neighbor Slots 1, 3, and 4 keep running.' : '[OLD HARDWARE: 48.9% SPEED] Bad Slot 2 crashes the whole 64-byte packet—all 4 apps lose their data and have to retry!');
+      popHelper('BUTTON 2 // COMPARING OUR CHIP VS. OLD HARDWARE', (st.mode === 'spectral') ? 'Switched to Our Chip: only the bad 16-byte slot is zeroed out (blue box on the right). The other 3 apps stay green at 99.2% speed.' : 'Switched to Old Hardware: look at Column 3 on the right—because Slot 2 was bad, old hardware aborted the ENTIRE packet, turning Slots 1, 3, and 4 red too (speed drops to 48.9%)!');
+    });
+    bPau = bindClean(bPau, function(){
+      st.paused = !st.paused;
+      syncLabels(st.paused ? '[CLOCK PAUSED] Click Step +1 Clock Beat (4.0 ns) to move the pulse forward.' : '[CLOCK RUNNING] 250 MHz (4.0 ns per beat) wire clock active.');
+      popHelper('BUTTON 3 // WIRE CLOCK', st.paused ? 'Clock paused. You can now hover any slot box to inspect it or click Button 4 to step one 4-nanosecond beat at a time.' : 'Clock resumed at 250 MHz.');
+    });
+    bStp = bindClean(bStp, function(){
+      st.paused = true;
+      st.phase = (st.phase + 0.34) % 1.0;
+      syncLabels('[STEPPED +4.0 NANOSECONDS] Packet advanced one hardware stage.');
+      popHelper('BUTTON 4 // SINGLE 4.0 ns CLOCK STEP', 'Advanced the memory wire by exactly 1 clock cycle (4.0 nanoseconds). Notice that the hardware gate finishes checking all 4 slots in a single cycle without ever pausing to look up RAM.');
+    });
+    bFlr = bindClean(bFlr, function(){
+      syncLabels('[WARM REBOOT BLOCKED] OS triggered a warm PCIe reset, but hardware lock CSR 0x70 stayed locked at 0xFFFFFFFFFFFFFFEB!');
+      popHelper('BUTTON 5 // WARM SERVER REBOOT TEST', 'You simulated a hacked OS rebooting the PCIe bus to clear the security rules. Because our permission switch is wired to the physical power cord (Cold Reset Only), the lock stayed 100% intact!');
+    });
+
+    syncLabels('[LIVE WIRE READY] Slot 2 bad write is being zeroed out in 4.0 ns while Slots 1, 3, and 4 run at 99.2% speed.');
+    pipeApi = { st: st, syncLabels: syncLabels, popHelper: popHelper };
+
+    var hitBoxes = [];
+    cv.addEventListener('mousemove', function(e){
+      var r = cv.getBoundingClientRect();
+      var mx = e.clientX - r.left, my = e.clientY - r.top;
+      var found = null;
+      for (var i = 0; i < hitBoxes.length; i++) {
+        var b = hitBoxes[i];
+        if (mx >= b.x && mx <= b.x + b.w && my >= b.y && my <= b.y + b.h) { found = b; break; }
+      }
+      if (probe) {
+        if (found) {
+          probe.style.display = 'block';
+          probe.style.left = Math.max(8, Math.min(r.width - 280, mx + 12)) + 'px';
+          probe.style.top  = Math.max(8, my - 12) + 'px';
+          probe.innerHTML  = '<strong style=\"color:#38BDF8\">' + found.title + '</strong><br>' + found.line1 + '<br><span style=\"color:#94A3B8\">' + found.line2 + '</span>';
+        } else { probe.style.display = 'none'; }
+      }
+    });
+    cv.addEventListener('mouseleave', function(){ if (probe) probe.style.display = 'none'; });
+
+    function drawFrame() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var rect = cv.getBoundingClientRect();
+      var W = Math.max(300, Math.floor(rect.width));
+      var H = 324;
+      if (cv.width !== W * dpr || cv.height !== H * dpr) {
+        cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px';
+      }
+      ctx.save(); ctx.scale(dpr, dpr);
+      ctx.fillStyle = '#060911'; ctx.fillRect(0, 0, W, H);
+      if (!st.paused) st.phase = (st.phase + 0.007) % 1.0;
+
+      var compact = (W < 640);
+      var leftGutter = compact ? 76 : 122;
+      var rightPad = 12;
+      var availW = W - leftGutter - rightPad;
+      var colGap = compact ? 8 : 14;
+      var colW = Math.floor((availW - colGap * 2) / 3);
+      var colX = [leftGutter, leftGutter + colW + colGap, leftGutter + (colW + colGap) * 2];
+      var topHeaderH = 34;
+      var rowStep = Math.floor((H - topHeaderH - 12) / 4);
+      var boxH = rowStep - 10;
+
+      var stageHeaders = [
+        { title: compact ? '1. INCOMING WIRE' : '1. INCOMING WIRE (64-Byte Packet)', color: '#38BDF8', border: '#152C44' },
+        { title: compact ? '2. GATE CHECK' : '2. HARDWARE CHECK (0.12 ns Gate)', color: '#F59E0B', border: '#3D2B14' },
+        { title: compact ? '3. RAM OUTPUT' : '3. MEMORY OUTPUT (After Filter)', color: '#10B981', border: '#13392D' }
+      ];
+      var hdrFont = compact ? '600 9.5px ui-monospace, SFMono-Regular, Consolas, monospace' : '600 11px ui-monospace, SFMono-Regular, Consolas, monospace';
+      for (var c = 0; c < 3; c++) {
+        var sx = colX[c];
+        ctx.strokeStyle = stageHeaders[c].border; ctx.lineWidth = (c === 1) ? 1.5 : 1;
+        ctx.strokeRect(sx - 3, topHeaderH - 4, colW + 6, H - topHeaderH - 4);
+        ctx.save(); ctx.beginPath(); ctx.rect(sx, 4, colW, topHeaderH - 10); ctx.clip();
+        ctx.font = hdrFont; ctx.fillStyle = stageHeaders[c].color;
+        ctx.fillText(stageHeaders[c].title, sx + 2, 20); ctx.restore();
+      }
+
+      var slotMeta = [
+        { slot: 'SLOT 1', sub: '16 Bytes', app: 'App #1: Normal Read' },
+        { slot: 'SLOT 2', sub: '16 Bytes', app: 'App #2: Normal Write' },
+        { slot: 'SLOT 3', sub: '16 Bytes', app: 'App #3: Normal Write' },
+        { slot: 'SLOT 4', sub: '16 Bytes', app: 'App #4: Normal Read' }
+      ];
+      hitBoxes = [];
+      var cardFont1 = compact ? '600 9.5px Inter, sans-serif' : '600 11px Inter, sans-serif';
+      var cardFont2 = compact ? '400 9px ui-monospace, monospace' : '400 10.2px ui-monospace, monospace';
+
+      for (var s = 0; s < 4; s++) {
+        var ry = topHeaderH + s * rowStep + 4;
+        ctx.font = cardFont1; ctx.fillStyle = '#8496AA'; ctx.fillText(slotMeta[s].slot, 8, ry + 20);
+        if (!compact) { ctx.font = cardFont2; ctx.fillStyle = '#556678'; ctx.fillText(slotMeta[s].sub, 8, ry + 36); }
+
+        for (var col = 0; col < 3; col++) {
+          var bx = colX[col] + 4, bw = colW - 8;
+          var isBad = (s === 1 && st.rogueActive);
+          var isPoisonedNeighbor = (st.mode === 'legacy' && st.rogueActive && col === 2);
+          var bg = '#081A17', brd = '#0D6850', txtCol = '#C2D0E0', subCol = '#34D399';
+          var l1 = slotMeta[s].app, l2 = 'Permission: Valid', l3 = 'Passes at 100% Speed';
+
+          if (isBad) {
+            if (col === 0) {
+              bg = '#220B13'; brd = '#BE123C'; subCol = '#FB7185';
+              l1 = 'Hacked App: Bad Write!'; l2 = 'Target: Unowned RAM'; l3 = 'Entering Filter...';
+            } else if (col === 1) {
+              bg = '#211608'; brd = '#B45309'; subCol = '#FBBF24';
+              l1 = 'Caught by Gate (0.12ns)'; l2 = 'Write Switch -> OFF'; l3 = 'Slots 1,3,4 Untouched';
+            } else {
+              if (st.mode === 'spectral') {
+                bg = '#081726'; brd = '#0284C7'; subCol = '#38BDF8';
+                l1 = 'Zeroed Out (Safe)'; l2 = 'Data -> 0x0000_0000'; l3 = 'RAM Protected ✓';
+              } else {
+                bg = '#220B13'; brd = '#BE123C'; subCol = '#FB7185';
+                l1 = 'PACKET CRASHED!'; l2 = 'Old Firewall Panic'; l3 = 'All 4 Apps Dropped!';
+              }
+            }
+          } else if (isPoisonedNeighbor) {
+            bg = '#1F0D14'; brd = '#881337'; subCol = '#FDA4AF';
+            l2 = 'Innocent Neighbor'; l3 = 'Crashed by Slot 2!';
+          }
+
+          ctx.fillStyle = bg; ctx.fillRect(bx, ry, bw, boxH);
+          ctx.strokeStyle = brd; ctx.lineWidth = 1.25; ctx.strokeRect(bx, ry, bw, boxH);
+          ctx.save(); ctx.beginPath(); ctx.rect(bx + 4, ry + 2, bw - 8, boxH - 4); ctx.clip();
+          ctx.font = cardFont1; ctx.fillStyle = txtCol; ctx.fillText(l1, bx + 6, ry + 16);
+          ctx.font = cardFont2; ctx.fillStyle = '#8496AA'; ctx.fillText(l2, bx + 6, ry + 31);
+          ctx.fillStyle = subCol; ctx.fillText(l3, bx + 6, ry + 45); ctx.restore();
+          hitBoxes.push({ x: bx, y: ry, w: bw, h: boxH, title: slotMeta[s].slot + ' — ' + l1, line1: l2, line2: l3 });
+        }
+      }
+      var pulseX = colX[0] + st.phase * (colX[2] + colW - colX[0]);
+      ctx.strokeStyle = 'rgba(14, 165, 233, 0.35)'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(pulseX, topHeaderH); ctx.lineTo(pulseX, H - 8); ctx.stroke();
+      ctx.restore(); window.requestAnimationFrame(drawFrame);
+    }
+    window.requestAnimationFrame(drawFrame);
+  }
+
+  /* Wire up the Guided Demo Coach Next-Step Button across any route */
+  if (nxtBtn) {
+    nxtBtn.addEventListener('click', function(){
+      stepIdx = (stepIdx + 1) % STEPS.length;
+      var cur = STEPS[stepIdx];
+      popHelper(cur[0], cur[1]);
+      nxtBtn.textContent = cur[2];
+      /* Also trigger the actual underlying demo action on the page! */
+      if (pipeApi) {
+        if (stepIdx === 1) { pipeApi.st.mode = 'legacy'; pipeApi.st.rogueActive = true; pipeApi.syncLabels('[OLD HARDWARE MODE: 48.9% SPEED] Notice how Slot 2 turns all 4 slots red in Column 3!'); }
+        else if (stepIdx === 2) { pipeApi.st.mode = 'spectral'; pipeApi.st.paused = true; pipeApi.st.phase = 0.5; pipeApi.syncLabels('[OUR CHIP: 99.2% SPEED, CLOCK PAUSED] Only Slot 2 is zeroed; Slots 1, 3, 4 stay green.'); }
+        else { pipeApi.st.mode = 'spectral'; pipeApi.st.paused = false; pipeApi.st.rogueActive = true; pipeApi.syncLabels('[LIVE WIRE RUNNING] 99.2% speed.'); }
+      }
+      if (typeof window.setMaScenario === 'function') {
+        if (stepIdx === 1) window.setMaScenario('r7');
+        else if (stepIdx === 2 && typeof window.setMbTier === 'function') window.setMbTier(1);
+        else if (stepIdx === 0 && typeof window.setMcState === 'function') window.setMcState(3);
+      }
+      var wSel = document.getElementById('bm-workload-select');
+      var wTog = document.getElementById('bm-wddl-toggle');
+      if (wSel || wTog) {
+        if (stepIdx === 1 && wSel) { wSel.selectedIndex = (wSel.selectedIndex + 1) % wSel.options.length; wSel.dispatchEvent(new Event('change')); }
+        if (stepIdx === 2 && wTog) { wTog.checked = true; wTog.dispatchEvent(new Event('change')); }
+        if (stepIdx === 0 && wTog) { wTog.checked = false; wTog.dispatchEvent(new Event('change')); }
+      }
+      var rkRng = document.getElementById('rng-racks');
+      if (rkRng) {
+        rkRng.value = (stepIdx === 1) ? 2500 : 10000;
+        rkRng.dispatchEvent(new Event('input'));
+      }
+    });
+  }
+
+  /* Attach helper pop-up feedback to any interactive button click inside main */
+  document.addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('button') : null;
+    if (!b || b.id === 'cc-btn-next' || b.id === 'fh-close-btn') return;
+    var label = (b.textContent || '').trim();
+    if (label.length > 2 && label.length < 95) {
+      popHelper('DEMO ACTION TRIGGERED', 'You clicked [' + label + ']. Watch the diagram and register readouts update live below.');
+    }
+  }, true);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(installElementaryPipeline, 50); });
+  } else {
+    setTimeout(installElementaryPipeline, 50);
+  }
+})();
+</script>
+<div id="cyber-floating-helper">
+  <div class="fh-hdr"><span><span class="cyber-coach-dot"></span> PROOF ELEMENT POINTER</span><button type="button" class="fh-close" id="fh-close-btn" title="Minimize">&times;</button></div>
+  <div id="fh-body-txt"><strong style="color:#FBBF24">Watch:</strong> Canvas Column 3 (Row 2) + Readouts [Effective Link Goodput] & [In-Band Side-Channel Leakage]<br><strong style="color:#34D399">Proves:</strong> Row 2 = Zeroed Out (0x0000_0000) | Rows 1,3,4 = Green | Goodput = 99.20% | CSR 0x40 = 0 NAKs</div>
+</div>
+<script id="spectral-proof-pointer-hook">
+(function(){
+  var PSTEPS = [["STEP 1 OF 2 // SURGICAL SLOT ZEROING (thm05)", "Zeroing only bad Slot 2 (WSTRB = 0x0000) avoids link NAK replays (N_replay = 0), keeping throughput at 1 - p_bad = 99.20%.", "Canvas Column 3 (Row 2) + Readouts [Effective Link Goodput] & [In-Band Side-Channel Leakage]", "Row 2 = Zeroed Out (0x0000_0000) | Rows 1,3,4 = Green | Goodput = 99.20% | CSR 0x40 = 0 NAKs", "Step 2: Compare Old Hardware Crash (48.90%) & Test Warm Reboot ->", ["sim-pipeline-cv", "r1-ro-goodput", "r1-ro-nak"]], ["STEP 2 OF 2 // WHOLE-PACKET CRASH vs. COLD-POWER LOCK (thm02)", "Old firewalls poison the entire 64B packet when 1 slot is bad (dropping speed to 48.90%), while our CSR 0x70 lock ignores warm PCIe reboots.", "Canvas Column 3 (All 4 Rows) + Readouts [Effective Link Goodput] & [CSR 0x70]", "All 4 Rows = Red (Dropped) | Goodput = 48.90% | CSR 0x70 = 0xFFFF_FFFF_FFFF_FFEB (Locked)", "Reset to Step 1: Restore Our Chip (99.20% Speed) \u21ba", ["sim-pipeline-cv", "r1-ro-goodput", "r1-ro-csr70"]]];
+  var idx = 0;
+  var tagEl  = document.getElementById('cc-step-tag');
+  var mathEl = document.getElementById('cc-math-val');
+  var elemEl = document.getElementById('cc-elem-val');
+  var resEl  = document.getElementById('cc-res-val');
+  var nxtBtn = document.getElementById('cc-btn-next');
+  var fhBox  = document.getElementById('cyber-floating-helper');
+  var fhTxt  = document.getElementById('fh-body-txt');
+  var fhCls  = document.getElementById('fh-close-btn');
+  if (fhCls && fhBox) fhCls.addEventListener('click', function(){ fhBox.style.display = 'none'; });
+
+  function pulseTargets(idList) {
+    var prev = document.querySelectorAll('.proof-pulse-active');
+    for (var i = 0; i < prev.length; i++) prev[i].classList.remove('proof-pulse-active');
+    if (!idList) return;
+    for (var j = 0; j < idList.length; j++) {
+      var el = document.getElementById(idList[j]);
+      if (el) el.classList.add('proof-pulse-active');
+    }
+  }
+
+  function renderStep(s) {
+    if (tagEl)  tagEl.textContent  = s[0];
+    if (mathEl) mathEl.textContent = s[1];
+    if (elemEl) elemEl.textContent = s[2];
+    if (resEl)  resEl.textContent  = s[3];
+    if (nxtBtn) nxtBtn.textContent = s[4];
+    if (fhBox && fhTxt) {
+      fhBox.style.display = 'block';
+      fhTxt.innerHTML = '<strong style=\"color:#38BDF8\">' + s[0] + '</strong><br><strong style=\"color:#FBBF24\">Element:</strong> ' + s[2] + '<br><strong style=\"color:#34D399\">Result:</strong> ' + s[3];
+    }
+    pulseTargets(s[5]);
+  }
+
+  if (nxtBtn) {
+    var cleanBtn = nxtBtn.cloneNode(true);
+    nxtBtn.parentNode.replaceChild(cleanBtn, nxtBtn);
+    nxtBtn = cleanBtn;
+    nxtBtn.addEventListener('click', function(){
+      idx = (idx + 1) % PSTEPS.length;
+      var s = PSTEPS[idx];
+      /* Trigger underlying demo state change */
+      var mBtn = document.getElementById('r1-btn-mode') || document.getElementById('btn-toggle-mode');
+      if (mBtn) mBtn.click();
+      var wTog = document.getElementById('bm-wddl-toggle');
+      if (wTog) { wTog.checked = (idx === 1); wTog.dispatchEvent(new Event('change')); }
+      if (typeof window.setMaScenario === 'function' && idx === 0) window.setMaScenario('r7');
+      if (typeof window.setMbTier === 'function' && idx === 1) window.setMbTier(1);
+      if (typeof window.setMcState === 'function' && idx === 2) window.setMcState(3);
+      renderStep(s);
+    });
+  }
+  setTimeout(function(){ renderStep(PSTEPS[0]); }, 120);
+})();
+</script>
+<script id="spectral-next-level-ux">
+(function(){
+  var roleCopy = ["<strong style=\"color:#7DD3FC\">For AI &amp; Cloud Builders:</strong> Stop wasting 250 GB of expensive HBM memory per rack on permission tables and stop one bad tenant from crashing shared CXL memory packets. Reclaim 2,500 TB across 10,000 racks ($37.50M saved) while keeping wire speed at 99.20%.", "<strong style=\"color:#7DD3FC\">For Chip &amp; HBM4 Architects:</strong> Zero Block RAM (0.0 BRAM, 0 SRAM, 0 MBIST). Uses 1,585 LUTs (0.12% of 16nm xcvu47p at 338.8 MHz) or 27,877 standard cells (0.003335 mm\u00b2 in 7nm ASAP7 at 693 MHz, 3.728 mW)\u2014small enough to drop straight into unused filler white space around an existing HBM4 or CXL PHY.", "<strong style=\"color:#7DD3FC\">For Security Red-Teamers:</strong> Closes the physical memory-wire blind spot below the OS kernel. Permission bits pass through a hardware AND gate (0 &times; 1 = 0) clocked only on the cold power cord (por_cold_rst_n), so even a Ring-0 Linux root compromise plus a warm PCIe reboot cannot re-open a revoked memory range.", "<strong style=\"color:#7DD3FC\">For Math &amp; Formal Verifiers:</strong> All 38 theorem groups (109 constructive declarations in Lean 4 Init.Prelude) verify with zero sorry and zero axioms. Oracle 5 constructs a 320-cone Tseitin CNF miter + verified LRAT RUP resolution proof showing 0 mismatches between our routed FPGA LUT6_2 SRAM frames and Lean 4."];
+  var atkTraces = ["<div class=\"t-cmd\">$ ./test_aws_f2_trl6_hil --pci-bdf 0000:34:00.0 --afi agfi-08becf3b40b169674 --attack slot1_rogue_dma</div><div>[AWS F2 xcvu47p] Burst=25,000 (100,000 sub-flit slots) | Slot 2 Rogue Write=0xDEADBEEFCAFEBABE | Allied Slots 1,3,4=0x5555555555555555</div><div class=\"t-warn\">[GATE TRAP 0.124 ns] Stage-1 LUT6_2 (0x2A2A2A2A_80808080) -> O5=0, O6=1 -> Slot 2 Write Switch forced OFF (WSTRB = 0x0000 -> CXL_NOP)</div><div class=\"t-pass\">[PHYSICAL HBM2 VERIFIED] Victim Sentinel=0xAAAAAAAAAAAAAAAA (100% Intact) | Allied Writes=100% Committed | Link NAKs=0 | Goodput=99.20%</div>", "<div class=\"t-cmd\">$ ./test_aws_f2_trl6_hil --pci-bdf 0000:34:00.0 --afi agfi-08becf3b40b169674 --attack bf16_model_extraction</div><div>[AWS F2 xcvu47p] S2M_DRS Shared AI Weight Read=0x3F8E3F8E (+1.109375) | Thief Query Count=50,000 (> 10,000 Epoch Cap)</div><div class=\"t-warn\">[GATE TRAP +0 LUTs] Stage-2 Fractured LUT6_2 (0x0C0C0C00_0A0A0000) rounds 7 trailing bits -> 0x3F803F80 (+1.000000) | CSR 0x38 rotates epoch key at Q=10,000</div><div class=\"t-pass\">[EXTRACTION DEFEATED] BBP Threshold Q*=43,691 reads never reached (0.000 singular-vector overlap) | Normal AI Inference Perplexity: +0.14%</div>", "<div class=\"t-cmd\">$ sudo sh -c ./test_bar0_driver --write-csr0 0xFFFFFFFFFFFFFFFF &amp;&amp; echo 1 &gt; /sys/bus/pci/devices/0000:34:00.0/reset</div><div>[HOST ROOT ESCALATION] Compromised Linux kernel writes all 1s to BAR0 CSR 0x00 and triggers Warm PCIe Function-Level Reset (FLR)</div><div class=\"t-warn\">[HARDWARE RATCHET TRAP] LUT6_2 (0xABABABAB_FEFEFEFE) &amp; AND2 feedback (New = Current &amp; Write) -> 0 &amp; 1 = 0 | CSR 0x48 Tamper Counter++</div><div class=\"t-pass\">[POST-FLR SILICON STATE] CSR 0x00=0xFFFFFFFFFFFF0000 (Revoked bits stay 0) | CSR 0x70=0xFFFFFFFFFFFFFFEB (Cold-POR Sentinel Locked)</div>"];
+  var gloss = {"CXL_NOP": "A harmless 16-byte no-op packet that replaces a blocked write so the wire never pauses.", "WSTRB": "Write Strobe: the 16 wire switches that control which bytes are written into memory.", "LUT6_2": "A physical 6-input, 2-output hardware lookup table on an AMD FPGA chip (computes in 0.124 ns).", "por_cold_rst_n": "Physical cold power-on reset wire: only unplugging the server rack resets it (warm reboots are ignored).", "BAR0": "Base Address Register 0: the 128-byte control panel where software writes security rules to the PCIe card."};
+
+  var rPills = document.querySelectorAll('.nl-pill');
+  var rTxt = document.getElementById('nl-lens-text');
+  for (var i = 0; i < rPills.length; i++) {
+    rPills[i].addEventListener('click', function(){
+      for (var j = 0; j < rPills.length; j++) rPills[j].classList.remove('active');
+      this.classList.add('active');
+      var ix = parseInt(this.getAttribute('data-role-idx'), 10) || 0;
+      if (rTxt && roleCopy[ix]) rTxt.innerHTML = roleCopy[ix];
+    });
+  }
+
+  var cpBtn = document.getElementById('nl-btn-copy-cmd');
+  var cpCmd = document.getElementById('nl-verify-cmd');
+  if (cpBtn && cpCmd) {
+    cpBtn.addEventListener('click', function(){
+      var raw = cpCmd.textContent || '';
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(raw);
+      cpBtn.textContent = '[Copied ✓]';
+      setTimeout(function(){ cpBtn.textContent = '[Copy Command]'; }, 1800);
+    });
+  }
+
+  var atkBtns = document.querySelectorAll('.nl-atk-btn');
+  var f2Term = document.getElementById('nl-f2-terminal');
+  for (var a = 0; a < atkBtns.length; a++) {
+    atkBtns[a].addEventListener('click', function(){
+      for (var b = 0; b < atkBtns.length; b++) atkBtns[b].classList.remove('active');
+      this.classList.add('active');
+      var k = parseInt(this.getAttribute('data-atk'), 10) || 0;
+      if (f2Term && atkTraces[k]) f2Term.innerHTML = atkTraces[k];
+      if (k === 2) {
+        var flrB = document.getElementById('r1-btn-flr') || document.getElementById('btn-fire-flr');
+        if (flrB) flrB.click();
+      }
+    });
+  }
+
+  var codeNodes = document.querySelectorAll('code, .ic, .ro-k');
+  for (var c = 0; c < codeNodes.length; c++) {
+    var t = (codeNodes[c].textContent || '').trim();
+    for (var key in gloss) {
+      if (t.indexOf(key) >= 0 && !codeNodes[c].getAttribute('title')) {
+        codeNodes[c].setAttribute('title', gloss[key]);
+        codeNodes[c].classList.add('hw-gloss');
+      }
+    }
+  }
+})();
+</script>
+<script id="spectral-human-visual-schematics">
+(function(){
+  /* ============================================================================ */
+  /* 1. ROUTE 01 (/): 4-LANE COPPER BUS WITH MECHANICAL KNIFE-SWITCHES & RAM BANK */
+  /* ============================================================================ */
+  function initCopperBusSchematic() {
+    var origCv = document.getElementById('sim-pipeline-cv');
+    if (!origCv) return;
+    var cv = origCv.cloneNode(true);
+    origCv.parentNode.replaceChild(cv, origCv);
+    var ctx = cv.getContext('2d');
+    var probe = document.getElementById('sim-pipeline-probe');
+
+    var st = { mode: 'spectral', paused: false, rogueActive: true, pos: 0.18, flrFlash: 0 };
+    function bindBtn(idList, textSub, fn) {
+      var el = null;
+      for (var i = 0; i < idList.length; i++) { el = document.getElementById(idList[i]); if (el) break; }
+      if (!el) {
+        var all = document.querySelectorAll('button');
+        for (var j = 0; j < all.length; j++) { if ((all[j].textContent || '').indexOf(textSub) >= 0) { el = all[j]; break; } }
+      }
+      if (!el) return null;
+      var nb = el.cloneNode(true);
+      el.parentNode.replaceChild(nb, el);
+      nb.addEventListener('click', fn);
+      return nb;
+    }
+
+    var banner = document.getElementById('r1-state-vector') || document.querySelector('.kripke-banner');
+    var bInj = null, bMod = null, bPau = null, bStp = null, bFlr = null;
+    function syncText(msg) {
+      if (bInj) bInj.textContent = st.rogueActive ? '1. Bad Write on Wire 2: ON (Click for All-Clean Traffic)' : '1. Bad Write on Wire 2: OFF (Click to Inject Bad Write)';
+      if (bMod) bMod.textContent = (st.mode === 'spectral') ? '2. Mode: Our Chip (Opens Only Wire 2 Switch -> 99.2% Speed)' : '2. Mode: Old Hardware (Slams Crash Bar Across All 4 Wires -> 48.9%)';
+      if (bPau) bPau.textContent = st.paused ? '3. Resume Wire Flow' : '3. Pause Wire Flow';
+      if (bStp) bStp.textContent = '4. Step Packet +1 Stage (4.0 ns)';
+      if (bFlr) bFlr.textContent = '5. Test Warm Server Reboot (Lock Stays ON)';
+      if (banner && msg) banner.textContent = msg;
+      var gEl = document.getElementById('r1-ro-goodput');
+      if (gEl) gEl.textContent = (st.mode === 'spectral') ? '99.20% (Only Wire 2 Switch Opened)' : '48.90% (All 4 Wires Crashed)';
+    }
+
+    bInj = bindBtn(['r1-btn-inject', 'btn-inject-rogue'], '1.', function(){
+      st.rogueActive = !st.rogueActive; st.pos = 0.08;
+      syncText(st.rogueActive ? '[WIRE 2 BAD WRITE ACTIVE] Watch Stage 1 detect 0xDEADBEEF and Stage 2 physically open Wire 2's switch so Victim RAM 2 stays safe.' : '[ALL 4 WIRES CLEAN] All 4 knife-switches stay CLOSED; all 4 apps write/read RAM at 100% speed.');
+    });
+    bMod = bindBtn(['r1-btn-mode', 'btn-toggle-mode'], '2.', function(){
+      st.mode = (st.mode === 'spectral') ? 'legacy' : 'spectral'; st.rogueActive = true; st.pos = 0.15;
+      syncText((st.mode === 'spectral') ? '[OUR CHIP: 99.20% SPEED] Only Wire 2's knife-switch opens; Wires 1, 3, and 4 stay closed and deliver into RAM.' : '[OLD HARDWARE: 48.90% SPEED] Bad Wire 2 triggers a full-packet CRC crash—all 4 switches open and all 4 apps lose their data!');
+    });
+    bPau = bindBtn(['r1-btn-pause'], '3.', function(){
+      st.paused = !st.paused;
+      syncText(st.paused ? '[PAUSED] Hover any gate, switch, or RAM cell to inspect it.' : '[RUNNING] 64-byte bundle flowing across the 4 copper lanes.');
+    });
+    bStp = bindBtn(['r1-btn-step'], '4.', function(){
+      st.paused = true; st.pos = (st.pos + 0.28) % 1.0;
+      syncText('[STEP +4.0 ns] Packet advanced one pipeline stage along the 4 copper wires.');
+    });
+    bFlr = bindBtn(['r1-btn-flr', 'btn-fire-flr'], '5.', function(){
+      st.flrFlash = 45;
+      syncText('[WARM REBOOT BLOCKED] Warm PCIe reset stopped at cold-power wall; CSR 0x70 lock stays 0xFFFFFFFFFFFFFFEB!');
+    });
+    syncText('[LIVE 4-WIRE SCHEMATIC] Watch Wire 2's knife-switch physically open to block 0xDEADBEEF while Wires 1, 3, 4 flow into RAM.');
+
+    var zones = [];
+    cv.addEventListener('mousemove', function(e){
+      var r = cv.getBoundingClientRect();
+      var mx = e.clientX - r.left, my = e.clientY - r.top, hit = null;
+      for (var i = 0; i < zones.length; i++) {
+        var z = zones[i];
+        if (mx >= z.x && mx <= z.x + z.w && my >= z.y && my <= z.y + z.h) { hit = z; break; }
+      }
+      if (probe) {
+        if (hit) {
+          probe.style.display = 'block';
+          probe.style.left = Math.max(8, Math.min(r.width - 280, mx + 12)) + 'px';
+          probe.style.top  = Math.max(8, my - 12) + 'px';
+          probe.innerHTML  = '<strong style=\"color:#38BDF8\">' + hit.t + '</strong><br>' + hit.d1 + '<br><span style=\"color:#34D399\">' + hit.d2 + '</span>';
+        } else { probe.style.display = 'none'; }
+      }
+    });
+    cv.addEventListener('mouseleave', function(){ if (probe) probe.style.display = 'none'; });
+
+    function drawBus() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var rect = cv.getBoundingClientRect();
+      var W = Math.max(320, Math.floor(rect.width));
+      var H = 330;
+      if (cv.width !== W * dpr || cv.height !== H * dpr) { cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px'; }
+      ctx.save(); ctx.scale(dpr, dpr);
+      ctx.fillStyle = '#050811'; ctx.fillRect(0, 0, W, H);
+      if (!st.paused) st.pos = (st.pos + 0.0055) % 1.0;
+      if (st.flrFlash > 0) st.flrFlash--;
+
+      var compact = (W < 680);
+      var xIn   = compact ? 10 : 16;
+      var xGate = Math.floor(W * 0.34);
+      var xSw   = Math.floor(W * 0.58);
+      var xRam  = Math.floor(W * 0.77);
+      var ramW  = W - xRam - 10;
+      var topY  = 38;
+      var laneStep = Math.floor((H - topY - 12) / 4);
+
+      /* Stage column headers */
+      ctx.font = compact ? '600 9.5px ui-monospace, monospace' : '600 10.5px ui-monospace, monospace';
+      ctx.fillStyle = '#38BDF8'; ctx.fillText(compact ? '1. 4 COPPER WIRES' : '1. INCOMING 64B WIRE BUNDLE', xIn, 22);
+      ctx.fillStyle = '#FBBF24'; ctx.fillText(compact ? '2. 0.12ns CHECK' : '2. STAGE-1 GATE (0.12 ns)', xGate - 28, 22);
+      ctx.fillStyle = '#38BDF8'; ctx.fillText(compact ? '3. WRITE SWITCH' : '3. STAGE-2 KNIFE SWITCH', xSw - 32, 22);
+      ctx.fillStyle = '#34D399'; ctx.fillText(compact ? '4. SERVER RAM' : '4. TARGET HBM2 RAM BANKS', xRam, 22);
+
+      /* Vertical dashed stage guide lines */
+      ctx.save(); ctx.setLineDash([4, 4]); ctx.strokeStyle = '#172A42';
+      ctx.beginPath(); ctx.moveTo(xGate, 28); ctx.lineTo(xGate, H - 8); ctx.moveTo(xSw, 28); ctx.lineTo(xSw, H - 8); ctx.stroke();
+      ctx.restore();
+
+      var lanes = [
+        { name: 'WIRE 1', app: 'App 1 Read',  ram: 'RAM Bank 1: App 1', ramSub: 'Data: 0x7F10 (OK ✓)' },
+        { name: 'WIRE 2', app: 'App 2 Write', ram: 'RAM Bank 2: Victim', ramSub: '0xAAAA_AAAA (SAFE 🔒)' },
+        { name: 'WIRE 3', app: 'App 3 Write', ram: 'RAM Bank 3: App 3', ramSub: 'Data: 0x5555 (OK ✓)' },
+        { name: 'WIRE 4', app: 'App 4 Read',  ram: 'RAM Bank 4: App 4', ramSub: 'Data: 0x1044 (OK ✓)' }
+      ];
+      zones = [];
+
+      for (var i = 0; i < 4; i++) {
+        var cy = topY + i * laneStep + Math.floor(laneStep * 0.52);
+        var isBadLane = (i === 1 && st.rogueActive);
+        var isLegacyCrash = (st.mode === 'legacy' && st.rogueActive);
+        var switchOpen = isBadLane || isLegacyCrash;
+
+        /* 1. Left Copper Wire (Input -> Stage 1 -> Stage 2 Switch Pivot) */
+        ctx.strokeStyle = isBadLane ? '#E11D48' : '#10B981';
+        ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(xIn, cy); ctx.lineTo(xSw - 18, cy); ctx.stroke();
+
+        /* Wire Label on Left */
+        ctx.font = compact ? '600 9.5px Inter, sans-serif' : '600 11px Inter, sans-serif';
+        ctx.fillStyle = isBadLane ? '#FDA4AF' : '#A8B9CC';
+        ctx.fillText(lanes[i].name + ': ' + (isBadLane ? 'BAD WRITE (0xDEAD)' : lanes[i].app), xIn + 2, cy - 10);
+
+        /* 2. Stage-1 Comparator Circle Node */
+        ctx.fillStyle = isBadLane ? '#2A1215' : '#09221C';
+        ctx.strokeStyle = isBadLane ? '#F59E0B' : '#10B981';
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(xGate, cy, 13, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.font = '700 9px ui-monospace, monospace';
+        ctx.fillStyle = isBadLane ? '#FBBF24' : '#34D399';
+        ctx.fillText(isBadLane ? 'TRAP' : 'OK', xGate - (isBadLane ? 11 : 7), cy + 3);
+        zones.push({ x: xGate - 16, y: cy - 16, w: 32, h: 32, t: lanes[i].name + ' Stage-1 LUT6_2 Gate', d1: isBadLane ? 'Output: O5=0, O6=1 (Violation Caught in 0.124 ns)' : 'Output: O5=1, O6=0 (Authorized)', d2: '0 Bytes of Lookup RAM Used' });
+
+        /* 3. Stage-2 Physical Knife-Switch (WSTRB) */
+        var swX1 = xSw - 18, swX2 = xSw + 18;
+        ctx.fillStyle = '#38BDF8';
+        ctx.beginPath(); ctx.arc(swX1, cy, 4, 0, Math.PI * 2); ctx.arc(swX2, cy, 4, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = switchOpen ? (isLegacyCrash ? '#E11D48' : '#38BDF8') : '#10B981';
+        ctx.lineWidth = 3.2;
+        ctx.beginPath(); ctx.moveTo(swX1, cy);
+        if (switchOpen) {
+          /* Blade physically lifted OPEN at 38 degrees! */
+          ctx.lineTo(swX2 - 4, cy - 18);
+        } else {
+          /* Blade CLOSED flat across the contacts */
+          ctx.lineTo(swX2, cy);
+        }
+        ctx.stroke();
+        ctx.font = '600 8.5px ui-monospace, monospace';
+        ctx.fillStyle = switchOpen ? '#7DD3FC' : '#34D399';
+        ctx.fillText(switchOpen ? 'OPEN (0x0000)' : 'CLOSED (0xFFFF)', swX1 - 12, cy + 16);
+        zones.push({ x: swX1 - 10, y: cy - 22, w: 56, h: 42, t: lanes[i].name + ' Write Switch (WSTRB)', d1: switchOpen ? 'Switch PHYSICALLY OPEN: Write blocked!' : 'Switch CLOSED: Wire connected to RAM.', d2: switchOpen ? 'Sends harmless 0x0000_0000 (CXL_NOP)' : '100% Wire Speed' });
+
+        /* 4. Right Wire (Switch -> Target RAM Bank) */
+        ctx.save();
+        if (switchOpen) ctx.setLineDash([4, 3]);
+        ctx.strokeStyle = isLegacyCrash ? '#881337' : (switchOpen ? '#0284C7' : '#10B981');
+        ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.moveTo(swX2, cy); ctx.lineTo(xRam, cy); ctx.stroke();
+        ctx.restore();
+
+        /* 5. Moving Signal Packet Pill along the Copper Wire */
+        var pktX = xIn + st.pos * (xRam - xIn - 44);
+        var pastSw = (pktX > swX1 - 10);
+        var pktColor = isBadLane ? (pastSw ? (isLegacyCrash ? '#E11D48' : '#0284C7') : '#E11D48') : (isLegacyCrash && pastSw ? '#E11D48' : '#10B981');
+        var pktTxt = isBadLane ? (pastSw ? (isLegacyCrash ? 'ABORT!' : '0000_0000') : '0xDEAD') : (isLegacyCrash && pastSw ? 'LOST!' : 'DATA OK');
+        ctx.fillStyle = '#07101E'; ctx.strokeStyle = pktColor; ctx.lineWidth = 1.5;
+        ctx.fillRect(pktX, cy - 9, 46, 18); ctx.strokeRect(pktX, cy - 9, 46, 18);
+        ctx.font = '600 8.5px ui-monospace, monospace'; ctx.fillStyle = pktColor;
+        ctx.fillText(pktTxt, pktX + 4, cy + 3);
+
+        /* 6. Target HBM2 RAM Bank Box on the Right */
+        var rBoxY = cy - 20, rBoxH = 40;
+        var ramBg = isLegacyCrash ? '#220B13' : (isBadLane ? '#081828' : '#081C18');
+        var ramBrd = isLegacyCrash ? '#BE123C' : (isBadLane ? '#0EA5E9' : '#10B981');
+        ctx.fillStyle = ramBg; ctx.strokeStyle = ramBrd; ctx.lineWidth = 1.4;
+        ctx.fillRect(xRam, rBoxY, ramW, rBoxH); ctx.strokeRect(xRam, rBoxY, ramW, rBoxH);
+        ctx.save(); ctx.beginPath(); ctx.rect(xRam + 3, rBoxY + 2, ramW - 6, rBoxH - 4); ctx.clip();
+        ctx.font = compact ? '600 9px Inter, sans-serif' : '600 10.5px Inter, sans-serif';
+        ctx.fillStyle = '#C2D0E0'; ctx.fillText(lanes[i].ram, xRam + 6, rBoxY + 15);
+        ctx.font = compact ? '400 8.5px ui-monospace, monospace' : '400 9.5px ui-monospace, monospace';
+        ctx.fillStyle = isLegacyCrash ? '#FDA4AF' : (isBadLane ? '#7DD3FC' : '#34D399');
+        ctx.fillText(isLegacyCrash ? 'STALLED BY RETRY!' : lanes[i].ramSub, xRam + 6, rBoxY + 31);
+        ctx.restore();
+        zones.push({ x: xRam, y: rBoxY, w: ramW, h: rBoxH, t: lanes[i].ram, d1: isLegacyCrash ? 'Crashed by legacy whole-packet NAK!' : lanes[i].ramSub, d2: isBadLane ? 'Victim sentinel 0xAAAAAAAAAAAAAAAA 100% intact' : 'Zero neighbor stall (99.20% goodput)' });
+      }
+      ctx.restore();
+      window.requestAnimationFrame(drawBus);
+    }
+    window.requestAnimationFrame(drawBus);
+  }
+
+  /* ============================================================================ */
+  /* 2. ROUTE 02 (/benchmarks): 23x SLOW-MOTION PACKET RACE (8.0 ns vs 184.2 ns)  */
+  /* ============================================================================ */
+  function initBenchmarkRace() {
+    var cv = document.getElementById('hv-bm-race-cv');
+    if (!cv) return;
+    var ctx = cv.getContext('2d');
+    var tSim = 0.0;
+    var btn = document.getElementById('hv-btn-fire-race');
+    if (btn) btn.addEventListener('click', function(){ tSim = 0.0; });
+
+    function drawRace() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var rect = cv.getBoundingClientRect();
+      var W = Math.max(300, Math.floor(rect.width)), H = 152;
+      if (cv.width !== W * dpr || cv.height !== H * dpr) { cv.width = W * dpr; cv.height = H * dpr; }
+      ctx.save(); ctx.scale(dpr, dpr);
+      ctx.fillStyle = '#04070D'; ctx.fillRect(0, 0, W, H);
+
+      tSim += 0.85; if (tSim > 220.0) tSim = 0.0;
+      var xStart = 18, xEnd = W - 150;
+      var trackW = Math.max(100, xEnd - xStart);
+
+      /* Lane 1: Spectral 8.0 ns (finishes at tSim = 8.0) */
+      var p1 = Math.min(1.0, tSim / 8.0);
+      var y1 = 44;
+      ctx.strokeStyle = '#12352C'; ctx.lineWidth = 6;
+      ctx.beginPath(); ctx.moveTo(xStart, y1); ctx.lineTo(xEnd, y1); ctx.stroke();
+      ctx.strokeStyle = '#10B981'; ctx.lineWidth = 6;
+      ctx.beginPath(); ctx.moveTo(xStart, y1); ctx.lineTo(xStart + p1 * trackW, y1); ctx.stroke();
+      ctx.font = '600 11px Inter, sans-serif'; ctx.fillStyle = '#C2D0E0';
+      ctx.fillText('Our Chip (1,585 Logic Gates, 0 RAM)', xStart, y1 - 14);
+      ctx.font = '700 11px ui-monospace, monospace'; ctx.fillStyle = '#34D399';
+      ctx.fillText(p1 >= 1.0 ? 'DONE: 8.0 ns ✓' : (tSim.toFixed(1) + ' ns'), xEnd + 12, y1 + 4);
+
+      /* Lane 2: Legacy DRAM Table Walk 184.2 ns */
+      var p2 = Math.min(1.0, tSim / 184.2);
+      var y2 = 112;
+      ctx.strokeStyle = '#2A1219'; ctx.lineWidth = 6;
+      ctx.beginPath(); ctx.moveTo(xStart, y2); ctx.lineTo(xEnd, y2); ctx.stroke();
+      ctx.strokeStyle = '#E11D48'; ctx.lineWidth = 6;
+      ctx.beginPath(); ctx.moveTo(xStart, y2); ctx.lineTo(xStart + p2 * trackW, y2); ctx.stroke();
+      ctx.font = '600 11px Inter, sans-serif'; ctx.fillStyle = '#94A8BE';
+      ctx.fillText('Old Firewall (Cache Miss -> Walking 250 GB RAM Table...)', xStart, y2 - 14);
+      ctx.font = '700 11px ui-monospace, monospace'; ctx.fillStyle = '#FB7185';
+      ctx.fillText(p2 >= 1.0 ? 'DONE: 184.2 ns (23x Slower)' : (Math.min(184.2, tSim).toFixed(1) + ' ns'), xEnd + 12, y2 + 4);
+
+      ctx.restore();
+      window.requestAnimationFrame(drawRace);
+    }
+    window.requestAnimationFrame(drawRace);
+  }
+
+  /* ============================================================================ */
+  /* 3. ROUTE 03 (/zero-trust): 3 VISUAL SCHEMATICS (LIFELINE, SPLITTER, AND GATE)*/
+  /* ============================================================================ */
+  function initZeroTrustSchematics() {
+    var cv = document.getElementById('hv-zt-schem-cv');
+    if (!cv) return;
+    var ctx = cv.getContext('2d');
+    var mode = 0, tick = 0;
+    var btns = document.querySelectorAll('[data-zt-vis]');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', function(){
+        mode = parseInt(this.getAttribute('data-zt-vis'), 10) || 0;
+        tick = 0;
+      });
+    }
+    function drawZt() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var rect = cv.getBoundingClientRect();
+      var W = Math.max(300, Math.floor(rect.width)), H = 220;
+      if (cv.width !== W * dpr || cv.height !== H * dpr) { cv.width = W * dpr; cv.height = H * dpr; }
+      ctx.save(); ctx.scale(dpr, dpr);
+      ctx.fillStyle = '#04070D'; ctx.fillRect(0, 0, W, H);
+      tick++;
+
+      if (mode === 0) {
+        /* Lock 1: 8-Wire Lifeline Bundle -> 7 Cut by Crossing Lines, Wire 8 Survives! */
+        var hubX = Math.floor(W * 0.68), hubY = 110;
+        for (var w = 0; w < 8; w++) {
+          var wy = 24 + w * 24;
+          var survived = (w === 7);
+          ctx.strokeStyle = survived ? '#10B981' : '#4C1D2E';
+          ctx.lineWidth = survived ? 3 : 1.5;
+          ctx.beginPath(); ctx.moveTo(24, wy); ctx.lineTo(hubX, hubY); ctx.stroke();
+          ctx.font = '600 10px ui-monospace, monospace';
+          ctx.fillStyle = survived ? '#34D399' : '#FB7185';
+          ctx.fillText(survived ? 'Switch #8 (Square 63): LIVE ✓' : ('Switch #' + (w+1) + ': Cut by Revoked App #' + (w+1) + ' [X]'), 28, wy - 4);
+        }
+        ctx.fillStyle = '#08221B'; ctx.strokeStyle = '#10B981'; ctx.lineWidth = 2;
+        ctx.fillRect(hubX, 68, W - hubX - 18, 84); ctx.strokeRect(hubX, 68, W - hubX - 18, 84);
+        ctx.font = '700 12px Inter, sans-serif'; ctx.fillStyle = '#34D399';
+        ctx.fillText('YOUR APP: ONLINE ✓', hubX + 12, 98);
+        ctx.font = '400 10px ui-monospace, monospace'; ctx.fillStyle = '#A8B9CC';
+        ctx.fillText('1 of 8 switches still live', hubX + 12, 118);
+        ctx.fillText('(8 - 7 cuts = 1 survivor)', hubX + 12, 136);
+      } else if (mode === 1) {
+        /* Lock 2: Decimal Splitter (+1.000000 kept vs .109375 grounded) + 10k-Read Thief Wall */
+        ctx.font = '700 12px ui-monospace, monospace'; ctx.fillStyle = '#38BDF8';
+        ctx.fillText('AI Weight on Wire: +1.109375 (0x3F8E)', 20, 42);
+        ctx.strokeStyle = '#10B981'; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(20, 55); ctx.lineTo(W * 0.52, 55); ctx.stroke();
+        ctx.fillStyle = '#34D399'; ctx.fillText('Kept Big Number: +1.000000 (0x3F80) -> Normal AI Answers Work (99.86%)', 20, 78);
+        ctx.strokeStyle = '#E11D48'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(140, 55); ctx.lineTo(200, 108); ctx.lineTo(W * 0.52, 108); ctx.stroke();
+        ctx.fillStyle = '#FB7185'; ctx.fillText('Shredded Trailing Decimals: .109375 -> Grounded to .000000 (+0 Extra Gates)', 210, 112);
+        /* Thief Progress Bar hitting the 10,000-read wall */
+        var qReads = (tick * 120) % 12500;
+        var barX = 20, barY = 158, barW = W - 40, barH = 26;
+        var wallFrac = 10000.0 / 43691.0;
+        var curFrac = Math.min(wallFrac, qReads / 43691.0);
+        ctx.fillStyle = '#0B1320'; ctx.strokeStyle = '#1E3450'; ctx.fillRect(barX, barY, barW, barH); ctx.strokeRect(barX, barY, barW, barH);
+        ctx.fillStyle = (qReads >= 10000) ? '#38BDF8' : '#E11D48';
+        ctx.fillRect(barX, barY, (qReads >= 10000 ? 0.02 : curFrac) * barW, barH);
+        var wallX = barX + wallFrac * barW;
+        ctx.strokeStyle = '#FBBF24'; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(wallX, barY - 8); ctx.lineTo(wallX, barY + barH + 8); ctx.stroke();
+        ctx.fillStyle = '#FBBF24'; ctx.fillText('CSR 0x38 LOCK ROTATION @ 10,000 READS (23%) -> RESETS THIEF TO 0%!', barX, barY - 12);
+        ctx.fillStyle = '#94A8BE'; ctx.fillText('Thief Reads: ' + Math.min(10000, qReads) + ' / 43,691 Needed to Clone Model', barX + 10, barY + 17);
+      } else {
+        /* Lock 3: Physical AND Gate (0 x 1 = 0) & Warm Reboot Dead-End vs Cold Power Cord */
+        var gx = Math.floor(W * 0.42), gy = 52;
+        ctx.strokeStyle = '#E11D48'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(24, gy); ctx.lineTo(gx, gy); ctx.stroke();
+        ctx.fillStyle = '#FB7185'; ctx.font = '600 10.5px ui-monospace, monospace'; ctx.fillText('Pin A (Current Lock Bit) = 0 [REVOKED]', 24, gy - 8);
+        ctx.strokeStyle = '#F59E0B'; ctx.beginPath(); ctx.moveTo(24, gy + 44); ctx.lineTo(gx, gy + 44); ctx.stroke();
+        ctx.fillStyle = '#FBBF24'; ctx.fillText('Pin B (Hacked OS Root Write) = 1 [ESCALATION ATTEMPT]', 24, gy + 36);
+        ctx.fillStyle = '#0B192C'; ctx.strokeStyle = '#38BDF8'; ctx.lineWidth = 2;
+        ctx.fillRect(gx, gy - 12, 110, 70); ctx.strokeRect(gx, gy - 12, 110, 70);
+        ctx.fillStyle = '#7DD3FC'; ctx.fillText('AND GATE (x)', gx + 12, gy + 18); ctx.fillText('0 x 1 = 0', gx + 22, gy + 38);
+        ctx.strokeStyle = '#10B981'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(gx + 110, gy + 22); ctx.lineTo(W - 24, gy + 22); ctx.stroke();
+        ctx.fillStyle = '#34D399'; ctx.fillText('Output Bit Stays 0 (Hack Blocked! CSR 0x48++)', gx + 120, gy + 14);
+        /* Reset wires */
+        ctx.strokeStyle = '#E11D48'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(24, 155); ctx.lineTo(gx - 20, 155); ctx.stroke();
+        ctx.fillStyle = '#FB7185'; ctx.fillText('Warm Server Reboot Wire (PCIe FLR) -> [DEAD END WALL: BLOCKED]', 24, 147);
+        ctx.strokeStyle = '#38BDF8'; ctx.beginPath(); ctx.moveTo(24, 195); ctx.lineTo(gx + 55, 195); ctx.lineTo(gx + 55, gy + 58); ctx.stroke();
+        ctx.fillStyle = '#7DD3FC'; ctx.fillText('Physical Server Power Cord (por_cold_rst_n) -> Only Physical Unplug Resets Lock', 24, 187);
+      }
+      ctx.restore();
+      window.requestAnimationFrame(drawZt);
+    }
+    window.requestAnimationFrame(drawZt);
+  }
+
+  /* ============================================================================ */
+  /* 4. ROUTE 05 (/cots-procurement): TRUE-SCALE 100 mm² DIE vs 50x LOUPE         */
+  /* ============================================================================ */
+  function initDieScaleLoupe() {
+    var cv = document.getElementById('hv-cots-loupe-cv');
+    if (!cv) return;
+    var ctx = cv.getContext('2d');
+    function drawLoupe() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var rect = cv.getBoundingClientRect();
+      var W = Math.max(300, Math.floor(rect.width)), H = 195;
+      if (cv.width !== W * dpr || cv.height !== H * dpr) { cv.width = W * dpr; cv.height = H * dpr; }
+      ctx.save(); ctx.scale(dpr, dpr);
+      ctx.fillStyle = '#04070D'; ctx.fillRect(0, 0, W, H);
+
+      /* Left: Full 100 mm² HBM4 Base Die (150x150 px square) */
+      var dx = 24, dy = 22, ds = 150;
+      ctx.fillStyle = '#0B1320'; ctx.strokeStyle = '#284160'; ctx.lineWidth = 2;
+      ctx.fillRect(dx, dy, ds, ds); ctx.strokeRect(dx, dy, ds, ds);
+      ctx.fillStyle = '#122033';
+      for (var r = 0; r < 4; r++) for (var c = 0; c < 4; c++) ctx.fillRect(dx + 8 + c*35, dy + 8 + r*35, 29, 29);
+      /* True-scale speck (180 um on 10,000 um die = 2.7 px square!) */
+      var spX = dx + 112, spY = dy + 42;
+      ctx.fillStyle = '#0EA5E9'; ctx.fillRect(spX, spY, 3, 3);
+      ctx.strokeStyle = '#38BDF8'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(spX + 1.5, spY + 1.5, 9, 0, Math.PI * 2); ctx.stroke();
+      ctx.font = '600 10px ui-monospace, monospace'; ctx.fillStyle = '#94A8BE';
+      ctx.fillText('100 mm² HBM4 Base Die', dx, dy + ds + 15);
+
+      /* Callout zoom lines to 50x Magnifying Loupe on Right */
+      var lx = Math.max(230, Math.floor(W * 0.42)), ly = 22, lw = W - lx - 20, lh = 150;
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)'; ctx.setLineDash([4, 3]);
+      ctx.beginPath(); ctx.moveTo(spX + 8, spY - 4); ctx.lineTo(lx, ly); ctx.moveTo(spX + 8, spY + 8); ctx.lineTo(lx, ly + lh); ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = '#071526'; ctx.strokeStyle = '#0EA5E9'; ctx.lineWidth = 2;
+      ctx.fillRect(lx, ly, lw, lh); ctx.strokeRect(lx, ly, lw, lh);
+      ctx.font = '700 11.5px Inter, sans-serif'; ctx.fillStyle = '#7DD3FC';
+      ctx.fillText('50x MAGNIFIED LOUPE // 0.003335 mm² (180 um x 180 um)', lx + 12, ly + 24);
+      ctx.font = '400 10.5px ui-monospace, monospace'; ctx.fillStyle = '#C2D0E0';
+      ctx.fillText('• 27,877 Routed 7nm ASAP7 Standard Cells (9,678 Core Cells)', lx + 12, ly + 50);
+      ctx.fillText('• 0.0 Bytes of SRAM / 0 Memory BIST Controllers Needed', lx + 12, ly + 72);
+      ctx.fillText('• Critical Path: 1.444 ns (693 MHz Fmax) | Power: 3.728 mW', lx + 12, ly + 94);
+      ctx.fillStyle = '#34D399';
+      ctx.fillText('✓ Dissolves into unused PHY filler white space ($0 extra die area)', lx + 12, ly + 122);
+      ctx.restore();
+    }
+    drawLoupe();
+    window.addEventListener('resize', drawLoupe);
+  }
+
+  function bootAllVisuals() {
+    initCopperBusSchematic();
+    initBenchmarkRace();
+    initZeroTrustSchematics();
+    initDieScaleLoupe();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(bootAllVisuals, 140); });
+  } else {
+    setTimeout(bootAllVisuals, 140);
+  }
+})();
+</script>
+</body>
+</html>
+<!-- spectral-rev: 20261116T224052Z -->

@@ -1,0 +1,3903 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-17T02:27:35Z"
+  },
+  "components": [
+    {
+      "type": "file",
+      "name": ".devcontainer/devcontainer.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "05403815218a6c90e038cc5aefc29fedfdeac20b58a185368383ecd2b20a3f3f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": ".gitattributes",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9d1c23149e75dbce26f338dde4317ccccc7a5276a96919f5660c9d09b1dce779"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": ".github/CODEOWNERS",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9af1096b59bd0f4abf05ec43f9e63df9864ebda97935fc02fe6f9cfe71ad7097"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": ".github/ISSUE_TEMPLATE/config.yml",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d4da71eb06954871583eb711ebdf86c8419ff73c7913d600ab04ed76677fe687"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": ".github/ISSUE_TEMPLATE/verification_issue.yml",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "19e2cc7a6e066c4c185583362dbdd5d52afeeff75ba1287b005a7796022051df"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": ".github/copilot-instructions.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b7c5baa42ae08b006cad2a3f5569daeb7252959033adc89d62d743c882df80ce"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": ".github/dependabot.yml",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "0040e0e4044a306c87f84ba2177a2521840ba0159ab21706af481f90ec15ff6f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": ".github/pull_request_template.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b92d81ff240d9554a0e8b743bf78b98f949d1a68904f261b1e40239815bc0b01"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": ".github/workflows/trl7_aws_f2_hardware_loopback.yml",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7fc648655d1048749512d42ba796d59451ebc20ac77f9a6c1560d40756523f26"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": ".github/workflows/verify_public_attestation.yml",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "bb5bcfe66cb295662f5fdc8fd36d71bb931183e671a2c9d60893e894e7766e54"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": ".gitignore",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ea10ebb0e7fd2026e481ab09bb4cb8b79d5e06069f0220828a7f69eb011df1d1"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": ".well-known/security.txt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d1669aff91fe4d5ccb5f0cc1addf92bf07ed04f4b957eaa641536ca222cd31fd"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": ".zenodo.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "676324044083d829bc068dd5748b2d2c381ef9bf9184765b9db956a3fd1554df"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "CITATION.cff",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "270d1f7790f468a1a00d6b371e6e2c66b2919b3ec3c42f46d08fe288bd747dbf"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "CODE_OF_CONDUCT.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e0ab4da0660e71f1db02339529bb3e7933c4bf39116db0a625c6d63d34182793"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "CONTRIBUTING.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "6458911046ac93028648d6bf44e8d36b11425fa0c5a287ea548d3bd993c6727f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "EXPORT_CONTROL_NOTICE.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "793a04624212a6f5e8075fe38e5818de31b1e6a9296397febee5f38b72d21cf1"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "INTEGRATION_PINOUT_SPEC.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "37fc00dc341bb54e18fb9b2097ca949d1d8ab69827942316a51f7073b3ec8a59"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "LICENSE",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4a0bc0c9e80ce1c9266161978e4789b19822fed63878025848d48b11909ef90c"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "Makefile",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5933ef4b79f2c7617e5b4e6c79b7b38ac678beded952608c12b354a942932aca"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "NOTICE",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "93396f93b03b0b89bbfbe76315b1868eaff26e34d1e422556944a0670ee22f29"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "PATENTS.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "016218a3500d45f8dcb7418e8f6cb2d99b94965f6a2fc1d503158f5b412742b0"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "README.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c88d39433587e8a542e47c005f44f24d96d24ca6eb64208d774e68d3c6c9b78d"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "REPO_AUDITOR_5PILLAR_SCORECARD.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e8734e8291feaa7f713ad0d99ae00f11053d00284dffd51d3f68bc7dcea25558"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "SECURITY.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d402a957f3a2188e99393fcb83710fce5fab275df26ee62781360ea103f29eff"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "arxiv_doi_source_bundle_v1_0_0.zip",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "21d8e086df86cec0d4fec609aa604f6d1223ae1225834f0dcc80df323829b9ae"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "cloud_trl8_aws_f2/spdm_attestation/spdm_measure.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b23785a1f244d0a3ca564e483523109417baf08a9d810331ef1bfc0f3450a72f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "compliance/CDAO_TRADEWINDS_AND_OTA_BRIEF.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2d8077762383b0395db7214ec2cde6b473b403f5646db18af136308848f897ba"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "compliance/DOD_D2P2_EQUIVALENCY_AND_MPP_DOSSIER.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4421b0d66f5e933b0634e5503f95eb2032a5f1a36a416dbcd6d4b2d28a3236b2"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "compliance/DOE_GENESIS_MISSION_AND_CONTRACTING_SCHEDULE.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9cc77c705f9e42097357756dbb00c1b6d58d5e78bb98d8e2422093ef0f57e3e7"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "compliance/EXPORT_AND_DFARS_ATTESTATION.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "338feaf722b543363a267db3af9bcf1d9f0531692e354600419eebaeaedde367"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "compliance/NIST_800_53_SILICON_MAP.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "18e1db8111449a2bed7c8ac9a1ef39cd3e5c17e7c261b9409244f10676bbc52c"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "compliance/WHOLE_OF_GOVERNMENT_AND_STANDARDS_ALIGNMENT.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "6bd25f5d3bc2cfd83f386d3c683fb38f1b6d422b231aa414c2469b80ae162e70"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "constraints/xcvu47p_ooc_slr0.xdc",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e51ca7f7db6ce058b39c76015d78c946d5484a97d1601400b3962e68d8111d0b"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/AI_CONTAINMENT_THEORY.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "93b8c273f5ff9235a7cf085089468f64c48e9ba419392de135a0ef7dc1276cf6"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/BENCHMARKS.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "cee1c401056afc85701da13a4f502ef8ffecd67eb758c71bbefdd81f1f5f6f59"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/COHOMOLOGY_AND_ALGEBRA.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "19c5471a48032299a789da285e7f0dbd3e98d72e83e21ffee42dcb3aa053f4d6"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/ENERGY_AND_THERMODYNAMICS.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "6da5a4c75dbddf34746aac16a721abac11b302a9d82aabf30d72f3a6f1a51cb4"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/FORMAL_PROOFS.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b1a6f164fca6c3f68e15851f5ba0aefa623f500b5ab19c4ba3e557288031a70e"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/GRANT_ALIGNMENT_MATRIX.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "49426f6fa97f834753bcdd95647b53759d4e84b19d4a029cf5ea7acd6c45157e"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/INTEGRATION_PINOUT_SPEC.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "cf86ae88b60144d59b4886b19ea2596ba9327d5ef89520f913636d116681a9b3"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/METHODOLOGY_AND_EPISTEMIC_RIGOR.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f566f25af87ec6f5d9644d536ba5bb29a9c1f42de8907dd38a3fd180555c4ba5"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/PATENT_NOTICE.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "016218a3500d45f8dcb7418e8f6cb2d99b94965f6a2fc1d503158f5b412742b0"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/SILICON_MICROARCHITECTURE_FAQ.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "db6d8035a6066db9756480e493f6db19a15c305b358ecc223b1bb747de96e803"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/THREAT_MODEL.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5d324629821850ad280cae8998ad1368000f4f3780d8fa922466cf218eb2a826"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/TRL6_SUBSYSTEM_VALIDATION_DOSSIER.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a2746f00d7ec1aa2098dd3fefcc4ccad1aef09ff3b82be37a785085f2a24ded3"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/TRL8_COTS_VALIDATION_DOSSIER.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "cee1c401056afc85701da13a4f502ef8ffecd67eb758c71bbefdd81f1f5f6f59"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/assets/architecture_schematic.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "661b1d626ef01c0fbe909a290fae9f2525361e47c1be5210ee6d3bb5f7878b03"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/assets/pipeline_waveform.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f0b94d827d916adae810e50b3247b998888d92247b5e2175b2b39297c0365ccd"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/assets/social_preview.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "396cd84824188cc2a02e9a2fc12406566395c2d20ffeef4cfec046927637966b"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig1_silicon_ppa.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b07a487aabb9a18b6e4a8adc41cccdd2e0d04b5434b1c6f0a4557239caafaac9"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig1_silicon_ppa.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "19cd4f6d727cf31d09e3ecdcaaeceaa81a890f27608b3d664f77096dfb80e9da"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig1_silicon_ppa.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9cf8b9bbbc8bfd73261b2322f63634a2fe5882d6f9760901d5aa083f28d181fe"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig2_hbm_goodput.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "33d0875266f5f05ab82a9c292981fb1aa57af965b642a33dee2c23aa9235267c"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig2_hbm_goodput.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "95ec3b2ec8f6dcd6fce74529f21e72107e62390511bdb1f9d44ef21b869a65cd"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig2_hbm_goodput.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ad38e0b09f8248193ee359415e3c9ad6a3cb9e83440858c6a0c8234253d53e47"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig3_martingale_latency.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "fed2296121c117f5cf6986ae2a5e0d773e3f1bad7388d8f32e5ea8f6d2fb3e0b"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig3_martingale_latency.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2e8e5520fa7cb2d163aa61f374803a9a18aa9eb87c6ca3d2335c141c6db9892b"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig3_martingale_latency.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "84beeb3e3e1cef4dea2c3bf38fc62255f88a7374ed1fd89d6779dedbbdda648e"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig4_vieta_scaling.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9b6af77199c79fda43acf731cb1f6c7a730a0a6b1888fd8b4b203d1a1c472c51"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig4_vieta_scaling.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "20f446d92566d73904b6eeba980d786b753ae332edc06102c7ed14236f3b131d"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig4_vieta_scaling.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8fa21ad5f0bf541940ddebe3d76c2ed6a9ef26ed8068a856db6d7b106b6cecc8"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig5_tvla_dither.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ecaf29dee24ac56756ddb4da1dbd63bcc1e80c9be18ec0dbb85e353e86638622"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig5_tvla_dither.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "03bbeab39bcd9197ba1cfff3e20225a1651c84acc12df28e6d9e0a955d9a712f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig5_tvla_dither.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9cf6463c20703d691481668b5b346ffc3ef2357c0dfbb79b0de209b8c7525e41"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig6_k8s_tco.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8905ad85bed0b3638cb1496c26e08ea1183cf5edf9373e6a8d6261ce4a1bf592"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig6_k8s_tco.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "dd0efd4628bac02a6ed42250257c5af6b133bfcb2c59b90acfcb0e912637dd2e"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "docs/figures/fig6_k8s_tco.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8e962ba322397e5464d5a84471c60d39468984b1c7b71f0f06c160eb96490653"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "driver_cxl_vfio/spectral_cxl_vfio.c",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4a043d975fcfb92656bc1f6a9c9b0d00b18b2a9a10b72ffe5174815595c684b0"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "formal_lean4/CxlSubflitSanitizerExtensions.lean",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7cf45aeb0a7fbc5815ed40308991446e31de9f85badccbeb1ddaeb64a9f08707"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "formal_lean4/CxlSubflitSanitizerFormal.lean",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d0b41201b49cc92d3ade5c689439052322cfc3bb1af025b8f01a0692de47436f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "formal_lean4/CxlSubflitSanitizerV110Expansion.lean",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8021e4cf3bab533765a46c40bf58aea0a83a8c9734ffb09b3fc4384783e4a2fe"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "formal_lean4/lean-toolchain",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "55fd3a6a977cf9896df7a6aef25a2abeaceaa7dd7b85ec74340ecaecaf9e9415"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "funding.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "1524feb1de33ddd947b17a49e8ae61fa09a97ab49960a188660c776439ca3fdc"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "helm/spectral-operator/Chart.yaml",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f2c3fe7a8b7d3c4f2ab518240e41295213329f7b666c276d228ad928c66f0cb1"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "helm/spectral-operator/templates/crd-spectralmemorypolicy.yaml",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9c6578dc33edeadd104b05bbfb754384fff6d7a63cd974a34236f32e00dd1500"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "helm/spectral-operator/values.yaml",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b46e99b372ff92af6df7553b2caa2b5e4cedbca2b6d9fec6e4ece5cbacc84daf"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "hil_conformance/test_hil_cxl_traffic.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "40b4ef8c1175bbcf1fc176978bcfff70f124ac104935a365bcc7e80d2b0f993f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "lean-toolchain",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "55fd3a6a977cf9896df7a6aef25a2abeaceaa7dd7b85ec74340ecaecaf9e9415"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "notebooks/spectral_attestation_verifier.ipynb",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9c5befbc550d7d21056908f060281c170325fe2a65a5da055426bc4fa24d3817"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "preprint_Murphy_v1_0_0.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "1646ddfd0ccbc41b5b5dab2f4a24290901c328519cd1544f858ca04f9fb95a9c"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "preprint_Murphy_v1_0_0.tex",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b576d886ee3f8605bfe39cd938aebd20170d342536eb0f5951321b901e9b6d4e"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "preprint_Murphy_v1_1_0.tex",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "31c99d2f99eff70a467fc79fd067e17f67de6a1965badf600e2441fd2f06a339"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "registers/bar0_abi_v1.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "390aeb8fbfe1da3f4dc4df85113203f65280c07b63a9cb115d75fd10036532b2"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "registers/cxl_sanitizer_bar0_ipxact.xml",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "342604f947fbdfb0d83d3876a16a2fffc179567e9dda25b6b8585a483ceb3dee"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "registers/cxl_sanitizer_bar0_regs.h",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8204c01690504d10d08c6f9a11509f88e25056a3a2acf5a363b3f56e09c7329c"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/AWS_VIVADO_SIGNOFF_SUMMARY.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ea7f8c12ade4c58fdc30af00cb9c8bbd77baa310fb8807b7687679f6980f7d70"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/BUYER_CONVERSION_SCORECARD.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "275db44fff483a7d4f2fcafe26960e4df8f0ddb05550644146be987c1515215e"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/CHART_TO_TEXT_TRACEABILITY.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "fb277481ca98d3eaee34a5b889f0f5aacca9aa1cae9eabb0becafae9dc17c964"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/COTS_COMMERCIAL_READINESS_DOSSIER.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e73419f080e31720d963c87c9c66143b68280d946e58e372f15899fc6b551ecd"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/D2P2_NON_SBIR_FEASIBILITY_ATTESTATION.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d0b584fe7e9fadf1cf9c466a300f10825882e314f2c2018662a275927e66ea88"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/OMNIBUS_LOCKSTEP_AUDIT_RECEIPT.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "078d6f5b33f4cddd7661bd14670b2e11fba347f22553854c2882552323b0f0e5"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/OMNIBUS_LOCKSTEP_MANIFEST.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a7f21d32a1c2044d29d7a88face64c0b536959c742447b3edcbcaad4ee981631"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/PARALLEL_ORCHESTRATOR_RECEIPT.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "93264ec62520267b7ef5d74846ca01adf9540187698d6d05a9f7531e09e0d4ce"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/PUBLIC_VERIFICATION_RECEIPT.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d2a49b803124731c95bc16b4f2fe0396a442ff78df614a3de3613d05d607bbb5"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/README.md",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "da846e35acc3bccd19d48dea7259957a63bf770bfbc68d97083cf12d35ba0e35"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/STAGE0_BAR0_LOOPBACK_RECEIPT.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4314713b530501d22cfd966261cd5b3673131cfdc262142d43ea63b2a70fef28"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/STAGE2_AWS_F2_SILICON_RECEIPT.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "eeca95b13d690c45f41643b1533229f1ff8fdab4be792d595c65187b4c1c6b54"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/STAGE3_LIVE_AFI_HARDWARE_TRL6_RECEIPT.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c8cd000607a7b6c0aa591c957b82bfb1109a59dfa669a0f012fecab022b48fb0"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/TRL6_ASIC_7NM_ASAP7_SIGNOFF.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "29d30a340852684986c6888471a674e46faa70e17fea92f8dc72d81b1712c7ab"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/TRL7_AWS_F2_HBM2_DMA_RECEIPT.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "de49300290bc59489dc7ef13792935fa1cfe35a98f8184031292f5f6cea74c49"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/TRL8_K8S_OPERATOR_HIL_RECEIPT.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "31933793b66dab1c494d11b167ae2bf67f3fcedcdced5137a13abaa8b2fa61ad"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/ZK_LEC_MITER_RECEIPT.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "46bee17ecb4354909ebc9d04da3fe835883e0ee827a585edc80e20f2f52ee359"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/afi_submission_manifest.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "497800f62aa74eba5fb2dcabe72f0858a0548c64192f7e06fa8216b2bb8d5045"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/arxiv_doi_source_bundle_v1_0_0.zip",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d0d5a8a5d9e0bf782fa0e2dd91b25fb13eac08582cb09bcf6d3118e64ec32775"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/arxiv_doi_source_bundle_v1_1_0.zip",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f72650090da30d67025c77b151d203c53b8bd54ee2ba1e99bea592f6d8de737f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/asap7_7nm_enclave_layout.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "53f7c155d7cbb06224bec4df2fcf9b94d2a17ec1ad44300e8128a718851cb784"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/aws_f2_trl6_live_silicon/STAGE3_LIVE_AFI_HARDWARE_TRL6_RECEIPT.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c8cd000607a7b6c0aa591c957b82bfb1109a59dfa669a0f012fecab022b48fb0"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/aws_f2_trl6_live_silicon/afi_submission_manifest.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "84d7776d4cd84300804ccb8164d63ceddbf1f2a92ad89652f84a1a42763de176"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/aws_f2_trl6_live_silicon/cl_spectral_sanitizer_post_route_hier_utilization.rpt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "00a31efed4a1989e8a26161dd5bb3fa9b3018ffb46c194e6db5f170b03e57a16"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/aws_f2_trl6_live_silicon/cl_spectral_sanitizer_post_route_power.rpt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "3fb2d9a844b733fc429c66b7812f59ebd1cc0c83b5f07bfa1d7c715a30728177"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/aws_f2_trl6_live_silicon/cl_spectral_sanitizer_post_route_utilization.rpt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "39fab00fb8ba4fcfe52e413e8df917a6206e3353725661a94afed13b2cb6f22f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/aws_f2_trl6_live_silicon/fpga_slot0_loaded.txt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7f448bc7a3d63dcc668d146faa666f4c7c0cb4e01601af7ee6232f5394bca1e6"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/aws_f2_trl6_live_silicon/fpga_virtual_led.txt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8aef4872170011fe86cd0ea782da081ffcab01e5b5fc91bfe02ca2d32fb06bcb"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/aws_f2_trl6_live_silicon/live_bar0_ocl_silicon_output.txt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "1ab92559fe229c5c7d441b9ae80d07e0ac1a51c0cd7b9b84c4f2c071428cb8c2"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/aws_f2_trl6_live_silicon/pcie_loaded_f010_vvv.txt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5e1aaa4d4694a1b83ef9be787f4b84853d558555168a174393daafd389712141"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/chart_results_autogen.tex",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "96bf14c33447ee359f7eac481b108649213f5fc1dbcd895027bde3fabcbe3d20"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/cluster_tco_telemetry.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "778851251aa50bbc41c8807759078c5030d1b8eb5838c28bccbf32540c6ae38b"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/compiled_bar0_bundle.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4d3606828a654c520f022a5a4d9dcbebed9cb12671ff3a088378a1cff23167ae"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/cxl_enclave_boundary_trace.vcd",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "22d7d6c95651ed0cbf88b3879a29d371cf7e20d8386bff1d85eb61a9de523d8a"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/hbm2_afi_manifest.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5d1e07f240b31fa4825a22c897ccf4ebb57c3ebbc9230e2446f648e68bd07914"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/lab_results_autogen.tex",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "fb383d59ad01b9fc966e21d55f49e657b3fe9ba73cf6d7aaf5cae67c2699ada8"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/postroute_edif_sha256.txt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "af520d07747696d9bc3b555a73ad46cea2ff8f6e2d9a242d35f086997d23e9af"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/trl6_5_cmos_asic_summary.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f86b34a19e5bc0ddd9b419670bf868e141003b0fc37e9d828ea65c2dcac36a15"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/trl6_5_tvla_20k_summary.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2880f283e5b807993f9a1fdd2e71d3de7249004fc14ab39cb25749249f7e6c9d"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/vivado_xcvu47p_core_timing_summary.rpt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a900cc749cf81511a0a933b08281fa88ebd491391f45b253993b41527dba8ae0"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/vivado_xcvu47p_core_utilization.rpt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d2e08f40667679da1ecd361adf658dc38aa772734b1b5647a4062cabde0b7085"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/vivado_xcvu47p_cycle0_utilization.rpt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "da400befe57b6bbd0d9ccb3fae133e89df308a0ae7fa4cbb0389006e40de1bb2"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/vivado_xcvu47p_drc_audit.rpt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "aa7886f9555e100fa1ad71bb3715e61d1792460c6152073c56f3f663a7155d29"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/vivado_xcvu47p_power.rpt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d3896ee98ca541f3c265e6ed158cd17076ba68f9b856d108bd66062183d5bde1"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/vivado_xcvu47p_scrub_shim_timing_summary.rpt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "09d1cdf5fb0ad13c045c005c5546952737ecaa1a86e642d132680bd9bd38a3a2"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/vivado_xcvu47p_scrub_shim_utilization.rpt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "90e2272f5d305f1e9663316e5bba8513159db1349b4c01b57ddce3ed235efe22"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/vivado_xcvu47p_wrapper_drc_audit.rpt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f3b5ef9ecb9f86b63ef0144d9a3b576d458c8473a78bd6fb612984431f1a3fc7"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/vivado_xcvu47p_wrapper_timing_summary.rpt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "0f7437231f536ad866cb23f0c65744cf20a0c39f703da5bfe9acae645ba644ca"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/vivado_xcvu47p_wrapper_utilization.rpt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5a50c4befab75c7dcb240fdab2cfe4f4f61b3abdb63f421656db3341cd4f5d13"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/workload_martingale_telemetry.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "dbe274966114eceec36901441d685ab82a2921e5eaff89a93c8b48c45b73dc10"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "reports_public/xsim_golden_vectors.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "138c85a416c9b162070f67775cf6b9cd53af79548cc68b26b922c107ed49c7f2"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "scripts/build_cloudflare_site.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9884163a669137a69377ecdddb654f6b3766681b159738d552224c497deb62eb"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "scripts/cloud_parallel_orchestrator.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5ecf0d2561bffcc5b9a8c5a740f4046237e34ddb063fd664efec641b77b719f1"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "scripts/emit_doi_autogen_tex.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "01037c037471304247644cfcdb680a4f8b757ffde6268b8b122fc94d48580a0f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "sdk_open/hpc_slurm_flux/spectral_epilog_ratchet.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8d9ebee3997cda3f438f6db22a832ef2aebe306661182261ead430126f239a62"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "sim/benchmark_workload_and_martingale.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "66813682ffd1e133d39675a27301720375f0f0897e401dc17d8a97cec5cfc601"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "sim/cluster_tco_calculator.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "031ed7bb9515d877b82ee8b0ae0f86b441e0138573f5b51e864fe62493d98810"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "sim/cxl_subflit_sanitizer_twin.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c374e16acc45ff96c7bccbe8d8ef118de6a91023e49272d58d5c60b57d435f9b"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "sim/run_secret_vault_rtl.sh",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ca515104858ee57ba166b95ca7a9903ce3a2af442df7c654cc8521584bcf28e9"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "sim/sst_cxl_clustersim_adapter.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "3e4ecd6d080539bf65b1c419cd8dd1c6a9214ea7dea137bbe098778264e1399f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "spectralc/Cargo.toml",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "dc93a531867b788259f86bd67f6ddf433d210d783e7345e5a3d6bc06fbe4bb29"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "spectralc/src/main.rs",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "6fea824452b0bbd774c58b028d9c1f4b9c75e712d51748069550b95efdb48fe7"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "tests/run_5pillar_repo_auditor.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9e48b4ae759764877ea8748c77d61eade2c0843bddb5296d7d0057779d5efb8e"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "tests/test_agilex_cxl_trl7_hil.c",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "70a359a314b979e218d2f589ef587779012ce2273c5ff9f868478889ee815202"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "tests/test_aws_f2_trl6_hil.c",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d9bce8aa9f101fc653f6bef1acf4ff7671726161bbde076c4a8f343379112561"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "tests/test_bar0_driver.c",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "41f4ec05542141ea622edd285f995641a78932783c1a90529cf1b797d52d601c"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "tests/test_flit_fuzzer.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "93bc0e547414c32fde8a13fbcbd7b1a7c3966f79baf1081665ee16c710a1e073"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "tests/test_silicon_signoff.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e11c904bdbbbff6dc72e776e9461d0956b5ddbb691e97e15260c325cdf851a04"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "tests/test_stage0_pcie_bar0_mmio_loopback.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "30f7900ee2618f68316f7ad7426638802336f8f1640751d4ed51154568ef8669"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "tests/test_trl6_subsystem_integration.py",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a92b26914d0eb119f2f0bb2903e459c341fc58b9971080ea41f773f422dde0f6"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/.well-known/did.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7704afb7703c3bcf0452ab458387b17c14b1671e200c1c4c352981de9b942c70"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/.well-known/security.txt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5c41834cbe13d6412790ebc96c634e903b509ebb3b8b5123feb6009a36ec8df6"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/_headers",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5313e8a88339f72f330070ab2e3efae5a8da64e424c80457f0cba3aa2b1e5882"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/_redirects",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "3a38c8aa700233d61c1ee8244cbd05ddf991cf7888ee42f38df1c96468618809"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig1_silicon_ppa.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "296905bdbae9ce589fac853693ff805465eceb6a6e754651934de762f172787f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig1_silicon_ppa.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "19cd4f6d727cf31d09e3ecdcaaeceaa81a890f27608b3d664f77096dfb80e9da"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig1_silicon_ppa.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "aa52edb64fd5a4628dc0deb4a4e9b57b7fbbe2791de9fb52156b399ce2de259d"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig2_hbm_goodput.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "33d0875266f5f05ab82a9c292981fb1aa57af965b642a33dee2c23aa9235267c"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig2_hbm_goodput.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "95ec3b2ec8f6dcd6fce74529f21e72107e62390511bdb1f9d44ef21b869a65cd"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig2_hbm_goodput.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "970d79b84bb09817f24af79139bed921fc27645d789c9548032fdc5d00e5a0e8"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig3_martingale_latency.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7b16bbee4526e93f001add5504e5bd603e87ce52a093cf2124ba523b2f9760b7"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig3_martingale_latency.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2e8e5520fa7cb2d163aa61f374803a9a18aa9eb87c6ca3d2335c141c6db9892b"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig3_martingale_latency.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "71be7798b4986322f187c4361206b5ae9c57c13a4dcbafe6ce2b1136f538813d"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig4_vieta_scaling.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9b6af77199c79fda43acf731cb1f6c7a730a0a6b1888fd8b4b203d1a1c472c51"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig4_vieta_scaling.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "20f446d92566d73904b6eeba980d786b753ae332edc06102c7ed14236f3b131d"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig4_vieta_scaling.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "fea8639be99465130a719163afe09311fb8acf3851ca07f53861ca217e45d863"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig5_tvla_dither.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ecaf29dee24ac56756ddb4da1dbd63bcc1e80c9be18ec0dbb85e353e86638622"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig5_tvla_dither.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "03bbeab39bcd9197ba1cfff3e20225a1651c84acc12df28e6d9e0a955d9a712f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig5_tvla_dither.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "08b1f68de9421bfbc949910492687b6adfad7c76f714c0b6989f546f8f0ccfb1"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig6_k8s_tco.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "dc8bd7d56fa4da71278b9e15766a5a85cbe8e91eb42c433bc083ea352b48c599"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig6_k8s_tco.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "dd0efd4628bac02a6ed42250257c5af6b133bfcb2c59b90acfcb0e912637dd2e"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/fig6_k8s_tco.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "3aba16e49d15b351e2dd8e28e37524b1cd3c51ad6f696db5f3c9573efbc6a4f2"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/spectral-showcase.css",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "33318f8e17fa57c3ebe40d831ea5fca9715512b766769dc7b859cac7d9c8cb5a"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/spectral-sims.js",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "0f1edbc05b78f3e5de68303bd8912f6a56ad93dd59172f0279ac64036ac846cd"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/videos/cdao_tradewinds_v1.mp4",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "970cc594f87b78d3081e6a297b3dd491145d0e661b08ec207229b37d75e1c1b5"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/videos/cdao_tradewinds_v1.vtt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8e08ac6504be1947444fb3acc0b9ff29f1bd114e9429f40cf6a63b2d84a39421"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/videos/darpa_eris_v1.mp4",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "fe9a579d05c04d7c461f7681c9910f7fa57b1e9d81c06d9bf7f2415c8709b285"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/assets/videos/darpa_eris_v1.vtt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "714894e9a6c366620a41a1a34e5a2820f6ad2799c164785669b7f9b3c25e8aff"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/benchmarks.html",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b5874a66fc33f78b54c46e73243b19b21eee6eb2f1187335822de451a14ad7bc"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/capability-statement.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "75e9739267cd4310f4cd0d6b728c841d9bd44975d25a5846f5709a9a1ac26754"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/compiler.html",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "231707a6da36cef89c6c8237d6e066f8aee5096e4809d34a705ce6bc06cd1f86"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/console-demo/index.html",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "60a518d4a884f770f1c4f1eb6762e496252e3d8f7e7a209ed6b1737433f29240"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/cots-procurement.html",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "fb512e20b83e731f929e621d28110bd682b881bdf8be67f2cde6a3ad7f6afcdb"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/evaluation.html",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "76540f3a4b89fd13b9a710cf9c8d7904cf8840d8e348c7bdfb6b636c99b8e98f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig1_silicon_ppa.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b07a487aabb9a18b6e4a8adc41cccdd2e0d04b5434b1c6f0a4557239caafaac9"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig1_silicon_ppa.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "19cd4f6d727cf31d09e3ecdcaaeceaa81a890f27608b3d664f77096dfb80e9da"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig1_silicon_ppa.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9cf8b9bbbc8bfd73261b2322f63634a2fe5882d6f9760901d5aa083f28d181fe"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig2_hbm_goodput.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "33d0875266f5f05ab82a9c292981fb1aa57af965b642a33dee2c23aa9235267c"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig2_hbm_goodput.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "95ec3b2ec8f6dcd6fce74529f21e72107e62390511bdb1f9d44ef21b869a65cd"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig2_hbm_goodput.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ad38e0b09f8248193ee359415e3c9ad6a3cb9e83440858c6a0c8234253d53e47"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig3_martingale_latency.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "fed2296121c117f5cf6986ae2a5e0d773e3f1bad7388d8f32e5ea8f6d2fb3e0b"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig3_martingale_latency.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2e8e5520fa7cb2d163aa61f374803a9a18aa9eb87c6ca3d2335c141c6db9892b"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig3_martingale_latency.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "84beeb3e3e1cef4dea2c3bf38fc62255f88a7374ed1fd89d6779dedbbdda648e"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig4_vieta_scaling.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9b6af77199c79fda43acf731cb1f6c7a730a0a6b1888fd8b4b203d1a1c472c51"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig4_vieta_scaling.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "20f446d92566d73904b6eeba980d786b753ae332edc06102c7ed14236f3b131d"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig4_vieta_scaling.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8fa21ad5f0bf541940ddebe3d76c2ed6a9ef26ed8068a856db6d7b106b6cecc8"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig5_tvla_dither.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ecaf29dee24ac56756ddb4da1dbd63bcc1e80c9be18ec0dbb85e353e86638622"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig5_tvla_dither.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "03bbeab39bcd9197ba1cfff3e20225a1651c84acc12df28e6d9e0a955d9a712f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig5_tvla_dither.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9cf6463c20703d691481668b5b346ffc3ef2357c0dfbb79b0de209b8c7525e41"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig6_k8s_tco.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8905ad85bed0b3638cb1496c26e08ea1183cf5edf9373e6a8d6261ce4a1bf592"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig6_k8s_tco.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "dd0efd4628bac02a6ed42250257c5af6b133bfcb2c59b90acfcb0e912637dd2e"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/figures/fig6_k8s_tco.svg",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8e962ba322397e5464d5a84471c60d39468984b1c7b71f0f06c160eb96490653"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/formal_lean4/CxlSubflitSanitizerExtensions.lean",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7cf45aeb0a7fbc5815ed40308991446e31de9f85badccbeb1ddaeb64a9f08707"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/formal_lean4/CxlSubflitSanitizerFormal.lean",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d0b41201b49cc92d3ade5c689439052322cfc3bb1af025b8f01a0692de47436f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/formal_lean4/CxlSubflitSanitizerV110Expansion.lean",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8021e4cf3bab533765a46c40bf58aea0a83a8c9734ffb09b3fc4384783e4a2fe"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/funding.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "1524feb1de33ddd947b17a49e8ae61fa09a97ab49960a188660c776439ca3fdc"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/index.html",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "6257cd5d8c2d5af1f3a1dfa3207823f7dc429beeb4864b3543cf60d71e9e8351"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/ip-scope.html",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b7c32a04f866e4be382e36ff0af749c9f9200737e90c78c5dc0f206b44507cea"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/llms.txt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "1b56a55a50a53d45fdc014efd0c085e8d7df61039e16a2d223f468ac6b974847"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/media/cdao_tradewinds_poster.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c7ccb2f097a0bf1023f3e746a5a05e31af36651a163c967ffe9809a86cd7cb17"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/media/cdao_tradewinds_v1.mp4",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8e8c88d7efbec99169f694b12b382053b869be1b3cddb10a682874bb78f37bc9"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/media/cdao_tradewinds_v1.vtt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b539ec18582bc9bdce4164c88b62ce6298f1453e76dcb648f9ddb61c2d49f62f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/media/darpa_eris_poster.png",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f19cea819b10b49e8351d1056e3923e87cf129a95d486c5fd35013e9e65a9513"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/media/darpa_eris_v1.mp4",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "51d631b6061ea7e2f24445fd9d39ffa5e034d23203ce0ccabd42381017d95da6"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/media/darpa_eris_v1.vtt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9840de2e2b436b27a5b4a9981352d60b234ee554e5aa34c3ef5de373b4ace73f"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/patents.html",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "611633a63f7778e13ee3684cc45df2ecf3f613fabd50c912280b0b2fc018d0f7"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/preprint_Murphy_v1_0_0.pdf",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "1646ddfd0ccbc41b5b5dab2f4a24290901c328519cd1544f858ca04f9fb95a9c"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/robots.txt",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8d8d8b9b9916f1564d3feae6967063dcdfb1426c5779d912bb50c57a50662685"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/sitemap.xml",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4e8796768f71e4345963af0cedfb2247aac156ff38aaa4e3b819fa28d4bf1e57"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/vendor-profile.json",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "468558b14e65d32f50cdd108b71e9fa7b931da3c2093b28354d378a07470bc20"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/verification.html",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "082cec7a169b5864e7a515ccb1c24f8bb368d789490eec9eb502eba32abdfd3a"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "website_public/zero-trust.html",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "51b3f17d966478fa304213be63d8f12a2b103933eeebbdfc06459e49f08201c3"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "wrangler.toml",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "9a38044dae45b4ad2b6b23df2e1e3085c1f1bc1c9a5b0e12e9de92f6168bc1cf"
+        }
+      ]
+    }
+  ]
+}

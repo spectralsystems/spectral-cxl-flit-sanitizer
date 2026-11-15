@@ -1,0 +1,66 @@
+{
+  "version": "v1.1.0",
+  "entity": {
+    "type": "organisation",
+    "role": "owner",
+    "name": "Spectral Systems LLC",
+    "email": "eric@spectralsystems.org",
+    "phone": "",
+    "description": "Deep-tech hardware security, formal verification (Microsoft Lean 4, 38 zero-axiom theorems thm00..thm37), stateless sub-flit capability sanitization, and CXL 3.0-4.0 / PCIe 6.0 / UCIe silicon interposer R&D entity based in the United States (SAM.gov UEI: VTP2JPCJU3D9 | DLA CAGE: 268E1).",
+    "webpageUrl": {
+      "url": "https://spectralsystems.org"
+    }
+  },
+  "projects": [
+    {
+      "guid": "spectral-cxl-flit-sanitizer",
+      "name": "Spectral Flit-Filter (v1.1.0): Stateless Sub-Flit Capability Sanitization, Algebraic Cohort Ratcheting, and Post-Route Formal Verification for Disaggregated CXL 3.0-4.0 and UCIe Memory Fabrics",
+      "description": "Zero-axiom Lean 4 formally verified (38 constructive theorems thm00..thm37), 0-BRAM finite-field Vieta/AG(2,8) sub-flit sieve, cold-reset BAR0 hardware ratchet, 338.8 MHz AMD Virtex UltraScale+ HBM (xcvu47p, 1,585 LUTs) live AWS F2 HBM2 interposer, and 693 MHz 7nm ASAP7 CMOS core (0.003335 mm^2).",
+      "webpageUrl": {
+        "url": "https://spectralsystems.org"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/spectralsystems/spectral-cxl-flit-sanitizer"
+      },
+      "licenses": [
+        "spdx:Apache-2.0"
+      ],
+      "tags": [
+        "cxl-3-0",
+        "ucie",
+        "hbm2",
+        "lean-4",
+        "formal-verification",
+        "hardware-security",
+        "fpga",
+        "darpa",
+        "doe-genesis"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "federal-sbir-ota-gpc",
+        "type": "other",
+        "address": "SAM.gov UEI: VTP2JPCJU3D9 | DLA CAGE: 268E1 | Contact: eric@spectralsystems.org",
+        "description": "Eligible for FAR 13.201 Government Purchase Card (<$15k micro-purchase COTS evaluation licenses), DOE Genesis Mission, DARPA BAA, DoD Direct-to-Phase-II (D2P2), Prototype OTA (10 U.S.C. 4022), and Sole-Source Phase III (15 U.S.C. 638(r)(4))."
+      }
+    ],
+    "plans": [
+      {
+        "guid": "trl7-asic-shuttle-and-f2-cluster",
+        "status": "active",
+        "name": "TRL-7 Multi-Node AWS F2 Hardware Loopback & 7nm FinFET MPW Tape-Out",
+        "description": "Scale 338.8 MHz xcvu47p validation across multi-rack CXL pooled memory fabrics and execute 7nm FinFET standard-cell ASIC shuttle tape-out.",
+        "amount": 1750000,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": [
+          "federal-sbir-ota-gpc"
+        ]
+      }
+    ],
+    "history": []
+  }
+}

@@ -1,0 +1,6 @@
+Contact: mailto:eric@spectralsystems.org
+Contact: mailto:admin@spectralsystems.org
+Expires: 2027-10-28T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://github.com/spectralsystems/spectral-cxl-flit-sanitizer/blob/main/.well-known/security.txt
+Policy: https://github.com/spectralsystems/spectral-cxl-flit-sanitizer/blob/main/SECURITY.md

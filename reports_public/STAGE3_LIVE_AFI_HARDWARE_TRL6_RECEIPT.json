@@ -1,0 +1,70 @@
+{
+    "schema":  "spectral.aws.f2.hardware_trl6.public_attestation.v1",
+    "sovereign_entity":  "Spectral Systems LLC (United States | CAGE: 268E1 | UEI: VTP2JPCJU3D9)",
+    "trl_status":  "TRL-6 Hardware-Closed Enclave Subsystem on Live AWS EC2 f2.6xlarge Silicon (xcvu47p-fsvh2892-2-e)",
+    "utc_sealed":  "2026-11-04T00:51:46Z",
+    "aws_afi_id":  "afi-01e1910295991cdf1",
+    "aws_agfi_id":  "agfi-036c4a41d05661f64",
+    "routed_developer_cl_tar_sha256":  "ad3a6d72e5aba480aa9270e1dbb535c011790e216bdbf77162c795db7c176ec3",
+    "pcie_loaded_app_pf":  "0000:34:00.0 [1d0f:f010] Subsystem [fedc:1d51] ShVersion=0x10212415",
+    "post_route_silicon_footprint":  {
+                                         "top_total_luts":  12202,
+                                         "top_total_ffs":  18446,
+                                         "cl_partition_luts":  9270,
+                                         "cl_partition_ffs":  8165,
+                                         "enclave_total_luts":  5468,
+                                         "enclave_total_ffs":  3624,
+                                         "core_sieve_luts":  1745,
+                                         "core_sieve_ffs":  1209,
+                                         "cycle0_unsealer_luts":  3070,
+                                         "cycle0_unsealer_ffs":  260,
+                                         "bram_tiles":  0,
+                                         "uram_tiles":  0,
+                                         "dsp_slices":  0,
+                                         "total_on_chip_power_w":  4.928,
+                                         "clb_logic_dynamic_power_w":  0.125
+                                     },
+    "live_hardware_verification":  {
+                                       "ocl_status_online":  "0x5EC70010",
+                                       "ocl_sentinel_magic":  "0x5EC72026",
+                                       "bar0_key_portal_readback":  "0x0000000000000000 (WO-ZERO-RD verified)",
+                                       "monotonic_ratchet_and_flr":  "0xFFFFFFFFFFFFFFFF -\u003e 0x0000FFFFFFFFFFFF -\u003e esc_blocked=0x0000FFFFFFFFFFFF -\u003e post_warm_flr=0x0000FFFFFFFFFFFF",
+                                       "flits_injected_and_egressed":  10000,
+                                       "final_status_register":  "0x5EC7FF1F",
+                                       "mgmt_pf_vled_transition":  "0x5E00 (0101-1110-0000-0000) -\u003e 0x5E10 (0101-1110-0001-0000)"
+                                   },
+    "public_artifacts":  {
+                             "afi_submission_manifest.json":  {
+                                                                  "sha256":  "d114962b2cd4edab52b189b92d94f8b77df5caf8a0e9ba7ba22c9d1fe8d61e47",
+                                                                  "bytes":  344
+                                                              },
+                             "fpga_slot0_loaded.txt":  {
+                                                           "sha256":  "7f448bc7a3d63dcc668d146faa666f4c7c0cb4e01601af7ee6232f5394bca1e6",
+                                                           "bytes":  558
+                                                       },
+                             "live_bar0_ocl_silicon_output.txt":  {
+                                                                      "sha256":  "1ab92559fe229c5c7d441b9ae80d07e0ac1a51c0cd7b9b84c4f2c071428cb8c2",
+                                                                      "bytes":  1176
+                                                                  },
+                             "fpga_virtual_led.txt":  {
+                                                          "sha256":  "8aef4872170011fe86cd0ea782da081ffcab01e5b5fc91bfe02ca2d32fb06bcb",
+                                                          "bytes":  158
+                                                      },
+                             "pcie_loaded_f010_vvv.txt":  {
+                                                              "sha256":  "5e1aaa4d4694a1b83ef9be787f4b84853d558555168a174393daafd389712141",
+                                                              "bytes":  2684
+                                                          },
+                             "cl_spectral_sanitizer_post_route_utilization.rpt":  {
+                                                                                      "sha256":  "f1941163c4e9830808ef8f74b53c7ce6b8c9ec0c84d79f730a39084980b66c8b",
+                                                                                      "bytes":  18643
+                                                                                  },
+                             "cl_spectral_sanitizer_post_route_hier_utilization.rpt":  {
+                                                                                           "sha256":  "fcaf7fc88a52dce836a76ff3628d5c328616672dc929de058900409a5facf69d",
+                                                                                           "bytes":  10952
+                                                                                       },
+                             "cl_spectral_sanitizer_post_route_power.rpt":  {
+                                                                                "sha256":  "f7f958f2e94ce19c0f8cd195c56e3526fa8c781aad4a3f7c2d90977c4b6b78a1",
+                                                                                "bytes":  13314
+                                                                            }
+                         }
+}
