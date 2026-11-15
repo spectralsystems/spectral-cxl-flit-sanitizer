@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "vendor_id": "0x1E98",
+  "dvsec_id": "0x0023",
+  "subsystem_device_id": "0x4B4C",
+  "total_bytes": 128,
+  "register_count": 16,
+  "registers": [
+    {"index": 0,  "offset": "0x00", "offset_int": 0,   "name": "CSR_0x00_COARSE_SPATIAL_MASK",  "access": "RW_AND_RATCHET", "reset": "0xFFFFFFFFFFFFFFFF", "desc": "Coarse 512-MB arena spatial capability mask (monotonic AND-ratchet, cold-POR isolated)"},
+    {"index": 1,  "offset": "0x08", "offset_int": 8,   "name": "CSR_0x08_COARSE_TEMPORAL_MASK", "access": "RW_AND_RATCHET", "reset": "0xFFFFFFFFFFFFFFFF", "desc": "Coarse 512-MB arena temporal capability mask (monotonic AND-ratchet, cold-POR isolated)"},
+    {"index": 2,  "offset": "0x10", "offset_int": 16,  "name": "CSR_0x10_SHADOW_KEY_LO",        "access": "RW_SHADOW_BANK", "reset": "0x0123456789ABCDEF", "desc": "Inactive-bank lower 64-bit cryptographic MAC/Feistel key staging portal"},
+    {"index": 3,  "offset": "0x18", "offset_int": 24,  "name": "CSR_0x18_SHADOW_KEY_HI",        "access": "RW_SHADOW_BANK", "reset": "0xFEDCBA9876543210", "desc": "Inactive-bank upper 64-bit cryptographic MAC/Feistel key staging portal"},
+    {"index": 4,  "offset": "0x20", "offset_int": 32,  "name": "CSR_0x20_EPOCH_CTRL_STATUS",    "access": "RW",             "reset": "0x0000000000000001", "desc": "Dual-bank epoch toggle, bank_valid[1:0], Vieta degree d_rev[3:0], and fault mode"},
+    {"index": 5,  "offset": "0x28", "offset_int": 40,  "name": "CSR_0x28_INGRESS_CRD_CNT",      "access": "RO",             "reset": "0x0000000000000000", "desc": "Cumulative CXL Link-Layer RX credit request counter"},
+    {"index": 6,  "offset": "0x30", "offset_int": 48,  "name": "CSR_0x30_EGRESS_CRD_CNT",       "access": "RO",             "reset": "0x0000000000000000", "desc": "Cumulative Stage-4 equalized TX credit refund counter"},
+    {"index": 7,  "offset": "0x38", "offset_int": 56,  "name": "CSR_0x38_SANITIZED_SLOT_CNT",   "access": "RO",             "reset": "0x0000000000000000", "desc": "Cumulative count of unauthorized 128-bit slots clamped to CXL_NOP"},
+    {"index": 8,  "offset": "0x40", "offset_int": 64,  "name": "CSR_0x40_SELF_NAK_CNT",         "access": "RO",             "reset": "0x0000000000000000", "desc": "Self-inflicted link-layer CRC NAK counter (invariant == 0)"},
+    {"index": 9,  "offset": "0x48", "offset_int": 72,  "name": "CSR_0x48_TAMPER_TRAP_CNT",      "access": "RO_COLD_POR",    "reset": "0x0000000000000000", "desc": "Monotonic 0->1 escalation, DMA replay, and dual-rail fault trap counter"},
+    {"index": 10, "offset": "0x50", "offset_int": 80,  "name": "CSR_0x50_RWD_FIFO_STATUS",      "access": "RO",             "reset": "0x0000000000000000", "desc": "32-slot M2S_RwD rollover shift FIFO occupancy and overflow status"},
+    {"index": 11, "offset": "0x58", "offset_int": 88,  "name": "CSR_0x58_CANONICAL_EGRESS",     "access": "RW_LOCKOUT",     "reset": "0x0000000000000000", "desc": "Zero-leakage canonical egress digest N(Sigma, pi) with sticky invalid-witness lockout"},
+    {"index": 12, "offset": "0x60", "offset_int": 96,  "name": "CSR_0x60_FINE_COHORT_MASK",     "access": "RW_AND_RATCHET", "reset": "0xFFFFFFFFFFFFFFFF", "desc": "Dual-banked 64-bit fine 4-KB cohort spatial mask / Vieta elementary symmetric coefficients"},
+    {"index": 13, "offset": "0x68", "offset_int": 104, "name": "CSR_0x68_FINE_TIMEWHEEL_MASK",  "access": "RW_AND_RATCHET", "reset": "0xFFFFFFFFFFFFFFFF", "desc": "64-bucket autonomous lease time-wheel and fine temporal capability mask"},
+    {"index": 14, "offset": "0x70", "offset_int": 112, "name": "CSR_0x70_SPID_LIVE_BITMAP",     "access": "RW_AND_RATCHET", "reset": "0xFFFFFFFFFFFFFFFF", "desc": "Prefix-guarded 64-tenant live SPID authorization bitmap"},
+    {"index": 15, "offset": "0x78", "offset_int": 120, "name": "CSR_0x78_PREFIX_SUBMODE_DMA",   "access": "RW_WONCE_PFX",   "reset": "0x00000000000000A5", "desc": "Write-once port SPID prefix [7:0], submode [51:50], and 4-channel OOO DMA burst portal"}
+  ]
+}

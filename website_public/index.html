@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inline CXL 3.x Sub-Flit Capability Gate &mdash; Spectral Systems LLC</title>
+  <meta name="description" content="Physical CXL 3.x sub-flit capability lock: 8.0 ns 2-cycle cut-through, 99.20% surgical goodput, Cold-POR CSR 0x70.">
+  <link rel="canonical" href="https://spectralsystems.org/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+  <style id="spectral-elegant-editorial-theme">
+:root {
+  --bg-canvas: #090B10;
+  --bg-bay: #0D1119;
+  --bg-card: #111622;
+  --bg-elevated: #161D2C;
+  --ink-ivory: #F8F7F4;
+  --ink-body: #D8DEE9;
+  --ink-mono: #CBD5E1;
+  --ink-dim: #94A3B8;
+  --hairline: #1E2636;
+  --hairline-strong: #2C3850;
+  --accent-orange: #FF5722;
+  --accent-orange-soft: rgba(255, 87, 34, 0.14);
+  --state-legal: #34D399;
+  --state-trap: #F87171;
+  --state-noop: #FBBF24;
+  --state-nop: #38BDF8;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg-canvas); color: var(--ink-body); scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg-canvas);
+  color: var(--ink-body);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16.5px;
+  line-height: 1.74;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, .serif-display {
+  font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  color: var(--ink-ivory);
+  margin-top: 0;
+}
+code, pre, kbd, .mono, .copy-pill, .haptic-badge, .csr-table, .metric-val {
+  font-family: 'JetBrains Mono', Consolas, 'Liberation Mono', monospace;
+  font-variant-numeric: tabular-nums slashed-zero;
+  color: var(--ink-mono);
+}
+  </style>
+  <link rel="stylesheet" href="assets/spectral-showcase.css?v=20261116T224052Z">
+</head>
+<body>
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a class="brand-block" href="index.html">
+        <span class="brand-mark">SPECTRAL SYSTEMS</span>
+        <span class="brand-sub">CXL 3.x INLINE SILICON</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary Routes">
+        <a class="nav-link active" href="index.html">01 / Live Wire</a>
+        <a class="nav-link" href="benchmarks.html">02 / Benchmarks</a>
+        <a class="nav-link" href="zero-trust.html">03 / Zero-Trust</a>
+        <a class="nav-link" href="verification.html">04 / Verification</a>
+        <a class="nav-link" href="cots-procurement.html">05 / COTS &amp; TCO</a>
+        <a class="nav-link" href="patents.html">06 / DFARS &amp; ZK-IC3</a>
+        <a class="nav-link" href="console-demo/index.html">07 / Compiler &amp; BAR0</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section id="spectral-guided-discovery" class="triage-lens" aria-label="Reviewer Triage Lens">
+      <div class="triage-top">
+        <span class="eyebrow">4-Persona Reviewer Triage Lens</span>
+        <div class="persona-tabs" role="tablist">
+          <button type="button" class="persona-btn active" data-persona="darpa">DARPA / DoD PM</button>
+          <button type="button" class="persona-btn" data-persona="arch">CXL / HBM4 Architect</button>
+          <button type="button" class="persona-btn" data-persona="formal">Formal / Crypto Auditor</button>
+          <button type="button" class="persona-btn" data-persona="gpc">Federal GPC Contracting</button>
+        </div>
+      </div>
+      <div id="spectral-guided-story" class="guided-story">
+        Mission &amp; DoD Program View: A compromised host OS or PCIe Warm Function-Level Reset (FLR) cannot re-enable a revoked tenant bit because CSR 0x70 passes through a physical AND2 gate reset solely by cold chassis power (por_cold_rst_n). Bad writes are zeroed in 16-byte sub-flit slots at 99.20% goodput instead of collapsing shared memory links to 48.90%. All Patents Pending (DFARS 252.227-7018 Private-Expense IP).
+      </div>
+      <div class="copy-pill-row">
+        <button type="button" class="copy-pill" data-copy="268E1">CAGE: 268E1</button>
+        <button type="button" class="copy-pill" data-copy="VTP2JPCJU3D9">UEI: VTP2JPCJU3D9</button>
+        <button type="button" class="copy-pill" data-copy="10.5281/zenodo.24047902">DOI: 10.5281/zenodo.24047902</button>
+        <button type="button" class="copy-pill" data-copy="agfi-08becf3b40b169674">agfi-08becf3b40b169674</button>
+        <button type="button" class="copy-pill" data-copy="agfi-03b742e2a9cd2c0f2">agfi-03b742e2a9cd2c0f2</button>
+      </div>
+    </section>
+
+    <section class="monograph-bar" aria-label="Monograph Downloads">
+      <div class="monograph-actions">
+        <a class="btn-monograph-active" href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener noreferrer">
+          Part I Monograph (v1.0.0 PDF &middot; DOI 10.5281/zenodo.24047902)
+        </a>
+        <span class="btn-monograph-disabled" aria-disabled="true" role="status">
+          Part II Monograph (v1.1.0 PDF &mdash; Final Typesetting in Progress)
+        </span>
+      </div>
+      <div class="monograph-note">
+        All 8 Part II Lean 4 proofs (<code>thm30..thm37</code>) are already live on <a href="verification.html">/verification</a>.
+      </div>
+    </section>
+
+
+    <section class="hero-header">
+      <span class="eyebrow">Route 01 &middot; Inline CXL 3.x Sub-Flit Capability Gate</span>
+      <h1 class="hero-title">A physical lock on the memory wire that software hacks cannot turn off.</h1>
+      <h2 class="hero-sub">Kill the Bad Write, Not the Whole Wire.</h2>
+      <div class="beat-grid">
+        <div class="beat-card">
+          <span class="beat-tag">Beat 1 &middot; Motivation</span>
+          <p>A 64-byte <span class="hw-term" tabindex="0" data-tip="Compute Express Link 3.x cache-coherent memory-pooling interconnect carrying 512-bit flits at 250 MHz+.">CXL 3.x flit</span> carries four 16-byte tenant slots side-by-side every <code>4.0 ns</code>. Legacy whole-flit CRC poisoning wrecks all four slots whenever one rogue write arrives&mdash;collapsing shared link goodput to <code>48.90%</code> at a <span class="tangle-num" data-tangle-var="idx_pbad" data-min="0.2" data-max="8.0" data-step="0.2" data-unit="%" data-val="0.8">0.8%</span> bad-slot arrival rate.</p>
+        </div>
+        <div class="beat-card">
+          <span class="beat-tag">Beat 2 &middot; Plain Physical Meaning</span>
+          <p>Our 2-cycle (<code>8.0 ns</code>) gate splits each slot through a physical <span class="hw-term" tabindex="0" data-tip="Dual-output 6-input Xilinx UltraScale+ lookup primitive computing O5 = r_i & P_eff and O6 = r_i & ~P_eff simultaneously.">LUT6_2</span> mask, pulling only the bad 16-byte slot&rsquo;s byte strobes (<code>WSTRB[15:0] = 16&apos;h0000</code>) to silent <code>CXL_NOP</code> at <code>99.20%</code> goodput while locking revocation in <span class="hw-term" tabindex="0" data-tip="64-bit live SPID bitmap wired through a one-way AND2 gate (reg_q & wdata) reset solely by cold chassis power por_cold_rst_n.">CSR 0x70</span>.</p>
+        </div>
+        <div class="beat-card">
+          <span class="beat-tag">Beat 3 &middot; Scope &amp; Price Paid</span>
+          <p>CXL IDE (<code>AES-GCM</code>) still encrypts the physical cable; Spectral enforces tenant capability isolation inside the flit stream. Inline emergency revocation buffers <code>d_rev &le; 8</code> roots in <code>CSR 0x60</code> across the <code>&le; 548 ns</code> dual-bank drain before shadow Bezout deflation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cad-bay" aria-label="Instrument 01 Sub-Flit Logic Analyzer">
+      <div class="workbench-head">
+        <div>
+          <span class="eyebrow">Instrument 01 &middot; 250 MHz Cut-Through Logic Analyzer &amp; Airlock FSM</span>
+          <h3 style="margin:4px 0 0;">512-Bit (4 &times; 128-Bit) Sub-Flit Pipeline &amp; Landauer&ndash;Little&ndash;Vieta Airlock</h3>
+        </div>
+        <span id="idx-haptic-badge" class="haptic-badge">[LEGAL TRANSITION] Pipeline Nominal (99.20% Goodput)</span>
+      </div>
+
+      <div class="ctrl-row">
+        <button type="button" id="btn-inject-bad" class="hw-btn danger">1. Inject Bad Write in Seat 1 (0xDEADBEEF)</button>
+        <button type="button" id="btn-toggle-mode" class="hw-btn primary">2. Mode: Spectral Surgical CXL_NOP (99.20%) [ACTIVE]</button>
+        <button type="button" id="btn-fire-flr" class="hw-btn">3. Fire Warm PCIe Reboot (FLR) Survival Test</button>
+        <button type="button" id="btn-pause-clk" class="hw-btn">Pause 250 MHz Clock</button>
+        <button type="button" id="btn-step-clk" class="hw-btn">Step +1 Cycle (4.0 ns)</button>
+      </div>
+
+      <div class="ctrl-row">
+        <span class="eyebrow" style="margin-right:6px;">Token-Bucket Airlock (thm31):</span>
+        <button type="button" id="btn-airlock-base" class="hw-btn">Admit Base Revocation d_base&le;6</button>
+        <button type="button" id="btn-airlock-drain" class="hw-btn">Start 2&apos;b11 Dual-Bank Drain</button>
+        <button type="button" id="btn-airlock-middrain" class="hw-btn">Mid-Drain Arrival Delta_d&le;2</button>
+        <button type="button" id="btn-airlock-swap" class="hw-btn primary">Complete Shootdown Swap</button>
+      </div>
+
+      <canvas id="sim-pipeline-cv" class="sim-canvas" width="1040" height="400"></canvas>
+
+      <div class="spec-card" style="margin-top:12px;">
+        <span class="telemetry-label">FLOATING LOGIC-ANALYZER PROBE (HOVER ANY MOVING SLOT ON CANVAS &middot; thm01, thm05, SVA 9)</span>
+        <div id="idx-probe-readout" class="mono" style="font-size:12.4px; margin-top:4px; color:var(--ink-ivory);">Initializing 512-bit flit probe...</div>
+      </div>
+
+      <div class="telemetry-strip">
+        <div class="telemetry-cell"><span class="telemetry-label">LINK GOODPUT (THM 5.1)</span><span id="idx-tel-goodput" class="telemetry-val">99.20%</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">CSR 0x70 (por_cold_rst_n)</span><span id="idx-tel-csr70" class="telemetry-val">0xFFFFFFFFFFFFFFEB</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">CSR 0x28 / 0x30 (WARM FLR)</span><span id="idx-tel-credits" class="telemetry-val">0x40 / 0x40</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">CSR 0x20 / 0x60 AIRLOCK</span><span id="idx-tel-airlock" class="telemetry-val">2&apos;b00 IDLE | d_rev=2/8</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">PIPELINE CLOCK</span><span id="idx-tel-cycle" class="telemetry-val">250 MHz (8.0 ns)</span></div>
+      </div>
+    </section>
+
+    <section class="cad-bay" aria-label="1080p Executive Briefing Video">
+      <div class="workbench-head">
+        <div>
+          <span class="eyebrow">CDAO / Tradewinds Technical Walkthrough (1080p Native Stream)</span>
+          <h3 style="margin:4px 0 0;">Hardware Demonstration &amp; AWS F2 Post-Route Sign-Off Briefing</h3>
+        </div>
+      </div>
+      <video controls preload="metadata" playsinline style="width:100%; border:1px solid var(--hairline); background:#05070B;" src="assets/videos/cdao_tradewinds_v1.mp4">
+        Your browser supports standard HTML5 MP4 playback at <code>assets/videos/cdao_tradewinds_v1.mp4</code>.
+      </video>
+    </section>
+
+
+    <footer class="site-footer">
+      <section id="spectral-scope-and-differentiation" aria-label="Architectural Scope and Physical Trade-Offs">
+        <span class="eyebrow">Scope, Differentiation &amp; Conservation Laws (No Free Lunch)</span>
+        <div class="scope-grid">
+          <div class="spec-card">
+            <strong>Complementary to CXL IDE (AES-GCM)</strong><br>
+            CXL IDE encrypts physical SerDes lanes between endpoints. Spectral operates inside the decrypted 512-bit flit stream to isolate 64 tenants in shared HBM pools without SRAM page tables.
+          </div>
+          <div class="spec-card">
+            <strong>Emergency Vieta Horizon (d_rev &le; 8)</strong><br>
+            <code>CSR 0x60</code> holds up to 8 emergency roots in <code>GF(2^8)</code> during the <code>&le; 548 ns</code> dual-bank shootdown window before 8-step shadow Bezout deflation merges them into coarse masks.
+          </div>
+          <div class="spec-card">
+            <strong>Mode-D WDDL Energy Conservation</strong><br>
+            Enabling dual-rail precharge Mode-D achieves <code>TVLA |t| = 0.00</code> and traps stuck rails in <code>CSR 0x48</code>, trading a <code>50%</code> precharge duty ceiling and <code>2/alpha_data &ge; 4x</code> switching energy.
+          </div>
+          <div class="spec-card">
+            <strong>Silicon Provenance (16nm Physical + 7nm Predictive)</strong><br>
+            <code>16nm xcvu47p</code> metrics (<code>250 MHz</code>, <code>+0.491 ns</code> WNS, <code>394 LUTs</code>, <code>0 BRAM</code>) come from routed AWS F2 AGFIs; <code>7nm ASAP7</code> (<code>0.003335 mm^2</code>, <code>3.728 mW</code>) uses the open predictive PDK (Clark et al., 2016).
+          </div>
+        </div>
+      </section>
+      <div class="footer-meta">
+        <span>Spectral Systems LLC &middot; Principal Architect: Eric C. Murphy &middot; CAGE: 268E1 &middot; SAM.gov UEI: VTP2JPCJU3D9</span>
+        <span>All Patents Pending (DFARS 252.227-7018 Private-Expense IP) &middot; DOI: 10.5281/zenodo.24047902</span>
+      </div>
+    </footer>
+  </main>
+  <script src="assets/spectral-sims.js?v=20261116T224052Z"></script>
+</body>
+</html>
+<!-- spectral-rev: 20261116T224052Z -->

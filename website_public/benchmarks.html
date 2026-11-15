@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Benchmarks, Tail Latency &amp; Silicon PPA &mdash; Spectral Systems LLC</title>
+  <meta name="description" content="Theorem 5.1 Renewal-Reward goodput (99.20% vs 48.90%), Theorem 6.2 8.0 ns tail wall, and Mode-D WDDL TVLA |t|=0.00.">
+  <link rel="canonical" href="https://spectralsystems.org/benchmarks">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+  <style id="spectral-elegant-editorial-theme">
+:root {
+  --bg-canvas: #090B10;
+  --bg-bay: #0D1119;
+  --bg-card: #111622;
+  --bg-elevated: #161D2C;
+  --ink-ivory: #F8F7F4;
+  --ink-body: #D8DEE9;
+  --ink-mono: #CBD5E1;
+  --ink-dim: #94A3B8;
+  --hairline: #1E2636;
+  --hairline-strong: #2C3850;
+  --accent-orange: #FF5722;
+  --accent-orange-soft: rgba(255, 87, 34, 0.14);
+  --state-legal: #34D399;
+  --state-trap: #F87171;
+  --state-noop: #FBBF24;
+  --state-nop: #38BDF8;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg-canvas); color: var(--ink-body); scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg-canvas);
+  color: var(--ink-body);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16.5px;
+  line-height: 1.74;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, .serif-display {
+  font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  color: var(--ink-ivory);
+  margin-top: 0;
+}
+code, pre, kbd, .mono, .copy-pill, .haptic-badge, .csr-table, .metric-val {
+  font-family: 'JetBrains Mono', Consolas, 'Liberation Mono', monospace;
+  font-variant-numeric: tabular-nums slashed-zero;
+  color: var(--ink-mono);
+}
+  </style>
+  <link rel="stylesheet" href="assets/spectral-showcase.css?v=20261116T224052Z">
+</head>
+<body>
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a class="brand-block" href="index.html">
+        <span class="brand-mark">SPECTRAL SYSTEMS</span>
+        <span class="brand-sub">CXL 3.x INLINE SILICON</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary Routes">
+        <a class="nav-link" href="index.html">01 / Live Wire</a>
+        <a class="nav-link active" href="benchmarks.html">02 / Benchmarks</a>
+        <a class="nav-link" href="zero-trust.html">03 / Zero-Trust</a>
+        <a class="nav-link" href="verification.html">04 / Verification</a>
+        <a class="nav-link" href="cots-procurement.html">05 / COTS &amp; TCO</a>
+        <a class="nav-link" href="patents.html">06 / DFARS &amp; ZK-IC3</a>
+        <a class="nav-link" href="console-demo/index.html">07 / Compiler &amp; BAR0</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section id="spectral-guided-discovery" class="triage-lens" aria-label="Reviewer Triage Lens">
+      <div class="triage-top">
+        <span class="eyebrow">4-Persona Reviewer Triage Lens</span>
+        <div class="persona-tabs" role="tablist">
+          <button type="button" class="persona-btn active" data-persona="darpa">DARPA / DoD PM</button>
+          <button type="button" class="persona-btn" data-persona="arch">CXL / HBM4 Architect</button>
+          <button type="button" class="persona-btn" data-persona="formal">Formal / Crypto Auditor</button>
+          <button type="button" class="persona-btn" data-persona="gpc">Federal GPC Contracting</button>
+        </div>
+      </div>
+      <div id="spectral-guided-story" class="guided-story">
+        Mission &amp; DoD Program View: A compromised host OS or PCIe Warm Function-Level Reset (FLR) cannot re-enable a revoked tenant bit because CSR 0x70 passes through a physical AND2 gate reset solely by cold chassis power (por_cold_rst_n). Bad writes are zeroed in 16-byte sub-flit slots at 99.20% goodput instead of collapsing shared memory links to 48.90%. All Patents Pending (DFARS 252.227-7018 Private-Expense IP).
+      </div>
+      <div class="copy-pill-row">
+        <button type="button" class="copy-pill" data-copy="268E1">CAGE: 268E1</button>
+        <button type="button" class="copy-pill" data-copy="VTP2JPCJU3D9">UEI: VTP2JPCJU3D9</button>
+        <button type="button" class="copy-pill" data-copy="10.5281/zenodo.24047902">DOI: 10.5281/zenodo.24047902</button>
+        <button type="button" class="copy-pill" data-copy="agfi-08becf3b40b169674">agfi-08becf3b40b169674</button>
+        <button type="button" class="copy-pill" data-copy="agfi-03b742e2a9cd2c0f2">agfi-03b742e2a9cd2c0f2</button>
+      </div>
+    </section>
+
+    <section class="monograph-bar" aria-label="Monograph Downloads">
+      <div class="monograph-actions">
+        <a class="btn-monograph-active" href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener noreferrer">
+          Part I Monograph (v1.0.0 PDF &middot; DOI 10.5281/zenodo.24047902)
+        </a>
+        <span class="btn-monograph-disabled" aria-disabled="true" role="status">
+          Part II Monograph (v1.1.0 PDF &mdash; Final Typesetting in Progress)
+        </span>
+      </div>
+      <div class="monograph-note">
+        All 8 Part II Lean 4 proofs (<code>thm30..thm37</code>) are already live on <a href="verification.html">/verification</a>.
+      </div>
+    </section>
+
+
+    <section class="hero-header">
+      <span class="eyebrow">Route 02 &middot; Physical Silicon PPA &amp; Queueing Proofs</span>
+      <h1 class="hero-title">250 GB of Lookup Tables in 64 Bits</h1>
+      <h2 class="hero-sub">Deterministic 8.0 ns Cut-Through vs. Table-Walk Tail Collapse.</h2>
+      <div class="beat-grid">
+        <div class="beat-card">
+          <span class="beat-tag">Beat 1 &middot; Motivation</span>
+          <p>Storing fine-grained pairwise access tables across 64 CXL tenants in DRAM consumes ~250 GB of metadata and triggers cache-miss stalls (<code>34.8 ns</code> on capability caches, <code>184.2 ns</code> on DRAM page walks) at <span class="tangle-num" data-tangle-var="bm_rho" data-min="0.40" data-max="0.96" data-step="0.02" data-val="0.78">0.78</span> link load.</p>
+        </div>
+        <div class="beat-card">
+          <span class="beat-tag">Beat 2 &middot; Plain Physical Meaning</span>
+          <p>Algebraic incidence in <code>CSR 0x00</code> uses <code>0</code> BRAM and <code>394</code> CLB LUTs on 16nm <code>xcvu47p</code>. Permission service variance drops strictly to <span class="hw-term" tabindex="0" data-tip="Zero variance in permission lookup latency; every flit finishes in exactly 2 clock cycles (8.0 ns at 250 MHz).">m_perm = 0</span>, holding <code>99.20%</code> goodput at <span class="tangle-num" data-tangle-var="bm_pbad" data-min="0.2" data-max="9.5" data-step="0.2" data-unit="%" data-val="0.8">0.8%</span> rogue traffic.</p>
+        </div>
+        <div class="beat-card">
+          <span class="beat-tag">Beat 3 &middot; Scope &amp; Price Paid</span>
+          <p>Enabling Cross-Domain NNSA RAIN Mode-D (<span class="hw-term" tabindex="0" data-tip="Wave Dynamic Differential Logic: dual-rail precharge logic eliminating data-dependent power side channels (TVLA |t| = 0.00).">WDDL</span>) zeroes power leakage (<code>TVLA |t| = 0.00</code>) and arms stuck-rail detection in <code>CSR 0x48</code>, trading a <code>50%</code> precharge duty ceiling and <code>2/alpha_data &ge; 4x</code> energy.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="spectral-goodput-lecam-sim" class="cad-bay" aria-label="Instrument 02A Coupled Goodput and Tail Latency Simulator">
+      <div class="workbench-head">
+        <div>
+          <span class="eyebrow">Instrument 02A &middot; Theorem 5.1 &amp; Theorem 6.2 + Mode-D RAIN Trap (thm37, SVA 12)</span>
+          <h3 style="margin:4px 0 0;">Renewal-Reward Goodput &amp; Log-Scale Doob Supermartingale CCDF</h3>
+        </div>
+        <span id="bm-haptic-badge" class="haptic-badge">[LEGAL TRANSITION] Mode-A Cut-Through Active</span>
+      </div>
+
+      <div class="ctrl-row">
+        <label for="bm-workload-select" class="mono" style="font-size:12px;">Workload:</label>
+        <select id="bm-workload-select" class="hw-select">
+          <option value="kv">CXL 3.0 Shared AI KV-Cache (p_bad = 0.8%, 99.20% vs 48.90%)</option>
+          <option value="moe">Multi-Tenant MoE Weight Pool (p_bad = 2.0%, rho = 0.84)</option>
+          <option value="flood">Adversarial Red-Team Contention Flood (p_bad = 8.5%, rho = 0.94)</option>
+        </select>
+        <label class="hw-btn" style="display:inline-flex; align-items:center; gap:8px;">
+          <input type="checkbox" id="bm-wddl-toggle">
+          <span>Mode-D Cross-Domain NNSA RAIN WDDL (50% Duty, TVLA |t|=0.00)</span>
+        </label>
+      </div>
+
+      <div class="ctrl-row">
+        <span class="eyebrow">De Morgan Rail Fault Injection (SVA 12):</span>
+        <button type="button" id="bm-btn-fault00" class="hw-btn danger">Test Stuck-At (0,0) Rail Fault</button>
+        <button type="button" id="bm-btn-fault11" class="hw-btn danger">Test Stuck-At (1,1) Rail Fault</button>
+        <button type="button" id="bm-btn-por" class="hw-btn">Assert Cold-POR Clear (CSR 0x48 &rarr; 0)</button>
+      </div>
+
+      <canvas id="bm-coupled-cv" class="sim-canvas" width="1040" height="380"></canvas>
+
+      <div class="telemetry-strip">
+        <div class="telemetry-cell"><span class="telemetry-label">RENEWAL GOODPUT</span><span id="bm-tel-goodput" class="telemetry-val">99.20% vs 48.90%</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">LATENCY BOUND</span><span id="bm-tel-wall" class="telemetry-val">8.0 ns (m_perm = 0)</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">DYNAMIC POWER</span><span id="bm-tel-pwr" class="telemetry-val">35.0 mW FPGA / 3.728 mW ASIC</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">TAMPER REGISTER</span><span id="bm-tel-csr48" class="telemetry-val">CSR 0x48 = 0x00</span></div>
+      </div>
+    </section>
+
+    <section class="cad-bay" aria-label="Instrument 02B Vector Blueprint Stage and Sign-Off PPA">
+      <div class="workbench-head">
+        <div>
+          <span class="eyebrow">Instrument 02B &middot; Interactive Pan/Zoom Vector Blueprint Stage &amp; Silicon Sign-Off</span>
+          <h3 id="bm-fig-caption" style="margin:4px 0 0;">Figure 1: 16nm xcvu47p &amp; 7nm ASAP7 Silicon PPA Comparison</h3>
+        </div>
+        <div class="ctrl-row" style="margin:0;">
+          <button type="button" id="bm-zoom-in" class="hw-btn">Zoom +</button>
+          <button type="button" id="bm-zoom-out" class="hw-btn">Zoom &minus;</button>
+          <button type="button" id="bm-zoom-rst" class="hw-btn">1:1 Reset</button>
+        </div>
+      </div>
+      <div class="ctrl-row">
+        <button type="button" class="hw-btn primary" data-fig-src="assets/fig1_silicon_ppa.svg" data-fig-title="Figure 1: 16nm xcvu47p & 7nm ASAP7 Silicon PPA">fig1_silicon_ppa.svg</button>
+        <button type="button" class="hw-btn" data-fig-src="assets/fig2_tail_latency.svg" data-fig-title="Figure 2: Theorem 6.2 Tail Latency CCDF">fig2_tail_latency.svg</button>
+        <button type="button" class="hw-btn" data-fig-src="assets/fig3_goodput_collapse.svg" data-fig-title="Figure 3: Sub-Flit Goodput vs Whole-Flit CRC Poison">fig3_goodput_collapse.svg</button>
+        <button type="button" class="hw-btn" data-fig-src="assets/fig4_lora_svd_phase.svg" data-fig-title="Figure 4: Rectangular BBP LoRA SVD Phase Transition">fig4_lora_svd_phase.svg</button>
+        <button type="button" class="hw-btn" data-fig-src="assets/fig5_steiner_ag28.svg" data-fig-title="Figure 5: AG(2,8) Steiner S(2,8,64) Cohort Incidence">fig5_steiner_ag28.svg</button>
+        <button type="button" class="hw-btn" data-fig-src="assets/fig6_k8s_tco.svg" data-fig-title="Figure 6: 10,000-Rack Fleet TCO Decomposition">fig6_k8s_tco.svg</button>
+      </div>
+      <div id="bm-svg-viewport" class="svg-stage-viewport">
+        <img id="bm-svg-img" class="svg-stage-inner" src="assets/fig1_silicon_ppa.svg" alt="Spectral Silicon Vector Blueprint">
+        <svg id="bm-svg-fallback" class="svg-stage-inner" style="display:none;" width="760" height="300" viewBox="0 0 760 300">
+          <rect width="760" height="300" fill="#090D15" stroke="#FF5722"/>
+          <text x="28" y="46" fill="#F8F7F4" font-family="JetBrains Mono, monospace" font-size="15">SPECTRAL INLINE CXL GATE -- VECTOR SCHEMATIC SUMMARY</text>
+          <text x="28" y="92" fill="#34D399" font-family="JetBrains Mono, monospace" font-size="13">16nm AMD xcvu47p : 250 MHz (+0.491 ns WNS) | 394 CLB LUTs | 0 BRAM | 0 URAM | 0 DSP | 35.0 mW</text>
+          <text x="28" y="128" fill="#38BDF8" font-family="JetBrains Mono, monospace" font-size="13">7nm ASAP7 PDK    : &lt;= 8.0 ns (2 cycles)    | 0.003335 mm^2 (57.75 um)^2 | 3.728 mW Dynamic</text>
+          <text x="28" y="164" fill="#FF8A65" font-family="JetBrains Mono, monospace" font-size="13">Goodput / Tail   : 99.20% vs 48.90% Legacy | Vertical 8.0 ns wall (m_perm = 0)</text>
+        </svg>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Target Technology</th>
+            <th>Clock &amp; Latency</th>
+            <th>Area / Resources</th>
+            <th>Memory Macros</th>
+            <th>Dynamic Power</th>
+            <th>Verification Artifact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>16nm AMD Virtex UltraScale+ (xcvu47p)</strong></td>
+            <td><code>250 MHz</code>, <code>8.0 ns</code> (<code>+0.491 ns</code> WNS)</td>
+            <td><code>394 CLB LUTs</code>, <code>0 DSP</code></td>
+            <td><code>0 BRAM</code>, <code>0 URAM</code></td>
+            <td><code>35.0 mW</code> (Mode-A)</td>
+            <td><code>agfi-08becf3b40b169674</code> / <code>agfi-03b742e2a9cd2c0f2</code></td>
+          </tr>
+          <tr>
+            <td><strong>7nm ASAP7 Predictive PDK (Clark et al., 2016)</strong></td>
+            <td><code>&le; 8.0 ns</code> 2-cycle cut-through</td>
+            <td><code>0.003335 mm^2</code> (<code>0.0033%</code> HBM4 base die)</td>
+            <td><code>0 SRAM</code> (register-only)</td>
+            <td><code>3.728 mW</code> (Mode-A)</td>
+            <td>Post-synthesis Liberty timing &amp; switching sign-off</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+
+    <footer class="site-footer">
+      <section id="spectral-scope-and-differentiation" aria-label="Architectural Scope and Physical Trade-Offs">
+        <span class="eyebrow">Scope, Differentiation &amp; Conservation Laws (No Free Lunch)</span>
+        <div class="scope-grid">
+          <div class="spec-card">
+            <strong>Complementary to CXL IDE (AES-GCM)</strong><br>
+            CXL IDE encrypts physical SerDes lanes between endpoints. Spectral operates inside the decrypted 512-bit flit stream to isolate 64 tenants in shared HBM pools without SRAM page tables.
+          </div>
+          <div class="spec-card">
+            <strong>Emergency Vieta Horizon (d_rev &le; 8)</strong><br>
+            <code>CSR 0x60</code> holds up to 8 emergency roots in <code>GF(2^8)</code> during the <code>&le; 548 ns</code> dual-bank shootdown window before 8-step shadow Bezout deflation merges them into coarse masks.
+          </div>
+          <div class="spec-card">
+            <strong>Mode-D WDDL Energy Conservation</strong><br>
+            Enabling dual-rail precharge Mode-D achieves <code>TVLA |t| = 0.00</code> and traps stuck rails in <code>CSR 0x48</code>, trading a <code>50%</code> precharge duty ceiling and <code>2/alpha_data &ge; 4x</code> switching energy.
+          </div>
+          <div class="spec-card">
+            <strong>Silicon Provenance (16nm Physical + 7nm Predictive)</strong><br>
+            <code>16nm xcvu47p</code> metrics (<code>250 MHz</code>, <code>+0.491 ns</code> WNS, <code>394 LUTs</code>, <code>0 BRAM</code>) come from routed AWS F2 AGFIs; <code>7nm ASAP7</code> (<code>0.003335 mm^2</code>, <code>3.728 mW</code>) uses the open predictive PDK (Clark et al., 2016).
+          </div>
+        </div>
+      </section>
+      <div class="footer-meta">
+        <span>Spectral Systems LLC &middot; Principal Architect: Eric C. Murphy &middot; CAGE: 268E1 &middot; SAM.gov UEI: VTP2JPCJU3D9</span>
+        <span>All Patents Pending (DFARS 252.227-7018 Private-Expense IP) &middot; DOI: 10.5281/zenodo.24047902</span>
+      </div>
+    </footer>
+  </main>
+  <script src="assets/spectral-sims.js?v=20261116T224052Z"></script>
+</body>
+</html>
+<!-- spectral-rev: 20261116T224052Z -->

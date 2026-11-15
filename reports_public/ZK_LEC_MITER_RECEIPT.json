@@ -1,0 +1,13 @@
+{
+  "schema": "spectral.zk_lec_ic3.v1.0.0",
+  "vault_edif_sha256": "2f11dbd2e97763dd268b6ec1bb7039dc636daf36a2cb12526343ec5162ff5cd3",
+  "vivado_version": "v2025.2",
+  "combinational_cones_unsat": "100% (LUT6_2 0x2A..80, 0xCC00..A2E0, 0x0C0C..0A00)",
+  "inductive_ic3_1step": {
+    "init": "UNSAT",
+    "consecution": "UNSAT",
+    "miter_bad": "UNSAT"
+  },
+  "postroute_gate_xsim": "XSIM_POSTROUTE_PASS",
+  "zero_sv_disclosed": true
+}

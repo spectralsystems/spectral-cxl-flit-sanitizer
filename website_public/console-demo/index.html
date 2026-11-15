@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>spectralc Policy Compiler &amp; 16-CSR BAR0 Analyzer &mdash; Spectral Systems LLC</title>
+  <meta name="description" content="Interactive 4-pane YAML/SKILL.md policy compiler, fail-closed .sbundle gate, and 16-CSR BAR0 logic analyzer.">
+  <link rel="canonical" href="https://spectralsystems.org/console-demo/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+  <style id="spectral-elegant-editorial-theme">
+:root {
+  --bg-canvas: #090B10;
+  --bg-bay: #0D1119;
+  --bg-card: #111622;
+  --bg-elevated: #161D2C;
+  --ink-ivory: #F8F7F4;
+  --ink-body: #D8DEE9;
+  --ink-mono: #CBD5E1;
+  --ink-dim: #94A3B8;
+  --hairline: #1E2636;
+  --hairline-strong: #2C3850;
+  --accent-orange: #FF5722;
+  --accent-orange-soft: rgba(255, 87, 34, 0.14);
+  --state-legal: #34D399;
+  --state-trap: #F87171;
+  --state-noop: #FBBF24;
+  --state-nop: #38BDF8;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg-canvas); color: var(--ink-body); scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg-canvas);
+  color: var(--ink-body);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16.5px;
+  line-height: 1.74;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, .serif-display {
+  font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  color: var(--ink-ivory);
+  margin-top: 0;
+}
+code, pre, kbd, .mono, .copy-pill, .haptic-badge, .csr-table, .metric-val {
+  font-family: 'JetBrains Mono', Consolas, 'Liberation Mono', monospace;
+  font-variant-numeric: tabular-nums slashed-zero;
+  color: var(--ink-mono);
+}
+  </style>
+  <link rel="stylesheet" href="../assets/spectral-showcase.css?v=20261116T224052Z">
+</head>
+<body>
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a class="brand-block" href="../index.html">
+        <span class="brand-mark">SPECTRAL SYSTEMS</span>
+        <span class="brand-sub">CXL 3.x INLINE SILICON</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary Routes">
+        <a class="nav-link" href="../index.html">01 / Live Wire</a>
+        <a class="nav-link" href="../benchmarks.html">02 / Benchmarks</a>
+        <a class="nav-link" href="../zero-trust.html">03 / Zero-Trust</a>
+        <a class="nav-link" href="../verification.html">04 / Verification</a>
+        <a class="nav-link" href="../cots-procurement.html">05 / COTS &amp; TCO</a>
+        <a class="nav-link" href="../patents.html">06 / DFARS &amp; ZK-IC3</a>
+        <a class="nav-link active" href="../console-demo/index.html">07 / Compiler &amp; BAR0</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section id="spectral-guided-discovery" class="triage-lens" aria-label="Reviewer Triage Lens">
+      <div class="triage-top">
+        <span class="eyebrow">4-Persona Reviewer Triage Lens</span>
+        <div class="persona-tabs" role="tablist">
+          <button type="button" class="persona-btn active" data-persona="darpa">DARPA / DoD PM</button>
+          <button type="button" class="persona-btn" data-persona="arch">CXL / HBM4 Architect</button>
+          <button type="button" class="persona-btn" data-persona="formal">Formal / Crypto Auditor</button>
+          <button type="button" class="persona-btn" data-persona="gpc">Federal GPC Contracting</button>
+        </div>
+      </div>
+      <div id="spectral-guided-story" class="guided-story">
+        Mission &amp; DoD Program View: A compromised host OS or PCIe Warm Function-Level Reset (FLR) cannot re-enable a revoked tenant bit because CSR 0x70 passes through a physical AND2 gate reset solely by cold chassis power (por_cold_rst_n). Bad writes are zeroed in 16-byte sub-flit slots at 99.20% goodput instead of collapsing shared memory links to 48.90%. All Patents Pending (DFARS 252.227-7018 Private-Expense IP).
+      </div>
+      <div class="copy-pill-row">
+        <button type="button" class="copy-pill" data-copy="268E1">CAGE: 268E1</button>
+        <button type="button" class="copy-pill" data-copy="VTP2JPCJU3D9">UEI: VTP2JPCJU3D9</button>
+        <button type="button" class="copy-pill" data-copy="10.5281/zenodo.24047902">DOI: 10.5281/zenodo.24047902</button>
+        <button type="button" class="copy-pill" data-copy="agfi-08becf3b40b169674">agfi-08becf3b40b169674</button>
+        <button type="button" class="copy-pill" data-copy="agfi-03b742e2a9cd2c0f2">agfi-03b742e2a9cd2c0f2</button>
+      </div>
+    </section>
+
+    <section class="monograph-bar" aria-label="Monograph Downloads">
+      <div class="monograph-actions">
+        <a class="btn-monograph-active" href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener noreferrer">
+          Part I Monograph (v1.0.0 PDF &middot; DOI 10.5281/zenodo.24047902)
+        </a>
+        <span class="btn-monograph-disabled" aria-disabled="true" role="status">
+          Part II Monograph (v1.1.0 PDF &mdash; Final Typesetting in Progress)
+        </span>
+      </div>
+      <div class="monograph-note">
+        All 8 Part II Lean 4 proofs (<code>thm30..thm37</code>) are already live on <a href="../verification.html">/verification</a>.
+      </div>
+    </section>
+
+
+    <section class="hero-header">
+      <span class="eyebrow">Route 07 &middot; Policy-to-Silicon Compiler &amp; 128-Byte BAR0 Logic Analyzer</span>
+      <h1 class="hero-title">Compile Tenant Policy to 128 Bytes of Silicon</h1>
+      <h2 class="hero-sub">Live spectralc Compiler, Fail-Closed .sbundle Gate, and 16-CSR BAR0 Inspector.</h2>
+      <div class="beat-grid">
+        <div class="beat-card">
+          <span class="beat-tag">Beat 1 &middot; Motivation</span>
+          <p>Even a formally verified hardware gate fails operationally if misconfigured control-plane YAML silently pushes an out-of-bounds Vieta root list or tries to flip a revoked bit back to <code>1</code>.</p>
+        </div>
+        <div class="beat-card">
+          <span class="beat-tag">Beat 2 &middot; Plain Physical Meaning</span>
+          <p><code>spectralc</code> flattens nested address windows into depth-1 coarse masks (<code>L_j = 1</code>), verifies Mode B.2 CSS parity orthogonality (<code>H_FEC o E_fold = 0</code>), and physically locks <code>.sbundle</code> export whenever any invariant across the <span class="tangle-num" data-tangle-var="con_csrs" data-min="16" data-max="16" data-step="1" data-val="16">16</span> BAR0 CSRs is violated.</p>
+        </div>
+        <div class="beat-card">
+          <span class="beat-tag">Beat 3 &middot; Scope &amp; Price Paid</span>
+          <p>Illegal policies cannot be force-exported: to recover from a <code>0 &rarr; 1</code> escalation or <code>CSR 0x48</code> trap, the operator must execute an explicit hardware remediation step (Cold-POR or 8-step Shadow Bezout deflation).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="spectral-live-yaml-compiler" class="cad-bay" aria-label="Instrument 07 4-Pane Policy Compiler and BAR0 Analyzer">
+      <div class="workbench-head">
+        <div>
+          <span class="eyebrow">Instrument 07 &middot; 4-Pane spectralc YAML / SKILL.md Workbench (thm18, thm24, thm29)</span>
+          <h3 style="margin:4px 0 0;">Live Policy Input, Fail-Closed .sbundle Gate &amp; Remediation Controls</h3>
+        </div>
+        <span id="con-haptic-badge" class="haptic-badge">[LEGAL TRANSITION] All 16 BAR0 CSRs Admissible</span>
+      </div>
+
+      <div class="ctrl-row">
+        <span class="eyebrow">Load Policy Preset:</span>
+        <button type="button" class="hw-btn primary" data-preset-pol="valid">1. Valid 4-Cohort Pool</button>
+        <button type="button" class="hw-btn" data-preset-pol="gauge">2. HDM Gauge L_j=1 + Mode B.2 CSS</button>
+        <button type="button" class="hw-btn danger" data-preset-pol="escalate">3. Illegal 0&rarr;1 Escalation [TRAP]</button>
+        <button type="button" class="hw-btn danger" data-preset-pol="overflow">4. Illegal d_rev=10 &amp; ARID=36 [TRAP]</button>
+        <button type="button" class="hw-btn danger" data-preset-pol="tamper">5. Tampered Manifest [TRAP]</button>
+      </div>
+
+      <div class="two-col">
+        <div class="spec-card">
+          <span class="eyebrow">Pane 1 &middot; Editable YAML / SKILL.md Policy Source</span>
+          <textarea id="con-yaml-input" class="hw-textarea" spellcheck="false"># SKILL.md / spectralc Tenant Policy (Valid Baseline)
+policy_epoch: 104
+cohorts_steiner_pencil: 3
+hdm_gauge_flatten: true
+fec_mode_b2_css: true
+revoked_spids: [2, 4]
+emergency_roots_csr60: [0x12, 0x34, 0x56]
+query_cap_qmax: 10000
+arid_inflight: 8
+bundle_integrity: VALID</textarea>
+        </div>
+
+        <div class="spec-card">
+          <span class="eyebrow">Pane 2 &middot; Compiler Diagnostics (L_j=1 Gauge &amp; H_FEC o E_fold = 0)</span>
+          <pre id="con-compiler-diag" class="lean-code" style="min-height:220px;"></pre>
+        </div>
+      </div>
+
+      <div class="two-col" style="margin-top:16px;">
+        <div id="spectral-formal-input-validator" class="spec-card">
+          <span class="eyebrow">Pane 3A &middot; Hardware Guardrail Remediation &amp; ARID FIFO Gate</span>
+          <div id="spectral-arid-fifo-guardrail" style="margin-top:8px;">
+            <p style="font-size:14px; margin:0 0 10px;">When an illegal preset locks export, execute the matching hardware-legal transition below to return to an admissible state:</p>
+            <div class="ctrl-row">
+              <button type="button" id="con-rem-coldpor" class="hw-btn">[LEGAL] Assert Cold Chassis POR (CSR 0x70)</button>
+              <button type="button" id="con-rem-bezout" class="hw-btn">[LEGAL] 8-Step Shadow Bezout Deflation</button>
+              <button type="button" id="con-rem-fifo" class="hw-btn">[LEGAL] Drain CSR 0x50 ARID FIFO</button>
+              <button type="button" id="con-rem-resign" class="hw-btn">[LEGAL] Re-Sign .sbundle Manifest</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="spectral-sbundle-exporter" class="spec-card">
+          <span class="eyebrow">Pane 3B &middot; Fail-Closed .sbundle Binary/JSON Export Gate</span>
+          <div class="ctrl-row">
+            <button type="button" id="btn-export-sbundle" class="hw-btn primary">Export Verified 128-Byte .sbundle Image</button>
+          </div>
+          <pre id="con-sbundle-preview" class="lean-code" style="min-height:110px;">Click "Export Verified 128-Byte .sbundle Image" when status is ADMISSIBLE.</pre>
+        </div>
+      </div>
+
+      <div class="spec-card" style="margin-top:16px;">
+        <span class="eyebrow">Pane 4 &middot; Clickable 16-CSR (128-Byte) BAR0 Logic Analyzer (Preprint Section 5.3)</span>
+        <div id="con-csr-inspector" class="mono" style="font-size:12.6px; margin:8px 0; color:var(--ink-ivory);">Click any BAR0 register row below to inspect its hardware reset domain and formal proof obligation.</div>
+        <table class="data-table csr-table">
+          <thead>
+            <tr>
+              <th>Offset</th>
+              <th>Exact Register Name</th>
+              <th>Live 64-Bit Value</th>
+              <th>Reset Domain</th>
+              <th>Discipline</th>
+              <th>Invariant</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr class="clickable-row" data-csr-off="0x00" data-csr-name="CSR_SPATIAL_COARSE" data-csr-rst="por_cold_rst_n" data-csr-prf="thm17 / SVA 4" data-csr-desc="AG(2,8) Steiner S(2,8,64) coarse cohort incidence mask; L_j = 1 flattened HDM gauge.">
+            <td><code>0x00</code></td>
+            <td><code>CSR_SPATIAL_COARSE</code></td>
+            <td><code data-csr-val="0x00">0xFF00AA55FF00AA55</code></td>
+            <td><code>por_cold_rst_n</code></td>
+            <td><code>RW-Epoch</code></td>
+            <td><code>thm17 / SVA 4</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x08" data-csr-name="CSR_TEMPORAL_COARSE" data-csr-rst="por_cold_rst_n" data-csr-prf="thm19 / SVA 5" data-csr-desc="Coarse lease epoch horizon and deterministic shootdown window guard (&lt;= 548 ns).">
+            <td><code>0x08</code></td>
+            <td><code>CSR_TEMPORAL_COARSE</code></td>
+            <td><code data-csr-val="0x08">0x00000001000003FF</code></td>
+            <td><code>por_cold_rst_n</code></td>
+            <td><code>RW-Epoch</code></td>
+            <td><code>thm19 / SVA 5</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x10" data-csr-name="CSR_SHADOW_PORTAL_0" data-csr-rst="pcie_warm_flr_rst_n" data-csr-prf="thm20 / SVA 6" data-csr-desc="Inactive-bank next-epoch spatial/vieta staging word 0 during 2&#x27;b11 dual-bank drain.">
+            <td><code>0x10</code></td>
+            <td><code>CSR_SHADOW_PORTAL_0</code></td>
+            <td><code data-csr-val="0x10">0x0000000000000000</code></td>
+            <td><code>pcie_warm_flr_rst_n</code></td>
+            <td><code>WO-Shadow</code></td>
+            <td><code>thm20 / SVA 6</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x18" data-csr-name="CSR_SHADOW_PORTAL_1" data-csr-rst="pcie_warm_flr_rst_n" data-csr-prf="thm20 / SVA 6" data-csr-desc="Inactive-bank next-epoch temporal/mode staging word 1; commits atomically on swap.">
+            <td><code>0x18</code></td>
+            <td><code>CSR_SHADOW_PORTAL_1</code></td>
+            <td><code data-csr-val="0x18">0x0000000000000000</code></td>
+            <td><code>pcie_warm_flr_rst_n</code></td>
+            <td><code>WO-Shadow</code></td>
+            <td><code>thm20 / SVA 6</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x20" data-csr-name="CSR_EPOCH_STATUS" data-csr-rst="pcie_warm_flr_rst_n" data-csr-prf="thm31 / SVA 8" data-csr-desc="Airlock state [1:0]: 2&#x27;b00 IDLE, 2&#x27;b01 STAGE, 2&#x27;b11 DUAL_BANK_DRAIN, 2&#x27;b10 COMMIT.">
+            <td><code>0x20</code></td>
+            <td><code>CSR_EPOCH_STATUS</code></td>
+            <td><code data-csr-val="0x20">0x0000000000000000</code></td>
+            <td><code>pcie_warm_flr_rst_n</code></td>
+            <td><code>RW-FSM</code></td>
+            <td><code>thm31 / SVA 8</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x28" data-csr-name="CSR_INGRESS_CREDITS" data-csr-rst="pcie_warm_flr_rst_n" data-csr-prf="thm31 / SVA 7" data-csr-desc="CXL.mem M2S ingress flit token credit counter; resets cleanly on PCIe Warm FLR.">
+            <td><code>0x28</code></td>
+            <td><code>CSR_INGRESS_CREDITS</code></td>
+            <td><code data-csr-val="0x28">0x0000000000000040</code></td>
+            <td><code>pcie_warm_flr_rst_n</code></td>
+            <td><code>RO-Telemetry</code></td>
+            <td><code>thm31 / SVA 7</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x30" data-csr-name="CSR_EGRESS_CREDITS" data-csr-rst="pcie_warm_flr_rst_n" data-csr-prf="thm31 / SVA 7" data-csr-desc="HBM4 AXI/CXL S2M egress flit credit counter; decoupled from revocation latch.">
+            <td><code>0x30</code></td>
+            <td><code>CSR_EGRESS_CREDITS</code></td>
+            <td><code data-csr-val="0x30">0x0000000000000040</code></td>
+            <td><code>pcie_warm_flr_rst_n</code></td>
+            <td><code>RO-Telemetry</code></td>
+            <td><code>thm31 / SVA 7</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x38" data-csr-name="CSR_SANITIZED_QRY" data-csr-rst="por_cold_rst_n" data-csr-prf="thm27 / SVA 11" data-csr-desc="LoRA SVD query cap Q_max = 10,000 (0x2710) &lt; Q*_BBP (21,845 / 43,691) + BFloat16 guard.">
+            <td><code>0x38</code></td>
+            <td><code>CSR_SANITIZED_QRY</code></td>
+            <td><code data-csr-val="0x38">0x0000000000002710</code></td>
+            <td><code>por_cold_rst_n</code></td>
+            <td><code>RW-Monotonic</code></td>
+            <td><code>thm27 / SVA 11</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x40" data-csr-name="CSR_SELF_NAK_CNT" data-csr-rst="pcie_warm_flr_rst_n" data-csr-prf="thm05 / SVA 9" data-csr-desc="Count of surgical sub-flit CXL_NOP zeroings (WSTRB=16&#x27;h0000) without whole-flit poison.">
+            <td><code>0x40</code></td>
+            <td><code>CSR_SELF_NAK_CNT</code></td>
+            <td><code data-csr-val="0x40">0x0000000000000000</code></td>
+            <td><code>pcie_warm_flr_rst_n</code></td>
+            <td><code>RO-Counter</code></td>
+            <td><code>thm05 / SVA 9</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x48" data-csr-name="CSR_TAMPER_TRAP" data-csr-rst="por_cold_rst_n" data-csr-prf="thm37 / SVA 12" data-csr-desc="Mode-D De Morgan WDDL dual-rail (0,0)/(1,1) fault &amp; bundle tamper sticky trap counter.">
+            <td><code>0x48</code></td>
+            <td><code>CSR_TAMPER_TRAP</code></td>
+            <td><code data-csr-val="0x48">0x0000000000000000</code></td>
+            <td><code>por_cold_rst_n</code></td>
+            <td><code>RO-Sticky-POR</code></td>
+            <td><code>thm37 / SVA 12</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x50" data-csr-name="CSR_RWD_FIFO_STAT" data-csr-rst="pcie_warm_flr_rst_n" data-csr-prf="thm31 / SVA 7" data-csr-desc="32-slot in-flight AXI ARID shift-FIFO occupancy &amp; full backpressure flag (zero drop).">
+            <td><code>0x50</code></td>
+            <td><code>CSR_RWD_FIFO_STAT</code></td>
+            <td><code data-csr-val="0x50">0x0000000000000004</code></td>
+            <td><code>pcie_warm_flr_rst_n</code></td>
+            <td><code>RO-Guardrail</code></td>
+            <td><code>thm31 / SVA 7</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x58" data-csr-name="CSR_CANON_EGRESS" data-csr-rst="por_cold_rst_n" data-csr-prf="thm24 / SVA 10" data-csr-desc="Canonical Mode B.2 CSS syndrome check (H_FEC o E_fold = 0) &amp; cut-through alignment.">
+            <td><code>0x58</code></td>
+            <td><code>CSR_CANON_EGRESS</code></td>
+            <td><code data-csr-val="0x58">0x0000000000000001</code></td>
+            <td><code>por_cold_rst_n</code></td>
+            <td><code>RO-Status</code></td>
+            <td><code>thm24 / SVA 10</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x60" data-csr-name="CSR_FINE_VIETA_BANK" data-csr-rst="por_cold_rst_n" data-csr-prf="thm35 / SVA 3" data-csr-desc="GF(2^8) elementary symmetric polynomial bank holding d_rev &lt;= 8 emergency roots.">
+            <td><code>0x60</code></td>
+            <td><code>CSR_FINE_VIETA_BANK</code></td>
+            <td><code data-csr-val="0x60">0x0000000000000000</code></td>
+            <td><code>por_cold_rst_n</code></td>
+            <td><code>RW-Airlock</code></td>
+            <td><code>thm35 / SVA 3</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x68" data-csr-name="CSR_TIMEWHEEL_64" data-csr-rst="pcie_warm_flr_rst_n" data-csr-prf="thm19 / SVA 5" data-csr-desc="64-slot deterministic 250 MHz (4.0 ns/tick) shootdown &amp; lease expiration wheel.">
+            <td><code>0x68</code></td>
+            <td><code>CSR_TIMEWHEEL_64</code></td>
+            <td><code data-csr-val="0x68">0x0000000000000001</code></td>
+            <td><code>pcie_warm_flr_rst_n</code></td>
+            <td><code>RO-Tick</code></td>
+            <td><code>thm19 / SVA 5</code></td>
+          </tr>
+          <tr class="clickable-row selected" data-csr-off="0x70" data-csr-name="CSR_SPID_LIVE_MAP" data-csr-rst="por_cold_rst_n" data-csr-prf="thm02 / SVA 1" data-csr-desc="One-way AND2 (reg_q &amp; wdata) live SPID bitmap; ignores Warm PCIe FLR &amp; root 0-&gt;1 writes.">
+            <td><code>0x70</code></td>
+            <td><code>CSR_SPID_LIVE_MAP</code></td>
+            <td><code data-csr-val="0x70">0xFFFFFFFFFFFFFFEB</code></td>
+            <td><code>por_cold_rst_n</code></td>
+            <td><code>RW-AND2-Only</code></td>
+            <td><code>thm02 / SVA 1</code></td>
+          </tr>
+          <tr class="clickable-row" data-csr-off="0x78" data-csr-name="CSR_PREFIX_SUBMODE" data-csr-rst="por_cold_rst_n" data-csr-prf="thm30, thm37" data-csr-desc="Mode-A Cut-Through / Mode-C Enc^(6) Snoop / Mode-D WDDL RAIN + normal basis 0x20.">
+            <td><code>0x78</code></td>
+            <td><code>CSR_PREFIX_SUBMODE</code></td>
+            <td><code data-csr-val="0x78">0x0000000000000020</code></td>
+            <td><code>por_cold_rst_n</code></td>
+            <td><code>RW-Mode</code></td>
+            <td><code>thm30, thm37</code></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <footer class="site-footer">
+      <section id="spectral-scope-and-differentiation" aria-label="Architectural Scope and Physical Trade-Offs">
+        <span class="eyebrow">Scope, Differentiation &amp; Conservation Laws (No Free Lunch)</span>
+        <div class="scope-grid">
+          <div class="spec-card">
+            <strong>Complementary to CXL IDE (AES-GCM)</strong><br>
+            CXL IDE encrypts physical SerDes lanes between endpoints. Spectral operates inside the decrypted 512-bit flit stream to isolate 64 tenants in shared HBM pools without SRAM page tables.
+          </div>
+          <div class="spec-card">
+            <strong>Emergency Vieta Horizon (d_rev &le; 8)</strong><br>
+            <code>CSR 0x60</code> holds up to 8 emergency roots in <code>GF(2^8)</code> during the <code>&le; 548 ns</code> dual-bank shootdown window before 8-step shadow Bezout deflation merges them into coarse masks.
+          </div>
+          <div class="spec-card">
+            <strong>Mode-D WDDL Energy Conservation</strong><br>
+            Enabling dual-rail precharge Mode-D achieves <code>TVLA |t| = 0.00</code> and traps stuck rails in <code>CSR 0x48</code>, trading a <code>50%</code> precharge duty ceiling and <code>2/alpha_data &ge; 4x</code> switching energy.
+          </div>
+          <div class="spec-card">
+            <strong>Silicon Provenance (16nm Physical + 7nm Predictive)</strong><br>
+            <code>16nm xcvu47p</code> metrics (<code>250 MHz</code>, <code>+0.491 ns</code> WNS, <code>394 LUTs</code>, <code>0 BRAM</code>) come from routed AWS F2 AGFIs; <code>7nm ASAP7</code> (<code>0.003335 mm^2</code>, <code>3.728 mW</code>) uses the open predictive PDK (Clark et al., 2016).
+          </div>
+        </div>
+      </section>
+      <div class="footer-meta">
+        <span>Spectral Systems LLC &middot; Principal Architect: Eric C. Murphy &middot; CAGE: 268E1 &middot; SAM.gov UEI: VTP2JPCJU3D9</span>
+        <span>All Patents Pending (DFARS 252.227-7018 Private-Expense IP) &middot; DOI: 10.5281/zenodo.24047902</span>
+      </div>
+    </footer>
+  </main>
+  <script src="../assets/spectral-sims.js?v=20261116T224052Z"></script>
+</body>
+</html>
+<!-- spectral-rev: 20261116T224052Z -->

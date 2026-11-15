@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DFARS 252.227-7018 Air-Gap &amp; ZK-IC3 Miter Proofs &mdash; Spectral Systems LLC</title>
+  <meta name="description" content="Two-zone DFARS 252.227-7018 private-expense IP custody and ZK-IC3 hardware miter verification.">
+  <link rel="canonical" href="https://spectralsystems.org/patents">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+  <style id="spectral-elegant-editorial-theme">
+:root {
+  --bg-canvas: #090B10;
+  --bg-bay: #0D1119;
+  --bg-card: #111622;
+  --bg-elevated: #161D2C;
+  --ink-ivory: #F8F7F4;
+  --ink-body: #D8DEE9;
+  --ink-mono: #CBD5E1;
+  --ink-dim: #94A3B8;
+  --hairline: #1E2636;
+  --hairline-strong: #2C3850;
+  --accent-orange: #FF5722;
+  --accent-orange-soft: rgba(255, 87, 34, 0.14);
+  --state-legal: #34D399;
+  --state-trap: #F87171;
+  --state-noop: #FBBF24;
+  --state-nop: #38BDF8;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg-canvas); color: var(--ink-body); scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg-canvas);
+  color: var(--ink-body);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16.5px;
+  line-height: 1.74;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, .serif-display {
+  font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  color: var(--ink-ivory);
+  margin-top: 0;
+}
+code, pre, kbd, .mono, .copy-pill, .haptic-badge, .csr-table, .metric-val {
+  font-family: 'JetBrains Mono', Consolas, 'Liberation Mono', monospace;
+  font-variant-numeric: tabular-nums slashed-zero;
+  color: var(--ink-mono);
+}
+  </style>
+  <link rel="stylesheet" href="assets/spectral-showcase.css?v=20261116T224052Z">
+</head>
+<body>
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a class="brand-block" href="index.html">
+        <span class="brand-mark">SPECTRAL SYSTEMS</span>
+        <span class="brand-sub">CXL 3.x INLINE SILICON</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary Routes">
+        <a class="nav-link" href="index.html">01 / Live Wire</a>
+        <a class="nav-link" href="benchmarks.html">02 / Benchmarks</a>
+        <a class="nav-link" href="zero-trust.html">03 / Zero-Trust</a>
+        <a class="nav-link" href="verification.html">04 / Verification</a>
+        <a class="nav-link" href="cots-procurement.html">05 / COTS &amp; TCO</a>
+        <a class="nav-link active" href="patents.html">06 / DFARS &amp; ZK-IC3</a>
+        <a class="nav-link" href="console-demo/index.html">07 / Compiler &amp; BAR0</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section id="spectral-guided-discovery" class="triage-lens" aria-label="Reviewer Triage Lens">
+      <div class="triage-top">
+        <span class="eyebrow">4-Persona Reviewer Triage Lens</span>
+        <div class="persona-tabs" role="tablist">
+          <button type="button" class="persona-btn active" data-persona="darpa">DARPA / DoD PM</button>
+          <button type="button" class="persona-btn" data-persona="arch">CXL / HBM4 Architect</button>
+          <button type="button" class="persona-btn" data-persona="formal">Formal / Crypto Auditor</button>
+          <button type="button" class="persona-btn" data-persona="gpc">Federal GPC Contracting</button>
+        </div>
+      </div>
+      <div id="spectral-guided-story" class="guided-story">
+        Mission &amp; DoD Program View: A compromised host OS or PCIe Warm Function-Level Reset (FLR) cannot re-enable a revoked tenant bit because CSR 0x70 passes through a physical AND2 gate reset solely by cold chassis power (por_cold_rst_n). Bad writes are zeroed in 16-byte sub-flit slots at 99.20% goodput instead of collapsing shared memory links to 48.90%. All Patents Pending (DFARS 252.227-7018 Private-Expense IP).
+      </div>
+      <div class="copy-pill-row">
+        <button type="button" class="copy-pill" data-copy="268E1">CAGE: 268E1</button>
+        <button type="button" class="copy-pill" data-copy="VTP2JPCJU3D9">UEI: VTP2JPCJU3D9</button>
+        <button type="button" class="copy-pill" data-copy="10.5281/zenodo.24047902">DOI: 10.5281/zenodo.24047902</button>
+        <button type="button" class="copy-pill" data-copy="agfi-08becf3b40b169674">agfi-08becf3b40b169674</button>
+        <button type="button" class="copy-pill" data-copy="agfi-03b742e2a9cd2c0f2">agfi-03b742e2a9cd2c0f2</button>
+      </div>
+    </section>
+
+    <section class="monograph-bar" aria-label="Monograph Downloads">
+      <div class="monograph-actions">
+        <a class="btn-monograph-active" href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener noreferrer">
+          Part I Monograph (v1.0.0 PDF &middot; DOI 10.5281/zenodo.24047902)
+        </a>
+        <span class="btn-monograph-disabled" aria-disabled="true" role="status">
+          Part II Monograph (v1.1.0 PDF &mdash; Final Typesetting in Progress)
+        </span>
+      </div>
+      <div class="monograph-note">
+        All 8 Part II Lean 4 proofs (<code>thm30..thm37</code>) are already live on <a href="verification.html">/verification</a>.
+      </div>
+    </section>
+
+
+    <section class="hero-header">
+      <span class="eyebrow">Route 06 &middot; DFARS 252.227-7018 Governance &amp; Zero-Knowledge Hardware Equivalence</span>
+      <h1 class="hero-title">Verify Equivalence Without Exposing Private Netlists</h1>
+      <h2 class="hero-sub">Two-Zone Air-Gap Custody, ZK-IC3 Miter Proofs, and Multi-Vertical Portability.</h2>
+      <div class="beat-grid">
+        <div class="beat-card">
+          <span class="beat-tag">Beat 1 &middot; Motivation</span>
+          <p>Government evaluators rightly demand mathematical proof that delivered silicon contains zero hidden bypasses&mdash;yet publishing raw synthesizable structural netlists on the open internet forfeits private-expense trade secrets and patent priority.</p>
+        </div>
+        <div class="beat-card">
+          <span class="beat-tag">Beat 2 &middot; Plain Physical Meaning</span>
+          <p>Private RTL remains inside an air-gapped Zone-1 vault while Zone-2 publishes <span class="tangle-num" data-tangle-var="pat_sealed" data-min="235" data-max="235" data-step="1" data-val="235">235</span> SHA-256-sealed public artifacts, 38 Lean 4 theorems, and a <code>ZK-IC3</code> inductive miter relation (<code>M(x) = 0</code>) proving gate-for-gate safety.</p>
+        </div>
+        <div class="beat-card">
+          <span class="beat-tag">Beat 3 &middot; Scope &amp; Price Paid</span>
+          <p>All Patents Pending (DFARS 252.227-7018 Private-Expense IP). No patent serial numbers or unredacted filing counts are exposed on public Zone-2 surfaces; formal equivalence is auditable under standard NDA or via public AGFIs.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="spectral-zkic3-airgap-workbench" class="cad-bay" aria-label="Instrument 06 Air-Gap and ZK-IC3 Workbench">
+      <div class="workbench-head">
+        <div>
+          <span class="eyebrow">Instrument 06 &middot; Two-Zone DFARS 252.227-7018 Inspector &amp; R_ZK-IC3 Miter Verifier (thm28)</span>
+          <h3 style="margin:4px 0 0;">Zone-1 Air-Gap Egress Guard &amp; Inductive Miter Soundness</h3>
+        </div>
+        <span id="pat-haptic-badge" class="haptic-badge">[LEGAL TRANSITION] Zone-1 Air-Gap Intact &middot; Miter M(x)=0</span>
+      </div>
+      <div class="ctrl-row">
+        <button type="button" id="pat-btn-receipt" class="hw-btn primary">Export SHA-256 Receipt &amp; Lean Proof (Zone 1 &rarr; Zone 2)</button>
+        <button type="button" id="pat-btn-netlist" class="hw-btn danger">Attempt Unredacted Structural Netlist Egress</button>
+        <button type="button" id="pat-btn-verify" class="hw-btn">Verify R_ZK-IC3 Miter Relation</button>
+        <button type="button" id="pat-btn-trojan" class="hw-btn danger">Inject Trojan Bypass Gate into Witness</button>
+        <button type="button" id="pat-btn-clean" class="hw-btn">Restore Golden Master Witness</button>
+      </div>
+      <div id="pat-zk-readout" class="spec-card mono" style="font-size:12.6px; margin-top:10px;"></div>
+    </section>
+
+    <section class="cad-bay" aria-label="Part II Table 3 Multi-Vertical Portability Matrix">
+      <span class="eyebrow">Part II Table 3 &middot; All Patents Pending (DFARS 252.227-7018 Private-Expense IP)</span>
+      <h3 style="margin:4px 0 10px;">Multi-Vertical Hardware Invariant Portability Matrix (thm36)</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Deployment Vertical</th>
+            <th>Primary Physical Threat</th>
+            <th>Active Spectral Silicon Mechanism</th>
+            <th>IP &amp; Verification Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. Hyperscale AI / CXL 3.x HBM4 Pools</strong></td>
+            <td>Cross-tenant KV-cache writes &amp; LoRA SVD weight theft</td>
+            <td>Sub-flit <code>WSTRB=16&apos;h0000</code> + <code>BFloat16</code> wire clamp + <code>CSR 0x38</code></td>
+            <td>All Patents Pending &middot; <code>thm05, thm27, thm33</code></td>
+          </tr>
+          <tr>
+            <td><strong>2. DoD / NNSA Cross-Domain Guards</strong></td>
+            <td>Power side-channel leakage &amp; fault-injection rail glitches</td>
+            <td>Mode-D dual-rail <code>WDDL</code> (<code>TVLA |t|=0.00</code>) + <code>CSR 0x48</code> RAIN trap</td>
+            <td>All Patents Pending &middot; <code>thm15, thm37</code></td>
+          </tr>
+          <tr>
+            <td><strong>3. Autonomous Avionics &amp; Mission Buses</strong></td>
+            <td>Worst-case execution jitter from MMU/IOMMU table misses</td>
+            <td>2-cycle <code>8.0 ns</code> cut-through with <code>0</code> SRAM (<code>m_perm = 0</code>)</td>
+            <td>All Patents Pending &middot; <code>thm07, thm22</code></td>
+          </tr>
+          <tr>
+            <td><strong>4. Cloud FPGA / Bare-Metal SmartNICs</strong></td>
+            <td>Host root compromise &amp; PCIe Warm FLR capability reset</td>
+            <td>One-way <code>AND2</code> <code>CSR 0x70</code> wired strictly to <code>por_cold_rst_n</code></td>
+            <td>All Patents Pending &middot; <code>thm02, thm25</code></td>
+          </tr>
+          <tr>
+            <td><strong>5. Confidential Genomics &amp; Sovereign Enclaves</strong></td>
+            <td>Multi-cohort collusion &amp; emergency lease revocation storms</td>
+            <td><code>AG(2,8)</code> water-filling (<code>W_8(n)=0</code>) + Vieta <code>CSR 0x60</code> airlock</td>
+            <td>All Patents Pending &middot; <code>thm17, thm31, thm32</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+
+    <footer class="site-footer">
+      <section id="spectral-scope-and-differentiation" aria-label="Architectural Scope and Physical Trade-Offs">
+        <span class="eyebrow">Scope, Differentiation &amp; Conservation Laws (No Free Lunch)</span>
+        <div class="scope-grid">
+          <div class="spec-card">
+            <strong>Complementary to CXL IDE (AES-GCM)</strong><br>
+            CXL IDE encrypts physical SerDes lanes between endpoints. Spectral operates inside the decrypted 512-bit flit stream to isolate 64 tenants in shared HBM pools without SRAM page tables.
+          </div>
+          <div class="spec-card">
+            <strong>Emergency Vieta Horizon (d_rev &le; 8)</strong><br>
+            <code>CSR 0x60</code> holds up to 8 emergency roots in <code>GF(2^8)</code> during the <code>&le; 548 ns</code> dual-bank shootdown window before 8-step shadow Bezout deflation merges them into coarse masks.
+          </div>
+          <div class="spec-card">
+            <strong>Mode-D WDDL Energy Conservation</strong><br>
+            Enabling dual-rail precharge Mode-D achieves <code>TVLA |t| = 0.00</code> and traps stuck rails in <code>CSR 0x48</code>, trading a <code>50%</code> precharge duty ceiling and <code>2/alpha_data &ge; 4x</code> switching energy.
+          </div>
+          <div class="spec-card">
+            <strong>Silicon Provenance (16nm Physical + 7nm Predictive)</strong><br>
+            <code>16nm xcvu47p</code> metrics (<code>250 MHz</code>, <code>+0.491 ns</code> WNS, <code>394 LUTs</code>, <code>0 BRAM</code>) come from routed AWS F2 AGFIs; <code>7nm ASAP7</code> (<code>0.003335 mm^2</code>, <code>3.728 mW</code>) uses the open predictive PDK (Clark et al., 2016).
+          </div>
+        </div>
+      </section>
+      <div class="footer-meta">
+        <span>Spectral Systems LLC &middot; Principal Architect: Eric C. Murphy &middot; CAGE: 268E1 &middot; SAM.gov UEI: VTP2JPCJU3D9</span>
+        <span>All Patents Pending (DFARS 252.227-7018 Private-Expense IP) &middot; DOI: 10.5281/zenodo.24047902</span>
+      </div>
+    </footer>
+  </main>
+  <script src="assets/spectral-sims.js?v=20261116T224052Z"></script>
+</body>
+</html>
+<!-- spectral-rev: 20261116T224052Z -->

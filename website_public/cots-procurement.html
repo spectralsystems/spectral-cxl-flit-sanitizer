@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>COTS Gateware Procurement &amp; 10,000-Rack TCO &mdash; Spectral Systems LLC</title>
+  <meta name="description" content="FAR 13.201 GPC evaluation licensing, 0.003335 mm^2 7nm ASAP7 reticle fit, and Theorem 6.3 fleet TCO calculator.">
+  <link rel="canonical" href="https://spectralsystems.org/cots-procurement">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+  <style id="spectral-elegant-editorial-theme">
+:root {
+  --bg-canvas: #090B10;
+  --bg-bay: #0D1119;
+  --bg-card: #111622;
+  --bg-elevated: #161D2C;
+  --ink-ivory: #F8F7F4;
+  --ink-body: #D8DEE9;
+  --ink-mono: #CBD5E1;
+  --ink-dim: #94A3B8;
+  --hairline: #1E2636;
+  --hairline-strong: #2C3850;
+  --accent-orange: #FF5722;
+  --accent-orange-soft: rgba(255, 87, 34, 0.14);
+  --state-legal: #34D399;
+  --state-trap: #F87171;
+  --state-noop: #FBBF24;
+  --state-nop: #38BDF8;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg-canvas); color: var(--ink-body); scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg-canvas);
+  color: var(--ink-body);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16.5px;
+  line-height: 1.74;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, .serif-display {
+  font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  color: var(--ink-ivory);
+  margin-top: 0;
+}
+code, pre, kbd, .mono, .copy-pill, .haptic-badge, .csr-table, .metric-val {
+  font-family: 'JetBrains Mono', Consolas, 'Liberation Mono', monospace;
+  font-variant-numeric: tabular-nums slashed-zero;
+  color: var(--ink-mono);
+}
+  </style>
+  <link rel="stylesheet" href="assets/spectral-showcase.css?v=20261116T224052Z">
+</head>
+<body>
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a class="brand-block" href="index.html">
+        <span class="brand-mark">SPECTRAL SYSTEMS</span>
+        <span class="brand-sub">CXL 3.x INLINE SILICON</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary Routes">
+        <a class="nav-link" href="index.html">01 / Live Wire</a>
+        <a class="nav-link" href="benchmarks.html">02 / Benchmarks</a>
+        <a class="nav-link" href="zero-trust.html">03 / Zero-Trust</a>
+        <a class="nav-link" href="verification.html">04 / Verification</a>
+        <a class="nav-link active" href="cots-procurement.html">05 / COTS &amp; TCO</a>
+        <a class="nav-link" href="patents.html">06 / DFARS &amp; ZK-IC3</a>
+        <a class="nav-link" href="console-demo/index.html">07 / Compiler &amp; BAR0</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section id="spectral-guided-discovery" class="triage-lens" aria-label="Reviewer Triage Lens">
+      <div class="triage-top">
+        <span class="eyebrow">4-Persona Reviewer Triage Lens</span>
+        <div class="persona-tabs" role="tablist">
+          <button type="button" class="persona-btn active" data-persona="darpa">DARPA / DoD PM</button>
+          <button type="button" class="persona-btn" data-persona="arch">CXL / HBM4 Architect</button>
+          <button type="button" class="persona-btn" data-persona="formal">Formal / Crypto Auditor</button>
+          <button type="button" class="persona-btn" data-persona="gpc">Federal GPC Contracting</button>
+        </div>
+      </div>
+      <div id="spectral-guided-story" class="guided-story">
+        Mission &amp; DoD Program View: A compromised host OS or PCIe Warm Function-Level Reset (FLR) cannot re-enable a revoked tenant bit because CSR 0x70 passes through a physical AND2 gate reset solely by cold chassis power (por_cold_rst_n). Bad writes are zeroed in 16-byte sub-flit slots at 99.20% goodput instead of collapsing shared memory links to 48.90%. All Patents Pending (DFARS 252.227-7018 Private-Expense IP).
+      </div>
+      <div class="copy-pill-row">
+        <button type="button" class="copy-pill" data-copy="268E1">CAGE: 268E1</button>
+        <button type="button" class="copy-pill" data-copy="VTP2JPCJU3D9">UEI: VTP2JPCJU3D9</button>
+        <button type="button" class="copy-pill" data-copy="10.5281/zenodo.24047902">DOI: 10.5281/zenodo.24047902</button>
+        <button type="button" class="copy-pill" data-copy="agfi-08becf3b40b169674">agfi-08becf3b40b169674</button>
+        <button type="button" class="copy-pill" data-copy="agfi-03b742e2a9cd2c0f2">agfi-03b742e2a9cd2c0f2</button>
+      </div>
+    </section>
+
+    <section class="monograph-bar" aria-label="Monograph Downloads">
+      <div class="monograph-actions">
+        <a class="btn-monograph-active" href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener noreferrer">
+          Part I Monograph (v1.0.0 PDF &middot; DOI 10.5281/zenodo.24047902)
+        </a>
+        <span class="btn-monograph-disabled" aria-disabled="true" role="status">
+          Part II Monograph (v1.1.0 PDF &mdash; Final Typesetting in Progress)
+        </span>
+      </div>
+      <div class="monograph-note">
+        All 8 Part II Lean 4 proofs (<code>thm30..thm37</code>) are already live on <a href="verification.html">/verification</a>.
+      </div>
+    </section>
+
+
+    <section class="hero-header">
+      <span class="eyebrow">Route 05 &middot; Commercial COTS Licensing, HBM4 Reticle Fit &amp; Fleet Economics</span>
+      <h1 class="hero-title">Drop-In COTS Gateware &amp; 10,000-Rack Economics</h1>
+      <h2 class="hero-sub">FAR 13.201 GPC Evaluation, 0.003335 mm^2 HBM4 Fit, and Theorem 6.3 TCO.</h2>
+      <div class="beat-grid">
+        <div class="beat-card">
+          <span class="beat-tag">Beat 1 &middot; Motivation</span>
+          <p>Hyperscale and defense AI pods lose millions of dollars per 10,000 racks to static DRAM capability-table carve-outs, host firewall CPU cores, and CXL retry stall power&mdash;while custom ASIC spins stall procurement for years.</p>
+        </div>
+        <div class="beat-card">
+          <span class="beat-tag">Beat 2 &middot; Plain Physical Meaning</span>
+          <p>Today, agencies test the exact routed 16nm bitstream on AWS F2 under FAR 13.201 GPC micro-purchase thresholds. For next-gen HBM4 logic base dies, the macro occupies <code>0.003335 mm^2</code> (<code>57.75 um &times; 57.75 um</code>) across <span class="tangle-num" data-tangle-var="cots_racks" data-min="100" data-max="10000" data-step="100" data-val="10000">10000</span> racks.</p>
+        </div>
+        <div class="beat-card">
+          <span class="beat-tag">Beat 3 &middot; Scope &amp; Price Paid</span>
+          <p>Core single-node inline gateware is licensed as commercial/private-expense Background IP (<code>DFARS 252.227-7018</code>), cleanly separated from open multi-rack distributed telemetry and scheduling research extensions (Table 5 below).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="spectral-gpc-quote-tco-engine" class="cad-bay" aria-label="Instrument 05 TCO Reticle and GPC Quote Engine">
+      <div class="workbench-head">
+        <div>
+          <span class="eyebrow">Instrument 05 &middot; Theorem 6.3 Fleet TCO, 7nm ASAP7 Reticle Zoom &amp; FAR 13.201 Quote Engine</span>
+          <h3 style="margin:4px 0 0;">Unconditional Carve-Out Recovery vs. Load-Dependent Stall Power</h3>
+        </div>
+        <span id="cots-haptic-badge" class="haptic-badge">[LEGAL TRANSITION] CAGE 268E1 / UEI VTP2JPCJU3D9 Ready</span>
+      </div>
+
+      <div class="two-col">
+        <div class="spec-card">
+          <div class="ctrl-row">
+            <label for="cots-racks" class="mono" style="font-size:12px;">Fleet Size (100..10,000 Racks):</label>
+            <input type="range" id="cots-racks" min="100" max="10000" step="100" value="10000">
+          </div>
+          <div class="ctrl-row">
+            <label for="cots-kwh" class="mono" style="font-size:12px;">Facility Power Rate ($/kWh):</label>
+            <input type="range" id="cots-kwh" min="0.06" max="0.22" step="0.01" value="0.11">
+          </div>
+          <div class="ctrl-row">
+            <label for="cots-load" class="mono" style="font-size:12px;">Pool Utilization rho (0.25..0.95):</label>
+            <input type="range" id="cots-load" min="0.25" max="0.95" step="0.05" value="0.75">
+          </div>
+          <div class="ctrl-row">
+            <label for="cots-zoom" class="mono" style="font-size:12px;">7nm ASAP7 HBM4 Base-Die Zoom:</label>
+            <input type="range" id="cots-zoom" min="0.8" max="2.6" step="0.2" value="1.0">
+          </div>
+          <canvas id="cots-reticle-cv" class="sim-canvas" width="500" height="250"></canvas>
+        </div>
+
+        <div class="spec-card">
+          <span class="eyebrow">FAR 13.201 / FAR 12.212 Instant RFQ Memo Generator</span>
+          <div class="ctrl-row">
+            <select id="cots-tier-select" class="hw-select" style="width:100%;">
+              <option value="f2">Tier 1: AWS F2 Evaluation AGFI License (FAR 13.201 GPC Micro-Purchase)</option>
+              <option value="bitstream">Tier 2: Commercial COTS Encrypted Bitstream Pack (xcvu47p / Versal)</option>
+              <option value="rtl">Tier 3: Program Site Synthesizable RTL + 38-Theorem Sign-Off Bundle</option>
+            </select>
+          </div>
+          <div class="ctrl-row">
+            <input type="text" id="cots-agency-in" class="hw-input" style="width:100%;" value="DoD / CDAO / National Lab Evaluation Team" aria-label="Purchasing Activity">
+          </div>
+          <pre id="cots-quote-memo" class="lean-code" style="min-height:170px;"></pre>
+          <div class="ctrl-row">
+            <button type="button" id="cots-copy-quote" class="hw-btn primary">[Copy RFQ Memo to Clipboard]</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="telemetry-strip">
+        <div class="telemetry-cell"><span class="telemetry-label">UNCONDITIONAL RECOVERY</span><span id="cots-tel-uncond" class="telemetry-val">$48.50M / yr</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">STALL POWER AVOIDED</span><span id="cots-tel-dyn" class="telemetry-val">$10.26M / yr</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">3-YEAR FLEET NET</span><span id="cots-tel-tot" class="telemetry-val">$176.28M</span></div>
+        <div class="telemetry-cell"><span class="telemetry-label">TOTAL GATE POWER</span><span id="cots-tel-gate" class="telemetry-val">2.80 kW (10k Racks)</span></div>
+      </div>
+    </section>
+
+    <section class="cad-bay" aria-label="Part II Table 5 Background IP vs Open Multi-Rack Research Matrix">
+      <span class="eyebrow">Part II Table 5 &middot; Clean R&amp;D Segregation</span>
+      <h3 style="margin:4px 0 10px;">Private-Expense Background IP vs. Open Multi-Rack Research Extensions</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Subsystem / Architectural Layer</th>
+            <th>Funding &amp; Statutory Posture</th>
+            <th>Deliverable Artifact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Single-Node 8.0 ns Cut-Through Gate, LUT6_2 O5/O6 Split, Cold-POR CSR 0x70, Vieta CSR 0x60 Airlock &amp; BFloat16 Clamp</strong></td>
+            <td>100% Private-Expense Background IP &middot; All Patents Pending (DFARS 252.227-7018 Private-Expense IP)</td>
+            <td>Commercial COTS AGFIs (<code>agfi-08becf3b40b169674</code>, <code>agfi-03b742e2a9cd2c0f2</code>) &amp; sealed BAR0 ABI</td>
+          </tr>
+          <tr>
+            <td><strong>Open Multi-Rack Switch-Level Epoch Orchestration, Kubernetes Scheduler Hooks &amp; Workload Traces</strong></td>
+            <td>Open Collaborative Research Scope (eligible for BAA / SBIR / CRADA joint execution without Background-IP contamination)</td>
+            <td>Open-source control-plane adapters, synthetic workload generators &amp; public Lean 4 verification harnesses</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+
+    <footer class="site-footer">
+      <section id="spectral-scope-and-differentiation" aria-label="Architectural Scope and Physical Trade-Offs">
+        <span class="eyebrow">Scope, Differentiation &amp; Conservation Laws (No Free Lunch)</span>
+        <div class="scope-grid">
+          <div class="spec-card">
+            <strong>Complementary to CXL IDE (AES-GCM)</strong><br>
+            CXL IDE encrypts physical SerDes lanes between endpoints. Spectral operates inside the decrypted 512-bit flit stream to isolate 64 tenants in shared HBM pools without SRAM page tables.
+          </div>
+          <div class="spec-card">
+            <strong>Emergency Vieta Horizon (d_rev &le; 8)</strong><br>
+            <code>CSR 0x60</code> holds up to 8 emergency roots in <code>GF(2^8)</code> during the <code>&le; 548 ns</code> dual-bank shootdown window before 8-step shadow Bezout deflation merges them into coarse masks.
+          </div>
+          <div class="spec-card">
+            <strong>Mode-D WDDL Energy Conservation</strong><br>
+            Enabling dual-rail precharge Mode-D achieves <code>TVLA |t| = 0.00</code> and traps stuck rails in <code>CSR 0x48</code>, trading a <code>50%</code> precharge duty ceiling and <code>2/alpha_data &ge; 4x</code> switching energy.
+          </div>
+          <div class="spec-card">
+            <strong>Silicon Provenance (16nm Physical + 7nm Predictive)</strong><br>
+            <code>16nm xcvu47p</code> metrics (<code>250 MHz</code>, <code>+0.491 ns</code> WNS, <code>394 LUTs</code>, <code>0 BRAM</code>) come from routed AWS F2 AGFIs; <code>7nm ASAP7</code> (<code>0.003335 mm^2</code>, <code>3.728 mW</code>) uses the open predictive PDK (Clark et al., 2016).
+          </div>
+        </div>
+      </section>
+      <div class="footer-meta">
+        <span>Spectral Systems LLC &middot; Principal Architect: Eric C. Murphy &middot; CAGE: 268E1 &middot; SAM.gov UEI: VTP2JPCJU3D9</span>
+        <span>All Patents Pending (DFARS 252.227-7018 Private-Expense IP) &middot; DOI: 10.5281/zenodo.24047902</span>
+      </div>
+    </footer>
+  </main>
+  <script src="assets/spectral-sims.js?v=20261116T224052Z"></script>
+</body>
+</html>
+<!-- spectral-rev: 20261116T224052Z -->

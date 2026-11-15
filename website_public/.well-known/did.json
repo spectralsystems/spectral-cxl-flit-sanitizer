@@ -1,0 +1,32 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1"
+  ],
+  "id": "did:web:spectralsystems.org",
+  "alsoKnownAs": [
+    "https://spectralsystems.org",
+    "https://github.com/spectralsystems/spectral-cxl-flit-sanitizer"
+  ],
+  "service": [
+    {
+      "id": "did:web:spectralsystems.org#monograph",
+      "type": "TechnicalMonograph",
+      "serviceEndpoint": "https://spectralsystems.org/preprint_Murphy_v1_0_0.pdf"
+    },
+    {
+      "id": "did:web:spectralsystems.org#capability",
+      "type": "FederalCapabilityStatement",
+      "serviceEndpoint": "https://spectralsystems.org/capability-statement.pdf"
+    },
+    {
+      "id": "did:web:spectralsystems.org#vendor",
+      "type": "ProcurementProfile",
+      "serviceEndpoint": "https://spectralsystems.org/vendor-profile.json"
+    },
+    {
+      "id": "did:web:spectralsystems.org#repo",
+      "type": "VerificationRepository",
+      "serviceEndpoint": "https://github.com/spectralsystems/spectral-cxl-flit-sanitizer"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+# Virtual Patent Marking Ledger (35 U.S.C. § 287(a) — Release v1.0.0)
+Assignee: **Spectral Systems LLC** (United States, US • CAGE: `268E1` • SAM.gov UEI: `VTP2JPCJU3D9` • USPTO Customer No.: `Pending`). Sole Human Inventor: **Eric C. Murphy**, compliant with `37 C.F.R. § 1.41` and **USPTO Revised Inventorship Guidance, 90 FR 54636 (Nov. 28, 2025)**. Developed 100% at private expense (`DFARS 252.227-7018` / `DEAR 952.227-14`). Covered by **19 pending U.S. Provisional Patent Applications** (`All Patents Pending` through `All Patents Pending`, anchoring All Patents Pending).

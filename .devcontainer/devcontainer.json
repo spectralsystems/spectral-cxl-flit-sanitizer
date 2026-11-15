@@ -1,0 +1,18 @@
+{
+  "name": "Spectral Flit-Filter v1.0.0 \u2014 One-Click Formal & Silicon Verification Bench",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "postCreateCommand": "python3 -m pip install --quiet pytest || true",
+  "postAttachCommand": "python3 tests/run_5pillar_repo_auditor.py",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "leanprover.lean4",
+        "ms-python.python",
+        "rust-lang.rust-analyzer"
+      ]
+    }
+  }
+}

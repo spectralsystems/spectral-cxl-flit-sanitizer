@@ -1,0 +1,21 @@
+# Spectral Systems LLC — Spectral Flit-Filter (v1.1.0)
+
+> Hardware-enforced sub-flit capability sanitization, AI model weight protection (85x Le Cam / 43.7k BBP wall), and cold-reset BAR0 hardware ratcheting for disaggregated CXL 3.0-4.0 and UCIe HBM fabrics. Verified across 38 zero-axiom Microsoft Lean 4 theorems (thm00..thm37), live 16nm AMD Virtex UltraScale+ HBM silicon on AWS EC2 f2.6xlarge (1,585 Core LUTs, 0 BRAM, 338.8 MHz, agfi-08becf3b40b169674 & agfi-03b742e2a9cd2c0f2), 7nm ASAP7 FinFET CMOS (9,678 core / 27,877 enclave cells, 0.003335 mm^2, 693 MHz, 3.728 mW), and CNCF k3s admission control (1.36 ms HTTP 403 block).
+
+Spectral Systems LLC (CAGE: 268E1 | SAM.gov UEI: VTP2JPCJU3D9 | DOI: 10.5281/zenodo.24047902) provides zero-BRAM physical-layer memory isolation and FIPS-204 ML-DSA-87 certifying policy compilation (spectralc) for shared AI accelerators, high-performance computing, and sovereign enclaves. All inventions conceived and reduced to practice solely by Eric C. Murphy at 100% private expense (DFARS 252.227-7018 / DEAR 952.227-14; All Patents Pending).
+
+## Core Technical Routes
+
+- [Overview & Five-Oracle Verification Matrix](https://spectralsystems.org/): Executive hardware summary, 0.124 ns sub-flit sieve architecture, and 5-oracle falsification receipts.
+- [Silicon & Cloud Benchmarks](https://spectralsystems.org/benchmarks): 16nm xcvu47p (1,585 LUTs, 0 BRAM, 338.8 MHz), 7nm ASAP7 (693 MHz, 3.728 mW), and 99.20% vs. 48.90% CXL link goodput telemetry.
+- [Architecture & AI Weight Protection](https://spectralsystems.org/zero-trust): 16-CSR (128-byte) BAR0 register map, cold-POR AND2 hardware ratchet, and S2M_DRS BF16 mantissa clamping.
+- [38 Zero-Axiom Lean 4 Formal Proofs](https://spectralsystems.org/verification): Pure Init.Prelude machine-checked theorem catalog (thm00..thm37, 0 sorry, 0 axioms).
+- [Interactive BAR0 Policy Compiler (spectralc)](https://spectralsystems.org/console-demo/): Live YAML/SKILL.md to 128-byte ML-DSA-87 signed .sbundle register compiler and 4-stage wire simulator.
+- [COTS Evaluation & Federal Procurement](https://spectralsystems.org/cots-procurement): Instant FAR 13.201 Government Purchase Card (<$15,000 micro-purchase) and commercial evaluation licensing.
+- [Open-Source & Patent Scope](https://spectralsystems.org/patents): Three-tier Apache-2.0 software/proof license scope and 35 U.S.C. 287(a) sovereign silicon reservation (All Patents Pending).
+
+## Primary Monograph & Machine-Readable Manifests
+
+- [Technical Monograph Preprint (Part I PDF)](https://spectralsystems.org/preprint_Murphy_v1_0_0.pdf): Full mathematical and post-route silicon monograph (DOI: 10.5281/zenodo.24047902).
+- [Institutional & Federal Funding Manifest](https://spectralsystems.org/funding.json): Machine-readable CAGE 268E1 / UEI VTP2JPCJU3D9 acquisition and R&D metadata.
+- [XML Sitemap](https://spectralsystems.org/sitemap.xml): Canonical extensionless route index.

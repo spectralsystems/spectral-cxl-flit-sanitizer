@@ -1,0 +1,358 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Tue Nov  3 04:55:14 2026
+| Host         : aws-f2-cleanroom-node running 64-bit Ubuntu 24.04.1 LTS
+| Command      : report_drc -name drc_core -file /dev/shm/spectral_v1_0_0/reports_public/vivado_xcvu47p_drc_audit.rpt
+| Design       : cxl_subflit_slot_sanitizer_core
+| Device       : xcvu47p-fsvh2892-2L-e
+| Speed File   : -2L
+| Design State : Partially Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: cxl_subflit_slot_sanitizer_core
+          Floorplan: design_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max checks: <unlimited>
+             Checks found: 64
++-----------+----------+-------------------------+--------+
+| Rule      | Severity | Description             | Checks |
++-----------+----------+-------------------------+--------+
+| PDCN-1569 | Warning  | LUT equation term check | 64     |
++-----------+----------+-------------------------+--------+
+
+2. REPORT DETAILS
+-----------------
+PDCN-1569#1 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[0].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#2 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[0].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#3 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[0].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#4 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[0].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#5 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[0].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#6 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[0].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#7 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[0].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#8 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[0].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#9 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[0].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#10 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[0].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#11 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[0].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#12 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[0].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#13 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[0].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#14 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[0].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#15 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[0].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#16 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[0].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[0].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[0].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#17 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[1].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#18 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[1].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#19 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[1].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#20 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[1].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#21 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[1].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#22 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[1].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#23 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[1].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#24 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[1].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#25 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[1].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#26 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[1].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#27 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[1].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#28 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[1].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#29 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[1].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#30 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[1].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#31 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[1].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#32 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[1].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[1].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[1].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#33 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[2].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#34 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[2].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#35 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[2].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#36 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[2].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#37 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[2].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#38 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[2].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#39 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[2].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#40 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[2].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#41 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[2].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#42 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[2].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#43 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[2].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#44 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[2].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#45 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[2].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#46 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[2].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#47 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[2].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#48 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[2].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[2].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[2].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#49 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[3].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#50 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[3].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[10].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#51 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[3].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#52 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[3].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[18].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#53 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[3].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#54 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[3].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[26].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#55 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[3].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#56 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[3].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[2].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#57 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[3].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#58 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[3].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[34].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#59 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[3].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#60 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[3].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[42].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#61 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[3].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#62 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[3].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[50].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#63 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT5 (in g_s2_slots[3].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT5/I3) is not included in the LUT equation: 'O5=(A1*(~A3)*A5)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+PDCN-1569#64 Warning
+LUT equation term check  
+Used physical LUT pin 'A4' of cell g_s2_slots[3].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT6 (in g_s2_slots[3].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp macro) (pin g_s2_slots[3].g_s2_pairs[58].g_pair_lut6_2.u_lut6_2_clamp/LUT6/I3) is not included in the LUT equation: 'O6=(A1*A2*(~A3)*A5)+(A1*(~A2)*(~A3)*A5*(~A6))+((~A1)*A2*(~A3)*A5*A6)'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+Related violations: <none>
+
+
+
+#VIVADO_DRC_AUDIT: 0 Errors, 0 Critical Warnings

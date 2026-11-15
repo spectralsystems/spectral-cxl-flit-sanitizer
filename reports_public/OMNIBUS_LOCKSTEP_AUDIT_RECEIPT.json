@@ -1,0 +1,7 @@
+{
+  "schema": "spectral.omnibus.lockstep.audit.receipt.v1.0.0",
+  "status": "ALL_6_GATES_VERIFIED_CLEAN_V1_0_0",
+  "sitemap_routes": 10,
+  "preprint_pdf_sha256": "050fa368a948c3c3089e5de617bd9ec2aafb521c72ffaccf7450deb7c2cbbac1",
+  "patent_ppa19_pdf_sha256": "569687883c055b1d575b9e3468933bdca98720592995d6211fe3ad1c56ae3994"
+}

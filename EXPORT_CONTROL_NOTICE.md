@@ -1,0 +1,6 @@
+# Two-Zone DFARS Air-Gap and Export Control Notice (`15 C.F.R. § 742.15(b)`)
+
+Empirical and architectural evidence suggests that separating synthesizable hardware implementation files from mathematical specifications prevents unintended export of dual-use microelectronic design artifacts while preserving scientific reproducibility.
+
+1. **Zone 1 (`01_Private_DFARS_Vault` — Air-Gapped Local Storage):** Retains all synthesizable SystemVerilog RTL (`.sv`, `.v`), physical constraints (`.xdc`), post-route EDIF netlists (`.edf`), and Vivado design checkpoints (`.dcp`) developed exclusively at private expense under `DFARS 252.227-7018` and `DEAR 952.227-14`.
+2. **Zone 2 (`02_GitHub_Repo_Staging` — Public Verification Artifact):** Contains pure term-mode Lean 4 proofs, ANSI-C11 register headers, Python reference twins, and signed post-route utilization/timing reports. Prior to unlocking any public repository visibility, TSU notification under `15 C.F.R. § 742.15(b)` is transmitted to `crypt@bis.doc.gov` and `enc@nsa.gov`.
