@@ -3,8 +3,8 @@
     "sovereign_entity":  "Spectral Systems LLC (United States | CAGE: 268E1 | UEI: VTP2JPCJU3D9)",
     "trl_status":  "TRL-6 Hardware-Closed Enclave Subsystem on Live AWS EC2 f2.6xlarge Silicon (xcvu47p-fsvh2892-2-e)",
     "utc_sealed":  "2026-11-04T00:51:46Z",
-    "aws_afi_id":  "afi-01e1910295991cdf1",
-    "aws_agfi_id":  "agfi-036c4a41d05661f64",
+    "aws_afi_id":  "afi-0f2ddd7dc87d81193",
+    "aws_agfi_id":  "agfi-08becf3b40b169674",
     "routed_developer_cl_tar_sha256":  "ad3a6d72e5aba480aa9270e1dbb535c011790e216bdbf77162c795db7c176ec3",
     "pcie_loaded_app_pf":  "0000:34:00.0 [1d0f:f010] Subsystem [fedc:1d51] ShVersion=0x10212415",
     "post_route_silicon_footprint":  {

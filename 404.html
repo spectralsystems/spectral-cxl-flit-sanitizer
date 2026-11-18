@@ -1,0 +1,2460 @@
+<!DOCTYPE html>
+<html lang="en" class="dark antialiased selection:bg-[#f04e23] selection:text-[#07090e]">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>SPECTRAL FLIT-FILTER (v1.0.0 / v1.1.0) — Stateless CXL 3.0–4.0 Sub-Flit Sanitization</title>
+  <meta name="description" content="Spectral Systems LLC (CAGE: 268E1 | SAM UEI: VTP2JPCJU3D9). Zero-BRAM 0.124 ns LUT6_2 sub-flit capability sieve, GF(2^8)[Z] Vieta/Bezout revocation ratchet, and 38 zero-axiom Lean 4 proofs (DOI: 10.5281/zenodo.24047902)." />
+
+  <!-- Typography: Instrument Serif (Display), Inter Tight (Neo-Grotesque), IBM Plex Mono (Silkscreen Telemetry) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN for structural utilities -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Zero-Build ES Module Import Map: Three.js r160, GSAP 3.12.5, Lenis 1.1.13 -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js",
+      "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm",
+      "gsap/ScrollTrigger": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger/+esm",
+      "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.13/+esm"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      /* Permanent Anodized Obsidian Dark-Mode Palette (OKLCH) */
+      color-scheme: dark;
+      --surface-base: oklch(0.138 0.014 264);
+      --surface-elevated: oklch(0.182 0.016 264);
+      --ink-primary: oklch(0.942 0.008 84);
+      --ink-muted: oklch(0.685 0.016 264);
+      --accent-signal: oklch(0.635 0.218 28.5);
+
+      --hairline: oklch(0.942 0.008 84 / 0.12);
+      --hairline-strong: oklch(0.942 0.008 84 / 0.24);
+      --bezel-specular: oklch(0.995 0.003 84 / 0.08);
+      --panel-glass: oklch(0.158 0.015 264 / 0.90);
+
+      /* Font Families */
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --font-sans: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+
+      /* Fluid Clamp Scale */
+      --text-hero: clamp(2.85rem, 5.4vw + 0.85rem, 7.15rem);
+      --text-h1: clamp(2.05rem, 3.4vw + 0.75rem, 4.15rem);
+      --text-h2: clamp(1.25rem, 1.35vw + 0.65rem, 1.95rem);
+      --text-body: clamp(0.98rem, 0.32vw + 0.88rem, 1.12rem);
+      --text-mono: clamp(0.6875rem, 0.12vw + 0.64rem, 0.79rem);
+
+      /* Custom Motion Curves */
+      --ease-expo-out: cubic-bezier(0.19, 1.0, 0.22, 1.0);
+      --ease-detent: cubic-bezier(0.22, 1.0, 0.36, 1.0);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #07090e;
+      color: var(--ink-primary);
+      font-family: var(--font-sans);
+      color-scheme: dark;
+      overflow-x: hidden;
+    }
+
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+
+    /* Typography Helpers */
+    .font-serif-display {
+      font-family: var(--font-serif);
+      line-height: 0.90;
+      letter-spacing: -0.032em;
+    }
+    .font-mono-tech {
+      font-family: var(--font-mono);
+      font-size: var(--text-mono);
+      line-height: 1.38;
+      letter-spacing: 0.055em;
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-title {
+      font-size: var(--text-hero);
+      font-family: var(--font-serif);
+      line-height: 0.89;
+      letter-spacing: -0.035em;
+    }
+    .beat-h1 {
+      font-size: var(--text-h1);
+      font-family: var(--font-serif);
+      line-height: 0.94;
+      letter-spacing: -0.028em;
+    }
+    .prose-monograph {
+      font-size: var(--text-body);
+      line-height: 1.56;
+      letter-spacing: -0.008em;
+      max-width: 54ch;
+    }
+    .subtext-boundary {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      line-height: 1.52;
+      color: var(--ink-muted);
+      border-left: 2px solid var(--hairline-strong);
+      padding-left: 0.75rem;
+      margin-top: 0.75rem;
+      max-width: 58ch;
+    }
+
+    /* 24-Column Asymmetric Swiss Datum Grid */
+    .swiss-grid {
+      display: grid;
+      grid-template-columns: repeat(24, minmax(0, 1fr));
+      column-gap: 0.75rem;
+      padding-left: clamp(3.25rem, 4.2vw, 4.75rem);
+      padding-right: clamp(1.25rem, 2.5vw, 3rem);
+    }
+    @media (max-width: 1023px) {
+      .swiss-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        padding-left: 2.5rem;
+        padding-right: 1rem;
+      }
+    }
+
+    /* Machined Anodized Hardware Surfaces */
+    .hw-bezel {
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 14px 36px -18px rgba(0, 0, 0, 0.65);
+    }
+    .hw-plate {
+      background-color: var(--panel-glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 18px 42px -20px rgba(0, 0, 0, 0.75);
+    }
+
+    /* Tactile Detent Buttons */
+    .hw-btn {
+      position: relative;
+      font-family: var(--font-mono);
+      font-size: var(--text-mono);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid var(--hairline-strong);
+      background-color: var(--surface-base);
+      color: var(--ink-primary);
+      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 1px 2px rgba(0, 0, 0, 0.4);
+      transition: transform 0.22s var(--ease-detent), background-color 0.22s var(--ease-detent), color 0.22s var(--ease-detent), border-color 0.22s var(--ease-detent);
+      cursor: pointer;
+    }
+    .hw-btn:hover {
+      border-color: var(--ink-primary);
+    }
+    .hw-btn:active {
+      transform: translateY(1px) scale(0.99);
+    }
+    .hw-btn[aria-pressed="true"], .hw-btn.is-active {
+      background-color: var(--ink-primary);
+      color: #07090e;
+      border-color: var(--ink-primary);
+      font-weight: 600;
+      box-shadow: none;
+    }
+    .hw-btn.is-signal[aria-pressed="true"], .hw-btn.is-signal-active {
+      background-color: var(--accent-signal);
+      color: #ffffff;
+      border-color: var(--accent-signal);
+      box-shadow: none;
+    }
+
+    /* Keycap Badge for Shortcut Index */
+    .hw-keycap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.65rem;
+      height: 1.5rem;
+      padding: 0 0.38rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 2px 0 rgba(0, 0, 0, 0.5);
+      color: var(--ink-primary);
+    }
+
+    /* Kinetic Typography Reveal Masks */
+    .reveal-mask {
+      overflow: hidden;
+      display: block;
+      padding-bottom: 0.06em;
+    }
+    .reveal-line {
+      display: block;
+      will-change: transform, opacity;
+    }
+
+    /* Persistent Architectural Datum Rules */
+    .datum-rail {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 2.75rem;
+      border-right: 1px solid var(--hairline);
+      background-color: oklch(0.138 0.014 264 / 0.88);
+      z-index: 35;
+      pointer-events: none;
+    }
+    @media (max-width: 1023px) {
+      .datum-rail {
+        width: 1.85rem;
+      }
+    }
+
+    .datum-vline {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background-color: var(--hairline);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* Live 3D-Projected Leader Badges */
+    .hud-leader-badge {
+      position: fixed;
+      left: 0;
+      top: 0;
+      will-change: transform, opacity;
+      background-color: oklch(0.165 0.016 264 / 0.94);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 8px 20px -10px rgba(0, 0, 0, 0.7);
+      padding: 0.35rem 0.55rem;
+      pointer-events: none;
+    }
+
+    /* Subtle Anodized Grain Overlay */
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 45;
+      opacity: 0.022;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Signal Indicator Dot */
+    .signal-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 9999px;
+      background-color: var(--accent-signal);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    /* Focus Ring Accessibility */
+    :focus-visible {
+      outline: 2px solid var(--accent-signal);
+      outline-offset: 2px;
+    }
+
+    /* Reduced Motion Strict Override */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-line {
+        transform: none !important;
+        opacity: 1 !important;
+      }
+    }
+    html.reduced-motion .reveal-line {
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Procedural Texture -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- Fixed WebGL Viewport Aperture -->
+  <div id="webgl-stage" class="fixed inset-0 z-10 pointer-events-auto" aria-label="Interactive 3D AG(2,8) Sub-Flit Capability Sanitizer Matrix"></div>
+
+  <!-- Live 3D-Projected Orthographic SVG Leader Overlay (Active in Beat 1 Exploded Cross-Section) -->
+  <div id="hud-leader-layer" class="fixed inset-0 z-25 pointer-events-none opacity-0" style="z-index: 22;" aria-hidden="true">
+    <svg id="hud-leaders" class="w-full h-full overflow-visible">
+      <!-- Top Rail O6 Leader -->
+      <polyline id="leader-poly-2" fill="none" stroke="oklch(0.635 0.218 28.5)" stroke-width="1.2" points="0,0 0,0 0,0" />
+      <circle id="leader-dot-2" r="3" fill="oklch(0.635 0.218 28.5)" cx="0" cy="0" />
+
+      <!-- Mid Rail O5 Leader -->
+      <polyline id="leader-poly-1" fill="none" stroke="oklch(0.942 0.008 84 / 0.78)" stroke-width="1.05" points="0,0 0,0 0,0" />
+      <circle id="leader-dot-1" r="2.75" fill="oklch(0.942 0.008 84)" cx="0" cy="0" />
+
+      <!-- Sub Rail Shadow Bank 0x60 Leader -->
+      <polyline id="leader-poly-0" fill="none" stroke="oklch(0.685 0.016 264 / 0.82)" stroke-width="1.05" stroke-dasharray="3 2" points="0,0 0,0 0,0" />
+      <circle id="leader-dot-0" r="2.75" fill="oklch(0.138 0.014 264)" stroke="oklch(0.942 0.008 84)" stroke-width="1.2" cx="0" cy="0" />
+    </svg>
+
+    <!-- Floating Silkscreen Telemetry Callout Tags Projected from 3D Rail Anchors -->
+    <div id="leader-badge-2" class="hud-leader-badge font-mono-tech text-[10px]">
+      <div class="flex items-center gap-1.5 font-semibold text-[color:var(--accent-signal)]">
+        <span class="signal-dot"></span>
+        <span>O6 TOP RAIL // LUT6_2 (8'h2A)</span>
+      </div>
+      <div class="text-[color:var(--ink-primary)] mt-0.5">
+        &Delta;_P = r_i &and; &not;P_eff &middot; <span id="badge-o6-stat">y = +1.25 | QUARANTINE</span>
+      </div>
+    </div>
+
+    <div id="leader-badge-1" class="hud-leader-badge font-mono-tech text-[10px]">
+      <div class="flex items-center gap-1.5 font-semibold text-[color:var(--ink-primary)]">
+        <span class="inline-block w-2 h-2 bg-[color:var(--ink-primary)]"></span>
+        <span>O5 MID RAIL // LUT6_2 (8'h80)</span>
+      </div>
+      <div class="text-[color:var(--ink-muted)] mt-0.5">
+        &Pi;_P = r_i &and; P_eff &middot; <span id="badge-o5-stat" class="text-[color:var(--ink-primary)]">y = 0.00 | 99.20% PASS</span>
+      </div>
+    </div>
+
+    <div id="leader-badge-0" class="hud-leader-badge font-mono-tech text-[10px]">
+      <div class="flex items-center gap-1.5 font-semibold text-[color:var(--ink-primary)]">
+        <span class="inline-block w-2 h-2 border border-[color:var(--ink-primary)]"></span>
+        <span>CSR 0x60 SHADOW RAIL // B&Eacute;ZOUT</span>
+      </div>
+      <div class="text-[color:var(--ink-muted)] mt-0.5">
+        q_8 = &Lambda;(&alpha;_j) = 0 &middot; <span id="badge-sh-stat" class="text-[color:var(--ink-primary)]">y = &minus;1.25 | d_rev = 2/8</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Persistent Swiss Architectural Vertical Datum Lines (Desktop) -->
+  <div class="datum-vline hidden lg:block" style="left: 46.2%;" aria-hidden="true"></div>
+  <div class="datum-vline hidden lg:block" style="left: 61.8%;" aria-hidden="true"></div>
+
+  <!-- Left Vernier Caliper Telemetry Rail (Col 1) -->
+  <aside class="datum-rail flex flex-col justify-between items-center py-16 select-none" aria-hidden="true">
+    <div class="font-mono-tech text-[10px] tracking-widest -rotate-90 whitespace-nowrap text-[color:var(--ink-muted)] mt-6">
+      CXL 3.0–4.0 // 512b
+    </div>
+    <div class="relative w-full flex-1 my-8 flex flex-col justify-between items-end pr-1.5">
+      <span class="w-2.5 h-px bg-[color:var(--ink-muted)]"></span>
+      <span class="w-1.5 h-px bg-[color:var(--hairline-strong)]"></span>
+      <span class="w-2.5 h-px bg-[color:var(--ink-muted)]"></span>
+      <span class="w-1.5 h-px bg-[color:var(--hairline-strong)]"></span>
+      <span class="w-2.5 h-px bg-[color:var(--ink-muted)]"></span>
+      <span class="w-1.5 h-px bg-[color:var(--hairline-strong)]"></span>
+      <span class="w-2.5 h-px bg-[color:var(--ink-muted)]"></span>
+      <span class="w-1.5 h-px bg-[color:var(--hairline-strong)]"></span>
+      <span class="w-2.5 h-px bg-[color:var(--ink-muted)]"></span>
+      <!-- Vernier Scroll Playhead -->
+      <div id="vernier-needle" class="absolute right-0 top-0 w-3.5 h-[2px] bg-[color:var(--accent-signal)]" style="transform: translateY(0px);"></div>
+    </div>
+    <div id="vernier-readout" class="font-mono-tech text-[10px] -rotate-90 whitespace-nowrap text-[color:var(--ink-primary)] mb-6">
+      0.124ns
+    </div>
+  </aside>
+
+  <!-- Fixed Top Silkscreen Specification Bar (Zero AFGI Clutter in Header) -->
+  <header class="fixed top-0 left-0 right-0 z-40 border-b border-[color:var(--hairline)] bg-[color:var(--surface-base)]/92 backdrop-blur-md">
+    <div class="flex items-center justify-between h-12 px-4 lg:pl-14 lg:pr-8">
+      <div class="flex items-center gap-4">
+        <a href="#hero" class="font-mono-tech font-semibold tracking-wider text-[color:var(--ink-primary)] flex items-center gap-2">
+          <span class="inline-block w-2 h-2 bg-[color:var(--ink-primary)]"></span>
+          <span>SPECTRAL SYSTEMS // FLIT-FILTER <span class="text-[color:var(--ink-muted)]">v1.0.0 / v1.1.0</span></span>
+        </a>
+        <span class="hidden md:inline-block h-3.5 w-px bg-[color:var(--hairline-strong)]"></span>
+        <div class="hidden md:flex items-center gap-4 font-mono-tech text-[color:var(--ink-muted)]">
+          <a href="#beat-one" class="hover:text-[color:var(--ink-primary)] transition-colors">01. LUT6_2 SIEVE</a>
+          <a href="#beat-two" class="hover:text-[color:var(--ink-primary)] transition-colors">02. SILICON &amp; TCO</a>
+          <a href="#monograph-footer" class="hover:text-[color:var(--ink-primary)] transition-colors">03. COLOPHON</a>
+        </div>
+      </div>
+
+      <nav class="flex items-center gap-2 sm:gap-3" aria-label="Instrument Controls and Dossier">
+        <div class="hidden xl:flex items-center gap-2 px-2.5 py-1 border border-[color:var(--hairline)] bg-[color:var(--surface-elevated)] font-mono-tech text-[color:var(--ink-muted)]">
+          <span>SILICON:</span>
+          <span id="fps-telemetry" class="text-[color:var(--ink-primary)] font-medium">60 FPS</span>
+          <span>&middot;</span>
+          <span id="phase-telemetry" class="text-[color:var(--ink-primary)]">250 MHz</span>
+        </div>
+
+        <button id="btn-motion-toggle" type="button" class="hw-btn px-2.5 py-1.5 text-[11px]" aria-pressed="false" title="Toggle Reduced Motion">
+          MOTION: FULL
+        </button>
+
+        <button id="btn-open-dossier" type="button" class="hw-btn is-active px-3.5 py-1.5 text-[11px] magnetic-el" data-magnetic="5">
+          VERIFY SILICON &amp; LICENSE &nearr;
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Floating Multi-Plane 3D Pin Inspection Tooltip -->
+  <div id="pin-inspector" class="fixed z-30 pointer-events-none opacity-0 hw-plate px-3 py-2 font-mono-tech text-[11px]" style="transition: opacity 0.16s var(--ease-detent); left: 0; top: 0;" aria-hidden="true">
+    <div class="flex items-center justify-between gap-4 border-b border-[color:var(--hairline)] pb-1 mb-1">
+      <span id="tip-rail" class="font-semibold text-[color:var(--ink-primary)]">RAIL O5 (8'h80 // &Pi;_P)</span>
+      <span id="tip-slot" class="text-[color:var(--ink-muted)]">SLOT s0</span>
+    </div>
+    <div class="flex items-center justify-between gap-3 text-[10px] mb-0.5">
+      <span id="tip-coord" class="font-medium text-[color:var(--ink-primary)]">AG(2,8) [x=0, y=0]</span>
+      <span id="tip-elev" class="text-[color:var(--ink-muted)]">y = 0.00</span>
+    </div>
+    <div id="tip-state" class="text-[color:var(--ink-muted)]">O5 PASS: 1 | O6 &Delta;_P: 0</div>
+    <div class="text-[9px] text-[color:var(--ink-muted)] mt-1 pt-0.5 border-t border-[color:var(--hairline)]">CLICK PIN TO REVOKE / ANCHOR SLOPE IN CSR 0x60</div>
+  </div>
+
+  <!-- MAIN SCROLL CHOREOGRAPHY -->
+  <main class="relative z-20 pointer-events-none">
+
+    <!-- ================================================================
+         BEAT 0: HERO — LAYER-1/2 SUB-FLIT SANITIZATION & HARDWARE CONSOLE
+         (Text Left Cols 1..11; 3D Matrix Centered at Exact NDC.x = +0.36)
+         ================================================================ -->
+    <section id="hero" class="min-h-screen pt-20 pb-8 flex flex-col justify-between relative">
+      <div class="swiss-grid items-start pt-2 lg:pt-6">
+        <div class="col-span-6 lg:col-span-11 pointer-events-auto">
+          <div class="inline-flex items-center gap-2.5 px-2.5 py-1 hw-bezel mb-5 font-mono-tech text-[color:var(--ink-muted)]">
+            <span class="signal-dot" id="hero-status-dot"></span>
+            <span id="hero-status-tag">MONOGRAPH PART I &amp; II &middot; CXL 3.0–4.0 / UCIe 1.1–3.0</span>
+          </div>
+
+          <h1 class="hero-title text-[color:var(--ink-primary)] mb-5">
+            <span class="reveal-mask"><span class="reveal-line">Surgical</span></span>
+            <span class="reveal-mask"><span class="reveal-line"><em class="italic font-normal">zero-BRAM</em> memory</span></span>
+            <span class="reveal-mask"><span class="reveal-line">isolation at wire speed.</span></span>
+          </h1>
+
+          <div class="hw-plate p-4 lg:bg-transparent lg:backdrop-blur-none lg:border-0 lg:shadow-none lg:p-0 mb-6">
+            <p class="prose-monograph text-[color:var(--ink-muted)]">
+              Stateful firewalls carve out <strong class="text-[color:var(--ink-primary)] font-medium">250 GB/rack</strong> of pooled HBM and stall <strong class="text-[color:var(--ink-primary)] font-medium">32–68 ns</strong> on cache misses, while stateless tail-CRC poisoners destroy three innocent co-packed slots per 512-bit flit. <strong class="text-[color:var(--ink-primary)] font-medium">Spectral Flit-Filter</strong> lifts capability checks into finite-field <span class="font-mono-tech text-[color:var(--ink-primary)]">AG(2,8)</span> &amp; <span class="font-mono-tech text-[color:var(--ink-primary)]">GF(2<sup>8</sup>)[Z]</span> algebra across a single <strong class="text-[color:var(--ink-primary)] font-medium">0.124 ns LUT6_2</strong> level.
+            </p>
+            <p class="subtext-boundary">
+              <strong class="text-[color:var(--ink-primary)]">Boundary &amp; Trade-Secret Notice:</strong> Wire-carried capabilities (<span class="font-mono-tech">B_rest = 0</span>) and <span class="font-mono-tech">O(1)</span> timing-wheel expiry (<span class="font-mono-tech">CSR 0x68, &Delta;d_rev = 0</span>) bound active controller state to <span class="font-mono-tech">64 bits</span> across <span class="font-mono-tech">&Delta;T_shootdown &le; 548.0 ns</span> (<span class="font-mono-tech">1.095 &times; 10<sup>7</sup> rev/s</span>; Prop. 2.1). Cleartext Zone-1 <span class="font-mono-tech">.sv/.edf</span> netlists and unpublished USPTO serials (<span class="font-mono-tech">PPA-1..19</span>) remain air-gapped trade secrets under DFARS 252.227-7018, verified across the air-gap via <span class="font-mono-tech">ZK_LEC_MITER_RECEIPT.json</span> (<span class="font-mono-tech">UNSAT</span>).
+            </p>
+          </div>
+
+          <!-- Key Silicon Sign-Off Metrics Strip -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-w-2xl hw-plate p-3">
+            <div class="border-r border-[color:var(--hairline)] pr-2">
+              <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">GOODPUT (q=0.8%)</div>
+              <div id="metric-goodput" class="font-serif-display text-3xl lg:text-4xl text-[color:var(--ink-primary)] mt-0.5">99.20%</div>
+              <div id="metric-goodput-sub" class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">N_replay &equiv; 0 NAKs</div>
+            </div>
+            <div class="sm:border-r border-[color:var(--hairline)] sm:pr-2">
+              <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">STAGE-1 SIEVE</div>
+              <div class="font-serif-display text-3xl lg:text-4xl text-[color:var(--ink-primary)] mt-0.5">0.124<span class="text-xl">ns</span></div>
+              <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">8.0 ns P99.99 Wall</div>
+            </div>
+            <div class="border-r border-[color:var(--hairline)] pr-2 pt-2 sm:pt-0 border-t sm:border-t-0">
+              <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">7nm ASAP7 ENCLAVE</div>
+              <div class="font-serif-display text-3xl lg:text-4xl text-[color:var(--ink-primary)] mt-0.5">3.73<span class="text-xl">mW</span></div>
+              <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">693 MHz &middot; 0 SRAM</div>
+            </div>
+            <div class="pt-2 sm:pt-0 border-t sm:border-t-0">
+              <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">10K-RACK RECLAIM</div>
+              <div class="font-serif-display text-3xl lg:text-4xl text-[color:var(--ink-primary)] mt-0.5">$38.4<span class="text-xl">M</span></div>
+              <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">2,560 TiB &middot; 39.4 MW</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Aperture Spacer -->
+      <div class="h-[34vh] lg:h-[10vh] pointer-events-none"></div>
+
+      <!-- DOCKED TACTILE HARDWARE INSTRUMENT CONSOLE -->
+      <div class="swiss-grid items-end">
+        <div class="col-span-6 lg:col-span-24 pointer-events-auto hw-bezel p-3 sm:p-4">
+          <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+
+            <!-- Control Group 1: Surgical Per-Slot NOP vs. Legacy Tail-CRC Poisoning -->
+            <div class="flex flex-col gap-1.5">
+              <div class="flex items-center gap-2 font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
+                <span>01 // VIOLATION ENFORCEMENT (ROGUE DMA ON SLOT s2)</span>
+              </div>
+              <div class="flex flex-wrap gap-2" role="group" aria-label="Violation Enforcement Architecture">
+                <button id="mode-spectral" type="button" class="hw-btn px-3 py-2 min-h-[40px]" aria-pressed="true">
+                  SPECTRAL PER-SLOT CXL_NOP (99.20%)
+                </button>
+                <button id="mode-legacy" type="button" class="hw-btn is-signal px-3 py-2 min-h-[40px]" aria-pressed="false">
+                  LEGACY TAIL-CRC POISON (48.90% NAK STORM)
+                </button>
+              </div>
+            </div>
+
+            <!-- Control Group 2: AG(2,8) Steiner Affine Slope Selector y = a + b*x over GF(8) -->
+            <div class="flex flex-col gap-1.5">
+              <div class="flex items-center justify-between gap-3 font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
+                <span>02 // AG(2,8) STEINER SLOPE b &isin; GF(8) [z&sup3;+z+1]</span>
+                <span id="slope-formula" class="text-[color:var(--ink-primary)] font-medium">y_r = 3 &oplus; (1 &odot; x_r) | 72 LINES</span>
+              </div>
+              <div id="slope-buttons" class="flex flex-wrap gap-1.5" role="group" aria-label="Select AG(2,8) Affine Slope">
+                <button type="button" data-slope="0" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">b=0</button>
+                <button type="button" data-slope="1" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="true">b=1</button>
+                <button type="button" data-slope="2" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">b=z</button>
+                <button type="button" data-slope="3" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">z+1</button>
+                <button type="button" data-slope="4" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">z&sup2;</button>
+                <button type="button" data-slope="5" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">z&sup2;+1</button>
+                <button type="button" data-slope="6" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">z&sup2;+z</button>
+                <button type="button" data-slope="7" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">z&sup2;+z+1</button>
+              </div>
+            </div>
+
+            <!-- Control Group 3: Live CSR 0x60 GF(2^8)[Z] Vieta Ratchet & Shadow Bezout Deflation -->
+            <div class="flex flex-col gap-1.5 xl:min-w-[330px]">
+              <div class="flex items-center justify-between font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
+                <span>03 // BAR0 CSR 0x60 [GF(2&sup8;) VIETA-B&Eacute;ZOUT]</span>
+                <span id="vieta-deg-readout" class="text-[color:var(--ink-primary)] font-semibold">d_rev = 2 / 8</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div id="csr-hex-readout" class="flex-1 px-2.5 py-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline-strong)] font-mono-tech text-[11px] text-[color:var(--ink-primary)] truncate" aria-live="polite">
+                  0x0715_0000_0000_0000
+                </div>
+                <button id="btn-revoke-root" type="button" class="hw-btn px-2.5 py-2 min-h-[38px]" title="Multiply Vieta Annihilator by (Z + alpha) [Key: R]">
+                  +REVOKE
+                </button>
+                <button id="btn-bezout-deflate" type="button" class="hw-btn px-2.5 py-2 min-h-[38px]" title="8-Step Shadow-Bank Bezout-Horner Division [Key: B]">
+                  &minus;B&Eacute;ZOUT
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         BEAT 1: EXPLODED LUT6_2 DUAL-RAIL PROJECTION & SHADOW BEZOUT
+         (3D Stack Centered at Exact NDC.x = -0.38 with Live SVG Leaders;
+          Monograph Proof Card Locked to Right Cols 15..24)
+         ================================================================ -->
+    <section id="beat-one" class="min-h-[140vh] py-24 lg:py-36 flex items-center relative">
+      <div class="swiss-grid w-full">
+        <!-- Left Cols 1..14 Open Optical Aperture for 32-deg Exploded Stack + Dynamic 3D-to-2D SVG Leaders -->
+        <div class="col-span-6 lg:col-span-13 h-[42vh] lg:h-auto pointer-events-none"></div>
+
+        <!-- Right Asymmetric Editorial Monograph Column (Cols 15..24) -->
+        <div class="col-span-6 lg:col-start-15 lg:col-span-10 pointer-events-auto">
+          <article class="hw-plate p-6 sm:p-8 lg:p-10">
+            <div class="flex items-center justify-between border-b border-[color:var(--hairline)] pb-3 mb-6 font-mono-tech text-[color:var(--ink-muted)]">
+              <span>SECTION 01 // SUB-FLIT SIEVE &amp; B&Eacute;ZOUT LIFECYCLE</span>
+              <span>LEAN 4: thm01, thm05, thm27, thm35, thm37</span>
+            </div>
+
+            <h2 class="beat-h1 text-[color:var(--ink-primary)] mb-5">
+              One 6-input lookup table splits <em class="italic font-normal">authority</em> from <em class="italic font-normal">excess</em>.
+            </h2>
+
+            <p class="prose-monograph text-[color:var(--ink-muted)] mb-5">
+              Conventional firewalls rely on arithmetic range comparators (<span class="font-mono-tech text-[color:var(--ink-primary)]">A_min &le; HPA &le; A_max</span>) with deep carry chains. By lifting capabilities into the Boolean ring <span class="font-mono-tech text-[color:var(--ink-primary)]">(F_2^64, &oplus;, &and;)</span>, every 64-bit capability vector <span class="font-mono-tech text-[color:var(--ink-primary)]">r_i</span> decomposes orthogonally onto the dual outputs of a single pin-locked <span class="font-mono-tech text-[color:var(--ink-primary)]">LUT6_2</span> primitive (<span class="font-mono-tech text-[color:var(--ink-primary)]">64'h2A2A2A2A_80808080</span>):
+            </p>
+
+            <!-- Formal Equation Callout Box -->
+            <div class="hw-bezel p-4 mb-6 font-mono-tech text-[color:var(--ink-primary)] space-y-1.5">
+              <div class="flex justify-between text-[10px] text-[color:var(--ink-muted)]">
+                <span>DIRECT-SUM INTERIOR PROJECTION (0.124 ns)</span>
+                <span>UG574 BI-SIMULATED</span>
+              </div>
+              <div class="text-xs sm:text-sm font-medium pt-1">
+                r_i = &Pi;_{P_eff}(r_i) &oplus; &Delta;_{P_eff}(r_i) = (r_i &and; P_eff) &oplus; (r_i &and; &not;P_eff)
+              </div>
+              <div class="text-[11px] text-[color:var(--ink-muted)] pt-1 border-t border-[color:var(--hairline)]">
+                RAIN Mode-D Dual (<span class="text-[color:var(--ink-primary)]">64'hABABABAB_FEFEFEFE</span>): Complementary OR3/OAI21 vs. AND3/AOI21 &middot; Traps 100% stuck-(0,0)/(1,1) rail faults (<span class="text-[color:var(--ink-primary)]">thm37, SVA 12</span>).
+              </div>
+            </div>
+
+            <p class="prose-monograph text-[color:var(--ink-muted)]">
+              In Part II (<span class="font-mono-tech text-[color:var(--ink-primary)]">v1.1.0</span>), completed cache shootdowns (<span class="font-mono-tech text-[color:var(--ink-primary)]">&Delta;T_shootdown &le; 548.0 ns</span>) are reclaimed without polynomial GCD hardware via an <strong class="text-[color:var(--ink-primary)] font-medium">8-step B&eacute;zout–Horner pass</strong> on the inactive shadow bank (<span class="font-mono-tech text-[color:var(--ink-primary)]">1.095 &times; 10<sup>7</sup> rev/s</span>), while Stage 2’s <strong class="text-[color:var(--ink-primary)] font-medium">+0-LUT fractured LUT6_2 clamp</strong> blocks adaptive LoRA SVD weight extraction (<span class="font-mono-tech text-[color:var(--ink-primary)]">Q*_BBP &isin; [21,845, 43,691]</span>).
+            </p>
+
+            <p class="subtext-boundary mb-6">
+              <strong class="text-[color:var(--ink-primary)]">Dither &amp; Deflation Scope:</strong> Non-subtractive rounding yields unconditional variance <span class="font-mono-tech">&Delta;_u^2 / (6Q)</span> (<span class="font-mono-tech">2&times;</span> subtractive <span class="font-mono-tech">&Delta;_u^2 / (12Q)</span>; Thm. 4.1). Temporal dither requires <span class="font-mono-tech">CSR 0x38</span> query-budget lockout (<span class="font-mono-tech">Q_max = 10,000, SVA 11</span>) or epoch-static spatial dither (<span class="font-mono-tech">Q_eff = 1/epoch</span>) so multi-epoch sample means cannot converge.
+            </p>
+
+            <!-- Interactive Stage-2 Fractured LUT6_2 BF16 Mantissa Clamp Verifier -->
+            <div class="border-t border-[color:var(--hairline-strong)] pt-5 mb-6">
+              <div class="flex items-center justify-between mb-2.5 font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
+                <span>INTERACTIVE STAGE-2 S2M_DRS MANTISSA CLAMP (+0 CLB LUTs, thm27)</span>
+                <span id="clamp-mi-bound" class="text-[color:var(--ink-primary)] font-semibold">I(W; Y) &le; 12 bits/elem</span>
+              </div>
+
+              <div class="grid grid-cols-4 gap-1.5 mb-3" role="group" aria-label="Stage 2 Precision Clamp Tier">
+                <button type="button" data-tier="0" class="hw-btn py-2 px-1 text-[10px]" aria-pressed="false">c=00 SCRUB</button>
+                <button type="button" data-tier="1" class="hw-btn py-2 px-1 text-[10px]" aria-pressed="false">c=01 E8M0</button>
+                <button type="button" data-tier="2" class="hw-btn py-2 px-1 text-[10px]" aria-pressed="true">c=10 BF12</button>
+                <button type="button" data-tier="3" class="hw-btn py-2 px-1 text-[10px]" aria-pressed="false">c=11 BF16</button>
+              </div>
+
+              <div class="hw-bezel p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono-tech text-xs">
+                <div>
+                  <span class="text-[color:var(--ink-muted)]">HBM2 EXACT:</span>
+                  <span class="text-[color:var(--ink-primary)]">0x3F8E_3F8E</span>
+                </div>
+                <span class="hidden sm:inline text-[color:var(--ink-muted)]">&rarr;</span>
+                <div>
+                  <span class="text-[color:var(--ink-muted)]">EGRESS:</span>
+                  <span id="clamp-hex-out" class="font-semibold text-[color:var(--ink-primary)]">0x3F80_3F80</span>
+                </div>
+                <div id="clamp-q-bound" class="text-[10px] text-[color:var(--accent-signal)] font-medium">
+                  Q*_BBP = 21,845 READS
+                </div>
+              </div>
+            </div>
+
+            <!-- Conversion CTA inside Beat 1 -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+              <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
+                HOVER ANY RAIL IN THE EXPLODED STACK TO INSPECT O6 / O5 / 0x60
+              </div>
+              <button id="btn-open-dossier-2" type="button" class="hw-btn is-active px-4 py-2.5 magnetic-el" data-magnetic="6">
+                INSPECT SHA-256 RECEIPTS &rarr;
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         BEAT 2: 38-THEOREM COCHAIN & 10,000-RACK SILICON CONSERVATION
+         (Monograph Card Left Cols 1..11; Grazing 4-Slot View at NDC.x = +0.36)
+         ================================================================ -->
+    <section id="beat-two" class="min-h-[130vh] py-24 lg:py-36 flex items-center relative">
+      <div class="swiss-grid w-full items-center">
+        <!-- Left Asymmetric Editorial Column (Cols 1..11) -->
+        <div class="col-span-6 lg:col-span-11 pointer-events-auto">
+          <article class="hw-plate p-6 sm:p-8 lg:p-10">
+            <div class="flex items-center justify-between border-b border-[color:var(--hairline)] pb-3 mb-6 font-mono-tech text-[color:var(--ink-muted)]">
+              <span>SECTION 02 // CSS SPLIT-COSET &amp; CLUSTER TCO</span>
+              <span>LEAN 4: thm30, thm31, thm32, thm33, thm34, thm35</span>
+            </div>
+
+            <h2 class="beat-h1 text-[color:var(--ink-primary)] mb-5">
+              Thirty-eight zero-axiom theorems, sealed in <em class="italic font-normal">physical silicon</em>.
+            </h2>
+
+            <p class="prose-monograph text-[color:var(--ink-muted)]">
+              Disjoint sub-flit wire extraction partitions every 512-bit CXL/UCIe flit phase into four parallel 128-bit slots (<span class="font-mono-tech text-[color:var(--ink-primary)]">s0..s3</span>) while Mode B.2 CSS split-coset Reed–Solomon parity folding (<span class="font-mono-tech text-[color:var(--ink-primary)]">H_FEC &compfn; E_fold &equiv; 0</span>, <span class="font-mono-tech text-[color:var(--ink-primary)]">thm32</span>) tunnels six cohort tags in <span class="font-mono-tech text-[color:var(--ink-primary)]">LOpt CRC48</span> and <span class="font-mono-tech text-[color:var(--ink-primary)]">Tail CRC64</span> at <strong class="text-[color:var(--ink-primary)] font-medium">0% payload tax</strong> and <strong class="text-[color:var(--ink-primary)] font-medium">8.0 ns</strong> P99.99 cut-through latency.
+            </p>
+
+            <p class="subtext-boundary mb-6">
+              <strong class="text-[color:var(--ink-primary)]">Formal &amp; TCO Scope:</strong> All 38 core theorems (<span class="font-mono-tech">thm00–thm37</span>) plus 25 Mode-2 Fast-Core theorems (<span class="font-mono-tech">414 LUTs @ 899.3 MHz FPGA / 624 cells @ 1.0 GHz 7nm ASIC</span>) compile in pure <span class="font-mono-tech">Init.Prelude</span> Lean 4 (<span class="font-mono-tech">0 sorry, 0 axioms</span>). In Theorem 6.3, the <span class="font-mono-tech">2,500 TB</span> (<span class="font-mono-tech">$37.5M–$38.4M</span>) DRAM reclamation holds unconditionally, while active stall power (<span class="font-mono-tech">8.01–39.44 MW</span>) scales with miss stall fraction <span class="font-mono-tech">&eta;_stall &isin; [3.30%, 19.0%]</span>.
+            </p>
+
+            <!-- Interactive 3-Track Silicon & 10K-Rack Conservation Switcher -->
+            <div class="mb-6">
+              <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-2">
+                SELECT EMPIRICAL SIGN-OFF &amp; CONSERVATION PROFILE
+              </div>
+              <div class="grid grid-cols-3 gap-1.5 mb-4" role="tablist" aria-label="Silicon and TCO Telemetry Switcher">
+                <button type="button" data-silicon="fpga" class="hw-btn py-2 px-2 text-[10px]" role="tab" aria-selected="false" aria-pressed="false">
+                  16nm xcvu47p
+                </button>
+                <button type="button" data-silicon="asic" class="hw-btn py-2 px-2 text-[10px]" role="tab" aria-selected="true" aria-pressed="true">
+                  7nm ASAP7 ASIC
+                </button>
+                <button type="button" data-silicon="tco" class="hw-btn py-2 px-2 text-[10px]" role="tab" aria-selected="false" aria-pressed="false">
+                  10K-RACK TCO
+                </button>
+              </div>
+
+              <!-- Live Telemetry Readout Matrix -->
+              <div class="hw-bezel p-4 space-y-3">
+                <div class="flex items-center justify-between border-b border-[color:var(--hairline)] pb-2 font-mono-tech text-[10px]">
+                  <span id="sil-track-label" class="font-semibold text-[color:var(--ink-primary)]">TRACK A // OPENROAD + OPENSTA 7nm FINFET SIGN-OFF</span>
+                  <span id="sil-clock-badge" class="text-[color:var(--accent-signal)] font-semibold">693 MHz (2.77&times;)</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1">
+                  <div>
+                    <div id="sil-k1-label" class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">ENCLAVE AREA</div>
+                    <div id="sil-k1-val" class="font-serif-display text-3xl text-[color:var(--ink-primary)] mt-0.5">27,877</div>
+                    <div id="sil-k1-sub" class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">Cells (0.0033 mm&sup2;)</div>
+                  </div>
+                  <div>
+                    <div id="sil-k2-label" class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">CRITICAL PATH</div>
+                    <div id="sil-k2-val" class="font-serif-display text-3xl text-[color:var(--ink-primary)] mt-0.5">1,444<span class="text-lg">ps</span></div>
+                    <div id="sil-k2-sub" class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">+2,556.4 ps WNS</div>
+                  </div>
+                  <div class="col-span-2 sm:col-span-1 border-t sm:border-t-0 pt-2 sm:pt-0 border-[color:var(--hairline)]">
+                    <div id="sil-k3-label" class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">TOTAL POWER</div>
+                    <div id="sil-k3-val" class="font-serif-display text-3xl text-[color:var(--ink-primary)] mt-0.5">3.728<span class="text-lg">mW</span></div>
+                    <div id="sil-k3-sub" class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">0 SRAM &middot; 0 DRC</div>
+                  </div>
+                </div>
+
+                <div id="sil-receipt-line" class="font-mono-tech text-[10px] text-[color:var(--ink-muted)] pt-2 border-t border-[color:var(--hairline)] truncate">
+                  RECEIPT: TRL6_ASIC_7NM_ASAP7_SIGNOFF.json &middot; SHA256: 29d30a340852..1712c7ab
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Row -->
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
+                DOOB TAIL WALL: <strong class="text-[color:var(--ink-primary)]">8.0 ns</strong> vs. 184.2 ns DRAM Table (23&times;)
+              </div>
+              <button id="btn-open-dossier-3" type="button" class="hw-btn is-active px-4 py-2.5 magnetic-el" data-magnetic="6">
+                TURNKEY COTS &amp; J&amp;A DOSSIER &rarr;
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Right Cols 12..24 Open Grazing Profile Aperture across Parallel 128b Slots s0..s3 -->
+        <div class="col-span-6 lg:col-span-13 h-[36vh] lg:h-auto pointer-events-none"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================================================================
+       SWISS ARCHITECTURAL FOOTER MONUMENT & KEYBOARD INDEX
+       ================================================================ -->
+  <footer id="monograph-footer" class="relative z-30 pointer-events-auto border-t border-[color:var(--hairline-strong)] bg-[color:var(--surface-elevated)]">
+    <div class="swiss-grid py-12 lg:py-16 gap-y-10">
+
+      <!-- Left Colophon Monument (Cols 1..10) -->
+      <div class="col-span-6 lg:col-span-10 flex flex-col justify-between gap-6">
+        <div>
+          <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-2">
+            SPECTRAL SYSTEMS LLC &middot; VIRGINIA BEACH, VA &middot; CAGE: 268E1 &middot; UEI: VTP2JPCJU3D9 &middot; VA eVA: SUP373159
+          </div>
+          <h2 class="font-serif-display text-4xl sm:text-5xl text-[color:var(--ink-primary)]">
+            Spectral Flit-Filter <em class="italic font-normal">v1.0.0 / v1.1.0</em>
+          </h2>
+          <p class="font-sans text-sm text-[color:var(--ink-muted)] mt-3 max-w-md leading-relaxed">
+            Conceived and reduced to practice exclusively at private expense. Public Lean 4 formal proofs (38 zero-axiom core lifecycle theorems <span class="font-mono-tech text-xs">thm00–thm37</span> + 25 fast-core theorems), simulators, and silicon receipts licensed under Apache-2.0; commercial synthesis and patent lots (<span class="font-mono-tech text-xs">PPA-19 Groups I–V</span>) reserved; Zone-1 <span class="font-mono-tech text-xs">.sv/.edf</span> netlists air-gapped per DFARS 252.227-7018.
+          </p>
+        </div>
+
+        <!-- Archival DOI, Monograph PDFs & Live AWS F2 AFI Verification Triggers -->
+        <div class="flex flex-wrap items-center gap-2">
+          <button id="btn-copy-doi" type="button" class="hw-btn px-3 py-2 flex items-center gap-2" title="Copy Zenodo Preprint DOI Receipt">
+            <span class="inline-block w-1.5 h-1.5 bg-[color:var(--ink-primary)]"></span>
+            <span id="doi-label">DOI: 10.5281/zenodo.24047902</span>
+          </button>
+
+          <a href="/preprint_Murphy_v1_0_0.pdf" target="_blank" rel="noopener" class="hw-btn px-3 py-2 inline-flex items-center gap-1.5">
+            <span>PART I PDF (v1.0.0) &nearr;</span>
+          </a>
+
+          <a href="/preprint_Murphy_v1_1_0.pdf" target="_blank" rel="noopener" class="hw-btn px-3 py-2 inline-flex items-center gap-1.5">
+            <span>PART II PDF (v1.1.0) &nearr;</span>
+          </a>
+
+          <button id="btn-verify-afi" type="button" class="hw-btn is-active px-3.5 py-2 flex items-center gap-2" title="Verify Live AWS EC2 f2.6xlarge 16 GB HBM2 DMA AFI Receipt">
+            <span class="signal-dot"></span>
+            <span>VERIFY AWS F2 AFI: agfi-08becf3b40b169674 &nearr;</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Middle Direct Keyboard Shortcut Index (Cols 11..17) -->
+      <div class="col-span-6 lg:col-start-11 lg:col-span-7 border-t lg:border-t-0 lg:border-l border-[color:var(--hairline-strong)] pt-6 lg:pt-0 lg:pl-6">
+        <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-3">
+          DIRECT INSTRUMENT KEYBOARD INDEX (CLICK OR PRESS KEY)
+        </div>
+        <div class="space-y-2.5 font-mono-tech text-[11px]">
+          <button type="button" data-shortcut="slope" class="w-full flex items-center justify-between py-1.5 px-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)] hover:border-[color:var(--ink-primary)] text-left transition-colors">
+            <span class="text-[color:var(--ink-primary)]">Cycle AG(2,8) Affine Slope b &isin; GF(8)</span>
+            <span class="hw-keycap">1–8</span>
+          </button>
+          <button type="button" data-shortcut="mode" class="w-full flex items-center justify-between py-1.5 px-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)] hover:border-[color:var(--ink-primary)] text-left transition-colors">
+            <span class="text-[color:var(--ink-primary)]">Toggle Spectral NOP vs. Tail-CRC Mode</span>
+            <span class="hw-keycap">M</span>
+          </button>
+          <button type="button" data-shortcut="revoke" class="w-full flex items-center justify-between py-1.5 px-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)] hover:border-[color:var(--ink-primary)] text-left transition-colors">
+            <span class="text-[color:var(--ink-primary)]">Insert GF(2&sup8;) Vieta Cohort Root (+CSR 0x60)</span>
+            <span class="hw-keycap">R</span>
+          </button>
+          <button type="button" data-shortcut="bezout" class="w-full flex items-center justify-between py-1.5 px-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)] hover:border-[color:var(--ink-primary)] text-left transition-colors">
+            <span class="text-[color:var(--ink-primary)]">8-Step Shadow B&eacute;zout Deflation (q_8 = 0)</span>
+            <span class="hw-keycap">B</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Canonical Four-Layer Verification Ledger (Cols 18..24) -->
+      <div class="col-span-6 lg:col-start-18 lg:col-span-7 border-t lg:border-t-0 lg:border-l border-[color:var(--hairline-strong)] pt-6 lg:pt-0 lg:pl-6 flex flex-col justify-between">
+        <div>
+          <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-3">
+            VERIFIED ARCHITECTURAL PILLARS (+0 ADDED CORE GATES)
+          </div>
+          <ul class="space-y-2 font-mono-tech text-[11px] text-[color:var(--ink-muted)]">
+            <li class="flex justify-between gap-2">
+              <span class="text-[color:var(--ink-primary)]">I. Cut-Set &amp; B&eacute;zout Root Lifecycle</span>
+              <span>132.6k Cohorts / 64b</span>
+            </li>
+            <li class="flex justify-between gap-2">
+              <span class="text-[color:var(--ink-primary)]">II. Rate-Distortion &amp; Egress Zero</span>
+              <span>&Delta;t_CRD &equiv; 0 ps&sup2;</span>
+            </li>
+            <li class="flex justify-between gap-2">
+              <span class="text-[color:var(--ink-primary)]">III. De Morgan RAIN &amp; DOM TVLA</span>
+              <span>64'hAB..FE | max|t|=0.0</span>
+            </li>
+            <li class="flex justify-between gap-2">
+              <span class="text-[color:var(--ink-primary)]">IV. CSS Split-Coset &amp; ZK-IC3 Miter</span>
+              <span>H_FEC &compfn; E_fold = 0 (thm32)</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="pt-6 mt-6 border-t border-[color:var(--hairline)] flex items-center justify-between font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
+          <span>CORRESPONDENCE: eric@spectralsystems.org</span>
+          <a href="#hero" class="text-[color:var(--ink-primary)] hover:underline">TOP &uarr;</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================================================================
+       FIVE-ORACLE PROVENANCE, FAR 13.106-1(b) J&A & TURNKEY LICENSING MODAL
+       ================================================================ -->
+  <div id="dossier-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="dossier-title">
+    <div class="hw-plate w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative">
+      <div class="flex items-start justify-between gap-4 border-b border-[color:var(--hairline-strong)] pb-4 mb-5">
+        <div>
+          <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">SPECTRAL SYSTEMS LLC &middot; CAGE: 268E1 &middot; SAM UEI: VTP2JPCJU3D9 &middot; VA eVA: VA10140357 / SUP373159</div>
+          <h3 id="dossier-title" class="font-serif-display text-3xl sm:text-4xl text-[color:var(--ink-primary)] mt-1">
+            Five-Oracle Silicon Provenance &amp; Turnkey COTS Licensing
+          </h3>
+        </div>
+        <button id="btn-close-dossier" type="button" class="hw-btn px-3 py-1.5" aria-label="Close Dossier">ESC &times;</button>
+      </div>
+
+      <!-- Verified Cryptographic Receipts Table -->
+      <div class="mb-5">
+        <div class="flex items-center justify-between font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-2">
+          <span>PUBLIC ZONE-2 ARTIFACT MANIFEST (SBOM.cdx.json)</span>
+          <span id="afi-highlight-tag" class="text-[color:var(--ink-primary)] font-semibold">ALL 5 ORACLES SEALED</span>
+        </div>
+        <div class="hw-bezel divide-y divide-[color:var(--hairline)] font-mono-tech text-[11px]">
+          <div class="p-2.5 flex flex-col sm:flex-row sm:justify-between gap-1">
+            <span class="font-medium text-[color:var(--ink-primary)]">Oracle 1: 38 Pure Init.Prelude Lean 4 Proofs (thm00–thm37, 0 sorry, 0 axioms)</span>
+            <span class="text-[color:var(--ink-muted)]">SHA256: fe8efc2f6a76..bfcbc1f6</span>
+          </div>
+          <div class="p-2.5 flex flex-col sm:flex-row sm:justify-between gap-1">
+            <span class="font-medium text-[color:var(--ink-primary)]">Oracle 4: CNF/LRAT Miter UNSAT &amp; Inductive ZK-IC3 Receipt (0 .sv leaked)</span>
+            <span class="text-[color:var(--ink-muted)]">SHA256: 46bee17ecb43..f52ee359</span>
+          </div>
+          <div class="p-2.5 flex flex-col sm:flex-row sm:justify-between gap-1">
+            <span class="font-medium text-[color:var(--ink-primary)]">Oracle 5A: 7nm ASAP7 Enclave (27,877 cells, 693 MHz, 3.728 mW)</span>
+            <span class="text-[color:var(--ink-muted)]">SHA256: 29d30a340852..1712c7ab</span>
+          </div>
+          <div id="oracle-row-afi" class="p-2.5 flex flex-col sm:flex-row sm:justify-between gap-1 transition-colors">
+            <span class="font-medium text-[color:var(--ink-primary)]">Oracle 5B: AWS F2 16 GB HBM2 DMA AFI (agfi-08becf3b40b169674)</span>
+            <span class="text-[color:var(--ink-muted)]">SHA256: de49300290bc..cea74c49</span>
+          </div>
+          <div class="p-2.5 flex flex-col sm:flex-row sm:justify-between gap-1">
+            <span class="font-medium text-[color:var(--ink-primary)]">Oracle 3/5C: TRL-8 k3s FIPS-204 ML-DSA-87 Webhook (1.36 ms 403)</span>
+            <span class="text-[color:var(--ink-muted)]">SHA256: 31933793b66d..b2fa61ad</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Self-Serve Micro-Purchase Tiers & 1-Click FAR 13.106-1(b) Memo Copy -->
+      <div class="hw-bezel p-3.5 mb-5">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <span class="font-mono-tech text-[10px] text-[color:var(--ink-primary)] font-semibold">
+            TURNKEY "AS-IS" COTS MICRO-PURCHASE SEATS (ZERO ONGOING SERVICE LABOR)
+          </span>
+          <button id="btn-copy-far-memo" type="button" class="hw-btn px-2.5 py-1 text-[10px]">
+            COPY FAR 13.106-1(b) SOLE-SOURCE MEMO
+          </button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono-tech text-[11px]">
+          <div class="p-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)]">
+            <div class="text-[color:var(--ink-muted)] text-[10px]">ACADEMIC / LAB SEAT</div>
+            <div class="text-[color:var(--ink-primary)] font-semibold text-sm">$4,850 FFP</div>
+          </div>
+          <div class="p-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)]">
+            <div class="text-[color:var(--ink-muted)] text-[10px]">VA eVA SINGLE-QUOTE</div>
+            <div class="text-[color:var(--ink-primary)] font-semibold text-sm">$9,850 FFP</div>
+          </div>
+          <div class="p-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)]">
+            <div class="text-[color:var(--ink-muted)] text-[10px]">DoD / FED GPC P-CARD</div>
+            <div class="text-[color:var(--accent-signal)] font-semibold text-sm">$14,850 FFP</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Institutional Evaluation / Zone-1 DFARS Inquiry Form -->
+      <form id="inquiry-form" class="space-y-4">
+        <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
+          REQUEST TURNKEY COTS SEAT / ZONE-1 HARD-IP EVALUATION OR PATENT LOT LICENSE (GROUPS I–V)
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="org-input" class="block font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-1">INSTITUTION / FOUNDRY / AGENCY</label>
+            <input id="org-input" required type="text" placeholder="e.g., DARPA / DOE Lab / Hyperscale Silicon Team" class="w-full px-3 py-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline-strong)] font-sans text-sm text-[color:var(--ink-primary)]" />
+          </div>
+          <div>
+            <label for="email-input" class="block font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-1">INSTITUTIONAL EMAIL</label>
+            <input id="email-input" required type="email" placeholder="architect@organization.org" class="w-full px-3 py-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline-strong)] font-sans text-sm text-[color:var(--ink-primary)]" />
+          </div>
+        </div>
+        <div>
+          <label for="track-select" class="block font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-1">TARGET COTS / PATENT LOT PROFILE</label>
+          <select id="track-select" class="w-full px-3 py-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline-strong)] font-mono-tech text-xs text-[color:var(--ink-primary)]">
+            <option value="gpc-cots">DoD / Federal GPC P-Card Turnkey COTS Seat ($14,850 FFP) or VA eVA ($9,850 FFP)</option>
+            <option value="cxl-asic">7nm/3nm HBM3e/HBM4 Base-Die Hard-IP &amp; Divisible Patent Lots (PPA-19 Groups I–V)</option>
+            <option value="aws-f2">16nm xcvu47p FPGA / Private AWS EC2 f2.6xlarge Dual-AFI Reproduction</option>
+            <option value="rain-moded">Cross-Domain RAIN Gateway Enclave (Mode D De Morgan + 2-Share DOM)</option>
+          </select>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+          <span id="form-feedback" class="font-mono-tech text-[11px] text-[color:var(--ink-muted)]">
+            Direct Dispatch: eric@spectralsystems.org
+          </span>
+          <button type="submit" class="hw-btn is-active px-5 py-2.5">
+            TRANSMIT EVALUATION BRIEF &rarr;
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       UNIFIED ENGINE: FINITE-FIELD ALGEBRA + DARK-MODE CHAMFER SHADERS
+       + MULTI-LAYER RAYCASTER + 3D-PROJECTED SVG LEADERS + LENIS/GSAP
+       ================================================================ -->
+  <script type="module">
+    import * as THREE from 'three';
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    import Lenis from 'lenis';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* ------------------------------------------------------------------
+       1. EXACT FINITE-FIELD HARDWARE ALGEBRA (GF(8) & GF(2^8) [0x11B])
+          100% Preserved from Part I Theorem 3.3 & Part II Theorem 3.1
+       ------------------------------------------------------------------ */
+    function gf8Mul(a, b) {
+      let res = 0;
+      let x = a & 7;
+      let y = b & 7;
+      for (let i = 0; i < 3; i++) {
+        if (y & 1) res ^= x;
+        const hi = x & 4;
+        x = (x << 1) & 7;
+        if (hi) x ^= 3;
+        y >>= 1;
+      }
+      return res & 7;
+    }
+
+    function gf256Mul(a, b) {
+      let res = 0;
+      let x = a & 0xff;
+      let y = b & 0xff;
+      for (let i = 0; i < 8; i++) {
+        if (y & 1) res ^= x;
+        const hi = x & 0x80;
+        x = (x << 1) & 0xff;
+        if (hi) x ^= 0x1b;
+        y >>= 1;
+      }
+      return res & 0xff;
+    }
+
+    const vietaState = {
+      sigma: new Uint8Array(8),
+      roots: [],
+      slopeB: 1,
+      interceptA: 3,
+      legacyCrcMode: false,
+      revokedGridPins: new Set([10, 43]),
+      clampTier: 2,
+      flitSpeedMult: 1.0
+    };
+
+    function polyEvalVieta(sigma, z) {
+      let acc = 1;
+      for (let k = 0; k < 8; k++) {
+        acc = sigma[k] ^ gf256Mul(z, acc);
+      }
+      return acc & 0xff;
+    }
+
+    function vietaInsertRoot(alpha) {
+      const a = alpha & 0xff;
+      if (a === 0 || vietaState.roots.length >= 8) return false;
+      if (polyEvalVieta(vietaState.sigma, a) === 0 && vietaState.roots.includes(a)) return false;
+      const next = new Uint8Array(8);
+      for (let k = 0; k < 8; k++) {
+        const prev = k === 0 ? 1 : vietaState.sigma[k - 1];
+        next[k] = vietaState.sigma[k] ^ gf256Mul(a, prev);
+      }
+      vietaState.sigma = next;
+      vietaState.roots.push(a);
+      return true;
+    }
+
+    function bezoutDeflateShadow(alpha) {
+      if (vietaState.roots.length === 0) return false;
+      const q = new Uint8Array(8);
+      let qPrev = 1;
+      for (let k = 0; k < 8; k++) {
+        q[k] = vietaState.sigma[k] ^ gf256Mul(alpha, qPrev);
+        qPrev = q[k];
+      }
+      if (q[7] !== 0) return false;
+      vietaState.sigma = q;
+      const idx = vietaState.roots.indexOf(alpha);
+      if (idx !== -1) vietaState.roots.splice(idx, 1);
+      return true;
+    }
+
+    vietaInsertRoot(0x12);
+    vietaInsertRoot(0x15);
+
+    function formatCsrHex(sigma) {
+      const hi = Array.from(sigma.slice(0, 4)).map(b => b.toString(16).padStart(2, '0').toUpperCase()).join('');
+      const lo = Array.from(sigma.slice(4, 8)).map(b => b.toString(16).padStart(2, '0').toUpperCase()).join('');
+      return `0x${hi}_${lo}`;
+    }
+
+    /* ------------------------------------------------------------------
+       2. SYNTHESIZED MECHANICAL MICRO-SWITCH DETENT AUDIO
+       ------------------------------------------------------------------ */
+    let audioCtx = null;
+    function playTactileClick(freq = 1650) {
+      if (state.reducedMotion) return;
+      try {
+        if (!audioCtx) {
+          const Ctx = window.AudioContext || window.webkitAudioContext;
+          if (!Ctx) return;
+          audioCtx = new Ctx();
+        }
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(240, audioCtx.currentTime + 0.016);
+        gain.gain.setValueAtTime(0.035, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.018);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.02);
+      } catch (_) {}
+    }
+
+    /* ------------------------------------------------------------------
+       3. RUNTIME STATE, REDUCED MOTION & LENIS SMOOTH SCROLL
+       ------------------------------------------------------------------ */
+    const mediaReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const state = {
+      reducedMotion: mediaReduced.matches,
+      explodeProgress: 0,
+      hudLeaderAlpha: 0,
+      scrollVelocity: 0,
+      nakPulse: 0,
+      hoveredGridIndex: -1,
+      hoveredLayer: -1,
+      cursorNDC: new THREE.Vector2(99, 99),
+      cursorWorld: new THREE.Vector2(99, 99),
+      smoothCursorWorld: new THREE.Vector2(99, 99),
+      cursorWorldVel: new THREE.Vector2(0, 0),
+      isDisposed: false
+    };
+
+    const btnMotionToggle = document.getElementById('btn-motion-toggle');
+    let lenis = null;
+
+    function initLenis() {
+      if (lenis) {
+        lenis.destroy();
+        lenis = null;
+      }
+      if (state.reducedMotion) {
+        document.documentElement.classList.add('reduced-motion');
+        btnMotionToggle.textContent = 'MOTION: REDUCED';
+        btnMotionToggle.setAttribute('aria-pressed', 'true');
+        return;
+      }
+      document.documentElement.classList.remove('reduced-motion');
+      btnMotionToggle.textContent = 'MOTION: FULL';
+      btnMotionToggle.setAttribute('aria-pressed', 'false');
+
+      lenis = new Lenis({
+        lerp: 0.095,
+        wheelMultiplier: 0.90,
+        touchMultiplier: 1.15,
+        smoothWheel: true,
+        syncTouch: false
+      });
+
+      lenis.on('scroll', (e) => {
+        state.scrollVelocity = THREE.MathUtils.clamp(e.velocity * 0.045, -2.5, 2.5);
+        ScrollTrigger.update();
+      });
+    }
+
+    initLenis();
+    mediaReduced.addEventListener('change', (e) => {
+      state.reducedMotion = e.matches;
+      initLenis();
+    });
+
+    btnMotionToggle.addEventListener('click', () => {
+      state.reducedMotion = !state.reducedMotion;
+      initLenis();
+    });
+
+    /* ------------------------------------------------------------------
+       4. THREE.JS SCENE & 100% DARK-MODE OBSIDIAN SHADERS
+       ------------------------------------------------------------------ */
+    const container = document.getElementById('webgl-stage');
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      powerPreference: 'high-performance',
+      alpha: false
+    });
+    const maxDpr = window.innerWidth < 1024 ? 1.5 : 2.0;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxDpr));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(new THREE.Color('#07090e'), 1.0);
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(26, window.innerWidth / window.innerHeight, 0.1, 80);
+
+    const GRID_SPACING = 0.74;
+
+    // --- DRAW CALL 1: OBSIDIAN SILICON SUBSTRATE + STEINER CELL CONDUITS ---
+    const substrateUniforms = {
+      uTime: { value: 0 },
+      uScrollVelocity: { value: 0 },
+      uCursorWorld: { value: new THREE.Vector2(99, 99) },
+      uLegacyCrcMode: { value: 0 },
+      uNakPulse: { value: 0 },
+      uFlitSpeed: { value: 1.0 },
+      uSlopeY: { value: [3, 2, 1, 0, 7, 6, 5, 4] }
+    };
+
+    const substrateMat = new THREE.ShaderMaterial({
+      uniforms: substrateUniforms,
+      vertexShader: /* glsl */ `
+        varying vec2 vWorldXZ;
+        varying float vViewDist;
+        void main() {
+          vec4 worldPos = modelMatrix * vec4(position, 1.0);
+          vWorldXZ = worldPos.xz;
+          vec4 mvPos = viewMatrix * worldPos;
+          vViewDist = -mvPos.z;
+          gl_Position = projectionMatrix * mvPos;
+        }
+      `,
+      fragmentShader: /* glsl */ `
+        uniform float uTime;
+        uniform float uScrollVelocity;
+        uniform vec2 uCursorWorld;
+        uniform float uLegacyCrcMode;
+        uniform float uNakPulse;
+        uniform float uFlitSpeed;
+        uniform float uSlopeY[8];
+
+        varying vec2 vWorldXZ;
+        varying float vViewDist;
+
+        float getSlopeRow(int cx) {
+          if (cx == 0) return uSlopeY[0];
+          if (cx == 1) return uSlopeY[1];
+          if (cx == 2) return uSlopeY[2];
+          if (cx == 3) return uSlopeY[3];
+          if (cx == 4) return uSlopeY[4];
+          if (cx == 5) return uSlopeY[5];
+          if (cx == 6) return uSlopeY[6];
+          return uSlopeY[7];
+        }
+
+        void main() {
+          vec3 baseCol = vec3(0.028, 0.035, 0.055);
+          vec3 bezelCol = vec3(0.058, 0.072, 0.110);
+          vec3 inkCol = vec3(0.895, 0.880, 0.845);
+          vec3 signalCol = vec3(0.945, 0.310, 0.140);
+
+          float spacing = 0.74;
+          vec2 gridUV = (vWorldXZ / spacing) + 4.0;
+          bool inMatrix = (gridUV.x > 0.0 && gridUV.x < 8.0 && gridUV.y > 0.0 && gridUV.y < 8.0);
+
+          // Recessed Anodized Well
+          vec2 boxDist = abs(vWorldXZ) - vec2(3.15);
+          float wellSdf = length(max(boxDist, 0.0)) + min(max(boxDist.x, boxDist.y), 0.0);
+          float wellMask = 1.0 - smoothstep(-0.02, 0.02, wellSdf);
+          vec3 col = mix(baseCol, bezelCol, wellMask * 0.82);
+
+          // Derivative-filtered Photolithographic Grid Hairlines
+          vec2 cell = abs(fract(gridUV) - 0.5);
+          vec2 cellAa = (0.5 - cell) / fwidth(gridUV);
+          float line = 1.0 - clamp(min(cellAa.x, cellAa.y), 0.0, 1.0);
+          float distFade = exp(-0.028 * vViewDist);
+          col = mix(col, inkCol, line * 0.13 * distFade);
+
+          if (inMatrix) {
+            int cx = int(floor(gridUV.x));
+            float cy = floor(gridUV.y);
+            float targetY = getSlopeRow(cx);
+
+            vec2 localCell = fract(gridUV) - 0.5;
+            float colTrace = 1.0 - smoothstep(0.015, 0.015 + fwidth(gridUV.x), abs(localCell.x));
+            col = mix(col, inkCol, colTrace * 0.06);
+
+            if (abs(cy - targetY) < 0.25) {
+              float padBox = max(abs(localCell.x), abs(localCell.y));
+              float padFill = 1.0 - smoothstep(0.41, 0.43, padBox);
+              float padRing = smoothstep(0.38, 0.40, padBox) * (1.0 - smoothstep(0.43, 0.45, padBox));
+              float harmonic = 0.55 + 0.45 * sin(uTime * 4.2 - float(cx) * 0.78);
+
+              col = mix(col, inkCol, padFill * (0.14 + 0.10 * harmonic));
+              col = mix(col, signalCol, padRing * (0.55 + 0.35 * harmonic));
+            }
+
+            float slotCoord = gridUV.x * 0.5;
+            float slotBorder = 1.0 - smoothstep(0.0, fwidth(slotCoord) * 1.7, abs(fract(slotCoord)));
+            col = mix(col, inkCol, slotBorder * 0.26);
+
+            float dirMult = (uLegacyCrcMode > 0.5) ? (-0.65 * uNakPulse + 0.32) : 1.0;
+            float wavePhase = fract(vWorldXZ.y * 0.28 - uTime * (0.58 * uFlitSpeed + abs(uScrollVelocity) * 0.25) * dirMult);
+            float packetBand = smoothstep(0.0, 0.14, wavePhase) * (1.0 - smoothstep(0.14, 0.46, wavePhase));
+
+            bool inSlot2 = (gridUV.x >= 4.0 && gridUV.x < 6.0);
+            if (uLegacyCrcMode > 0.5) {
+              float ring = sin(length(vWorldXZ) * 3.8 - uTime * 9.0) * 0.5 + 0.5;
+              col = mix(col, signalCol, (packetBand * 0.26 + ring * uNakPulse * 0.28));
+            } else {
+              vec3 laneTint = inSlot2 ? signalCol : inkCol;
+              float alpha = inSlot2 ? 0.18 : 0.085;
+              col = mix(col, laneTint, packetBand * alpha);
+            }
+          }
+
+          float borderAa = fwidth(wellSdf);
+          float wellStroke = 1.0 - smoothstep(0.0, borderAa * 1.5, abs(wellSdf));
+          col = mix(col, inkCol, wellStroke * 0.34);
+
+          float cDist = length(vWorldXZ - uCursorWorld);
+          float probeGlow = exp(-1.25 * cDist * cDist);
+          col = mix(col, inkCol, probeGlow * 0.085);
+
+          float grain = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
+          col += (grain - 0.5) * 0.011;
+
+          float edgeFade = smoothstep(4.9, 10.0, length(vWorldXZ));
+          col = mix(col, baseCol, edgeFade);
+
+          gl_FragColor = vec4(col, 1.0);
+        }
+      `
+    });
+
+    const substrateGeo = new THREE.PlaneGeometry(22, 22, 1, 1);
+    substrateGeo.rotateX(-Math.PI / 2);
+    const substrateMesh = new THREE.Mesh(substrateGeo, substrateMat);
+    substrateMesh.position.y = -0.20;
+    scene.add(substrateMesh);
+
+    function createChamferedPinBox(w, h, d) {
+      const geo = new THREE.BoxGeometry(w, h, d, 4, 2, 4);
+      const pos = geo.attributes.position;
+      const norm = geo.attributes.normal;
+      const uv = geo.attributes.uv;
+      const hw = w * 0.5, hh = h * 0.5, hd = d * 0.5;
+
+      function snapAxis(val, halfExt) {
+        const n = val / halfExt;
+        const s = Math.sign(n);
+        const a = Math.abs(n);
+        if (a > 0.95) return s * halfExt;
+        if (a > 0.25) return s * 0.84 * halfExt;
+        return 0.0;
+      }
+
+      for (let i = 0; i < pos.count; i++) {
+        let px = snapAxis(pos.getX(i), hw);
+        let py = snapAxis(pos.getY(i), hh);
+        let pz = snapAxis(pos.getZ(i), hd);
+
+        const nx = norm.getX(i), ny = norm.getY(i), nz = norm.getZ(i);
+
+        if (Math.abs(ny) > 0.5) {
+          uv.setXY(i, (px / w) + 0.5, (pz / d) + 0.5);
+        } else if (Math.abs(nx) > 0.5) {
+          uv.setXY(i, (pz / d) + 0.5, (py / h) + 0.5);
+        } else {
+          uv.setXY(i, (px / w) + 0.5, (py / h) + 0.5);
+        }
+
+        const rx = Math.abs(px / hw), ry = Math.abs(py / hh), rz = Math.abs(pz / hd);
+        if (rx > 0.95 && ry > 0.95) { px *= 0.965; py *= 0.93; }
+        if (rz > 0.95 && ry > 0.95) { pz *= 0.965; py *= 0.93; }
+        if (rx > 0.95 && rz > 0.95) { px *= 0.965; pz *= 0.965; }
+
+        pos.setXYZ(i, px, py, pz);
+      }
+      pos.needsUpdate = true;
+      uv.needsUpdate = true;
+      return geo;
+    }
+
+    // --- DRAW CALL 2: 192-INSTANCE CHAMFERED SPECULAR LUT6_2 + SHADOW MATRIX ---
+    const INSTANCE_COUNT = 64 * 3;
+    const pinBaseGeo = createChamferedPinBox(0.54, 0.22, 0.54);
+    const pinInstGeo = new THREE.InstancedBufferGeometry();
+    pinInstGeo.index = pinBaseGeo.index;
+    pinInstGeo.attributes.position = pinBaseGeo.attributes.position;
+    pinInstGeo.attributes.normal = pinBaseGeo.attributes.normal;
+    pinInstGeo.attributes.uv = pinBaseGeo.attributes.uv;
+
+    const aGridCoord = new Float32Array(INSTANCE_COUNT * 3);
+    const aPinState = new Float32Array(INSTANCE_COUNT * 4);
+
+    let ptr3 = 0;
+    for (let layer = 0; layer < 3; layer++) {
+      for (let row = 0; row < 8; row++) {
+        for (let col = 0; col < 8; col++) {
+          aGridCoord[ptr3++] = col;
+          aGridCoord[ptr3++] = row;
+          aGridCoord[ptr3++] = layer;
+        }
+      }
+    }
+
+    const attrGridCoord = new THREE.InstancedBufferAttribute(aGridCoord, 3);
+    const attrPinState = new THREE.InstancedBufferAttribute(aPinState, 4);
+    attrPinState.setUsage(THREE.DynamicDrawUsage);
+    pinInstGeo.setAttribute('aGridCoord', attrGridCoord);
+    pinInstGeo.setAttribute('aPinState', attrPinState);
+    pinInstGeo.instanceCount = INSTANCE_COUNT;
+
+    const pinUniforms = {
+      uTime: { value: 0 },
+      uExplode: { value: 0 },
+      uScrollVelocity: { value: 0 },
+      uCursorWorld: { value: new THREE.Vector2(99, 99) },
+      uHoveredInstance: { value: new THREE.Vector3(-1, -1, -1) },
+      uLegacyCrcMode: { value: 0 },
+      uNakPulse: { value: 0 },
+      uClampTier: { value: 2.0 }
+    };
+
+    const pinMat = new THREE.ShaderMaterial({
+      uniforms: pinUniforms,
+      vertexShader: /* glsl */ `
+        attribute vec3 aGridCoord;
+        attribute vec4 aPinState;
+
+        uniform float uTime;
+        uniform float uExplode;
+        uniform float uScrollVelocity;
+        uniform vec2 uCursorWorld;
+        uniform vec3 uHoveredInstance;
+        uniform float uLegacyCrcMode;
+        uniform float uNakPulse;
+        uniform float uClampTier;
+
+        varying vec2 vUv;
+        varying vec3 vNormalV;
+        varying vec3 vViewPos;
+        varying vec3 vGrid;
+        varying vec4 vState;
+        varying float vHover;
+        varying float vExactPick;
+
+        void main() {
+          vUv = uv;
+          vGrid = aGridCoord;
+          vState = aPinState;
+
+          float spacing = 0.74;
+          vec2 worldXZ = (aGridCoord.xy - 3.5) * spacing;
+
+          float layer = aGridCoord.z;
+          float isSlope = aPinState.x;
+          float isRevoked = aPinState.y;
+          float isViolO6 = aPinState.z;
+          float shadowBit = aPinState.w;
+
+          vec3 relPos = clamp(position / vec3(0.27, 0.11, 0.27), -1.0, 1.0);
+          vec3 inPlane = relPos * (1.0 - abs(normal));
+          vec2 uvDist = abs(uv - 0.5);
+          float edgeMask = step(0.42, max(uvDist.x, uvDist.y));
+          vec3 bevelTilt = sign(inPlane) * smoothstep(0.80, 0.99, abs(inPlane)) * (0.45 + 0.55 * edgeMask);
+          vec3 localBevelNormal = normalize(normal + bevelTilt * 0.92);
+
+          float dCursor = length(worldXZ - uCursorWorld);
+          float hoverLift = exp(-1.15 * dCursor * dCursor);
+          vHover = hoverLift;
+
+          float exactMatch = (abs(aGridCoord.x - uHoveredInstance.x) < 0.1 &&
+                              abs(aGridCoord.y - uHoveredInstance.y) < 0.1 &&
+                              abs(aGridCoord.z - uHoveredInstance.z) < 0.1) ? 1.0 : 0.0;
+          vExactPick = exactMatch;
+
+          float expRamp = smoothstep(0.0, 0.25, uExplode);
+          float targetGap = 1.25 + 0.16 * abs(uScrollVelocity) * uExplode;
+
+          vec3 pos = position;
+          float baseY = 0.0;
+          float actuation = 0.0;
+
+          if (layer < 0.5) {
+            float sy0 = mix(0.01, 0.92, expRamp);
+            float sxz0 = mix(0.86, 1.0, expRamp);
+            pos.y *= sy0;
+            pos.xz *= sxz0;
+            baseY = mix(-0.145, -targetGap, uExplode);
+            actuation = shadowBit * 0.15 * expRamp;
+          } else if (layer < 1.5) {
+            float tierScale = 0.55 + 0.15 * uClampTier;
+            baseY = 0.0;
+            actuation = (1.0 - isRevoked) * 0.06 * tierScale + isSlope * 0.14 - isRevoked * 0.06;
+          } else {
+            if (isViolO6 > 0.5) {
+              float sy2v = mix(0.72, 0.94, expRamp);
+              float sxz2v = mix(0.86, 1.0, expRamp);
+              pos.y *= sy2v;
+              pos.xz *= sxz2v;
+              baseY = mix(0.26, targetGap, uExplode);
+              actuation = 0.08 + 0.07 * sin(uTime * 5.0 + aGridCoord.y);
+            } else {
+              float sy2 = mix(0.01, 0.92, expRamp);
+              float sxz2 = mix(0.86, 1.0, expRamp);
+              pos.y *= sy2;
+              pos.xz *= sxz2;
+              baseY = mix(-0.132, targetGap, uExplode);
+              actuation = isSlope * 0.10 * expRamp;
+            }
+          }
+
+          if (uLegacyCrcMode > 0.5) {
+            actuation += sin(uTime * 28.0 - length(worldXZ) * 3.2) * 0.16 * uNakPulse;
+          }
+
+          actuation += hoverLift * 0.09 + exactMatch * 0.05;
+          pos.z += pos.y * clamp(uScrollVelocity * 0.20, -0.32, 0.32);
+
+          vec3 worldPos = vec3(worldXZ.x + pos.x, baseY + actuation + pos.y, worldXZ.y + pos.z);
+          vec4 mvPosition = viewMatrix * vec4(worldPos, 1.0);
+          vViewPos = -mvPosition.xyz;
+          vNormalV = normalize(normalMatrix * localBevelNormal);
+
+          gl_Position = projectionMatrix * mvPosition;
+        }
+      `,
+      fragmentShader: /* glsl */ `
+        varying vec2 vUv;
+        varying vec3 vNormalV;
+        varying vec3 vViewPos;
+        varying vec3 vGrid;
+        varying vec4 vState;
+        varying float vHover;
+        varying float vExactPick;
+
+        uniform float uExplode;
+        uniform float uLegacyCrcMode;
+        uniform float uNakPulse;
+
+        void main() {
+          vec3 alumLight  = vec3(0.165, 0.192, 0.258);
+          vec3 alumMid    = vec3(0.095, 0.112, 0.155);
+          vec3 carbonEtch = vec3(0.915, 0.892, 0.842);
+          vec3 vermilion  = vec3(0.945, 0.310, 0.140);
+
+          float layer = vGrid.z;
+          float isSlope = vState.x;
+          float isRevoked = vState.y;
+          float isViolO6 = vState.z;
+          float shadowBit = vState.w;
+
+          vec3 matCol = alumLight;
+          float shininess = 48.0;
+          float specStrength = 0.36;
+
+          if (layer > 1.5) {
+            matCol = mix(alumLight, vermilion, clamp(isViolO6, 0.0, 1.0));
+            if (isViolO6 < 0.5 && isSlope > 0.5) {
+              matCol = mix(alumLight, carbonEtch, 0.78);
+            }
+            specStrength = 0.44;
+          } else if (layer > 0.5) {
+            matCol = mix(alumLight, carbonEtch, isSlope * 0.84);
+            if (isRevoked > 0.5) {
+              matCol = mix(alumMid, vermilion, 0.48);
+            }
+            specStrength = 0.38;
+          } else {
+            matCol = mix(alumMid, carbonEtch, shadowBit * 0.82);
+            specStrength = 0.30;
+          }
+
+          if (uLegacyCrcMode > 0.5) {
+            matCol = mix(matCol, vermilion, uNakPulse * 0.65);
+          }
+
+          vec3 N = normalize(vNormalV);
+          vec3 V = normalize(vViewPos);
+          vec3 L1 = normalize(vec3(0.45, 0.82, 0.52));
+          vec3 L2 = normalize(vec3(-0.62, 0.45, -0.35));
+
+          float diff1 = max(dot(N, L1), 0.0);
+          float diff2 = max(dot(N, L2), 0.0) * 0.32;
+
+          vec3 H1 = normalize(L1 + V);
+          vec3 H2 = normalize(L2 + V);
+          float spec1 = pow(max(dot(N, H1), 0.0), shininess);
+          float spec2 = pow(max(dot(N, H2), 0.0), 28.0) * 0.52;
+
+          float ao = 1.0 - (1.0 - uExplode) * (layer < 0.5 ? 0.25 : 0.0);
+          vec3 shaded = matCol * (0.58 + 0.42 * diff1 + diff2) * ao;
+
+          shaded += vec3(1.0, 0.985, 0.955) * (spec1 + spec2) * specStrength;
+
+          vec2 dEdge = abs(vUv - 0.5);
+          float maxEdge = max(dEdge.x, dEdge.y);
+          float aa = fwidth(maxEdge);
+          float rim = smoothstep(0.44 - aa, 0.465 + aa, maxEdge);
+          vec3 rimTint = (vExactPick > 0.5) ? vermilion : carbonEtch;
+          shaded = mix(shaded, rimTint, rim * (vExactPick > 0.5 ? 0.82 : 0.28));
+
+          float centerDot = 1.0 - smoothstep(0.038, 0.038 + fwidth(length(dEdge)), length(dEdge));
+          vec3 dotCol = (isViolO6 > 0.5 && layer > 1.5) ? carbonEtch : ((isSlope > 0.5) ? alumMid : carbonEtch);
+          shaded = mix(shaded, dotCol, centerDot * 0.48);
+
+          shaded += vec3(0.07, 0.065, 0.055) * (vHover + vExactPick * 0.85);
+
+          gl_FragColor = vec4(shaded, 1.0);
+        }
+      `
+    });
+
+    const pinInstancedMesh = new THREE.Mesh(pinInstGeo, pinMat);
+    pinInstancedMesh.frustumCulled = false;
+    scene.add(pinInstancedMesh);
+
+    // --- DRAW CALL 3: INSTANCED VERTICAL OPTICAL RETICLE PILLARS ---
+    const conduitBaseGeo = new THREE.CylinderGeometry(0.046, 0.046, 1.0, 12, 1, false);
+    const conduitInstGeo = new THREE.InstancedBufferGeometry();
+    conduitInstGeo.index = conduitBaseGeo.index;
+    conduitInstGeo.attributes.position = conduitBaseGeo.attributes.position;
+    conduitInstGeo.attributes.normal = conduitBaseGeo.attributes.normal;
+    conduitInstGeo.attributes.uv = conduitBaseGeo.attributes.uv;
+
+    const aConduitCoord = new Float32Array(64 * 2);
+    const aConduitActive = new Float32Array(64);
+    const targetConduitActive = new Float32Array(64);
+
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        const idx = r * 8 + c;
+        aConduitCoord[idx * 2 + 0] = c;
+        aConduitCoord[idx * 2 + 1] = r;
+      }
+    }
+
+    const attrConduitCoord = new THREE.InstancedBufferAttribute(aConduitCoord, 2);
+    const attrConduitActive = new THREE.InstancedBufferAttribute(aConduitActive, 1);
+    attrConduitActive.setUsage(THREE.DynamicDrawUsage);
+    conduitInstGeo.setAttribute('aConduitCoord', attrConduitCoord);
+    conduitInstGeo.setAttribute('aConduitActive', attrConduitActive);
+    conduitInstGeo.instanceCount = 64;
+
+    const conduitUniforms = {
+      uTime: { value: 0 },
+      uExplode: { value: 0 },
+      uScrollVelocity: { value: 0 },
+      uLegacyCrcMode: { value: 0 }
+    };
+
+    const conduitMat = new THREE.ShaderMaterial({
+      uniforms: conduitUniforms,
+      transparent: true,
+      depthWrite: false,
+      vertexShader: /* glsl */ `
+        attribute vec2 aConduitCoord;
+        attribute float aConduitActive;
+
+        uniform float uTime;
+        uniform float uExplode;
+        uniform float uScrollVelocity;
+
+        varying float vYNorm;
+        varying float vColIdx;
+        varying float vStrength;
+        varying vec3 vNormalV;
+
+        void main() {
+          vStrength = aConduitActive;
+          vColIdx = aConduitCoord.x;
+          vYNorm = uv.y;
+          vNormalV = normalize(normalMatrix * normal);
+
+          if (aConduitActive < 0.015) {
+            gl_Position = vec4(2.0, 2.0, 2.0, 1.0);
+            return;
+          }
+
+          float spacing = 0.74;
+          vec2 worldXZ = (aConduitCoord - 3.5) * spacing;
+
+          float gap = 1.25 + 0.16 * abs(uScrollVelocity) * uExplode;
+          float yBottom = mix(0.11, -gap, uExplode);
+          float yTop    = mix(0.11 + 0.46 * aConduitActive, gap + 0.22, uExplode);
+
+          float spanH = max(yTop - yBottom, 0.01);
+          float centerY = 0.5 * (yBottom + yTop);
+
+          vec3 pos = position;
+          pos.xz *= (0.65 + 0.35 * aConduitActive);
+          pos.y *= spanH;
+
+          vec3 worldPos = vec3(worldXZ.x + pos.x, centerY + pos.y, worldXZ.y + pos.z);
+          gl_Position = projectionMatrix * viewMatrix * vec4(worldPos, 1.0);
+        }
+      `,
+      fragmentShader: /* glsl */ `
+        varying float vYNorm;
+        varying float vColIdx;
+        varying float vStrength;
+        varying vec3 vNormalV;
+
+        uniform float uTime;
+        uniform float uExplode;
+
+        void main() {
+          vec3 inkCol = vec3(0.865, 0.885, 0.935);
+          vec3 vermilion = vec3(0.945, 0.310, 0.140);
+
+          float wave = sin(vYNorm * 9.0 - uTime * 5.2 + vColIdx * 0.65) * 0.5 + 0.5;
+          float endCap = smoothstep(0.0, 0.08, vYNorm) * (1.0 - smoothstep(0.92, 1.0, vYNorm));
+          float ringTick = step(0.92, fract(vYNorm * 6.0));
+
+          vec3 col = mix(inkCol, vermilion, wave * 0.68 + ringTick * 0.35);
+          float rim = 0.55 + 0.45 * abs(vNormalV.z);
+          float alpha = vStrength * (0.52 + 0.36 * wave) * mix(0.85, 1.0, endCap);
+
+          gl_FragColor = vec4(col * (0.78 + 0.35 * rim), alpha);
+        }
+      `
+    });
+
+    const conduitInstancedMesh = new THREE.Mesh(conduitInstGeo, conduitMat);
+    conduitInstancedMesh.frustumCulled = false;
+    scene.add(conduitInstancedMesh);
+
+    /* ------------------------------------------------------------------
+       5. SYNCHRONIZE HARDWARE ALGEBRA -> 3D INSTANCE ATTRIBUTES & DOM
+       ------------------------------------------------------------------ */
+    function updateHardwareMatrixAttributes(snapConduits = false) {
+      const b = vietaState.slopeB;
+      const a = vietaState.interceptA;
+
+      const activeSlopeSet = new Set();
+      const slopeArr = substrateUniforms.uSlopeY.value;
+
+      for (let x = 0; x < 8; x++) {
+        const y = (a ^ gf8Mul(b, x)) & 7;
+        slopeArr[x] = y;
+        activeSlopeSet.add(y * 8 + x);
+      }
+
+      for (let idx64 = 0; idx64 < 64; idx64++) {
+        targetConduitActive[idx64] = activeSlopeSet.has(idx64) ? 1.0 : 0.0;
+        if (snapConduits) {
+          aConduitActive[idx64] = targetConduitActive[idx64];
+        }
+      }
+      if (snapConduits) attrConduitActive.needsUpdate = true;
+
+      let violCount = 0;
+      for (let layer = 0; layer < 3; layer++) {
+        for (let row = 0; row < 8; row++) {
+          const sigmaByte = vietaState.sigma[row];
+          for (let col = 0; col < 8; col++) {
+            const idx64 = row * 8 + col;
+            const instIdx = layer * 64 + idx64;
+            const isSlope = activeSlopeSet.has(idx64) ? 1.0 : 0.0;
+            const isRevoked = vietaState.revokedGridPins.has(idx64) ? 1.0 : 0.0;
+
+            const inSlotS2 = (col === 4 || col === 5);
+            const isViolO6 = (inSlotS2 && (row >= 2 && row <= 5)) || isRevoked > 0.5 ? 1.0 : 0.0;
+            if (layer === 2 && isViolO6 > 0.5) violCount++;
+
+            const shadowBit = ((sigmaByte >> (7 - col)) & 1) ? 1.0 : 0.0;
+
+            aPinState[instIdx * 4 + 0] = isSlope;
+            aPinState[instIdx * 4 + 1] = isRevoked;
+            aPinState[instIdx * 4 + 2] = isViolO6;
+            aPinState[instIdx * 4 + 3] = shadowBit;
+          }
+        }
+      }
+      attrPinState.needsUpdate = true;
+
+      document.getElementById('csr-hex-readout').textContent = formatCsrHex(vietaState.sigma);
+      document.getElementById('vieta-deg-readout').textContent = `d_rev = ${vietaState.roots.length} / 8`;
+      document.getElementById('slope-formula').innerHTML = `y_r = ${a} &oplus; (${b} &odot; x_r) | 72 LINES`;
+
+      document.getElementById('badge-o6-stat').textContent = `y = +1.25 | ${violCount} PINS CLAMPED`;
+      document.getElementById('badge-o5-stat').textContent = vietaState.legacyCrcMode
+        ? `y = 0.00 | 48.90% NAK STALL`
+        : `y = 0.00 | 99.20% GOODPUT`;
+      document.getElementById('badge-sh-stat').textContent = `y = \u22121.25 | d_rev = ${vietaState.roots.length}/8`;
+    }
+
+    updateHardwareMatrixAttributes(true);
+
+    /* ------------------------------------------------------------------
+       6. MULTI-LAYER RAYCASTER (ACCURATE ACROSS y = +1.25, 0.0, -1.25)
+       ------------------------------------------------------------------ */
+    const raycaster = new THREE.Raycaster();
+    const inspectorEl = document.getElementById('pin-inspector');
+    const tipRail = document.getElementById('tip-rail');
+    const tipCoord = document.getElementById('tip-coord');
+    const tipElev = document.getElementById('tip-elev');
+    const tipSlot = document.getElementById('tip-slot');
+    const tipState = document.getElementById('tip-state');
+
+    let cachedViewport = { w: window.innerWidth, h: window.innerHeight };
+
+    function intersectMultiLayerMatrix(ndc) {
+      raycaster.setFromCamera(ndc, camera);
+      const orig = raycaster.ray.origin;
+      const dir = raycaster.ray.direction;
+      if (Math.abs(dir.y) < 1e-5) return null;
+
+      const tGround = (0.0 - orig.y) / dir.y;
+      if (tGround > 0) {
+        state.cursorWorld.set(orig.x + tGround * dir.x, orig.z + tGround * dir.z);
+      }
+
+      const exp = state.explodeProgress;
+      const candidateLayers = exp > 0.2
+        ? [
+            { layer: 2, y:  1.25 * exp },
+            { layer: 1, y:  0.0 },
+            { layer: 0, y: -1.25 * exp }
+          ]
+        : [{ layer: 1, y: 0.05 }];
+
+      const hits = [];
+      for (let i = 0; i < candidateLayers.length; i++) {
+        const cl = candidateLayers[i];
+        const t = (cl.y - orig.y) / dir.y;
+        if (t > 0.1) {
+          hits.push({ layer: cl.layer, y: cl.y, t, hx: orig.x + t * dir.x, hz: orig.z + t * dir.z });
+        }
+      }
+      hits.sort((a, b) => a.t - b.t);
+
+      let fallbackSlabHit = null;
+      for (let i = 0; i < hits.length; i++) {
+        const h = hits[i];
+        const gx = Math.floor(h.hx / GRID_SPACING + 4);
+        const gy = Math.floor(h.hz / GRID_SPACING + 4);
+        if (gx >= 0 && gx < 8 && gy >= 0 && gy < 8) {
+          const pinCenterX = (gx - 3.5) * GRID_SPACING;
+          const pinCenterZ = (gy - 3.5) * GRID_SPACING;
+          const onPad = Math.abs(h.hx - pinCenterX) <= 0.31 && Math.abs(h.hz - pinCenterZ) <= 0.31;
+
+          let resolvedLayer = h.layer;
+          if (exp <= 0.2) {
+            const idx64 = gy * 8 + gx;
+            const inS2 = (gx === 4 || gx === 5) && gy >= 2 && gy <= 5;
+            if (inS2 || vietaState.revokedGridPins.has(idx64)) resolvedLayer = 2;
+          }
+
+          if (onPad) {
+            return { gx, gy, layer: resolvedLayer, y: h.y };
+          }
+          if (!fallbackSlabHit) {
+            fallbackSlabHit = { gx, gy, layer: resolvedLayer, y: h.y };
+          }
+        }
+      }
+      return fallbackSlabHit;
+    }
+
+    const railLabels = [
+      { title: "SHADOW BANK 0x60 (B\u00C9ZOUT)", color: "var(--ink-primary)" },
+      { title: "RAIL O5 (8'h80 // \u03A0_P PASS)", color: "var(--ink-primary)" },
+      { title: "RAIL O6 (8'h2A // \u0394_P VIOL)", color: "var(--accent-signal)" }
+    ];
+
+    window.addEventListener('pointermove', (e) => {
+      state.cursorNDC.x = (e.clientX / cachedViewport.w) * 2 - 1;
+      state.cursorNDC.y = -(e.clientY / cachedViewport.h) * 2 + 1;
+
+      if (e.target !== renderer.domElement) {
+        inspectorEl.style.opacity = '0';
+        pinUniforms.uHoveredInstance.value.set(-1, -1, -1);
+        return;
+      }
+
+      const pick = intersectMultiLayerMatrix(state.cursorNDC);
+      if (pick) {
+        const { gx, gy, layer, y } = pick;
+        const idx64 = gy * 8 + gx;
+        state.hoveredGridIndex = idx64;
+        state.hoveredLayer = layer;
+        pinUniforms.uHoveredInstance.value.set(gx, gy, layer);
+
+        const slotId = Math.floor(gx / 2);
+        const isRev = vietaState.revokedGridPins.has(idx64);
+        const inS2Rogue = (slotId === 2 && gy >= 2 && gy <= 5) || isRev;
+        const shadowBit = (vietaState.sigma[gy] >> (7 - gx)) & 1;
+
+        tipRail.textContent = railLabels[layer].title;
+        tipRail.style.color = railLabels[layer].color;
+        tipCoord.textContent = `AG(2,8) [x=${gx}, y=${gy}]`;
+        tipElev.textContent = `y = ${y >= 0 ? '+' : ''}${y.toFixed(2)}`;
+        tipSlot.textContent = `SLOT s${slotId} (128b)`;
+
+        if (layer === 0) {
+          tipState.textContent = `CSR 0x60[\u03C3_${gy + 1}, b${7 - gx}] = ${shadowBit} | d_rev=${vietaState.roots.length}`;
+        } else if (layer === 2) {
+          tipState.textContent = inS2Rogue
+            ? `O6 \u0394_P = 1 (CLAMPED TO CXL_NOP)`
+            : `O6 \u0394_P = 0 (NO EXCESS PRIVILEGE)`;
+        } else {
+          tipState.textContent = inS2Rogue
+            ? `O5 \u03A0_P = 0 (SCRUBBED BY SIEVE)`
+            : `O5 \u03A0_P = 1 (WORK-CONSERVING PASS)`;
+        }
+
+        inspectorEl.style.transform = `translate3d(${Math.min(e.clientX + 16, cachedViewport.w - 265)}px, ${Math.max(e.clientY - 82, 58)}px, 0)`;
+        inspectorEl.style.opacity = '1';
+      } else {
+        state.hoveredGridIndex = -1;
+        state.hoveredLayer = -1;
+        pinUniforms.uHoveredInstance.value.set(-1, -1, -1);
+        inspectorEl.style.opacity = '0';
+      }
+    }, { passive: true });
+
+    renderer.domElement.addEventListener('pointerdown', (e) => {
+      state.cursorNDC.x = (e.clientX / cachedViewport.w) * 2 - 1;
+      state.cursorNDC.y = -(e.clientY / cachedViewport.h) * 2 + 1;
+      const pick = intersectMultiLayerMatrix(state.cursorNDC);
+      if (pick) {
+        const { gx, gy, layer } = pick;
+        const idx64 = gy * 8 + gx;
+        playTactileClick(layer === 0 ? 2080 : 1820);
+
+        vietaState.interceptA = (gy ^ gf8Mul(vietaState.slopeB, gx)) & 7;
+        if (vietaState.revokedGridPins.has(idx64)) {
+          vietaState.revokedGridPins.delete(idx64);
+          if (layer === 0 && vietaState.roots.length > 0) {
+            bezoutDeflateShadow(vietaState.roots[0]);
+          }
+        } else {
+          vietaState.revokedGridPins.add(idx64);
+          vietaInsertRoot((idx64 + 1) & 0xff);
+        }
+        updateHardwareMatrixAttributes(false);
+      }
+    });
+
+    /* ------------------------------------------------------------------
+       7. HARDWARE CONTROLS, BEAT-2 TELEMETRY SWITCHER & KEYBOARD INDEX
+       ------------------------------------------------------------------ */
+    const btnModeSpectral = document.getElementById('mode-spectral');
+    const btnModeLegacy = document.getElementById('mode-legacy');
+    const metricGoodput = document.getElementById('metric-goodput');
+    const metricGoodputSub = document.getElementById('metric-goodput-sub');
+    const heroStatusTag = document.getElementById('hero-status-tag');
+
+    function setEnforcementMode(isLegacy) {
+      playTactileClick(isLegacy ? 920 : 1750);
+      vietaState.legacyCrcMode = isLegacy;
+      btnModeSpectral.setAttribute('aria-pressed', String(!isLegacy));
+      btnModeLegacy.setAttribute('aria-pressed', String(isLegacy));
+
+      gsap.to([substrateUniforms.uLegacyCrcMode, pinUniforms.uLegacyCrcMode, conduitUniforms.uLegacyCrcMode], {
+        value: isLegacy ? 1.0 : 0.0,
+        duration: state.reducedMotion ? 0.01 : 0.35,
+        ease: 'power3.out'
+      });
+
+      if (isLegacy) {
+        metricGoodput.textContent = '48.90%';
+        metricGoodput.style.color = 'var(--accent-signal)';
+        metricGoodputSub.textContent = 'N_pipe=32 NAK STORM';
+        heroStatusTag.textContent = 'WARNING: TAIL-CRC FATE-SHARING DESTROYS 3 INNOCENT SLOTS';
+      } else {
+        metricGoodput.textContent = '99.20%';
+        metricGoodput.style.color = 'var(--ink-primary)';
+        metricGoodputSub.textContent = 'N_replay \u2261 0 NAKs';
+        heroStatusTag.textContent = 'MONOGRAPH PART I & II \u00B7 CXL 3.0\u20134.0 / UCIe 1.1\u20133.0';
+      }
+      updateHardwareMatrixAttributes(false);
+    }
+
+    btnModeSpectral.addEventListener('click', () => setEnforcementMode(false));
+    btnModeLegacy.addEventListener('click', () => setEnforcementMode(true));
+
+    const slopeBtns = document.querySelectorAll('#slope-buttons button');
+    function selectSlope(bVal) {
+      playTactileClick(1950);
+      vietaState.slopeB = bVal & 7;
+      slopeBtns.forEach(el => el.setAttribute('aria-pressed', String(parseInt(el.dataset.slope, 10) === vietaState.slopeB)));
+      updateHardwareMatrixAttributes(false);
+    }
+    slopeBtns.forEach((btn) => {
+      btn.addEventListener('click', () => selectSlope(parseInt(btn.dataset.slope, 10)));
+    });
+
+    function triggerVietaRevoke() {
+      playTactileClick(1500);
+      const candidate = ((vietaState.roots.length + 1) * 0x1d + vietaState.slopeB * 7) & 0xff || 0x2a;
+      vietaInsertRoot(candidate);
+      updateHardwareMatrixAttributes(false);
+    }
+
+    function triggerBezoutDeflate() {
+      playTactileClick(2100);
+      if (vietaState.roots.length > 0) {
+        bezoutDeflateShadow(vietaState.roots[0]);
+        updateHardwareMatrixAttributes(false);
+      }
+    }
+
+    document.getElementById('btn-revoke-root').addEventListener('click', triggerVietaRevoke);
+    document.getElementById('btn-bezout-deflate').addEventListener('click', triggerBezoutDeflate);
+
+    const clampConfigs = [
+      { mi: 'I(W; Y) \u2261 0 bits (FULL SCRUB)', hex: '0x0000_0000', q: 'Q = \u221E (ZERO LEAKAGE)' },
+      { mi: 'I(W; Y) \u2264 9 bits/elem (E8M0)', hex: '0x3F80_3F80', q: 'Q*_BBP = 21,845\u201343,691' },
+      { mi: 'I(W; Y) \u2264 12 bits/elem (BF12)', hex: '0x3F80_3F80', q: 'Q_dither \u2265 512 vs Q_det=6' },
+      { mi: 'I(W; Y) \u2264 16 bits/elem (BF16)', hex: '0x3F8E_3F8E', q: 'EXACT AUTHORIZED PARTNER' }
+    ];
+    const tierBtns = document.querySelectorAll('[data-tier]');
+    tierBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        playTactileClick(1700);
+        const t = parseInt(btn.dataset.tier, 10);
+        vietaState.clampTier = t;
+        pinUniforms.uClampTier.value = t;
+        tierBtns.forEach(el => el.setAttribute('aria-pressed', String(el === btn)));
+        document.getElementById('clamp-mi-bound').textContent = clampConfigs[t].mi;
+        document.getElementById('clamp-hex-out').textContent = clampConfigs[t].hex;
+        document.getElementById('clamp-q-bound').textContent = clampConfigs[t].q;
+      });
+    });
+
+    const siliconProfiles = {
+      fpga: {
+        track: 'TRACK B // 16nm XCVU47P + LIVE AWS EC2 f2.6xlarge DUAL-AFI',
+        clock: '338.8 / 899.3 MHz',
+        headerHz: '338.8 MHz',
+        speed: 0.92,
+        k1L: '2-STAGE CORE', k1V: '1,585', k1S: 'CLB LUTs (0.12% Die)',
+        k2L: 'SETUP SLACK', k2V: '+1.048<span class="text-lg">ns</span>', k2S: '0 DRC · 1,157 FDCE FFs',
+        k3L: 'TVLA LEAKAGE', k3V: '0.0<span class="text-lg">|t|</span>', k3S: '19,990 Live F2 Traces',
+        receipt: 'RECEIPT: TRL7_AWS_F2_HBM2_DMA_RECEIPT.json · AFI: agfi-08becf3b40b169674'
+      },
+      asic: {
+        track: 'TRACK A // OPENROAD + OPENSTA 7nm FINFET SIGN-OFF',
+        clock: '693 MHz (2.77\u00D7)',
+        headerHz: '693 MHz',
+        speed: 1.35,
+        k1L: 'ENCLAVE AREA', k1V: '27,877', k1S: 'Cells (0.0033 mm\u00B2)',
+        k2L: 'CRITICAL PATH', k2V: '1,444<span class="text-lg">ps</span>', k2S: '+2,556.4 ps WNS',
+        k3L: 'TOTAL POWER', k3V: '3.728<span class="text-lg">mW</span>', k3S: '0 SRAM · 0 DRC',
+        receipt: 'RECEIPT: TRL6_ASIC_7NM_ASAP7_SIGNOFF.json · SHA256: 29d30a340852..1712c7ab'
+      },
+      tco: {
+        track: 'THEOREM 6.3 // 10,000-RACK HYPERSCALE CONSERVATION (160 PB)',
+        clock: '0% DRAM CARVE-OUT',
+        headerHz: '128 Gbps/Port',
+        speed: 1.15,
+        k1L: 'RECLAIMED HBM', k1V: '$38.4<span class="text-lg">M</span>', k1S: '2,560 TiB Unstranded',
+        k2L: 'GRID POWER SAVED', k2V: '39.44<span class="text-lg">MW</span>', k2S: '345.5 GWh/yr Peak',
+        k3L: 'WATER & CARBON', k3V: '497.5<span class="text-lg">ML</span>', k3S: '117,814 tCO2e/yr Saved',
+        receipt: 'WEBHOOK HIL: TRL8_K8S_OPERATOR_HIL_RECEIPT.json · 1.36 ms HTTP 403 Block'
+      }
+    };
+
+    const silBtns = document.querySelectorAll('[data-silicon]');
+    const phaseTelemetry = document.getElementById('phase-telemetry');
+    silBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        playTactileClick(1840);
+        const key = btn.dataset.silicon;
+        const p = siliconProfiles[key];
+        silBtns.forEach(el => {
+          const active = el === btn;
+          el.setAttribute('aria-pressed', String(active));
+          el.setAttribute('aria-selected', String(active));
+        });
+        document.getElementById('sil-track-label').textContent = p.track;
+        document.getElementById('sil-clock-badge').textContent = p.clock;
+        document.getElementById('sil-k1-label').textContent = p.k1L;
+        document.getElementById('sil-k1-val').innerHTML = p.k1V;
+        document.getElementById('sil-k1-sub').textContent = p.k1S;
+        document.getElementById('sil-k2-label').textContent = p.k2L;
+        document.getElementById('sil-k2-val').innerHTML = p.k2V;
+        document.getElementById('sil-k2-sub').textContent = p.k2S;
+        document.getElementById('sil-k3-label').textContent = p.k3L;
+        document.getElementById('sil-k3-val').innerHTML = p.k3V;
+        document.getElementById('sil-k3-sub').textContent = p.k3S;
+        document.getElementById('sil-receipt-line').textContent = p.receipt;
+        if (phaseTelemetry) phaseTelemetry.textContent = p.headerHz;
+        substrateUniforms.uFlitSpeed.value = p.speed;
+      });
+    });
+
+    document.querySelectorAll('[data-shortcut]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const action = btn.dataset.shortcut;
+        if (action === 'slope') selectSlope((vietaState.slopeB + 1) & 7);
+        if (action === 'mode') setEnforcementMode(!vietaState.legacyCrcMode);
+        if (action === 'revoke') triggerVietaRevoke();
+        if (action === 'bezout') triggerBezoutDeflate();
+      });
+    });
+
+    document.getElementById('btn-copy-doi').addEventListener('click', () => {
+      playTactileClick(2050);
+      const label = document.getElementById('doi-label');
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText('https://doi.org/10.5281/zenodo.24047902').catch(() => {});
+      }
+      label.textContent = 'COPIED: 10.5281/zenodo.24047902 \u2713';
+      setTimeout(() => { label.textContent = 'DOI: 10.5281/zenodo.24047902'; }, 2400);
+    });
+
+    // 1-Click FAR 13.106-1(b) Single-Source Determination Memo Copy
+    const farMemoText = `MEMORANDUM FOR RECORD — SINGLE-SOURCE TECHNICAL DETERMINATION (FAR 13.106-1(b)(1) / VA eVA MICRO-SWaM)
+1. VENDOR & PRODUCT: Spectral Systems LLC (Virginia Beach, VA) | SAM UEI: VTP2JPCJU3D9 | CAGE: 268E1 | VA eVA: VA10140357 (SUP373159).
+   Product: SPECTRAL FLIT-FILTER (v1.0.0 / v1.1.0) Turnkey COTS Verification & Encrypted Netlist Evaluation Package (DOI: 10.5281/zenodo.24047902).
+   Firm-Fixed-Price: USD 14,850.00 (DoD/Federal GPC Micro-Purchase) / USD 9,850.00 (Virginia eVA Single-Quote) / USD 4,850.00 (Academic Seat).
+2. SOLE-SOURCE JUSTIFICATION: Spectral Systems LLC is the sole creator and rights-holder of the 0.124 ns single-LUT6_2 sub-flit sanitizer (1,585 Core LUTs, 0 BRAM on 16nm xcvu47p; 693 MHz / 3.728 mW in 7nm ASAP7), GF(2^8)[Z] Vieta/Bezout revocation ratchet, and 38 zero-axiom Lean 4 formal proofs (thm00-thm37) verified on live AWS EC2 f2.6xlarge HBM2 silicon (agfi-08becf3b40b169674 & agfi-03b742e2a9cd2c0f2). Delivered 100% turnkey "AS-IS" under DFARS 252.227-7018 with zero ongoing service labor.`;
+
+    document.getElementById('btn-copy-far-memo').addEventListener('click', (e) => {
+      playTactileClick(2050);
+      const btn = e.currentTarget;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(farMemoText).catch(() => {});
+      }
+      btn.textContent = 'COPIED FAR 13.106-1(b) MEMO \u2713';
+      setTimeout(() => { btn.textContent = 'COPY FAR 13.106-1(b) SOLE-SOURCE MEMO'; }, 2600);
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
+      const k = e.key.toLowerCase();
+      if (e.key >= '1' && e.key <= '8') {
+        selectSlope(parseInt(e.key, 10) - 1);
+      } else if (k === 'm') {
+        setEnforcementMode(!vietaState.legacyCrcMode);
+      } else if (k === 'r') {
+        triggerVietaRevoke();
+      } else if (k === 'b') {
+        triggerBezoutDeflate();
+      } else if (e.key === 'Escape') {
+        closeDossierModal();
+      }
+    });
+
+    /* ------------------------------------------------------------------
+       8. MODAL DOSSIER & LIVE MAILTO LEAD CAPTURE
+       ------------------------------------------------------------------ */
+    const modal = document.getElementById('dossier-modal');
+    const oracleRowAfi = document.getElementById('oracle-row-afi');
+    const afiHighlightTag = document.getElementById('afi-highlight-tag');
+
+    function openDossierModal(highlightAfi = false) {
+      playTactileClick(1400);
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      if (highlightAfi) {
+        document.getElementById('track-select').value = 'aws-f2';
+        oracleRowAfi.style.backgroundColor = 'oklch(0.635 0.218 28.5 / 0.18)';
+        afiHighlightTag.textContent = 'VERIFIED AFI: agfi-08becf3b40b169674 (100% SENTINEL)';
+        afiHighlightTag.style.color = 'var(--accent-signal)';
+      } else {
+        oracleRowAfi.style.backgroundColor = '';
+        afiHighlightTag.textContent = 'ALL 5 ORACLES SEALED';
+        afiHighlightTag.style.color = 'var(--ink-primary)';
+      }
+      document.getElementById('org-input').focus();
+    }
+
+    function closeDossierModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    document.getElementById('btn-open-dossier').addEventListener('click', () => openDossierModal(false));
+    document.getElementById('btn-open-dossier-2').addEventListener('click', () => openDossierModal(false));
+    document.getElementById('btn-open-dossier-3').addEventListener('click', () => openDossierModal(false));
+    document.getElementById('btn-verify-afi').addEventListener('click', () => openDossierModal(true));
+    document.getElementById('btn-close-dossier').addEventListener('click', closeDossierModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeDossierModal();
+    });
+
+    document.getElementById('inquiry-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      playTactileClick(2200);
+      const org = document.getElementById('org-input').value.trim();
+      const emailVal = document.getElementById('email-input').value.trim();
+      const track = document.getElementById('track-select').selectedOptions[0].text;
+      const feedback = document.getElementById('form-feedback');
+      const subj = encodeURIComponent(`Turnkey COTS / Zone-1 Evaluation Inquiry — ${org}`);
+      const body = encodeURIComponent(`Institution / Agency: ${org}\nContact Email: ${emailVal}\nTarget Track: ${track}\n\nPlease transmit the Turnkey COTS / Zone-1 Evaluation Package (CAGE: 268E1 | SAM UEI: VTP2JPCJU3D9).`);
+      window.location.href = `mailto:eric@spectralsystems.org?subject=${subj}&body=${body}`;
+      feedback.textContent = `OPENED MAIL CLIENT -> eric@spectralsystems.org for ${org}`;
+      feedback.style.color = 'var(--accent-signal)';
+    });
+
+    document.querySelectorAll('.magnetic-el').forEach((el) => {
+      const strength = parseFloat(el.dataset.magnetic || '5');
+      el.addEventListener('pointermove', (e) => {
+        if (state.reducedMotion) return;
+        const rect = el.getBoundingClientRect();
+        const dx = ((e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2)) * strength;
+        const dy = ((e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2)) * strength;
+        gsap.to(el, { x: dx, y: dy, duration: 0.32, ease: 'power3.out' });
+      });
+      el.addEventListener('pointerleave', () => {
+        gsap.to(el, { x: 0, y: 0, duration: 0.45, ease: 'elastic.out(1, 0.5)' });
+      });
+    });
+
+    /* ------------------------------------------------------------------
+       9. EXACT NDC CAMERA CENTERING & DETERMINISTIC 3-BEAT CHOREOGRAPHY
+       ------------------------------------------------------------------ */
+    if (!state.reducedMotion) {
+      gsap.fromTo('.reveal-line',
+        { yPercent: 108, opacity: 0 },
+        {
+          yPercent: 0,
+          opacity: 1,
+          duration: 0.92,
+          stagger: 0.065,
+          ease: 'expo.out',
+          delay: 0.08
+        }
+      );
+    }
+
+    const sectionBeatOne = document.getElementById('beat-one');
+    const sectionBeatTwo = document.getElementById('beat-two');
+    const vernierNeedle = document.getElementById('vernier-needle');
+    const vernierReadout = document.getElementById('vernier-readout');
+    const hudLeaderLayer = document.getElementById('hud-leader-layer');
+
+    function smoothstep01(t) {
+      const c = Math.max(0, Math.min(1, t));
+      return c * c * (3 - 2 * c);
+    }
+
+    const BEAT_CAM = {
+      b0: { px: 2.35,  py: 10.65, pz: 8.75,  ndcX:  0.36, ndcY:  0.07, explode: 0.00 },
+      b1: { px: 7.38,  py: 7.84,  pz: 10.15, ndcX: -0.38, ndcY:  0.00, explode: 1.00 },
+      b2: { px: -5.48, py: 4.51,  pz: 12.30, ndcX:  0.36, ndcY: -0.02, explode: 0.26 }
+    };
+
+    const camCurrent = { ...BEAT_CAM.b0 };
+    const vecP0 = new THREE.Vector3();
+    const vecFwd = new THREE.Vector3();
+    const vecRight = new THREE.Vector3();
+    const vecUp = new THREE.Vector3();
+    const vecLook = new THREE.Vector3();
+    const WORLD_UP = new THREE.Vector3(0, 1, 0);
+
+    const leaderDom = [
+      {
+        poly: document.getElementById('leader-poly-0'),
+        dot: document.getElementById('leader-dot-0'),
+        badge: document.getElementById('leader-badge-0'),
+        anchor: new THREE.Vector3()
+      },
+      {
+        poly: document.getElementById('leader-poly-1'),
+        dot: document.getElementById('leader-dot-1'),
+        badge: document.getElementById('leader-badge-1'),
+        anchor: new THREE.Vector3()
+      },
+      {
+        poly: document.getElementById('leader-poly-2'),
+        dot: document.getElementById('leader-dot-2'),
+        badge: document.getElementById('leader-badge-2'),
+        anchor: new THREE.Vector3()
+      }
+    ];
+    const projVec = new THREE.Vector3();
+
+    function evaluateScrollChoreography() {
+      const vh = Math.max(cachedViewport.h, 1);
+      const r1 = sectionBeatOne.getBoundingClientRect();
+      const r2 = sectionBeatTwo.getBoundingClientRect();
+
+      const p1 = smoothstep01((vh * 0.96 - r1.top) / (vh * 0.76));
+      const p2 = smoothstep01((vh * 0.92 - r2.top) / (vh * 0.74));
+
+      const px01 = THREE.MathUtils.lerp(BEAT_CAM.b0.px, BEAT_CAM.b1.px, p1);
+      const py01 = THREE.MathUtils.lerp(BEAT_CAM.b0.py, BEAT_CAM.b1.py, p1);
+      const pz01 = THREE.MathUtils.lerp(BEAT_CAM.b0.pz, BEAT_CAM.b1.pz, p1);
+      const nx01 = THREE.MathUtils.lerp(BEAT_CAM.b0.ndcX, BEAT_CAM.b1.ndcX, p1);
+      const ny01 = THREE.MathUtils.lerp(BEAT_CAM.b0.ndcY, BEAT_CAM.b1.ndcY, p1);
+      const ex01 = THREE.MathUtils.lerp(BEAT_CAM.b0.explode, BEAT_CAM.b1.explode, p1);
+
+      camCurrent.px = THREE.MathUtils.lerp(px01, BEAT_CAM.b2.px, p2);
+      camCurrent.py = THREE.MathUtils.lerp(py01, BEAT_CAM.b2.py, p2);
+      camCurrent.pz = THREE.MathUtils.lerp(pz01, BEAT_CAM.b2.pz, p2);
+      camCurrent.ndcX = THREE.MathUtils.lerp(nx01, BEAT_CAM.b2.ndcX, p2);
+      camCurrent.ndcY = THREE.MathUtils.lerp(ny01, BEAT_CAM.b2.ndcY, p2);
+      camCurrent.explode = THREE.MathUtils.lerp(ex01, BEAT_CAM.b2.explode, p2);
+
+      state.explodeProgress = camCurrent.explode;
+      pinUniforms.uExplode.value = camCurrent.explode;
+      conduitUniforms.uExplode.value = camCurrent.explode;
+
+      const leaderAlpha = smoothstep01((p1 - 0.52) / 0.36) * (1.0 - smoothstep01((p2 - 0.06) / 0.32));
+      state.hudLeaderAlpha = leaderAlpha;
+      hudLeaderLayer.style.opacity = leaderAlpha.toFixed(3);
+
+      const docMax = Math.max(document.documentElement.scrollHeight - vh, 1);
+      const globalScroll = THREE.MathUtils.clamp(window.scrollY / docMax, 0, 1);
+      vernierNeedle.style.transform = `translateY(${(globalScroll * 240).toFixed(1)}px)`;
+
+      if (p2 > 0.5) {
+        vernierReadout.textContent = '8.000ns';
+      } else {
+        const ns = (0.124 + p1 * 2.731).toFixed(3);
+        vernierReadout.textContent = `${ns}ns`;
+      }
+    }
+
+    function applyExactNdcCameraAndProjectLeaders() {
+      const isMobile = cachedViewport.w < 1024;
+      vecP0.set(camCurrent.px, isMobile ? camCurrent.py * 1.16 : camCurrent.py, camCurrent.pz);
+
+      const dist = vecP0.length();
+      vecFwd.copy(vecP0).negate().normalize();
+      vecRight.crossVectors(vecFwd, WORLD_UP).normalize();
+      vecUp.crossVectors(vecRight, vecFwd).normalize();
+
+      const tanHalfFov = Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.5));
+      const targetNdcX = isMobile ? 0.0 : camCurrent.ndcX;
+      const targetNdcY = isMobile ? 0.05 : camCurrent.ndcY;
+
+      const shiftRight = -targetNdcX * dist * camera.aspect * tanHalfFov;
+      const shiftUp    = -targetNdcY * dist * tanHalfFov;
+
+      camera.position.copy(vecP0).addScaledVector(vecRight, shiftRight).addScaledVector(vecUp, shiftUp);
+      vecLook.set(0, 0, 0).addScaledVector(vecRight, shiftRight).addScaledVector(vecUp, shiftUp);
+      camera.lookAt(vecLook);
+      camera.updateMatrixWorld();
+
+      if (state.hudLeaderAlpha > 0.01) {
+        const exp = state.explodeProgress;
+        const edgeX = 3.5 * GRID_SPACING + 0.27;
+        const edgeZ = 1.5 * GRID_SPACING;
+
+        leaderDom[2].anchor.set(edgeX,  1.25 * exp + 0.14, edgeZ);
+        leaderDom[1].anchor.set(edgeX,  0.00,              edgeZ);
+        leaderDom[0].anchor.set(edgeX, -1.25 * exp - 0.10, edgeZ);
+
+        const screenPts = [2, 1, 0].map((idx) => {
+          projVec.copy(leaderDom[idx].anchor).project(camera);
+          return {
+            idx,
+            sx: (projVec.x * 0.5 + 0.5) * cachedViewport.w,
+            sy: (-projVec.y * 0.5 + 0.5) * cachedViewport.h
+          };
+        });
+
+        const minGap = 54;
+        const ty = [screenPts[0].sy - 14, screenPts[1].sy, screenPts[2].sy + 14];
+        if (ty[1] - ty[0] < minGap) ty[1] = ty[0] + minGap;
+        if (ty[2] - ty[1] < minGap) ty[2] = ty[1] + minGap;
+
+        const maxBadgeRight = isMobile ? cachedViewport.w - 225 : cachedViewport.w * 0.605 - 235;
+
+        for (let k = 0; k < 3; k++) {
+          const pt = screenPts[k];
+          const item = leaderDom[pt.idx];
+          const targetY = ty[k];
+          const elbowX = pt.sx + 20;
+          const dockX = Math.max(elbowX + 14, Math.min(pt.sx + 44, maxBadgeRight));
+
+          item.dot.setAttribute('cx', pt.sx.toFixed(1));
+          item.dot.setAttribute('cy', pt.sy.toFixed(1));
+          item.poly.setAttribute(
+            'points',
+            `${pt.sx.toFixed(1)},${pt.sy.toFixed(1)} ${elbowX.toFixed(1)},${targetY.toFixed(1)} ${dockX.toFixed(1)},${targetY.toFixed(1)}`
+          );
+          item.badge.style.transform = `translate3d(${(dockX + 6).toFixed(1)}px, ${(targetY - 21).toFixed(1)}px, 0)`;
+        }
+      }
+    }
+
+    /* ------------------------------------------------------------------
+       10. UNIFIED RAF LOOP + ROLLING 90-FRAME ADAPTIVE FPS GOVERNOR
+       ------------------------------------------------------------------ */
+    gsap.ticker.lagSmoothing(0);
+
+    const fpsEl = document.getElementById('fps-telemetry');
+    let frameCount = 0;
+    let accumDelta = 0;
+    let degradedQuality = false;
+
+    function tick(timeSec, deltaMs) {
+      if (state.isDisposed) return;
+
+      const dt = Math.min(deltaMs * 0.001, 0.05);
+
+      if (lenis && !state.reducedMotion) {
+        lenis.raf(timeSec * 1000);
+      }
+
+      evaluateScrollChoreography();
+
+      state.scrollVelocity *= Math.pow(0.08, dt);
+      if (Math.abs(state.scrollVelocity) < 0.001 || state.reducedMotion) {
+        state.scrollVelocity = 0;
+      }
+
+      let conduitDirty = false;
+      const conduitLerp = state.reducedMotion ? 1.0 : Math.min(1.0, dt * 14.0);
+      for (let i = 0; i < 64; i++) {
+        const diff = targetConduitActive[i] - aConduitActive[i];
+        if (Math.abs(diff) > 0.002) {
+          aConduitActive[i] += diff * conduitLerp;
+          conduitDirty = true;
+        } else if (aConduitActive[i] !== targetConduitActive[i]) {
+          aConduitActive[i] = targetConduitActive[i];
+          conduitDirty = true;
+        }
+      }
+      if (conduitDirty) attrConduitActive.needsUpdate = true;
+
+      const kSpring = 240.0;
+      const cDamp = 26.0;
+      const fx = (state.cursorWorld.x - state.smoothCursorWorld.x) * kSpring - state.cursorWorldVel.x * cDamp;
+      const fy = (state.cursorWorld.y - state.smoothCursorWorld.y) * kSpring - state.cursorWorldVel.y * cDamp;
+      state.cursorWorldVel.x += fx * dt;
+      state.cursorWorldVel.y += fy * dt;
+      state.smoothCursorWorld.x += state.cursorWorldVel.x * dt;
+      state.smoothCursorWorld.y += state.cursorWorldVel.y * dt;
+
+      const simTime = state.reducedMotion ? 1.2 : timeSec;
+      substrateUniforms.uTime.value = simTime;
+      pinUniforms.uTime.value = simTime;
+      conduitUniforms.uTime.value = simTime;
+
+      substrateUniforms.uScrollVelocity.value = state.scrollVelocity;
+      pinUniforms.uScrollVelocity.value = state.scrollVelocity;
+      conduitUniforms.uScrollVelocity.value = state.scrollVelocity;
+
+      substrateUniforms.uCursorWorld.value.copy(state.smoothCursorWorld);
+      pinUniforms.uCursorWorld.value.copy(state.smoothCursorWorld);
+
+      if (vietaState.legacyCrcMode && !state.reducedMotion) {
+        state.nakPulse = 0.55 + 0.45 * Math.sin(timeSec * 4.5);
+      } else {
+        state.nakPulse = vietaState.legacyCrcMode ? 0.65 : 0.0;
+      }
+      substrateUniforms.uNakPulse.value = state.nakPulse;
+      pinUniforms.uNakPulse.value = state.nakPulse;
+
+      applyExactNdcCameraAndProjectLeaders();
+      renderer.render(scene, camera);
+
+      frameCount++;
+      accumDelta += deltaMs;
+      if (frameCount >= 90) {
+        const avgMs = accumDelta / frameCount;
+        const fps = Math.min(120, Math.round(1000 / Math.max(avgMs, 1)));
+        if (fpsEl) fpsEl.textContent = `${fps} FPS`;
+
+        if (fps < 48 && !degradedQuality) {
+          degradedQuality = true;
+          renderer.setPixelRatio(1.0);
+        }
+        frameCount = 0;
+        accumDelta = 0;
+      }
+    }
+
+    gsap.ticker.add(tick);
+
+    /* ------------------------------------------------------------------
+       11. RESIZE HANDLING & CLEAN THREE.JS GPU MEMORY DISPOSAL
+       ------------------------------------------------------------------ */
+    function handleResize() {
+      cachedViewport.w = window.innerWidth;
+      cachedViewport.h = window.innerHeight;
+      camera.aspect = cachedViewport.w / cachedViewport.h;
+      camera.updateProjectionMatrix();
+      const cap = cachedViewport.w < 1024 ? 1.5 : 2.0;
+      if (!degradedQuality) {
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, cap));
+      }
+      renderer.setSize(cachedViewport.w, cachedViewport.h);
+      ScrollTrigger.refresh();
+    }
+
+    window.addEventListener('resize', handleResize, { passive: true });
+
+    function disposeScene() {
+      if (state.isDisposed) return;
+      state.isDisposed = true;
+      gsap.ticker.remove(tick);
+      if (lenis) lenis.destroy();
+      ScrollTrigger.getAll().forEach(st => st.kill());
+
+      substrateGeo.dispose();
+      substrateMat.dispose();
+      pinBaseGeo.dispose();
+      pinInstGeo.dispose();
+      pinMat.dispose();
+      conduitBaseGeo.dispose();
+      conduitInstGeo.dispose();
+      conduitMat.dispose();
+      renderer.dispose();
+    }
+
+    window.addEventListener('pagehide', disposeScene);
+  </script>
+</body>
+</html>

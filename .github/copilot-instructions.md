@@ -4,7 +4,7 @@
 - **Workspace Root:** `C:\Spectral_Systems` (Zone 0 Author Manuscript, Zone 2 Public GitHub Repo Staging, Zone 3 Clean Agency Briefings, `scripts_local`).
 - **Air-Gapped Vault:** `C:\Spectral_Vault_DFARS` (Zone 1 Private synthesizable `.sv` RTL, encrypted `.edf`/`.dcp`, USPTO PPA files, `.pem` keys, AWS F2 run archives).
 - **STRICT PROHIBITION:** Never copy `.sv`, `.vhd`, `.edf`, `.dcp`, `.bit`, `.xsa`, `.pem`, or `.clixml` files into `C:\Spectral_Systems\02_GitHub_Repo_Staging`.
-- **PUBLIC OPSEC:** Never write private patent application serials, confirmation numbers (`#7627`, `#2351`), internal docket tags (`SPEC-PPA-`), USPTO Customer Numbers (`246935`), or local Windows user paths (`C:\Users\`) into public Website HTML, GitHub Wiki, or public README surfaces. Always use **`All Patents Pending`**.
+- **PUBLIC OPSEC:** Never write private patent application serials, confirmation numbers (`#7627`, `#2351`), internal docket tags (`SPEC-PPA-`), USPTO Customer Numbers (`[REDACTED-OPSEC]`), or local Windows user paths (`C:\Users\`) into public Website HTML, GitHub Wiki, or public README surfaces. Always use **`All Patents Pending`**.
 
 ## 2. Canonical Release `v1.0.0` Hardware, Formal & Control-Plane Telemetry (Zero Drift)
 - **Entity Identifiers:** Spectral Systems LLC / Sole Inventor: Eric C. Murphy (`37 C.F.R. 1.41`, `90 FR 54636`) / CAGE: `268E1` / SAM.gov UEI: `VTP2JPCJU3D9` / Domain: `https://spectralsystems.org`

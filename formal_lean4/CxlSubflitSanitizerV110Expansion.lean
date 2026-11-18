@@ -200,15 +200,12 @@ theorem thm30_bijective_snoop_evict_commutative_closure :
       (And.intro (lem_feistel_enc6_dec6 f0 f1 f2 f3 f4 f5 y)
         (And.intro (congrArg stripUpperB8 (lem_feistel_dec6_enc6 f0 f1 f2 f3 f4 f5 (PairB8.mk alpha uPage))) rfl))
 
--- === thm31: Bounded Vieta Degree (<= 8), Shadow Compaction, & 32-Slot FIFO Invariant ===
+-- === thm31: Unclamped Window-Paced Vieta Degree (<= 8), Shadow Compaction, & 32-Slot FIFO Invariant ===
 
 def natBle : Nat -> Nat -> Bool :=
   @Nat.rec (fun _ => Nat -> Bool)
     (fun _ => true)
     (fun _ ih b => @Nat.rec (fun _ => Bool) false (fun bPred _ => ih bPred) b)
-
-def clampNat (lim cand fallback : Nat) : Nat :=
-  Bool.casesOn (natBle cand lim) fallback cand
 
 theorem lem_band_true_left : forall (x y : Bool), bAnd x y = true -> x = true :=
   fun x y => Bool.casesOn x (fun h => lem_false_imp (false = true) h) (fun _ => rfl)
@@ -219,16 +216,20 @@ theorem lem_band_true_right : forall (x y : Bool), bAnd x y = true -> y = true :
 theorem lem_band_intro : forall (x y : Bool), x = true -> y = true -> bAnd x y = true :=
   fun x y hx hy => Eq.trans (congrArg (fun u => bAnd u y) hx) hy
 
-theorem lem_clampNat_ble :
-  forall (lim cand fallback : Nat),
-    natBle fallback lim = true -> natBle (clampNat lim cand fallback) lim = true :=
-  fun lim cand fallback hFall =>
-    ((fun (b : Bool) =>
-      Bool.casesOn b
-        (fun (_ : natBle cand lim = false) => hFall)
-        (fun (hTrue : natBle cand lim = true) => hTrue))
-      : forall (b : Bool), natBle cand lim = b -> natBle (Bool.casesOn b fallback cand) lim = true)
-    (natBle cand lim) rfl
+theorem lem_bor_elim {P : Prop} (x y : Bool) (hOr : bOr x y = true)
+  (hx : x = true -> P) (hy : y = true -> P) : P :=
+  ((fun (b : Bool) =>
+    Bool.casesOn b
+      (fun (_ : x = false) (h1 : y = true) => hy h1)
+      (fun (hTrue : x = true) (_ : true = true) => hx hTrue))
+    : forall (b : Bool), x = b -> bOr b y = true -> P)
+  x rfl hOr
+
+theorem lem_ble0_eq_zero (k : Nat) (h0 : natBle k 0 = true) : k = 0 :=
+  (@Nat.rec (fun n => natBle n 0 = true -> n = 0)
+    (fun _ => rfl)
+    (fun m _ (hm : false = true) => lem_false_imp (Nat.succ m = 0) hm)
+    k) h0
 
 theorem lem_ble6_add_const (d : Nat) (hBase : natBle d 6 = true) :
   And (natBle d 8 = true) (And (natBle (Nat.succ d) 8 = true) (natBle (Nat.succ (Nat.succ d)) 8 = true)) :=
@@ -308,66 +309,77 @@ def airlockInv (s : AirlockState) : Bool :=
   AirlockState.casesOn s (fun actDeg shadDeg fifoCnt =>
     bAnd (natBle actDeg 8) (bAnd (natBle shadDeg 6) (natBle fifoCnt 32)))
 
-def stepActDeg (actDeg drainArr : Nat) : Nat :=
-  Bool.casesOn (bAnd (natBle actDeg 6) (natBle drainArr 2)) actDeg (actDeg + drainArr)
-
-def airlockStep (s : AirlockState) (ev : AirlockEvent) : AirlockState :=
-  AirlockState.casesOn s (fun actDeg shadDeg fifoCnt =>
+def airlockStepRaw (s : AirlockState) (ev : AirlockEvent) : AirlockState :=
+  AirlockState.casesOn s (fun actDeg shadDeg _fifoCnt =>
     AirlockEvent.casesOn ev (fun doSwap drainArr nextShad nextFifo =>
       Bool.casesOn doSwap
-        (AirlockState.mk (stepActDeg actDeg drainArr) (clampNat 6 nextShad shadDeg) (clampNat 32 nextFifo fifoCnt))
+        (AirlockState.mk (actDeg + drainArr) nextShad nextFifo)
         (AirlockState.mk shadDeg 0 0)))
 
-theorem lem_stepActDeg_ble8 :
-  forall (actDeg drainArr : Nat),
-    natBle actDeg 8 = true -> natBle (stepActDeg actDeg drainArr) 8 = true :=
-  fun actDeg drainArr hAct8 =>
-    ((fun (g : Bool) =>
-      Bool.casesOn g
-        (fun (_ : bAnd (natBle actDeg 6) (natBle drainArr 2) = false) => hAct8)
-        (fun (hG : bAnd (natBle actDeg 6) (natBle drainArr 2) = true) =>
-          lem_ble6_ble2_sum_ble8 actDeg drainArr
-            (lem_band_true_left (natBle actDeg 6) (natBle drainArr 2) hG)
-            (lem_band_true_right (natBle actDeg 6) (natBle drainArr 2) hG)))
-      : forall (g : Bool),
-          bAnd (natBle actDeg 6) (natBle drainArr 2) = g ->
-          natBle (Bool.casesOn g actDeg (actDeg + drainArr)) 8 = true)
-    (bAnd (natBle actDeg 6) (natBle drainArr 2)) rfl
+def airlockStepAdm (s : AirlockState) (ev : AirlockEvent) : Bool :=
+  AirlockState.casesOn s (fun actDeg _shadDeg _fifoCnt =>
+    AirlockEvent.casesOn ev (fun doSwap drainArr nextShad nextFifo =>
+      Bool.casesOn doSwap
+        (bAnd (bOr (natBle drainArr 0) (bAnd (natBle actDeg 6) (natBle drainArr 2)))
+              (bAnd (natBle nextShad 6) (natBle nextFifo 32)))
+        true))
 
-theorem lem_airlockStep_inv :
+theorem lem_airlockStepRaw_inv :
   forall (s : AirlockState) (ev : AirlockEvent),
-    airlockInv s = true -> airlockInv (airlockStep s ev) = true :=
-  fun s ev hInv =>
-    AirlockState.casesOn s (fun actDeg shadDeg fifoCnt =>
-      fun (hI : bAnd (natBle actDeg 8) (bAnd (natBle shadDeg 6) (natBle fifoCnt 32)) = true) =>
-        let hA8 := lem_band_true_left (natBle actDeg 8) _ hI
-        let hRest := lem_band_true_right (natBle actDeg 8) _ hI
-        let hS6 := lem_band_true_left (natBle shadDeg 6) (natBle fifoCnt 32) hRest
-        let hF32 := lem_band_true_right (natBle shadDeg 6) (natBle fifoCnt 32) hRest
-        AirlockEvent.casesOn ev (fun doSwap drainArr nextShad nextFifo =>
-          Bool.casesOn doSwap
-            (lem_band_intro _ _
-              (lem_stepActDeg_ble8 actDeg drainArr hA8)
-              (lem_band_intro _ _
-                (lem_clampNat_ble 6 nextShad shadDeg hS6)
-                (lem_clampNat_ble 32 nextFifo fifoCnt hF32)))
-            (lem_band_intro (natBle shadDeg 8) true
-              (And.left (lem_ble6_add_const shadDeg hS6)) rfl))) hInv
+    airlockInv s = true -> airlockStepAdm s ev = true -> airlockInv (airlockStepRaw s ev) = true :=
+  fun s ev =>
+    AirlockState.casesOn s (fun actDeg shadDeg fifoCnt hI =>
+      let hA8 := lem_band_true_left (natBle actDeg 8) _ hI
+      let hRest := lem_band_true_right (natBle actDeg 8) _ hI
+      let hS6 := lem_band_true_left (natBle shadDeg 6) (natBle fifoCnt 32) hRest
+      AirlockEvent.casesOn ev (fun doSwap drainArr nextShad nextFifo =>
+        Bool.casesOn doSwap
+          (fun hAd =>
+            let hOr := lem_band_true_left _ _ hAd
+            let hBounds := lem_band_true_right _ _ hAd
+            let hSum8 : natBle (actDeg + drainArr) 8 = true :=
+              lem_bor_elim (natBle drainArr 0) (bAnd (natBle actDeg 6) (natBle drainArr 2)) hOr
+                (fun hZero =>
+                  Eq.trans (congrArg (fun z => natBle (actDeg + z) 8) (lem_ble0_eq_zero drainArr hZero)) hA8)
+                (fun hPaced =>
+                  lem_ble6_ble2_sum_ble8 actDeg drainArr
+                    (lem_band_true_left (natBle actDeg 6) (natBle drainArr 2) hPaced)
+                    (lem_band_true_right (natBle actDeg 6) (natBle drainArr 2) hPaced))
+            lem_band_intro _ _ hSum8 hBounds)
+          (fun _ =>
+            lem_band_intro (natBle shadDeg 8) true
+              (And.left (lem_ble6_add_const shadDeg hS6)) rfl)))
 
-def runAirlock (t : Nat) (s0 : AirlockState) (sched : Nat -> AirlockEvent) : AirlockState :=
-  @Nat.rec (fun _ => AirlockState) s0 (fun k prev => airlockStep prev (sched k)) t
+def runAirlockRaw (t : Nat) (s0 : AirlockState) (sched : Nat -> AirlockEvent) : AirlockState :=
+  @Nat.rec (fun _ => AirlockState) s0 (fun k prev => airlockStepRaw prev (sched k)) t
+
+def runAirlockAdm (t : Nat) (s0 : AirlockState) (sched : Nat -> AirlockEvent) : Bool :=
+  @Nat.rec (fun _ => Bool) true
+    (fun k prevOk => bAnd prevOk (airlockStepAdm (runAirlockRaw k s0 sched) (sched k))) t
 
 theorem thm31_unbounded_horizon_ic3_and_dual_bank_compaction :
   forall (t : Nat) (sched : Nat -> AirlockEvent) (baseDeg drainArr : Nat),
-    And (airlockInv (runAirlock t (AirlockState.mk 0 0 0) sched) = true)
-        (And (natBle (actDegOf (runAirlock t (AirlockState.mk 0 0 0) sched)) 8 = true)
-             (natBle baseDeg 6 = true -> natBle drainArr 2 = true -> natBle (baseDeg + drainArr) 8 = true)) :=
+    And (runAirlockAdm t (AirlockState.mk 0 0 0) sched = true ->
+          And (airlockInv (runAirlockRaw t (AirlockState.mk 0 0 0) sched) = true)
+              (natBle (actDegOf (runAirlockRaw t (AirlockState.mk 0 0 0) sched)) 8 = true))
+        (natBle baseDeg 6 = true -> natBle drainArr 2 = true -> natBle (baseDeg + drainArr) 8 = true) :=
   fun t sched baseDeg drainArr =>
-    let hRun := @Nat.rec (fun n => airlockInv (runAirlock n (AirlockState.mk 0 0 0) sched) = true)
-                  rfl (fun k ih => lem_airlockStep_inv (runAirlock k (AirlockState.mk 0 0 0) sched) (sched k) ih) t
-    let hDeg := AirlockState.casesOn (runAirlock t (AirlockState.mk 0 0 0) sched)
-                  (fun a sh fi hI => lem_band_true_left (natBle a 8) (bAnd (natBle sh 6) (natBle fi 32)) hI) hRun
-    And.intro hRun (And.intro hDeg (lem_ble6_ble2_sum_ble8 baseDeg drainArr))
+    let s0 := AirlockState.mk 0 0 0
+    let hInd : runAirlockAdm t s0 sched = true -> airlockInv (runAirlockRaw t s0 sched) = true :=
+      @Nat.rec (fun n => runAirlockAdm n s0 sched = true -> airlockInv (runAirlockRaw n s0 sched) = true)
+        (fun _ => rfl)
+        (fun k ih hAdmSucc =>
+          let hPrev := lem_band_true_left (runAirlockAdm k s0 sched) _ hAdmSucc
+          let hStep := lem_band_true_right (runAirlockAdm k s0 sched) _ hAdmSucc
+          lem_airlockStepRaw_inv (runAirlockRaw k s0 sched) (sched k) (ih hPrev) hStep)
+        t
+    And.intro
+      (fun hAdm =>
+        let hInv := hInd hAdm
+        let hDeg := AirlockState.casesOn (runAirlockRaw t s0 sched)
+                      (fun a sh fi hI => lem_band_true_left (natBle a 8) (bAnd (natBle sh 6) (natBle fi 32)) hI) hInv
+        And.intro hInv hDeg)
+      (lem_ble6_ble2_sum_ble8 baseDeg drainArr)
 
 -- === thm32: CSS Split-Coset Folded Syndrome Exactness & Graph Betti Cycle-Rank Induction ===
 
@@ -736,7 +748,167 @@ theorem thm34_autonomous_discovery_involutive_and_gauge_invariance :
     And.intro (Eq.trans hRewrite (lem_double_tap_bool (m i) (m (i + a)) (m (i + 32)) (m (i + 2 * a)) (m ((i + a) + 32))))
               hGauge
 
--- === thm35: Unified 8-Step Bezout-Horner Polynomial Deflation & 0x20 Normal-Basis Frobenius ===
+-- === thm35: GF(2^8) Commutativity, Exact Bezout-Horner Division Identity, & 0x20 Normal-Basis Frobenius ===
+
+theorem lem_mask_b8xor (bit : Bool) (x y : B8) :
+  b8Mask bit (b8Xor x y) = b8Xor (b8Mask bit x) (b8Mask bit y) :=
+  Bool.casesOn bit rfl rfl
+
+theorem lem_mask_b8xor_step (bit : Bool) {w x y : B8} (h : w = b8Xor x y) :
+  b8Mask bit w = b8Xor (b8Mask bit x) (b8Mask bit y) :=
+  Eq.trans (congrArg (b8Mask bit) h) (lem_mask_b8xor bit x y)
+
+theorem lem_gf256_distrib_right (u v b : B8) :
+  gf256Mul (b8Xor u v) b = b8Xor (gf256Mul u b) (gf256Mul v b) :=
+  B8.casesOn b (fun b7 b6 b5 b4 b3 b2 b1 b0 =>
+    let s0 : b8Xor u v = b8Xor u v := rfl
+    let s1 := lem_xtime_xor u v; let s2 := lem_xtime_xor_step s1
+    let s3 := lem_xtime_xor_step s2; let s4 := lem_xtime_xor_step s3
+    let s5 := lem_xtime_xor_step s4; let s6 := lem_xtime_xor_step s5
+    let s7 := lem_xtime_xor_step s6
+    let u0 := u; let u1 := gf256Xtime u0; let u2 := gf256Xtime u1; let u3 := gf256Xtime u2
+    let u4 := gf256Xtime u3; let u5 := gf256Xtime u4; let u6 := gf256Xtime u5; let u7 := gf256Xtime u6
+    let v0 := v; let v1 := gf256Xtime v0; let v2 := gf256Xtime v1; let v3 := gf256Xtime v2
+    let v4 := gf256Xtime v3; let v5 := gf256Xtime v4; let v6 := gf256Xtime v5; let v7 := gf256Xtime v6
+    Eq.trans
+      (b8Xor2
+        (b8Xor2 (b8Xor2 (lem_mask_b8xor_step b0 s0) (lem_mask_b8xor_step b1 s1))
+                (b8Xor2 (lem_mask_b8xor_step b2 s2) (lem_mask_b8xor_step b3 s3)))
+        (b8Xor2 (b8Xor2 (lem_mask_b8xor_step b4 s4) (lem_mask_b8xor_step b5 s5))
+                (b8Xor2 (lem_mask_b8xor_step b6 s6) (lem_mask_b8xor_step b7 s7))))
+      (lem_b8xor8_merge
+        (b8Mask b0 u0) (b8Mask b1 u1) (b8Mask b2 u2) (b8Mask b3 u3)
+        (b8Mask b4 u4) (b8Mask b5 u5) (b8Mask b6 u6) (b8Mask b7 u7)
+        (b8Mask b0 v0) (b8Mask b1 v1) (b8Mask b2 v2) (b8Mask b3 v3)
+        (b8Mask b4 v4) (b8Mask b5 v5) (b8Mask b6 v6) (b8Mask b7 v7)))
+
+theorem lem_mask_zero (bit : Bool) : b8Mask bit b8Zero = b8Zero :=
+  Bool.casesOn bit rfl rfl
+
+theorem lem_mul_zero_left (a : B8) : gf256Mul b8Zero a = b8Zero :=
+  B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 =>
+    b8Xor2
+      (b8Xor2 (b8Xor2 (lem_mask_zero a0) (lem_mask_zero a1))
+              (b8Xor2 (lem_mask_zero a2) (lem_mask_zero a3)))
+      (b8Xor2 (b8Xor2 (lem_mask_zero a4) (lem_mask_zero a5))
+              (b8Xor2 (lem_mask_zero a6) (lem_mask_zero a7))))
+
+theorem lem_mul_e0_basis (y : B8) : gf256Mul b8E0 y = b8FromBasis y :=
+  B8.casesOn y (fun _ _ _ _ _ _ _ _ => rfl)
+
+theorem lem_mul_e0_left (y : B8) : gf256Mul b8E0 y = y :=
+  Eq.trans (lem_mul_e0_basis y) (lem_b8_basis y)
+
+theorem lem_e1_xor {u v : B8}
+  (hu : gf256Mul b8E1 u = gf256Xtime u)
+  (hv : gf256Mul b8E1 v = gf256Xtime v) :
+  gf256Mul b8E1 (b8Xor u v) = gf256Xtime (b8Xor u v) :=
+  Eq.trans (lem_gf256_distrib_left b8E1 u v)
+    (Eq.trans (b8Xor2 hu hv) (Eq.symm (lem_xtime_xor u v)))
+
+theorem lem_e1_mask (bit : Bool) (e : B8) (he : gf256Mul b8E1 e = gf256Xtime e) :
+  gf256Mul b8E1 (b8Mask bit e) = gf256Xtime (b8Mask bit e) :=
+  Bool.casesOn bit rfl he
+
+theorem lem_mul_e1_left (y : B8) : gf256Mul b8E1 y = gf256Xtime y :=
+  B8.casesOn y (fun y7 y6 y5 y4 y3 y2 y1 y0 =>
+    let hb := lem_e1_xor
+      (lem_e1_xor (lem_e1_xor (lem_e1_mask y0 b8E0 rfl) (lem_e1_mask y1 b8E1 rfl))
+                  (lem_e1_xor (lem_e1_mask y2 b8E2 rfl) (lem_e1_mask y3 b8E3 rfl)))
+      (lem_e1_xor (lem_e1_xor (lem_e1_mask y4 b8E4 rfl) (lem_e1_mask y5 b8E5 rfl))
+                  (lem_e1_xor (lem_e1_mask y6 b8E6 rfl) (lem_e1_mask y7 b8E7 rfl)))
+    let bEq := lem_b8_basis (B8.mk y7 y6 y5 y4 y3 y2 y1 y0)
+    Eq.trans (congrArg (gf256Mul b8E1) (Eq.symm bEq)) (Eq.trans hb (congrArg gf256Xtime bEq)))
+
+theorem lem_xtime_mul_left (u y : B8) : gf256Mul (gf256Xtime u) y = gf256Xtime (gf256Mul u y) :=
+  Eq.trans (congrArg (fun z => gf256Mul z y) (Eq.symm (lem_mul_e1 u)))
+    (Eq.trans (Eq.symm (lem_gf256_assoc u b8E1 y))
+      (Eq.trans (congrArg (gf256Mul u) (lem_mul_e1_left y))
+        (lem_mul_xtime_right u y)))
+
+theorem lem_comm_xt_step {e a : B8} (h : gf256Mul e a = gf256Mul a e) :
+  gf256Mul (gf256Xtime e) a = gf256Mul a (gf256Xtime e) :=
+  Eq.trans (lem_xtime_mul_left e a)
+    (Eq.trans (congrArg gf256Xtime h) (Eq.symm (lem_mul_xtime_right a e)))
+
+theorem lem_comm_xor (a : B8) {u v : B8}
+  (hu : gf256Mul u a = gf256Mul a u)
+  (hv : gf256Mul v a = gf256Mul a v) :
+  gf256Mul (b8Xor u v) a = gf256Mul a (b8Xor u v) :=
+  Eq.trans (lem_gf256_distrib_right u v a)
+    (Eq.trans (b8Xor2 hu hv) (Eq.symm (lem_gf256_distrib_left a u v)))
+
+theorem lem_comm_mask (a : B8) (bit : Bool) (e : B8)
+  (he : gf256Mul e a = gf256Mul a e) :
+  gf256Mul (b8Mask bit e) a = gf256Mul a (b8Mask bit e) :=
+  Bool.casesOn bit (lem_mul_zero_left a) he
+
+theorem lem_gf256_comm (b a : B8) : gf256Mul b a = gf256Mul a b :=
+  let c0 : gf256Mul b8E0 a = gf256Mul a b8E0 := Eq.trans (lem_mul_e0_left a) (Eq.symm (lem_mul_e0 a))
+  let c1 : gf256Mul b8E1 a = gf256Mul a b8E1 := lem_comm_xt_step c0
+  let c2 : gf256Mul b8E2 a = gf256Mul a b8E2 := lem_comm_xt_step c1
+  let c3 : gf256Mul b8E3 a = gf256Mul a b8E3 := lem_comm_xt_step c2
+  let c4 : gf256Mul b8E4 a = gf256Mul a b8E4 := lem_comm_xt_step c3
+  let c5 : gf256Mul b8E5 a = gf256Mul a b8E5 := lem_comm_xt_step c4
+  let c6 : gf256Mul b8E6 a = gf256Mul a b8E6 := lem_comm_xt_step c5
+  let c7 : gf256Mul b8E7 a = gf256Mul a b8E7 := lem_comm_xt_step c6
+  B8.casesOn b (fun b7 b6 b5 b4 b3 b2 b1 b0 =>
+    let hb := lem_comm_xor a
+      (lem_comm_xor a (lem_comm_xor a (lem_comm_mask a b0 b8E0 c0) (lem_comm_mask a b1 b8E1 c1))
+                      (lem_comm_xor a (lem_comm_mask a b2 b8E2 c2) (lem_comm_mask a b3 b8E3 c3)))
+      (lem_comm_xor a (lem_comm_xor a (lem_comm_mask a b4 b8E4 c4) (lem_comm_mask a b5 b8E5 c5))
+                      (lem_comm_xor a (lem_comm_mask a b6 b8E6 c6) (lem_comm_mask a b7 b8E7 c7)))
+    let bEq := lem_b8_basis (B8.mk b7 b6 b5 b4 b3 b2 b1 b0)
+    Eq.trans (congrArg (fun z => gf256Mul z a) (Eq.symm bEq))
+      (Eq.trans hb (congrArg (gf256Mul a) bEq)))
+
+theorem lem_bool_horner_cancel :
+  forall (s a z w : Bool), bXor s (bXor z w) = bXor (bXor s a) (bXor (bXor z a) w) :=
+  fun s a z w =>
+    Bool.casesOn s
+      (Bool.casesOn a
+        (Bool.casesOn z (Bool.casesOn w rfl rfl) (Bool.casesOn w rfl rfl))
+        (Bool.casesOn z (Bool.casesOn w rfl rfl) (Bool.casesOn w rfl rfl)))
+      (Bool.casesOn a
+        (Bool.casesOn z (Bool.casesOn w rfl rfl) (Bool.casesOn w rfl rfl))
+        (Bool.casesOn z (Bool.casesOn w rfl rfl) (Bool.casesOn w rfl rfl)))
+
+theorem lem_b8_horner_cancel :
+  forall (s a z w : B8), b8Xor s (b8Xor z w) = b8Xor (b8Xor s a) (b8Xor (b8Xor z a) w) :=
+  fun s a z w =>
+    B8.casesOn s (fun s7 s6 s5 s4 s3 s2 s1 s0 =>
+      B8.casesOn a (fun a7 a6 a5 a4 a3 a2 a1 a0 =>
+        B8.casesOn z (fun z7 z6 z5 z4 z3 z2 z1 z0 =>
+          B8.casesOn w (fun w7 w6 w5 w4 w3 w2 w1 w0 =>
+            b8Cong (lem_bool_horner_cancel s7 a7 z7 w7) (lem_bool_horner_cancel s6 a6 z6 w6)
+                   (lem_bool_horner_cancel s5 a5 z5 w5) (lem_bool_horner_cancel s4 a4 z4 w4)
+                   (lem_bool_horner_cancel s3 a3 z3 w3) (lem_bool_horner_cancel s2 a2 z2 w2)
+                   (lem_bool_horner_cancel s1 a1 z1 w1) (lem_bool_horner_cancel s0 a0 z0 w0)))))
+
+theorem lem_mul_swap_left (z d u : B8) :
+  gf256Mul z (gf256Mul d u) = gf256Mul d (gf256Mul z u) :=
+  Eq.trans (lem_gf256_assoc z d u)
+    (Eq.trans (congrArg (fun x => gf256Mul x u) (lem_gf256_comm z d))
+      (Eq.symm (lem_gf256_assoc d z u)))
+
+theorem lem_horner_div_step (z alpha sk ePrev qPrev uPrev : B8)
+  (hPrev : ePrev = b8Xor qPrev (gf256Mul (b8Xor z alpha) uPrev)) :
+  b8Xor sk (gf256Mul z ePrev)
+  = b8Xor (b8Xor sk (gf256Mul alpha qPrev))
+          (gf256Mul (b8Xor z alpha) (b8Xor qPrev (gf256Mul z uPrev))) :=
+  let d := b8Xor z alpha
+  let zq := gf256Mul z qPrev
+  let aq := gf256Mul alpha qPrev
+  let w := gf256Mul d (gf256Mul z uPrev)
+  let hLhs : b8Xor sk (gf256Mul z ePrev) = b8Xor sk (b8Xor zq w) :=
+    Eq.trans (congrArg (fun x => b8Xor sk (gf256Mul z x)) hPrev)
+      (Eq.trans (congrArg (b8Xor sk) (lem_gf256_distrib_left z qPrev (gf256Mul d uPrev)))
+        (congrArg (fun x => b8Xor sk (b8Xor zq x)) (lem_mul_swap_left z d uPrev)))
+  let hRhs : b8Xor (b8Xor sk aq) (b8Xor (b8Xor zq aq) w)
+             = b8Xor (b8Xor sk aq) (gf256Mul d (b8Xor qPrev (gf256Mul z uPrev))) :=
+    Eq.trans (congrArg (fun x => b8Xor (b8Xor sk aq) (b8Xor x w)) (Eq.symm (lem_gf256_distrib_right z alpha qPrev)))
+      (congrArg (b8Xor (b8Xor sk aq)) (Eq.symm (lem_gf256_distrib_left d qPrev (gf256Mul z uPrev))))
+  Eq.trans hLhs (Eq.trans (lem_b8_horner_cancel sk aq zq w) hRhs)
 
 inductive Poly8 : Type where
   | mk : B8 -> B8 -> B8 -> B8 -> B8 -> B8 -> B8 -> B8 -> Poly8
@@ -770,6 +942,60 @@ def bezoutReconstruct8 (q : Poly8) (alpha : B8) : Poly8 :=
              (b8Xor q7 (gf256Mul alpha q6))
              (b8Xor q8 (gf256Mul alpha q7)))
 
+def polyEval8 (p : Poly8) (z : B8) : B8 :=
+  Poly8.casesOn p (fun s1 s2 s3 s4 s5 s6 s7 s8 =>
+    let e1 := b8Xor s1 (gf256Mul z b8E0)
+    let e2 := b8Xor s2 (gf256Mul z e1)
+    let e3 := b8Xor s3 (gf256Mul z e2)
+    let e4 := b8Xor s4 (gf256Mul z e3)
+    let e5 := b8Xor s5 (gf256Mul z e4)
+    let e6 := b8Xor s6 (gf256Mul z e5)
+    let e7 := b8Xor s7 (gf256Mul z e6)
+    b8Xor s8 (gf256Mul z e7))
+
+def quotEval7 (q : Poly8) (z : B8) : B8 :=
+  Poly8.casesOn q (fun q1 q2 q3 q4 q5 q6 q7 _q8 =>
+    let u1 := b8Xor q1 (gf256Mul z b8E0)
+    let u2 := b8Xor q2 (gf256Mul z u1)
+    let u3 := b8Xor q3 (gf256Mul z u2)
+    let u4 := b8Xor q4 (gf256Mul z u3)
+    let u5 := b8Xor q5 (gf256Mul z u4)
+    let u6 := b8Xor q6 (gf256Mul z u5)
+    b8Xor q7 (gf256Mul z u6))
+
+def bezoutRem8 (q : Poly8) : B8 :=
+  Poly8.casesOn q (fun _ _ _ _ _ _ _ q8 => q8)
+
+theorem lem_bezout_div_identity (p : Poly8) (alpha z : B8) :
+  polyEval8 p z =
+    b8Xor (bezoutRem8 (bezoutDeflate8 p alpha))
+          (gf256Mul (b8Xor z alpha) (quotEval7 (bezoutDeflate8 p alpha) z)) :=
+  Poly8.casesOn p (fun s1 s2 s3 s4 s5 s6 s7 s8 =>
+    let e1 := b8Xor s1 (gf256Mul z b8E0); let e2 := b8Xor s2 (gf256Mul z e1)
+    let e3 := b8Xor s3 (gf256Mul z e2);   let e4 := b8Xor s4 (gf256Mul z e3)
+    let e5 := b8Xor s5 (gf256Mul z e4);   let e6 := b8Xor s6 (gf256Mul z e5)
+    let e7 := b8Xor s7 (gf256Mul z e6)
+    let q1 := b8Xor s1 (gf256Mul alpha b8E0); let q2 := b8Xor s2 (gf256Mul alpha q1)
+    let q3 := b8Xor s3 (gf256Mul alpha q2);   let q4 := b8Xor s4 (gf256Mul alpha q3)
+    let q5 := b8Xor s5 (gf256Mul alpha q4);   let q6 := b8Xor s6 (gf256Mul alpha q5)
+    let q7 := b8Xor s7 (gf256Mul alpha q6)
+    let u0 := b8E0; let u1 := b8Xor q1 (gf256Mul z u0); let u2 := b8Xor q2 (gf256Mul z u1)
+    let u3 := b8Xor q3 (gf256Mul z u2); let u4 := b8Xor q4 (gf256Mul z u3)
+    let u5 := b8Xor q5 (gf256Mul z u4); let u6 := b8Xor q6 (gf256Mul z u5)
+    let h1 : e1 = b8Xor q1 (gf256Mul (b8Xor z alpha) u0) :=
+      lem_horner_div_step z alpha s1 b8E0 b8E0 b8Zero rfl
+    let h2 := lem_horner_div_step z alpha s2 e1 q1 u0 h1
+    let h3 := lem_horner_div_step z alpha s3 e2 q2 u1 h2
+    let h4 := lem_horner_div_step z alpha s4 e3 q3 u2 h3
+    let h5 := lem_horner_div_step z alpha s5 e4 q4 u3 h4
+    let h6 := lem_horner_div_step z alpha s6 e5 q5 u4 h5
+    let h7 := lem_horner_div_step z alpha s7 e6 q6 u5 h6
+    lem_horner_div_step z alpha s8 e7 q7 u6 h7)
+
+theorem lem_bezout_rem_is_eval (p : Poly8) (alpha : B8) :
+  bezoutRem8 (bezoutDeflate8 p alpha) = polyEval8 p alpha :=
+  Poly8.casesOn p (fun _ _ _ _ _ _ _ _ => rfl)
+
 def b8BetaMin : B8 := b8E5
 def gf256Sq (x : B8) : B8 := gf256Mul x x
 def gf256Frob8 (x : B8) : B8 :=
@@ -783,11 +1009,14 @@ def b8RotL1 (x : B8) : B8 := B8.casesOn x (fun x7 x6 x5 x4 x3 x2 x1 x0 => B8.mk 
 def b8RotL8 (x : B8) : B8 := b8RotL1 (b8RotL1 (b8RotL1 (b8RotL1 (b8RotL1 (b8RotL1 (b8RotL1 (b8RotL1 x)))))))
 
 theorem thm35_vieta_bezout_deflation_and_frobenius_normal_basis :
-  forall (p : Poly8) (alpha x y : B8),
+  forall (p : Poly8) (alpha z x y : B8),
     And (bezoutReconstruct8 (bezoutDeflate8 p alpha) alpha = p)
-        (And (And (gf256Frob8 b8BetaMin = b8BetaMin) (gf256Trace b8BetaMin = b8E0))
-             (And (b8RotL1 (b8Xor x y) = b8Xor (b8RotL1 x) (b8RotL1 y)) (b8RotL8 x = x))) :=
-  fun p alpha x y =>
+        (And (And (polyEval8 p z = b8Xor (bezoutRem8 (bezoutDeflate8 p alpha))
+                                         (gf256Mul (b8Xor z alpha) (quotEval7 (bezoutDeflate8 p alpha) z)))
+                  (bezoutRem8 (bezoutDeflate8 p alpha) = polyEval8 p alpha))
+             (And (And (gf256Frob8 b8BetaMin = b8BetaMin) (gf256Trace b8BetaMin = b8E0))
+                  (And (b8RotL1 (b8Xor x y) = b8Xor (b8RotL1 x) (b8RotL1 y)) (b8RotL8 x = x)))) :=
+  fun p alpha z x y =>
     And.intro
       (Poly8.casesOn p (fun s1 s2 s3 s4 s5 s6 s7 s8 =>
         let q1 := b8Xor s1 (gf256Mul alpha b8E0)
@@ -806,10 +1035,12 @@ theorem thm35_vieta_bezout_deflation_and_frobenius_normal_basis :
                   (lem_b8xor_cancel s7 (gf256Mul alpha q6))
                   (lem_b8xor_cancel s8 (gf256Mul alpha q7))))
       (And.intro
-        (And.intro rfl rfl)
+        (And.intro (lem_bezout_div_identity p alpha z) (lem_bezout_rem_is_eval p alpha))
         (And.intro
-          (B8.casesOn x (fun _ _ _ _ _ _ _ _ => B8.casesOn y (fun _ _ _ _ _ _ _ _ => rfl)))
-          (B8.casesOn x (fun _ _ _ _ _ _ _ _ => rfl))))
+          (And.intro rfl rfl)
+          (And.intro
+            (B8.casesOn x (fun _ _ _ _ _ _ _ _ => B8.casesOn y (fun _ _ _ _ _ _ _ _ => rfl)))
+            (B8.casesOn x (fun _ _ _ _ _ _ _ _ => rfl)))))
 
 -- === thm36: Stage-2 LUT6_2 Functional Sketch (64'h060C0A00_08000000) 32-State Bisimulation ===
 
@@ -911,12 +1142,9 @@ theorem thm37_rain_demorgan_dual_sieve_bisimulation :
 #print axioms lem_band_true_left
 #print axioms lem_band_true_right
 #print axioms lem_band_intro
-#print axioms lem_clampNat_ble
 #print axioms lem_ble6_add_const
 #print axioms lem_ble6_ble2_sum_ble8
-#print axioms lem_stepActDeg_ble8
-#print axioms lem_airlockStep_inv
-#print axioms lem_succ_add
+#print axioms lem_airlockStepRaw_inv#print axioms lem_succ_add
 #print axioms lem_graph_euler_betti
 #print axioms lem_b8xor8_merge
 #print axioms lem_mask_xor_bit

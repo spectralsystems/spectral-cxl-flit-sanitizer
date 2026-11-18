@@ -1,21 +1,17 @@
-# Spectral Systems LLC — Spectral Flit-Filter (v1.1.0)
+# SPECTRAL FLIT-FILTER (v1.0.0) — Stateless Sub-Flit Capability Sanitization, Algebraic Cohort Ratcheting, and Post-Route Formal Verification for Disaggregated CXL 3.0–4.0 and UCIe Memory Fabrics
 
-> Hardware-enforced sub-flit capability sanitization, AI model weight protection (85x Le Cam / 43.7k BBP wall), and cold-reset BAR0 hardware ratcheting for disaggregated CXL 3.0-4.0 and UCIe HBM fabrics. Verified across 38 zero-axiom Microsoft Lean 4 theorems (thm00..thm37), live 16nm AMD Virtex UltraScale+ HBM silicon on AWS EC2 f2.6xlarge (1,585 Core LUTs, 0 BRAM, 338.8 MHz, agfi-08becf3b40b169674 & agfi-03b742e2a9cd2c0f2), 7nm ASAP7 FinFET CMOS (9,678 core / 27,877 enclave cells, 0.003335 mm^2, 693 MHz, 3.728 mW), and CNCF k3s admission control (1.36 ms HTTP 403 block).
+**The goal of the sub-flit interposer: evaluate spatial, temporal, and tenant capability projections across all four parallel 128-bit slots of a 512-bit flit phase in one `0.124 ns` logic level and clamp only violating slots to `CXL_NOP` in `0` Block RAM while preserving `99.20%` sustained link goodput (vs. `48.90%` under tail-CRC poisoning).**
 
-Spectral Systems LLC (CAGE: 268E1 | SAM.gov UEI: VTP2JPCJU3D9 | DOI: 10.5281/zenodo.24047902) provides zero-BRAM physical-layer memory isolation and FIPS-204 ML-DSA-87 certifying policy compilation (spectralc) for shared AI accelerators, high-performance computing, and sovereign enclaves. All inventions conceived and reduced to practice solely by Eric C. Murphy at 100% private expense (DFARS 252.227-7018 / DEAR 952.227-14; All Patents Pending).
+## Multi-Track Empirical Silicon, 7nm FinFET ASIC & TRL-8 Kubernetes Summary (`v1.0.0`)
 
-## Core Technical Routes
+| Track | Target / Toolchain | Measured Sign-Off Telemetry | Receipt |
+| :--- | :--- | :--- | :--- |
+| **16nm Vivado OOC** | AMD `xcvu47p-fsvh2892-2L-e` (`Vivado v2025.2`) | `1,585` Core CLB LUTs (`0.12%`, `321` CLBs), `1,157` FFs (`341` Scrub Shim LUTs, `2,555` Cycle-0 LUTs, `5,459` 4-Stage Wrapper LUTs / `3,461` FFs), `0` BRAM/LUTRAM/URAM/DSP, `+1.048 ns` WNS (`338.8 MHz`), `35.0 mW`, `0` DRC | `reports_public/AWS_VIVADO_SIGNOFF_SUMMARY.json` |
+| **Track A: 7nm CMOS** | `ASAP7` (`asap7sc7p5t`, `OpenROAD` + `OpenRCX` + `OpenSTA`) | `9,678` core cells (`11,420` NAND2 GE, `0.00224 mm^2`); `27,877` placed-and-routed full-enclave cells (`3,335.45 um^2` / `0.003335 mm^2`), `0` SRAM, `0` DRC, `+2,556.41 ps` WNS, `1,443.59 ps` crit path (`693 MHz` = `2.77x`), `3.728 mW` | `reports_public/TRL6_ASIC_7NM_ASAP7_SIGNOFF.json` |
+| **Track B.1: F2 BIST** | AWS EC2 `f2.6xlarge` (`agfi-03b742e2a9cd2c0f2` / `afi-07282de69eecfd279`) | `+1.842 ns` WNS @ `250.0 MHz` (`128.0 Gbps`), `800,000` sub-flit slots (`400,000` rogue scrubbed), `WSTRB = 0x0000FFFF0000FFFF`, post-warm-FLR `CSR[0x70] = 0xFFFFFFFFFFFFFFEB`, 19,990-trace Welch TVLA `max |t| = 0.0 < 4.5` | `reports_public/STAGE2_AWS_F2_SILICON_RECEIPT.json` |
+| **Track B.2: 16 GB HBM2** | AWS EC2 `f2.6xlarge` (`agfi-08becf3b40b169674` / `afi-0f2ddd7dc87d81193`) | `+0.512 ns` WNS, BDF `0000:34:00.0`, `16 GB` HBM2 (`0x0300 = 0x00000006`) @ `PF0-BAR4` `0x1000000000`, `25,000` bursts (`50,128` flits, `100,000` inline slots), allied `0x5555555555555555`, sentinel `0xAAAAAAAAAAAAAAAA` (`100%` intact), BF16 `0x3F8E3F8E -> 0x3F803F80`, `0` CTO | `reports_public/TRL7_AWS_F2_HBM2_DMA_RECEIPT.json` |
+| **Track C: `k3s` HIL** | CNCF `k3s` + `spectralc v1.0.0` (38-Thm Lean 4 + `ML-DSA-87`) | Valid `SpectralMemoryPolicy` ratified (`5,934.19 ms` cold Lean 4 + `mldsa87-fips204-det-0e060a832a52b7fab9243a9b2d7d036d`) onto `CSR[0x70] = 0xFFFFFFFFFFFFFFEB`; rogue `0 -> 1` escalation (`delta = 0x14`) rejected `403 Forbidden` in **`1.36 ms`** | `reports_public/TRL8_K8S_OPERATOR_HIL_RECEIPT.json` |
+| **10,000-Rack TCO** | `10,000` Racks (`160 PB` dec / `156.25 PiB` bin) | Reclaims `2,500.0 TB` (`2,560,000 GiB`), saving **$37.50M–$38.40M** CapEx, **8.01–39.44 MW** power, and **6.50B–10.05B gal/yr** cooling water | `reports_public/cluster_tco_telemetry.json` |
 
-- [Overview & Five-Oracle Verification Matrix](https://spectralsystems.org/): Executive hardware summary, 0.124 ns sub-flit sieve architecture, and 5-oracle falsification receipts.
-- [Silicon & Cloud Benchmarks](https://spectralsystems.org/benchmarks): 16nm xcvu47p (1,585 LUTs, 0 BRAM, 338.8 MHz), 7nm ASAP7 (693 MHz, 3.728 mW), and 99.20% vs. 48.90% CXL link goodput telemetry.
-- [Architecture & AI Weight Protection](https://spectralsystems.org/zero-trust): 16-CSR (128-byte) BAR0 register map, cold-POR AND2 hardware ratchet, and S2M_DRS BF16 mantissa clamping.
-- [38 Zero-Axiom Lean 4 Formal Proofs](https://spectralsystems.org/verification): Pure Init.Prelude machine-checked theorem catalog (thm00..thm37, 0 sorry, 0 axioms).
-- [Interactive BAR0 Policy Compiler (spectralc)](https://spectralsystems.org/console-demo/): Live YAML/SKILL.md to 128-byte ML-DSA-87 signed .sbundle register compiler and 4-stage wire simulator.
-- [COTS Evaluation & Federal Procurement](https://spectralsystems.org/cots-procurement): Instant FAR 13.201 Government Purchase Card (<$15,000 micro-purchase) and commercial evaluation licensing.
-- [Open-Source & Patent Scope](https://spectralsystems.org/patents): Three-tier Apache-2.0 software/proof license scope and 35 U.S.C. 287(a) sovereign silicon reservation (All Patents Pending).
-
-## Primary Monograph & Machine-Readable Manifests
-
-- [Technical Monograph Preprint (Part I PDF)](https://spectralsystems.org/preprint_Murphy_v1_0_0.pdf): Full mathematical and post-route silicon monograph (DOI: 10.5281/zenodo.24047902).
-- [Institutional & Federal Funding Manifest](https://spectralsystems.org/funding.json): Machine-readable CAGE 268E1 / UEI VTP2JPCJU3D9 acquisition and R&D metadata.
-- [XML Sitemap](https://spectralsystems.org/sitemap.xml): Canonical extensionless route index.
+## Statutory Attribution & Virtual Patent Marking (35 U.S.C. § 287(a))
+Conceived and reduced to practice solely by **Eric C. Murphy** (`eric@spectralsystems.org`) exclusively at private expense at **Spectral Systems LLC** (United States, US • CAGE: `268E1` • SAM.gov UEI: `VTP2JPCJU3D9` • USPTO Customer No.: `Pending` • `https://spectralsystems.org`), compliant with `37 C.F.R. § 1.41`, **USPTO Revised Inventorship Guidance for AI-Assisted Inventions, 90 FR 54636 (Nov. 28, 2025)**, and `DFARS 252.227-7018` / `DEAR 952.227-14`. Protected by **19 pending U.S. Provisional Patent Applications** (`All Patents Pending`..`All Patents Pending`, anchoring `Pending` & `Pending`, Conf. `Pending`).

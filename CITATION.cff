@@ -1,14 +1,12 @@
 cff-version: 1.2.0
-message: "If you reference this formal verification ledger, CXL/UCIe enclave architecture, or preprint, please cite it as below."
-title: "Spectral Flit-Filter (v1.0.0): Stateless Sub-Flit Capability Sanitization, Algebraic Cohort Ratcheting, and Post-Route Formal Verification for Disaggregated CXL 3.0-4.0 and UCIe Memory Fabrics"
+message: "If you reference this work, please cite it as below."
+title: "SPECTRAL FLIT-FILTER v1.0.0: Stateless Sub-Flit Capability Sanitization for Disaggregated CXL 3.0-4.0 and UCIe Memory Fabrics"
 version: "1.0.0"
-doi: "10.5281/zenodo.24047902"
-date-released: "2026-11-08"
+date-released: "2026-11-17"
 url: "https://spectralsystems.org"
 repository-code: "https://github.com/spectralsystems/spectral-cxl-flit-sanitizer"
-license: "Apache-2.0"
 authors:
   - family-names: "Murphy"
     given-names: "Eric C."
     email: "eric@spectralsystems.org"
-    affiliation: "Spectral Systems LLC (CAGE: 268E1 | UEI: VTP2JPCJU3D9)"
+    affiliation: "Spectral Systems LLC, United States"

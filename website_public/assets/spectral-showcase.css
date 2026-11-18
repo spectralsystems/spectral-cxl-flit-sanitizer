@@ -599,4 +599,3 @@ details.keycap-drawer:not([open]) .keycap-ind-minus { display: none; }
   .two-col { grid-template-columns: 1fr; }
   .fifo-grid { grid-template-columns: repeat(8, 1fr); }
 }
-/* spectral-rev: 20261116T224052Z */
