@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class="dark antialiased selection:bg-[#f04e23] selection:text-[#07090e]">
+<html lang="en" class="dark antialiased selection:bg-[#ff4d29] selection:text-[#07090e]">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="dark" />
-  <title>SPECTRAL FLIT-FILTER (v1.0.0 / v1.1.0) — Stateless CXL 3.0–4.0 Sub-Flit Sanitization</title>
-  <meta name="description" content="Spectral Systems LLC (CAGE: 268E1 | SAM UEI: VTP2JPCJU3D9). Zero-BRAM 0.124 ns LUT6_2 sub-flit capability sieve, GF(2^8)[Z] Vieta/Bezout revocation ratchet, and 38 zero-axiom Lean 4 proofs (DOI: 10.5281/zenodo.24047902)." />
+  <title>SPECTRAL FLIT-FILTER — Stateless CXL 3.0–4.0 Sub-Flit Capability Sanitizer | Spectral Systems LLC</title>
 
-  <!-- Typography: Instrument Serif (Display), Inter Tight (Neo-Grotesque), IBM Plex Mono (Silkscreen Telemetry) -->
+  <!-- Typography: Instrument Serif (Display), Inter Tight (Neo-Grotesque), IBM Plex Mono (Oscilloscope Silkscreen) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -29,18 +27,19 @@
 
   <style>
     :root {
-      /* Permanent Anodized Obsidian Dark-Mode Palette (OKLCH) */
-      color-scheme: dark;
-      --surface-base: oklch(0.138 0.014 264);
-      --surface-elevated: oklch(0.182 0.016 264);
-      --ink-primary: oklch(0.942 0.008 84);
-      --ink-muted: oklch(0.685 0.016 264);
-      --accent-signal: oklch(0.635 0.218 28.5);
+      /* Permanent Obsidian Oscilloscope Dark-Mode OKLCH Palette (#07090e Locked) */
+      --surface-base: oklch(0.132 0.014 264);      /* #07090e Obsidian Chassis */
+      --surface-elevated: oklch(0.174 0.016 264);  /* #0d111a Black-Anodized Module Well */
+      --surface-well: oklch(0.112 0.012 264);      /* #05070b Deep Recessed Logic Trench */
+      --ink-primary: oklch(0.948 0.008 255);       /* #eceff5 Tungsten Silkscreen Ink */
+      --ink-muted: #8e96a8;                        /* Muted Slate Subtext & Legend */
+      --accent-pass: oklch(0.805 0.132 194);       /* #38dce2 Coherent Cyan-Teal (O5 Pass Rail) */
+      --accent-signal: oklch(0.648 0.224 28.5);    /* #ff4d29 Fluor-Vermilion (O6 Quarantine) */
 
-      --hairline: oklch(0.942 0.008 84 / 0.12);
-      --hairline-strong: oklch(0.942 0.008 84 / 0.24);
-      --bezel-specular: oklch(0.995 0.003 84 / 0.08);
-      --panel-glass: oklch(0.158 0.015 264 / 0.90);
+      --hairline: oklch(0.948 0.008 255 / 0.10);
+      --hairline-strong: oklch(0.948 0.008 255 / 0.21);
+      --bezel-specular: oklch(0.980 0.005 255 / 0.08);
+      --panel-glass: oklch(0.148 0.015 264 / 0.88);
 
       /* Font Families */
       --font-serif: 'Instrument Serif', Georgia, serif;
@@ -48,11 +47,11 @@
       --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
 
       /* Fluid Clamp Scale */
-      --text-hero: clamp(2.85rem, 5.4vw + 0.85rem, 7.15rem);
-      --text-h1: clamp(2.05rem, 3.4vw + 0.75rem, 4.15rem);
+      --text-hero: clamp(2.75rem, 5.1vw + 0.85rem, 6.85rem);
+      --text-h1: clamp(2.05rem, 3.3vw + 0.75rem, 4.15rem);
       --text-h2: clamp(1.25rem, 1.35vw + 0.65rem, 1.95rem);
-      --text-body: clamp(0.98rem, 0.32vw + 0.88rem, 1.12rem);
-      --text-mono: clamp(0.6875rem, 0.12vw + 0.64rem, 0.79rem);
+      --text-body: clamp(0.98rem, 0.30vw + 0.88rem, 1.12rem);
+      --text-mono: clamp(0.6875rem, 0.11vw + 0.63rem, 0.78rem);
 
       /* Custom Motion Curves */
       --ease-expo-out: cubic-bezier(0.19, 1.0, 0.22, 1.0);
@@ -90,36 +89,32 @@
       font-family: var(--font-mono);
       font-size: var(--text-mono);
       line-height: 1.38;
-      letter-spacing: 0.055em;
+      letter-spacing: 0.05em;
       font-variant-numeric: tabular-nums;
     }
     .hero-title {
       font-size: var(--text-hero);
       font-family: var(--font-serif);
       line-height: 0.89;
-      letter-spacing: -0.035em;
+      letter-spacing: -0.032em;
     }
     .beat-h1 {
       font-size: var(--text-h1);
       font-family: var(--font-serif);
       line-height: 0.94;
-      letter-spacing: -0.028em;
+      letter-spacing: -0.026em;
     }
     .prose-monograph {
       font-size: var(--text-body);
       line-height: 1.56;
-      letter-spacing: -0.008em;
+      letter-spacing: -0.006em;
       max-width: 54ch;
     }
-    .subtext-boundary {
-      font-family: var(--font-sans);
+    .arch-subtext {
       font-size: 0.78rem;
       line-height: 1.52;
-      color: var(--ink-muted);
-      border-left: 2px solid var(--hairline-strong);
-      padding-left: 0.75rem;
-      margin-top: 0.75rem;
-      max-width: 58ch;
+      color: #8e96a8;
+      max-width: 60ch;
     }
 
     /* 24-Column Asymmetric Swiss Datum Grid */
@@ -133,23 +128,28 @@
     @media (max-width: 1023px) {
       .swiss-grid {
         grid-template-columns: repeat(6, minmax(0, 1fr));
-        padding-left: 2.5rem;
+        padding-left: 2.35rem;
         padding-right: 1rem;
       }
     }
 
-    /* Machined Anodized Hardware Surfaces */
+    /* Black-Anodized Oscilloscope Hardware Surfaces */
     .hw-bezel {
       background-color: var(--surface-elevated);
       border: 1px solid var(--hairline-strong);
-      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 14px 36px -18px rgba(0, 0, 0, 0.65);
+      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 16px 36px -20px rgba(0, 0, 0, 0.78);
     }
     .hw-plate {
       background-color: var(--panel-glass);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border: 1px solid var(--hairline-strong);
-      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 18px 42px -20px rgba(0, 0, 0, 0.75);
+      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 20px 44px -22px rgba(0, 0, 0, 0.85);
+    }
+    .hw-trench {
+      background-color: var(--surface-well);
+      border: 1px solid var(--hairline);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.65);
     }
 
     /* Tactile Detent Buttons */
@@ -157,50 +157,82 @@
       position: relative;
       font-family: var(--font-mono);
       font-size: var(--text-mono);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.055em;
       text-transform: uppercase;
       border: 1px solid var(--hairline-strong);
-      background-color: var(--surface-base);
+      background-color: #0b0f18;
       color: var(--ink-primary);
-      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 1px 2px rgba(0, 0, 0, 0.4);
-      transition: transform 0.22s var(--ease-detent), background-color 0.22s var(--ease-detent), color 0.22s var(--ease-detent), border-color 0.22s var(--ease-detent);
+      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 2px 4px rgba(0, 0, 0, 0.45);
+      transition: transform 0.20s var(--ease-detent), background-color 0.20s var(--ease-detent), color 0.20s var(--ease-detent), border-color 0.20s var(--ease-detent);
       cursor: pointer;
     }
     .hw-btn:hover {
-      border-color: var(--ink-primary);
+      border-color: var(--accent-pass);
+      color: #ffffff;
     }
     .hw-btn:active {
       transform: translateY(1px) scale(0.99);
     }
     .hw-btn[aria-pressed="true"], .hw-btn.is-active {
-      background-color: var(--ink-primary);
-      color: #07090e;
-      border-color: var(--ink-primary);
+      background-color: var(--accent-pass);
+      color: #05080d;
+      border-color: var(--accent-pass);
       font-weight: 600;
-      box-shadow: none;
+      box-shadow: 0 0 18px -5px oklch(0.805 0.132 194 / 0.55);
     }
     .hw-btn.is-signal[aria-pressed="true"], .hw-btn.is-signal-active {
       background-color: var(--accent-signal);
-      color: #ffffff;
+      color: #07090e;
       border-color: var(--accent-signal);
-      box-shadow: none;
+      font-weight: 600;
+      box-shadow: 0 0 20px -4px oklch(0.648 0.224 28.5 / 0.65);
     }
 
-    /* Keycap Badge for Shortcut Index */
+    /* Keycap Badge */
     .hw-keycap {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       min-width: 1.65rem;
-      height: 1.5rem;
+      height: 1.45rem;
       padding: 0 0.38rem;
       font-family: var(--font-mono);
       font-size: 0.68rem;
       font-weight: 600;
-      background-color: var(--surface-elevated);
+      background-color: #07090e;
       border: 1px solid var(--hairline-strong);
-      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 2px 0 rgba(0, 0, 0, 0.5);
-      color: var(--ink-primary);
+      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 2px 0 rgba(0, 0, 0, 0.65);
+      color: var(--accent-pass);
+    }
+
+    /* Custom Range Sliders for Theorem 6.3 Physics Calculator */
+    input[type="range"].hw-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: #06080d;
+      border: 1px solid var(--hairline-strong);
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"].hw-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 20px;
+      background: var(--accent-pass);
+      border: 1px solid #07090e;
+      box-shadow: 0 0 10px oklch(0.805 0.132 194 / 0.5);
+      cursor: pointer;
+    }
+    input[type="range"].hw-slider::-moz-range-thumb {
+      width: 14px;
+      height: 20px;
+      background: var(--accent-pass);
+      border: 1px solid #07090e;
+      border-radius: 0;
+      cursor: pointer;
     }
 
     /* Kinetic Typography Reveal Masks */
@@ -222,7 +254,7 @@
       left: 0;
       width: 2.75rem;
       border-right: 1px solid var(--hairline);
-      background-color: oklch(0.138 0.014 264 / 0.88);
+      background-color: rgba(7, 9, 14, 0.86);
       z-index: 35;
       pointer-events: none;
     }
@@ -248,36 +280,64 @@
       left: 0;
       top: 0;
       will-change: transform, opacity;
-      background-color: oklch(0.165 0.016 264 / 0.94);
+      background-color: rgba(11, 15, 24, 0.94);
       border: 1px solid var(--hairline-strong);
-      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 8px 20px -10px rgba(0, 0, 0, 0.7);
-      padding: 0.35rem 0.55rem;
+      box-shadow: inset 0 1px 0 var(--bezel-specular), 0 10px 24px -10px rgba(0, 0, 0, 0.85);
+      padding: 0.38rem 0.6rem;
       pointer-events: none;
     }
 
-    /* Subtle Anodized Grain Overlay */
+    /* Subtle Dark Sensor Grain Overlay */
     .grain-overlay {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 45;
-      opacity: 0.022;
+      opacity: 0.032;
+      mix-blend-mode: screen;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    /* Signal Indicator Dot */
+    /* Status Dots */
     .signal-dot {
       width: 7px;
       height: 7px;
       border-radius: 9999px;
       background-color: var(--accent-signal);
+      box-shadow: 0 0 8px var(--accent-signal);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .pass-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 9999px;
+      background-color: var(--accent-pass);
+      box-shadow: 0 0 8px var(--accent-pass);
       display: inline-block;
       flex-shrink: 0;
     }
 
+    /* Live Wire Slot Cards */
+    .wire-slot-card {
+      transition: border-color 0.22s var(--ease-detent), background-color 0.22s var(--ease-detent);
+    }
+    .wire-slot-card.is-pass {
+      border-color: oklch(0.805 0.132 194 / 0.32);
+      background: linear-gradient(180deg, rgba(16, 32, 40, 0.42) 0%, rgba(7, 9, 14, 0.92) 100%);
+    }
+    .wire-slot-card.is-quarantined {
+      border-color: oklch(0.648 0.224 28.5 / 0.68);
+      background: linear-gradient(180deg, rgba(58, 18, 14, 0.52) 0%, rgba(7, 9, 14, 0.95) 100%);
+    }
+    .wire-slot-card.is-poisoned {
+      border-color: oklch(0.648 0.224 28.5 / 0.85);
+      background: linear-gradient(180deg, rgba(82, 20, 14, 0.68) 0%, rgba(18, 8, 10, 0.96) 100%);
+    }
+
     /* Focus Ring Accessibility */
     :focus-visible {
-      outline: 2px solid var(--accent-signal);
+      outline: 2px solid var(--accent-pass);
       outline-offset: 2px;
     }
 
@@ -301,26 +361,26 @@
 </head>
 
 <body>
-  <!-- Procedural Texture -->
+  <!-- Procedural Sensor Texture -->
   <div class="grain-overlay" aria-hidden="true"></div>
 
-  <!-- Fixed WebGL Viewport Aperture -->
-  <div id="webgl-stage" class="fixed inset-0 z-10 pointer-events-auto" aria-label="Interactive 3D AG(2,8) Sub-Flit Capability Sanitizer Matrix"></div>
+  <!-- Fixed WebGL Viewport Aperture (#07090e Locked) -->
+  <div id="webgl-stage" class="fixed inset-0 z-10 pointer-events-auto" aria-label="Interactive 3D AG(2,8) Sub-Flit Capability Sanitizer Matrix and 4-Slot Physical Memory Wire"></div>
 
-  <!-- Live 3D-Projected Orthographic SVG Leader Overlay (Active in Beat 1 Exploded Cross-Section) -->
-  <div id="hud-leader-layer" class="fixed inset-0 z-25 pointer-events-none opacity-0" style="z-index: 22;" aria-hidden="true">
+  <!-- Live 3D-Projected Orthographic SVG Leader Overlay (Active in Section 01 Exploded Cross-Section) -->
+  <div id="hud-leader-layer" class="fixed inset-0 pointer-events-none opacity-0" style="z-index: 22;" aria-hidden="true">
     <svg id="hud-leaders" class="w-full h-full overflow-visible">
       <!-- Top Rail O6 Leader -->
-      <polyline id="leader-poly-2" fill="none" stroke="oklch(0.635 0.218 28.5)" stroke-width="1.2" points="0,0 0,0 0,0" />
-      <circle id="leader-dot-2" r="3" fill="oklch(0.635 0.218 28.5)" cx="0" cy="0" />
+      <polyline id="leader-poly-2" fill="none" stroke="#ff4d29" stroke-width="1.2" points="0,0 0,0 0,0" />
+      <circle id="leader-dot-2" r="3" fill="#ff4d29" cx="0" cy="0" />
 
       <!-- Mid Rail O5 Leader -->
-      <polyline id="leader-poly-1" fill="none" stroke="oklch(0.942 0.008 84 / 0.78)" stroke-width="1.05" points="0,0 0,0 0,0" />
-      <circle id="leader-dot-1" r="2.75" fill="oklch(0.942 0.008 84)" cx="0" cy="0" />
+      <polyline id="leader-poly-1" fill="none" stroke="#38dce2" stroke-width="1.1" points="0,0 0,0 0,0" />
+      <circle id="leader-dot-1" r="2.8" fill="#38dce2" cx="0" cy="0" />
 
       <!-- Sub Rail Shadow Bank 0x60 Leader -->
-      <polyline id="leader-poly-0" fill="none" stroke="oklch(0.685 0.016 264 / 0.82)" stroke-width="1.05" stroke-dasharray="3 2" points="0,0 0,0 0,0" />
-      <circle id="leader-dot-0" r="2.75" fill="oklch(0.138 0.014 264)" stroke="oklch(0.942 0.008 84)" stroke-width="1.2" cx="0" cy="0" />
+      <polyline id="leader-poly-0" fill="none" stroke="#8e96a8" stroke-width="1" stroke-dasharray="3 2" points="0,0 0,0 0,0" />
+      <circle id="leader-dot-0" r="2.8" fill="#07090e" stroke="#eceff5" stroke-width="1.2" cx="0" cy="0" />
     </svg>
 
     <!-- Floating Silkscreen Telemetry Callout Tags Projected from 3D Rail Anchors -->
@@ -335,8 +395,8 @@
     </div>
 
     <div id="leader-badge-1" class="hud-leader-badge font-mono-tech text-[10px]">
-      <div class="flex items-center gap-1.5 font-semibold text-[color:var(--ink-primary)]">
-        <span class="inline-block w-2 h-2 bg-[color:var(--ink-primary)]"></span>
+      <div class="flex items-center gap-1.5 font-semibold text-[color:var(--accent-pass)]">
+        <span class="pass-dot"></span>
         <span>O5 MID RAIL // LUT6_2 (8'h80)</span>
       </div>
       <div class="text-[color:var(--ink-muted)] mt-0.5">
@@ -375,35 +435,36 @@
       <span class="w-1.5 h-px bg-[color:var(--hairline-strong)]"></span>
       <span class="w-2.5 h-px bg-[color:var(--ink-muted)]"></span>
       <!-- Vernier Scroll Playhead -->
-      <div id="vernier-needle" class="absolute right-0 top-0 w-3.5 h-[2px] bg-[color:var(--accent-signal)]" style="transform: translateY(0px);"></div>
+      <div id="vernier-needle" class="absolute right-0 top-0 w-3.5 h-[2px] bg-[color:var(--accent-pass)]" style="transform: translateY(0px);"></div>
     </div>
-    <div id="vernier-readout" class="font-mono-tech text-[10px] -rotate-90 whitespace-nowrap text-[color:var(--ink-primary)] mb-6">
+    <div id="vernier-readout" class="font-mono-tech text-[10px] -rotate-90 whitespace-nowrap text-[color:var(--accent-pass)] mb-6">
       0.124ns
     </div>
   </aside>
 
-  <!-- Fixed Top Silkscreen Specification Bar (Zero AFGI Clutter in Header) -->
-  <header class="fixed top-0 left-0 right-0 z-40 border-b border-[color:var(--hairline)] bg-[color:var(--surface-base)]/92 backdrop-blur-md">
+  <!-- Fixed Top Silkscreen Specification Bar -->
+  <header class="fixed top-0 left-0 right-0 z-40 border-b border-[color:var(--hairline)] bg-[#07090e]/90 backdrop-blur-md">
     <div class="flex items-center justify-between h-12 px-4 lg:pl-14 lg:pr-8">
       <div class="flex items-center gap-4">
         <a href="#hero" class="font-mono-tech font-semibold tracking-wider text-[color:var(--ink-primary)] flex items-center gap-2">
-          <span class="inline-block w-2 h-2 bg-[color:var(--ink-primary)]"></span>
-          <span>SPECTRAL SYSTEMS // FLIT-FILTER <span class="text-[color:var(--ink-muted)]">v1.0.0 / v1.1.0</span></span>
+          <span class="pass-dot"></span>
+          <span>SPECTRAL FLIT-FILTER</span>
         </a>
         <span class="hidden md:inline-block h-3.5 w-px bg-[color:var(--hairline-strong)]"></span>
-        <div class="hidden md:flex items-center gap-4 font-mono-tech text-[color:var(--ink-muted)]">
-          <a href="#beat-one" class="hover:text-[color:var(--ink-primary)] transition-colors">01. LUT6_2 SIEVE</a>
-          <a href="#beat-two" class="hover:text-[color:var(--ink-primary)] transition-colors">02. SILICON &amp; TCO</a>
-          <a href="#monograph-footer" class="hover:text-[color:var(--ink-primary)] transition-colors">03. COLOPHON</a>
+        <div class="hidden lg:flex items-center gap-4 font-mono-tech text-[color:var(--ink-muted)]">
+          <a href="#beat-one" class="hover:text-[color:var(--accent-pass)] transition-colors">01. LUT6_2 SIEVE</a>
+          <a href="#beat-two" class="hover:text-[color:var(--accent-pass)] transition-colors">02. SILICON PROVENANCE</a>
+          <a href="#beat-three" class="hover:text-[color:var(--accent-pass)] transition-colors">03. THERMODYNAMIC &amp; MW PROOF</a>
+          <a href="#monograph-footer" class="hover:text-[color:var(--accent-pass)] transition-colors">04. COLOPHON</a>
         </div>
       </div>
 
       <nav class="flex items-center gap-2 sm:gap-3" aria-label="Instrument Controls and Dossier">
         <div class="hidden xl:flex items-center gap-2 px-2.5 py-1 border border-[color:var(--hairline)] bg-[color:var(--surface-elevated)] font-mono-tech text-[color:var(--ink-muted)]">
-          <span>SILICON:</span>
-          <span id="fps-telemetry" class="text-[color:var(--ink-primary)] font-medium">60 FPS</span>
+          <span>CLOCK:</span>
+          <span id="fps-telemetry" class="text-[color:var(--accent-pass)] font-medium">60 FPS</span>
           <span>&middot;</span>
-          <span id="phase-telemetry" class="text-[color:var(--ink-primary)]">250 MHz</span>
+          <span id="phase-telemetry" class="text-[color:var(--ink-primary)]">250 MHz (4.0ns)</span>
         </div>
 
         <button id="btn-motion-toggle" type="button" class="hw-btn px-2.5 py-1.5 text-[11px]" aria-pressed="false" title="Toggle Reduced Motion">
@@ -420,52 +481,62 @@
   <!-- Floating Multi-Plane 3D Pin Inspection Tooltip -->
   <div id="pin-inspector" class="fixed z-30 pointer-events-none opacity-0 hw-plate px-3 py-2 font-mono-tech text-[11px]" style="transition: opacity 0.16s var(--ease-detent); left: 0; top: 0;" aria-hidden="true">
     <div class="flex items-center justify-between gap-4 border-b border-[color:var(--hairline)] pb-1 mb-1">
-      <span id="tip-rail" class="font-semibold text-[color:var(--ink-primary)]">RAIL O5 (8'h80 // &Pi;_P)</span>
-      <span id="tip-slot" class="text-[color:var(--ink-muted)]">SLOT s0</span>
+      <span id="tip-rail" class="font-semibold text-[color:var(--accent-pass)]">RAIL O5 (8'h80 // &Pi;_P)</span>
+      <span id="tip-slot" class="text-[color:var(--ink-primary)]">SLOT s0 [127:0]</span>
     </div>
     <div class="flex items-center justify-between gap-3 text-[10px] mb-0.5">
       <span id="tip-coord" class="font-medium text-[color:var(--ink-primary)]">AG(2,8) [x=0, y=0]</span>
       <span id="tip-elev" class="text-[color:var(--ink-muted)]">y = 0.00</span>
     </div>
     <div id="tip-state" class="text-[color:var(--ink-muted)]">O5 PASS: 1 | O6 &Delta;_P: 0</div>
-    <div class="text-[9px] text-[color:var(--ink-muted)] mt-1 pt-0.5 border-t border-[color:var(--hairline)]">CLICK PIN TO REVOKE / ANCHOR SLOPE IN CSR 0x60</div>
+    <div class="text-[9px] text-[color:var(--accent-pass)] mt-1 pt-0.5 border-t border-[color:var(--hairline)]">CLICK PIN TO TOGGLE COHORT IN CSR 0x60 &amp; WIRE BUS</div>
   </div>
 
   <!-- MAIN SCROLL CHOREOGRAPHY -->
   <main class="relative z-20 pointer-events-none">
 
     <!-- ================================================================
-         BEAT 0: HERO — LAYER-1/2 SUB-FLIT SANITIZATION & HARDWARE CONSOLE
-         (Text Left Cols 1..11; 3D Matrix Centered at Exact NDC.x = +0.36)
+         BEAT 0: HERO — PLAIN-ENGLISH FLIT DEFINITION, LIVE 512b WIRE BUS
+         BRIDGE & TACTILE HARDWARE INSTRUMENT CONSOLE
          ================================================================ -->
-    <section id="hero" class="min-h-screen pt-20 pb-8 flex flex-col justify-between relative">
-      <div class="swiss-grid items-start pt-2 lg:pt-6">
-        <div class="col-span-6 lg:col-span-11 pointer-events-auto">
-          <div class="inline-flex items-center gap-2.5 px-2.5 py-1 hw-bezel mb-5 font-mono-tech text-[color:var(--ink-muted)]">
-            <span class="signal-dot" id="hero-status-dot"></span>
-            <span id="hero-status-tag">MONOGRAPH PART I &amp; II &middot; CXL 3.0–4.0 / UCIe 1.1–3.0</span>
+    <section id="hero" class="min-h-screen pt-16 pb-6 flex flex-col justify-between relative">
+      <div class="swiss-grid items-start pt-2 lg:pt-4">
+        <div class="col-span-6 lg:col-span-12 pointer-events-auto">
+          <div class="inline-flex items-center gap-2.5 px-2.5 py-1 hw-bezel mb-4 font-mono-tech text-[color:var(--ink-muted)]">
+            <span class="pass-dot" id="hero-status-dot"></span>
+            <span id="hero-status-tag">SPECTRAL SYSTEMS LLC &middot; CXL 3.0–4.0 &amp; UCIe 1.1–3.0 INTERPOSER</span>
           </div>
 
-          <h1 class="hero-title text-[color:var(--ink-primary)] mb-5">
-            <span class="reveal-mask"><span class="reveal-line">Surgical</span></span>
-            <span class="reveal-mask"><span class="reveal-line"><em class="italic font-normal">zero-BRAM</em> memory</span></span>
-            <span class="reveal-mask"><span class="reveal-line">isolation at wire speed.</span></span>
+          <h1 class="hero-title text-[color:var(--ink-primary)] mb-4">
+            <span class="reveal-mask"><span class="reveal-line">SPECTRAL FLIT-FILTER</span></span>
+            <span class="reveal-mask"><span class="reveal-line text-[0.58em] text-[color:var(--ink-muted)]"><em class="italic font-normal text-[color:var(--ink-primary)]">Zero-BRAM</em> sub-flit memory isolation in 0.124 ns.</span></span>
           </h1>
 
-          <div class="hw-plate p-4 lg:bg-transparent lg:backdrop-blur-none lg:border-0 lg:shadow-none lg:p-0 mb-6">
-            <p class="prose-monograph text-[color:var(--ink-muted)]">
-              Stateful firewalls carve out <strong class="text-[color:var(--ink-primary)] font-medium">250 GB/rack</strong> of pooled HBM and stall <strong class="text-[color:var(--ink-primary)] font-medium">32–68 ns</strong> on cache misses, while stateless tail-CRC poisoners destroy three innocent co-packed slots per 512-bit flit. <strong class="text-[color:var(--ink-primary)] font-medium">Spectral Flit-Filter</strong> lifts capability checks into finite-field <span class="font-mono-tech text-[color:var(--ink-primary)]">AG(2,8)</span> &amp; <span class="font-mono-tech text-[color:var(--ink-primary)]">GF(2<sup>8</sup>)[Z]</span> algebra across a single <strong class="text-[color:var(--ink-primary)] font-medium">0.124 ns LUT6_2</strong> level.
-            </p>
-            <p class="subtext-boundary">
-              <strong class="text-[color:var(--ink-primary)]">Boundary &amp; Trade-Secret Notice:</strong> Wire-carried capabilities (<span class="font-mono-tech">B_rest = 0</span>) and <span class="font-mono-tech">O(1)</span> timing-wheel expiry (<span class="font-mono-tech">CSR 0x68, &Delta;d_rev = 0</span>) bound active controller state to <span class="font-mono-tech">64 bits</span> across <span class="font-mono-tech">&Delta;T_shootdown &le; 548.0 ns</span> (<span class="font-mono-tech">1.095 &times; 10<sup>7</sup> rev/s</span>; Prop. 2.1). Cleartext Zone-1 <span class="font-mono-tech">.sv/.edf</span> netlists and unpublished USPTO serials (<span class="font-mono-tech">PPA-1..19</span>) remain air-gapped trade secrets under DFARS 252.227-7018, verified across the air-gap via <span class="font-mono-tech">ZK_LEC_MITER_RECEIPT.json</span> (<span class="font-mono-tech">UNSAT</span>).
+          <!-- Plain-English Hardware Definition Bar: What is a FLIT? -->
+          <div class="hw-plate p-3.5 sm:p-4 mb-4 border-l-2 border-l-[color:var(--accent-pass)] max-w-2xl">
+            <div class="font-mono-tech text-[10px] text-[color:var(--accent-pass)] mb-1 flex items-center justify-between">
+              <span>HARDWARE DEFINITION // FLIT = FLOW CONTROL DIGIT (DALLY &amp; SEITZ, 1986)</span>
+              <span class="hidden sm:inline text-[color:var(--ink-muted)]">64 BYTES / 4.0 ns</span>
+            </div>
+            <p class="text-[0.92rem] leading-relaxed text-[color:var(--ink-primary)]">
+              In computer architecture, a <strong>flit</strong> (<strong>FL</strong>ow control dig<strong>IT</strong> — a standard term coined by Dally &amp; Seitz in 1986 and used by the PCIe 6.0 and CXL 3.0–4.0 specifications) is a single <strong>512-bit (64-byte) clock phase</strong> on the physical memory wire. Every <strong>4.0 nanoseconds</strong>, a CXL memory bus packs <strong>four separate 128-bit memory requests (<span class="font-mono-tech text-[color:var(--accent-pass)]">Slot s0, Slot s1, Slot s2, Slot s3</span>)</strong> side-by-side inside one 512-bit flit.
             </p>
           </div>
+
+          <p class="prose-monograph text-[color:var(--ink-primary)]/90 mb-3 hw-plate p-3.5 lg:bg-transparent lg:backdrop-blur-none lg:border-0 lg:shadow-none lg:p-0">
+            Stateful permission-table firewalls carve out <strong>250 GB/rack</strong> of pooled DRAM and stall <strong>32–68 ns</strong> on cache misses, while stateless firewalls that poison the tail Flit CRC to stop one bad slot blow up all three innocent neighbor slots. <strong>Spectral Flit-Filter</strong> maps <span class="font-mono-tech text-[color:var(--accent-pass)]">AG(2,8)</span> &amp; <span class="font-mono-tech text-[color:var(--accent-pass)]">GF(2<sup>8</sup>)[Z]</span> capability algebra onto a single <strong>0.124 ns LUT6_2</strong> logic level—replacing only the offending 128-bit slot with <span class="font-mono-tech text-[color:var(--accent-signal)]">CXL_NOP</span> at <strong>99.20% goodput</strong>.
+          </p>
+
+          <!-- Unlabeled Smaller Architectural Boundary & Zone-1/Zone-2 Subtext -->
+          <p class="arch-subtext mb-4">
+            Resting capabilities travel cryptographically self-authenticated on the wire (B_rest = 0) while CSR 0x68 reclaims scheduled TTL leases in O(1) ticks (&Delta;d_rev = 0), bounding CSR 0x60 active state to 64 bits (d_rev &le; 8 across &Delta;T_shootdown &le; 548.0 ns at up to 1.095 &times; 10<sup>7</sup> rev/s per port vs. unbounded single-page scatter-gather churn). Synthesizable .sv/.edf netlists and unpublished provisional serials remain air-gapped in Zone 1 as trade secrets while ZK_LEC_MITER_RECEIPT.json (UNSAT) proves gate equivalence in Zone 2.
+          </p>
 
           <!-- Key Silicon Sign-Off Metrics Strip -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-w-2xl hw-plate p-3">
             <div class="border-r border-[color:var(--hairline)] pr-2">
               <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">GOODPUT (q=0.8%)</div>
-              <div id="metric-goodput" class="font-serif-display text-3xl lg:text-4xl text-[color:var(--ink-primary)] mt-0.5">99.20%</div>
+              <div id="metric-goodput" class="font-serif-display text-3xl lg:text-4xl text-[color:var(--accent-pass)] mt-0.5">99.20%</div>
               <div id="metric-goodput-sub" class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">N_replay &equiv; 0 NAKs</div>
             </div>
             <div class="sm:border-r border-[color:var(--hairline)] sm:pr-2">
@@ -473,12 +544,12 @@
               <div class="font-serif-display text-3xl lg:text-4xl text-[color:var(--ink-primary)] mt-0.5">0.124<span class="text-xl">ns</span></div>
               <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">8.0 ns P99.99 Wall</div>
             </div>
-            <div class="border-r border-[color:var(--hairline)] pr-2 pt-2 sm:pt-0 border-t sm:border-t-0">
+            <div class="border-r border-[color:var(--hairline)] pr-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-[color:var(--hairline)]">
               <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">7nm ASAP7 ENCLAVE</div>
               <div class="font-serif-display text-3xl lg:text-4xl text-[color:var(--ink-primary)] mt-0.5">3.73<span class="text-xl">mW</span></div>
               <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">693 MHz &middot; 0 SRAM</div>
             </div>
-            <div class="pt-2 sm:pt-0 border-t sm:border-t-0">
+            <div class="pt-2 sm:pt-0 border-t sm:border-t-0 border-[color:var(--hairline)]">
               <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">10K-RACK RECLAIM</div>
               <div class="font-serif-display text-3xl lg:text-4xl text-[color:var(--ink-primary)] mt-0.5">$38.4<span class="text-xl">M</span></div>
               <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">2,560 TiB &middot; 39.4 MW</div>
@@ -487,13 +558,94 @@
         </div>
       </div>
 
-      <!-- Mobile Aperture Spacer -->
-      <div class="h-[34vh] lg:h-[10vh] pointer-events-none"></div>
+      <!-- Mobile Aperture Spacer so 3D 8x8 Sieve & 4-Slot Wire Traces are directly tappable -->
+      <div class="h-[30vh] lg:h-[4vh] pointer-events-none"></div>
 
-      <!-- DOCKED TACTILE HARDWARE INSTRUMENT CONSOLE -->
-      <div class="swiss-grid items-end">
-        <div class="col-span-6 lg:col-span-24 pointer-events-auto hw-bezel p-3 sm:p-4">
-          <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+      <!-- ==============================================================
+           CLOSED-LOOP WIRE -> 3D LUT6_2 SIEVE -> 16 GB HBM2 VISUALIZER
+           + TACTILE HARDWARE INSTRUMENT CONSOLE
+           ============================================================== -->
+      <div class="swiss-grid items-end space-y-2">
+
+        <!-- Live 512-Bit Physical Memory Wire Bus Visualizer (s0 | s1 | s2 | s3) -->
+        <div class="col-span-6 lg:col-span-24 pointer-events-auto hw-plate p-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2 mb-2.5 border-b border-[color:var(--hairline)] font-mono-tech text-[10px]">
+            <div class="flex items-center gap-2">
+              <span class="pass-dot" id="wire-bus-dot"></span>
+              <span class="font-semibold text-[color:var(--ink-primary)]">LIVE 512-BIT CXL PHYSICAL WIRE BUS [511:0]</span>
+              <span class="hidden md:inline text-[color:var(--ink-muted)]">INGRESS (t=0.000ns) &rarr; 3D AG(2,8) LUT6_2 SIEVE (0.124ns) &rarr; 16 GB HBM2 (PF0-BAR4)</span>
+            </div>
+            <div id="hbm-sentinel-badge" class="text-[color:var(--accent-pass)] font-semibold">
+              HBM2 VICTIM SENTINEL 0xAAAAAAAAAAAAAAAA: 100% INTACT
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 font-mono-tech text-[10px]" id="wire-slots-grid">
+            <!-- Slot s0: Cols 0..1 -->
+            <div id="wire-card-0" class="wire-slot-card is-pass p-2.5 border">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-semibold text-[color:var(--ink-primary)]">SLOT s0 [127:0] &middot; 3D Cols 0–1</span>
+                <span id="slot0-pill" class="px-1.5 py-0.5 bg-[#102a30] text-[color:var(--accent-pass)]">O5 PASS</span>
+              </div>
+              <div class="text-[color:var(--ink-muted)] flex justify-between">
+                <span>INGRESS: Tenant A M2S_RwD</span>
+                <span id="slot0-ag">AG(0,3)</span>
+              </div>
+              <div id="slot0-egress" class="text-[color:var(--accent-pass)] mt-1 pt-1 border-t border-[color:var(--hairline)] truncate">
+                WSTRB_0=16'hFFFF &rarr; 0x5555..5555
+              </div>
+            </div>
+
+            <!-- Slot s1: Cols 2..3 -->
+            <div id="wire-card-1" class="wire-slot-card is-pass p-2.5 border">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-semibold text-[color:var(--ink-primary)]">SLOT s1 [255:128] &middot; 3D Cols 2–3</span>
+                <span id="slot1-pill" class="px-1.5 py-0.5 bg-[#102a30] text-[color:var(--accent-pass)]">O5 PASS</span>
+              </div>
+              <div class="text-[color:var(--ink-muted)] flex justify-between">
+                <span>INGRESS: Tenant B M2S_RwD</span>
+                <span id="slot1-ag">AG(2,1)</span>
+              </div>
+              <div id="slot1-egress" class="text-[color:var(--accent-pass)] mt-1 pt-1 border-t border-[color:var(--hairline)] truncate">
+                WSTRB_1=16'hFFFF &rarr; 0x5555..5555
+              </div>
+            </div>
+
+            <!-- Slot s2: Cols 4..5 (Rogue DMA Write) -->
+            <div id="wire-card-2" class="wire-slot-card is-quarantined p-2.5 border">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-semibold text-[color:var(--ink-primary)]">SLOT s2 [383:256] &middot; 3D Cols 4–5</span>
+                <span id="slot2-pill" class="px-1.5 py-0.5 bg-[#3b1410] text-[color:var(--accent-signal)]">O6 SCRUB</span>
+              </div>
+              <div class="text-[color:var(--ink-muted)] flex justify-between">
+                <span>INGRESS: Rogue DMA Overwrite</span>
+                <span id="slot2-ag">AG(4,7)</span>
+              </div>
+              <div id="slot2-egress" class="text-[color:var(--accent-signal)] mt-1 pt-1 border-t border-[color:var(--hairline)] truncate">
+                WSTRB_2=16'h0000 &rarr; CXL_NOP (0.124ns)
+              </div>
+            </div>
+
+            <!-- Slot s3: Cols 6..7 -->
+            <div id="wire-card-3" class="wire-slot-card is-pass p-2.5 border">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-semibold text-[color:var(--ink-primary)]">SLOT s3 [511:384] &middot; 3D Cols 6–7</span>
+                <span id="slot3-pill" class="px-1.5 py-0.5 bg-[#102a30] text-[color:var(--accent-pass)]">O5 PASS</span>
+              </div>
+              <div class="text-[color:var(--ink-muted)] flex justify-between">
+                <span>INGRESS: Tenant C M2S_RwD</span>
+                <span id="slot3-ag">AG(6,5)</span>
+              </div>
+              <div id="slot3-egress" class="text-[color:var(--accent-pass)] mt-1 pt-1 border-t border-[color:var(--hairline)] truncate">
+                WSTRB_3=16'hFFFF &rarr; 0x5555..5555
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Docked Tactile Hardware Instrument Console -->
+        <div class="col-span-6 lg:col-span-24 pointer-events-auto hw-bezel p-3 sm:p-3.5">
+          <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-3.5">
 
             <!-- Control Group 1: Surgical Per-Slot NOP vs. Legacy Tail-CRC Poisoning -->
             <div class="flex flex-col gap-1.5">
@@ -501,10 +653,10 @@
                 <span>01 // VIOLATION ENFORCEMENT (ROGUE DMA ON SLOT s2)</span>
               </div>
               <div class="flex flex-wrap gap-2" role="group" aria-label="Violation Enforcement Architecture">
-                <button id="mode-spectral" type="button" class="hw-btn px-3 py-2 min-h-[40px]" aria-pressed="true">
+                <button id="mode-spectral" type="button" class="hw-btn px-3 py-2 min-h-[38px]" aria-pressed="true">
                   SPECTRAL PER-SLOT CXL_NOP (99.20%)
                 </button>
-                <button id="mode-legacy" type="button" class="hw-btn is-signal px-3 py-2 min-h-[40px]" aria-pressed="false">
+                <button id="mode-legacy" type="button" class="hw-btn is-signal px-3 py-2 min-h-[38px]" aria-pressed="false">
                   LEGACY TAIL-CRC POISON (48.90% NAK STORM)
                 </button>
               </div>
@@ -514,17 +666,17 @@
             <div class="flex flex-col gap-1.5">
               <div class="flex items-center justify-between gap-3 font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
                 <span>02 // AG(2,8) STEINER SLOPE b &isin; GF(8) [z&sup3;+z+1]</span>
-                <span id="slope-formula" class="text-[color:var(--ink-primary)] font-medium">y_r = 3 &oplus; (1 &odot; x_r) | 72 LINES</span>
+                <span id="slope-formula" class="text-[color:var(--accent-pass)] font-medium">y_r = 3 &oplus; (1 &odot; x_r) | 72 LINES</span>
               </div>
               <div id="slope-buttons" class="flex flex-wrap gap-1.5" role="group" aria-label="Select AG(2,8) Affine Slope">
-                <button type="button" data-slope="0" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">b=0</button>
-                <button type="button" data-slope="1" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="true">b=1</button>
-                <button type="button" data-slope="2" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">b=z</button>
-                <button type="button" data-slope="3" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">z+1</button>
-                <button type="button" data-slope="4" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">z&sup2;</button>
-                <button type="button" data-slope="5" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">z&sup2;+1</button>
-                <button type="button" data-slope="6" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">z&sup2;+z</button>
-                <button type="button" data-slope="7" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[38px]" aria-pressed="false">z&sup2;+z+1</button>
+                <button type="button" data-slope="0" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[36px]" aria-pressed="false">b=0</button>
+                <button type="button" data-slope="1" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[36px]" aria-pressed="true">b=1</button>
+                <button type="button" data-slope="2" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[36px]" aria-pressed="false">b=z</button>
+                <button type="button" data-slope="3" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[36px]" aria-pressed="false">z+1</button>
+                <button type="button" data-slope="4" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[36px]" aria-pressed="false">z&sup2;</button>
+                <button type="button" data-slope="5" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[36px]" aria-pressed="false">z&sup2;+1</button>
+                <button type="button" data-slope="6" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[36px]" aria-pressed="false">z&sup2;+z</button>
+                <button type="button" data-slope="7" class="hw-btn px-2.5 py-1.5 min-w-[38px] min-h-[36px]" aria-pressed="false">z&sup2;+z+1</button>
               </div>
             </div>
 
@@ -532,16 +684,16 @@
             <div class="flex flex-col gap-1.5 xl:min-w-[330px]">
               <div class="flex items-center justify-between font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
                 <span>03 // BAR0 CSR 0x60 [GF(2&sup8;) VIETA-B&Eacute;ZOUT]</span>
-                <span id="vieta-deg-readout" class="text-[color:var(--ink-primary)] font-semibold">d_rev = 2 / 8</span>
+                <span id="vieta-deg-readout" class="text-[color:var(--accent-pass)] font-semibold">d_rev = 2 / 8</span>
               </div>
               <div class="flex items-center gap-2">
-                <div id="csr-hex-readout" class="flex-1 px-2.5 py-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline-strong)] font-mono-tech text-[11px] text-[color:var(--ink-primary)] truncate" aria-live="polite">
+                <div id="csr-hex-readout" class="flex-1 px-2.5 py-2 hw-trench font-mono-tech text-[11px] text-[color:var(--ink-primary)] truncate" aria-live="polite">
                   0x0715_0000_0000_0000
                 </div>
-                <button id="btn-revoke-root" type="button" class="hw-btn px-2.5 py-2 min-h-[38px]" title="Multiply Vieta Annihilator by (Z + alpha) [Key: R]">
+                <button id="btn-revoke-root" type="button" class="hw-btn px-2.5 py-2 min-h-[36px]" title="Multiply Vieta Annihilator by (Z + alpha) [Key: R]">
                   +REVOKE
                 </button>
-                <button id="btn-bezout-deflate" type="button" class="hw-btn px-2.5 py-2 min-h-[38px]" title="8-Step Shadow-Bank Bezout-Horner Division [Key: B]">
+                <button id="btn-bezout-deflate" type="button" class="hw-btn px-2.5 py-2 min-h-[36px]" title="8-Step Shadow-Bank Bezout-Horner Division [Key: B]">
                   &minus;B&Eacute;ZOUT
                 </button>
               </div>
@@ -549,11 +701,12 @@
 
           </div>
         </div>
+
       </div>
     </section>
 
     <!-- ================================================================
-         BEAT 1: EXPLODED LUT6_2 DUAL-RAIL PROJECTION & SHADOW BEZOUT
+         BEAT 1 (SECTION 01): EXPLODED LUT6_2 DUAL-RAIL PROJECTION & SHADOW BEZOUT
          (3D Stack Centered at Exact NDC.x = -0.38 with Live SVG Leaders;
           Monograph Proof Card Locked to Right Cols 15..24)
          ================================================================ -->
@@ -566,45 +719,42 @@
         <div class="col-span-6 lg:col-start-15 lg:col-span-10 pointer-events-auto">
           <article class="hw-plate p-6 sm:p-8 lg:p-10">
             <div class="flex items-center justify-between border-b border-[color:var(--hairline)] pb-3 mb-6 font-mono-tech text-[color:var(--ink-muted)]">
-              <span>SECTION 01 // SUB-FLIT SIEVE &amp; B&Eacute;ZOUT LIFECYCLE</span>
-              <span>LEAN 4: thm01, thm05, thm27, thm35, thm37</span>
+              <span>SECTION 01 // INVARIANTS I–III</span>
+              <span class="text-[color:var(--accent-pass)]">LEAN 4: thm01, thm05, thm27, thm35, thm37</span>
             </div>
 
-            <h2 class="beat-h1 text-[color:var(--ink-primary)] mb-5">
-              One 6-input lookup table splits <em class="italic font-normal">authority</em> from <em class="italic font-normal">excess</em>.
+            <h2 class="beat-h1 text-[color:var(--ink-primary)] mb-4">
+              One 6-input lookup table splits <em class="italic font-normal text-[color:var(--accent-pass)]">authority</em> from <em class="italic font-normal text-[color:var(--accent-signal)]">excess</em>.
             </h2>
 
-            <p class="prose-monograph text-[color:var(--ink-muted)] mb-5">
-              Conventional firewalls rely on arithmetic range comparators (<span class="font-mono-tech text-[color:var(--ink-primary)]">A_min &le; HPA &le; A_max</span>) with deep carry chains. By lifting capabilities into the Boolean ring <span class="font-mono-tech text-[color:var(--ink-primary)]">(F_2^64, &oplus;, &and;)</span>, every 64-bit capability vector <span class="font-mono-tech text-[color:var(--ink-primary)]">r_i</span> decomposes orthogonally onto the dual outputs of a single pin-locked <span class="font-mono-tech text-[color:var(--ink-primary)]">LUT6_2</span> primitive (<span class="font-mono-tech text-[color:var(--ink-primary)]">64'h2A2A2A2A_80808080</span>):
+            <p class="prose-monograph text-[color:var(--ink-primary)]/90 mb-3">
+              Conventional memory firewalls check permissions with arithmetic range comparators (<span class="font-mono-tech text-[color:var(--accent-pass)]">A_min &le; HPA &le; A_max</span>) requiring deep carry-propagation chains. Lifting capabilities into the Boolean ring <span class="font-mono-tech text-[color:var(--accent-pass)]">(F_2^64, &oplus;, &and;)</span> decomposes every incoming 64-bit capability vector <span class="font-mono-tech text-[color:var(--ink-primary)]">r_i</span> onto the dual outputs of a single pin-locked <span class="font-mono-tech text-[color:var(--accent-pass)]">LUT6_2</span> primitive (<span class="font-mono-tech text-[color:var(--ink-primary)]">64'h2A2A2A2A_80808080</span>):
+            </p>
+
+            <!-- Unlabeled Smaller Architectural Boundary Subtext -->
+            <p class="arch-subtext mb-5">
+              Active-bank SVA 1' monotonicity holds strictly while completed cache shootdowns (&Delta;T_shootdown &le; 548.0 ns) reclaim individual roots in 8 Horner cycles on the inactive shadow bank (q_8 = &Lambda;<sup>(t)</sup>(&alpha;_j) = 0). Stage-2 mantissa clamping paired with non-subtractive dither (&sigma;<sup>2</sup>_avg = &Delta;_u<sup>2</sup> / (6 Q_eff), twice subtractive dither) enforces rectangular BBP LoRA SVD thresholds (Q*_BBP &isin; [21,845, 43,691]) under epoch-static spatial dither or SPID-qualified CSR 0x38 lockout (Q_max = 10,000) on uniform grid priors.
             </p>
 
             <!-- Formal Equation Callout Box -->
-            <div class="hw-bezel p-4 mb-6 font-mono-tech text-[color:var(--ink-primary)] space-y-1.5">
+            <div class="hw-trench p-4 mb-6 font-mono-tech text-[color:var(--ink-primary)] space-y-1.5">
               <div class="flex justify-between text-[10px] text-[color:var(--ink-muted)]">
                 <span>DIRECT-SUM INTERIOR PROJECTION (0.124 ns)</span>
-                <span>UG574 BI-SIMULATED</span>
+                <span class="text-[color:var(--accent-pass)]">UG574 SRAM BI-SIMULATED</span>
               </div>
               <div class="text-xs sm:text-sm font-medium pt-1">
                 r_i = &Pi;_{P_eff}(r_i) &oplus; &Delta;_{P_eff}(r_i) = (r_i &and; P_eff) &oplus; (r_i &and; &not;P_eff)
               </div>
               <div class="text-[11px] text-[color:var(--ink-muted)] pt-1 border-t border-[color:var(--hairline)]">
-                RAIN Mode-D Dual (<span class="text-[color:var(--ink-primary)]">64'hABABABAB_FEFEFEFE</span>): Complementary OR3/OAI21 vs. AND3/AOI21 &middot; Traps 100% stuck-(0,0)/(1,1) rail faults (<span class="text-[color:var(--ink-primary)]">thm37, SVA 12</span>).
+                Mode-D De Morgan RAIN Dual (<span class="text-[color:var(--ink-primary)]">64'hABABABAB_FEFEFEFE</span>): Weight 16 + 48 = 64 &middot; Traps 100% stuck-(0,0)/(1,1) common-mode rail faults.
               </div>
             </div>
-
-            <p class="prose-monograph text-[color:var(--ink-muted)]">
-              In Part II (<span class="font-mono-tech text-[color:var(--ink-primary)]">v1.1.0</span>), completed cache shootdowns (<span class="font-mono-tech text-[color:var(--ink-primary)]">&Delta;T_shootdown &le; 548.0 ns</span>) are reclaimed without polynomial GCD hardware via an <strong class="text-[color:var(--ink-primary)] font-medium">8-step B&eacute;zout–Horner pass</strong> on the inactive shadow bank (<span class="font-mono-tech text-[color:var(--ink-primary)]">1.095 &times; 10<sup>7</sup> rev/s</span>), while Stage 2’s <strong class="text-[color:var(--ink-primary)] font-medium">+0-LUT fractured LUT6_2 clamp</strong> blocks adaptive LoRA SVD weight extraction (<span class="font-mono-tech text-[color:var(--ink-primary)]">Q*_BBP &isin; [21,845, 43,691]</span>).
-            </p>
-
-            <p class="subtext-boundary mb-6">
-              <strong class="text-[color:var(--ink-primary)]">Dither &amp; Deflation Scope:</strong> Non-subtractive rounding yields unconditional variance <span class="font-mono-tech">&Delta;_u^2 / (6Q)</span> (<span class="font-mono-tech">2&times;</span> subtractive <span class="font-mono-tech">&Delta;_u^2 / (12Q)</span>; Thm. 4.1). Temporal dither requires <span class="font-mono-tech">CSR 0x38</span> query-budget lockout (<span class="font-mono-tech">Q_max = 10,000, SVA 11</span>) or epoch-static spatial dither (<span class="font-mono-tech">Q_eff = 1/epoch</span>) so multi-epoch sample means cannot converge.
-            </p>
 
             <!-- Interactive Stage-2 Fractured LUT6_2 BF16 Mantissa Clamp Verifier -->
             <div class="border-t border-[color:var(--hairline-strong)] pt-5 mb-6">
               <div class="flex items-center justify-between mb-2.5 font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
                 <span>INTERACTIVE STAGE-2 S2M_DRS MANTISSA CLAMP (+0 CLB LUTs, thm27)</span>
-                <span id="clamp-mi-bound" class="text-[color:var(--ink-primary)] font-semibold">I(W; Y) &le; 12 bits/elem</span>
+                <span id="clamp-mi-bound" class="text-[color:var(--accent-pass)] font-semibold">I(W; Y) &le; 12 bits/elem</span>
               </div>
 
               <div class="grid grid-cols-4 gap-1.5 mb-3" role="group" aria-label="Stage 2 Precision Clamp Tier">
@@ -614,7 +764,7 @@
                 <button type="button" data-tier="3" class="hw-btn py-2 px-1 text-[10px]" aria-pressed="false">c=11 BF16</button>
               </div>
 
-              <div class="hw-bezel p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono-tech text-xs">
+              <div class="hw-trench p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono-tech text-xs">
                 <div>
                   <span class="text-[color:var(--ink-muted)]">HBM2 EXACT:</span>
                   <span class="text-[color:var(--ink-primary)]">0x3F8E_3F8E</span>
@@ -622,10 +772,10 @@
                 <span class="hidden sm:inline text-[color:var(--ink-muted)]">&rarr;</span>
                 <div>
                   <span class="text-[color:var(--ink-muted)]">EGRESS:</span>
-                  <span id="clamp-hex-out" class="font-semibold text-[color:var(--ink-primary)]">0x3F80_3F80</span>
+                  <span id="clamp-hex-out" class="font-semibold text-[color:var(--accent-pass)]">0x3F80_3F80</span>
                 </div>
                 <div id="clamp-q-bound" class="text-[10px] text-[color:var(--accent-signal)] font-medium">
-                  Q*_BBP = 21,845 READS
+                  Q_BBP = 21,845 READS
                 </div>
               </div>
             </div>
@@ -633,7 +783,7 @@
             <!-- Conversion CTA inside Beat 1 -->
             <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
               <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
-                HOVER ANY RAIL IN THE EXPLODED STACK TO INSPECT O6 / O5 / 0x60
+                HOVER ANY EXPLODED RAIL AT LEFT TO PROBE O6 / O5 / CSR 0x60
               </div>
               <button id="btn-open-dossier-2" type="button" class="hw-btn is-active px-4 py-2.5 magnetic-el" data-magnetic="6">
                 INSPECT SHA-256 RECEIPTS &rarr;
@@ -645,7 +795,7 @@
     </section>
 
     <!-- ================================================================
-         BEAT 2: 38-THEOREM COCHAIN & 10,000-RACK SILICON CONSERVATION
+         BEAT 2 (SECTION 02): 81-THEOREM COCHAIN & SILICON PROVENANCE
          (Monograph Card Left Cols 1..11; Grazing 4-Slot View at NDC.x = +0.36)
          ================================================================ -->
     <section id="beat-two" class="min-h-[130vh] py-24 lg:py-36 flex items-center relative">
@@ -654,44 +804,45 @@
         <div class="col-span-6 lg:col-span-11 pointer-events-auto">
           <article class="hw-plate p-6 sm:p-8 lg:p-10">
             <div class="flex items-center justify-between border-b border-[color:var(--hairline)] pb-3 mb-6 font-mono-tech text-[color:var(--ink-muted)]">
-              <span>SECTION 02 // CSS SPLIT-COSET &amp; CLUSTER TCO</span>
-              <span>LEAN 4: thm30, thm31, thm32, thm33, thm34, thm35</span>
+              <span>SECTION 02 // INVARIANT IV &amp; SILICON SIGN-OFF</span>
+              <span class="text-[color:var(--accent-pass)]">LEAN 4: thm30, thm31, thm32, thm33, thm34, thm35</span>
             </div>
 
-            <h2 class="beat-h1 text-[color:var(--ink-primary)] mb-5">
-              Thirty-eight zero-axiom theorems, sealed in <em class="italic font-normal">physical silicon</em>.
+            <h2 class="beat-h1 text-[color:var(--ink-primary)] mb-4">
+              Thirty-eight zero-axiom theorems, sealed in <em class="italic font-normal text-[color:var(--accent-pass)]">physical silicon</em>.
             </h2>
 
-            <p class="prose-monograph text-[color:var(--ink-muted)]">
-              Disjoint sub-flit wire extraction partitions every 512-bit CXL/UCIe flit phase into four parallel 128-bit slots (<span class="font-mono-tech text-[color:var(--ink-primary)]">s0..s3</span>) while Mode B.2 CSS split-coset Reed–Solomon parity folding (<span class="font-mono-tech text-[color:var(--ink-primary)]">H_FEC &compfn; E_fold &equiv; 0</span>, <span class="font-mono-tech text-[color:var(--ink-primary)]">thm32</span>) tunnels six cohort tags in <span class="font-mono-tech text-[color:var(--ink-primary)]">LOpt CRC48</span> and <span class="font-mono-tech text-[color:var(--ink-primary)]">Tail CRC64</span> at <strong class="text-[color:var(--ink-primary)] font-medium">0% payload tax</strong> and <strong class="text-[color:var(--ink-primary)] font-medium">8.0 ns</strong> P99.99 cut-through latency.
+            <p class="prose-monograph text-[color:var(--ink-primary)]/90 mb-3">
+              Disjoint sub-flit wire extraction partitions every 512-bit CXL/UCIe flit phase into four parallel 128-bit slots (<span class="font-mono-tech text-[color:var(--ink-primary)]">s0..s3</span>) while Mode B.2 CSS split-coset Reed–Solomon parity folding (<span class="font-mono-tech text-[color:var(--accent-pass)]">H_FEC &compfn; E_fold &equiv; 0</span>) tunnels six cohort descriptors at <strong>0% payload tax</strong> and a deterministic <strong>8.0 ns</strong> P99.99 cut-through wall.
             </p>
 
-            <p class="subtext-boundary mb-6">
-              <strong class="text-[color:var(--ink-primary)]">Formal &amp; TCO Scope:</strong> All 38 core theorems (<span class="font-mono-tech">thm00–thm37</span>) plus 25 Mode-2 Fast-Core theorems (<span class="font-mono-tech">414 LUTs @ 899.3 MHz FPGA / 624 cells @ 1.0 GHz 7nm ASIC</span>) compile in pure <span class="font-mono-tech">Init.Prelude</span> Lean 4 (<span class="font-mono-tech">0 sorry, 0 axioms</span>). In Theorem 6.3, the <span class="font-mono-tech">2,500 TB</span> (<span class="font-mono-tech">$37.5M–$38.4M</span>) DRAM reclamation holds unconditionally, while active stall power (<span class="font-mono-tech">8.01–39.44 MW</span>) scales with miss stall fraction <span class="font-mono-tech">&eta;_stall &isin; [3.30%, 19.0%]</span>.
+            <!-- Unlabeled Smaller Architectural Boundary & Air-Gap Subtext -->
+            <p class="arch-subtext mb-6">
+              Live 16nm xcvu47p Dual-AFI execution on AWS EC2 f2.6xlarge (800,000 BIST slots, 19,990-trace Welch TVLA max |t| = 0.0, and 25,000 inline 16 GB HBM2 DMA bursts) alongside placed-and-routed 7nm ASAP7 CMOS sign-off exercise the post-PHY 512-bit digital CPI/FDI interface and CXL 3.0 Home-Agent snoop directory (&Delta;T_res &le; 248–500 ns) prior to full-custom 64–128 GT/s PAM-4 analog SerDes test-chip tapeout. Synthesizable .sv/.edf netlists and unpublished provisional serials remain air-gapped in Zone 1 while ZK_LEC_MITER_RECEIPT.json attests infinite-horizon sequential equivalence in Zone 2.
             </p>
 
-            <!-- Interactive 3-Track Silicon & 10K-Rack Conservation Switcher -->
+            <!-- Interactive 3-Track Silicon Sign-Off Switcher -->
             <div class="mb-6">
               <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-2">
-                SELECT EMPIRICAL SIGN-OFF &amp; CONSERVATION PROFILE
+                SELECT MULTI-TRACK SILICON &amp; WEBHOOK SIGN-OFF RECEIPT
               </div>
-              <div class="grid grid-cols-3 gap-1.5 mb-4" role="tablist" aria-label="Silicon and TCO Telemetry Switcher">
+              <div class="grid grid-cols-3 gap-1.5 mb-4" role="tablist" aria-label="Silicon Sign-Off Telemetry Switcher">
                 <button type="button" data-silicon="fpga" class="hw-btn py-2 px-2 text-[10px]" role="tab" aria-selected="false" aria-pressed="false">
-                  16nm xcvu47p
+                  16nm AWS F2 AFI
                 </button>
                 <button type="button" data-silicon="asic" class="hw-btn py-2 px-2 text-[10px]" role="tab" aria-selected="true" aria-pressed="true">
                   7nm ASAP7 ASIC
                 </button>
-                <button type="button" data-silicon="tco" class="hw-btn py-2 px-2 text-[10px]" role="tab" aria-selected="false" aria-pressed="false">
-                  10K-RACK TCO
+                <button type="button" data-silicon="k8s" class="hw-btn py-2 px-2 text-[10px]" role="tab" aria-selected="false" aria-pressed="false">
+                  TRL-8 k3s + ZK-IC3
                 </button>
               </div>
 
               <!-- Live Telemetry Readout Matrix -->
-              <div class="hw-bezel p-4 space-y-3">
+              <div class="hw-trench p-4 space-y-3">
                 <div class="flex items-center justify-between border-b border-[color:var(--hairline)] pb-2 font-mono-tech text-[10px]">
                   <span id="sil-track-label" class="font-semibold text-[color:var(--ink-primary)]">TRACK A // OPENROAD + OPENSTA 7nm FINFET SIGN-OFF</span>
-                  <span id="sil-clock-badge" class="text-[color:var(--accent-signal)] font-semibold">693 MHz (2.77&times;)</span>
+                  <span id="sil-clock-badge" class="text-[color:var(--accent-pass)] font-semibold">693 MHz (2.77&times;)</span>
                 </div>
 
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1">
@@ -702,7 +853,7 @@
                   </div>
                   <div>
                     <div id="sil-k2-label" class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">CRITICAL PATH</div>
-                    <div id="sil-k2-val" class="font-serif-display text-3xl text-[color:var(--ink-primary)] mt-0.5">1,444<span class="text-lg">ps</span></div>
+                    <div id="sil-k2-val" class="font-serif-display text-3xl text-[color:var(--accent-pass)] mt-0.5">1,444<span class="text-lg">ps</span></div>
                     <div id="sil-k2-sub" class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">+2,556.4 ps WNS</div>
                   </div>
                   <div class="col-span-2 sm:col-span-1 border-t sm:border-t-0 pt-2 sm:pt-0 border-[color:var(--hairline)]">
@@ -721,17 +872,145 @@
             <!-- Action Row -->
             <div class="flex flex-wrap items-center justify-between gap-3">
               <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
-                DOOB TAIL WALL: <strong class="text-[color:var(--ink-primary)]">8.0 ns</strong> vs. 184.2 ns DRAM Table (23&times;)
+                DOOB TAIL WALL: <strong class="text-[color:var(--accent-pass)]">8.0 ns</strong> vs. 184.2 ns DRAM Table (23&times;)
               </div>
               <button id="btn-open-dossier-3" type="button" class="hw-btn is-active px-4 py-2.5 magnetic-el" data-magnetic="6">
-                TURNKEY COTS &amp; J&amp;A DOSSIER &rarr;
+                REQUEST ZONE-1 EVALUATION BRIEF &rarr;
               </button>
             </div>
           </article>
         </div>
 
         <!-- Right Cols 12..24 Open Grazing Profile Aperture across Parallel 128b Slots s0..s3 -->
-        <div class="col-span-6 lg:col-span-13 h-[36vh] lg:h-auto pointer-events-none"></div>
+        <div class="col-span-6 lg:col-span-13 h-[34vh] lg:h-auto pointer-events-none"></div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         BEAT 3 (SECTION 03): THERMODYNAMIC & HYDROLOGICAL DERIVATION (THEOREM 6.3)
+         + INTERACTIVE MEGAWATT CALCULATOR + THE DEADPAN LEAN 4 NOTE
+         ================================================================ -->
+    <section id="beat-three" class="min-h-[145vh] py-24 lg:py-36 flex items-center relative">
+      <div class="swiss-grid w-full items-center">
+        <!-- Left Cols 1..11 Open Lattice Aperture (Welch-Sidelnikov / Kirchhoff G_WS L = 8L View at NDC.x = -0.36) -->
+        <div class="col-span-6 lg:col-span-11 h-[32vh] lg:h-auto pointer-events-none"></div>
+
+        <!-- Right Asymmetric Derivation & Physics Calculator Column (Cols 12..24) -->
+        <div class="col-span-6 lg:col-start-12 lg:col-span-13 pointer-events-auto">
+          <article class="hw-plate p-6 sm:p-8 lg:p-10">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[color:var(--hairline)] pb-3 mb-6 font-mono-tech text-[color:var(--ink-muted)]">
+              <span>SECTION 03 // THERMODYNAMIC &amp; HYDROLOGICAL DERIVATION (THEOREM 6.3)</span>
+              <span class="text-[color:var(--accent-pass)]">G_WS L = 8L &middot; EQ. (30)–(35)</span>
+            </div>
+
+            <h2 class="beat-h1 text-[color:var(--ink-primary)] mb-4">
+              How 1,585 lookup tables conserve <em class="italic font-normal text-[color:var(--accent-pass)]">39.44 megawatts</em> and <em class="italic font-normal text-[color:var(--accent-pass)]">131.4M gallons</em>.
+            </h2>
+
+            <p class="prose-monograph text-[color:var(--ink-primary)]/90 mb-3">
+              Across a 10,000-rack disaggregated AI cluster (<span class="font-mono-tech text-[color:var(--accent-pass)]">160 PB</span> decimal / <span class="font-mono-tech text-[color:var(--accent-pass)]">156.25 PiB</span> binary, <span class="font-mono-tech text-[color:var(--ink-primary)]">400 MW</span> IT load), stateful firewalls pay two continuous solid-state physics taxes: periodic <span class="font-mono-tech text-[color:var(--ink-primary)]">tREFI = 3.9 &mu;s</span> charge-restoration refresh currents across <span class="font-mono-tech text-[color:var(--accent-pass)]">2,500 TB</span> (<span class="font-mono-tech text-[color:var(--accent-pass)]">2,560 TiB</span>) of dedicated <span class="font-mono-tech text-[color:var(--ink-primary)]">f_meta = 1/64</span> permission-table DRAM, and non-gated accelerator clock-tree capacitance (<span class="font-mono-tech text-[color:var(--ink-primary)]">C_clk V_DD<sup>2</sup> f</span>), HBM PHY PLLs, and FinFET subthreshold leakage during permission-miss stall states (<span class="font-mono-tech text-[color:var(--ink-primary)]">&alpha;_wait = 0.40</span>).
+            </p>
+
+            <!-- Unlabeled Smaller Architectural Boundary Subtext -->
+            <p class="arch-subtext mb-5">
+              Reclaiming 2,500 TB / 2,560 TiB ($37.50M–$38.40M CapEx at $15/GB), avoiding 375–1,536 tCO2e of embodied Scope-3 DRAM fab carbon, and saving 1.41–1.61 MW of passive DDR5/HBM refresh power hold unconditionally whenever the 1/64 table carve-out is removed (&lt; 3 kW total sanitizer power across 80,000 ports). Active stall-wait savings (6.60–38.00 MW) scale linearly with permission-cache miss stall fraction &eta;_stall &isin; [3.30%, 19.0%] and converge to the 1.41–1.61 MW passive refresh floor on static SRAM-resident batch workloads (&eta;_stall &rarr; 0).
+            </p>
+
+            <!-- Exact Two-Term Conservation Law Box -->
+            <div class="hw-trench p-3.5 mb-5 font-mono-tech text-[11px] text-[color:var(--ink-primary)] space-y-1.5">
+              <div class="flex justify-between text-[10px] text-[color:var(--ink-muted)]">
+                <span>EQ. (30) // TWO-TERM CLUSTER GRID-POWER CONSERVATION LAW</span>
+                <span class="text-[color:var(--accent-pass)]">P_CORE &lt; 0.003 MW (80k PORTS)</span>
+              </div>
+              <div class="text-xs leading-relaxed">
+                &Delta;P_grid = <span class="text-[color:var(--accent-pass)]">PUE &middot; N_racks(f_meta M_rack p_DRAM &minus; P_core)</span><sub>[1.41–1.61 MW Floor]</sub> + <span class="text-[color:var(--accent-signal)]">PUE &middot; P_IT,fleet &middot; &eta;_stall &middot; &alpha;_wait</span><sub>[6.60–38.00 MW Stall]</sub>
+              </div>
+            </div>
+
+            <!-- Interactive Theorem 6.3 Physics & Hydrological Verifier -->
+            <div class="hw-bezel p-4 sm:p-5 mb-5 space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[color:var(--hairline)] pb-2.5">
+                <span class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">INTERACTIVE THEOREM 6.3 PARAMETER EXPLORER</span>
+                <div class="flex flex-wrap gap-1.5" role="group" aria-label="Workload Presets">
+                  <button type="button" data-preset="floor" class="hw-btn px-2 py-1 text-[10px]" aria-pressed="false">STATIC (&eta;=0%)</button>
+                  <button type="button" data-preset="avg" class="hw-btn px-2 py-1 text-[10px]" aria-pressed="false">FLEET AVG (3.3%)</button>
+                  <button type="button" data-preset="moe" class="hw-btn px-2 py-1 text-[10px]" aria-pressed="true">SPARSE MoE (14.1%)</button>
+                  <button type="button" data-preset="peak" class="hw-btn px-2 py-1 text-[10px]" aria-pressed="false">KV/MoE PEAK (19.0%)</button>
+                </div>
+              </div>
+
+              <!-- Sliders Row -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <div class="flex justify-between font-mono-tech text-[10px] mb-1.5">
+                    <label for="slider-racks" class="text-[color:var(--ink-muted)]">CLUSTER SCALE (N_racks):</label>
+                    <span id="val-racks" class="text-[color:var(--accent-pass)] font-semibold">10,000 Racks (156.25 PiB)</span>
+                  </div>
+                  <input id="slider-racks" type="range" min="1000" max="10000" step="500" value="10000" class="hw-slider" />
+                </div>
+
+                <div>
+                  <div class="flex justify-between font-mono-tech text-[10px] mb-1.5">
+                    <label for="slider-stall" class="text-[color:var(--ink-muted)]">MISS STALL FRACTION (&eta;_stall):</label>
+                    <span id="val-stall" class="text-[color:var(--accent-signal)] font-semibold">14.10% (Sparse MoE)</span>
+                  </div>
+                  <input id="slider-stall" type="range" min="0" max="19.0" step="0.1" value="14.1" class="hw-slider" />
+                </div>
+              </div>
+
+              <!-- Unit Basis & Grid Intensity Toggles -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-1 font-mono-tech text-[10px]">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[color:var(--ink-muted)]">BASIS:</span>
+                  <button id="btn-basis-bin" type="button" class="hw-btn px-2 py-1 text-[10px]" aria-pressed="true">BINARY (16 TiB/rack)</button>
+                  <button id="btn-basis-dec" type="button" class="hw-btn px-2 py-1 text-[10px]" aria-pressed="false">DECIMAL (16 TB/rack)</button>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[color:var(--ink-muted)]">PUE / GRID:</span>
+                  <button id="btn-grid-us" type="button" class="hw-btn px-2 py-1 text-[10px]" aria-pressed="true">PUE 1.25 / eGRID US (0.341)</button>
+                  <button id="btn-grid-coal" type="button" class="hw-btn px-2 py-1 text-[10px]" aria-pressed="false">COAL/GAS BA (0.545)</button>
+                </div>
+              </div>
+
+              <!-- Computed Conservation Readout Cards -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 border-t border-[color:var(--hairline)]">
+                <div class="hw-trench p-2.5">
+                  <div class="font-mono-tech text-[9px] text-[color:var(--ink-muted)]">RECLAIMED DRAM</div>
+                  <div id="tco-capex" class="font-serif-display text-2xl sm:text-3xl text-[color:var(--ink-primary)] mt-0.5">$38.40M</div>
+                  <div id="tco-tb" class="font-mono-tech text-[9px] text-[color:var(--accent-pass)]">2,560 TiB Unstranded</div>
+                </div>
+
+                <div class="hw-trench p-2.5">
+                  <div class="font-mono-tech text-[9px] text-[color:var(--ink-muted)]">GRID POWER SAVED</div>
+                  <div id="tco-mw" class="font-serif-display text-2xl sm:text-3xl text-[color:var(--accent-pass)] mt-0.5">29.64 MW</div>
+                  <div id="tco-mw-split" class="font-mono-tech text-[9px] text-[color:var(--ink-muted)]">1.44 Floor + 28.20 Stall</div>
+                </div>
+
+                <div class="hw-trench p-2.5">
+                  <div class="font-mono-tech text-[9px] text-[color:var(--ink-muted)]">COOLING WATER</div>
+                  <div id="tco-water" class="font-serif-display text-2xl sm:text-3xl text-[color:var(--ink-primary)] mt-0.5">98.7M<span class="text-base"> gal</span></div>
+                  <div id="tco-liters" class="font-mono-tech text-[9px] text-[color:var(--ink-muted)]">373.9M L/yr (WUE 1.80)</div>
+                </div>
+
+                <div class="hw-trench p-2.5">
+                  <div class="font-mono-tech text-[9px] text-[color:var(--ink-muted)]">CARBON AVOIDED</div>
+                  <div id="tco-co2" class="font-serif-display text-2xl sm:text-3xl text-[color:var(--ink-primary)] mt-0.5">88,539<span class="text-base"> t</span></div>
+                  <div id="tco-gwh" class="font-mono-tech text-[9px] text-[color:var(--ink-muted)]">259.6 GWh/yr + Scope 3</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- The Deadpan Lean 4 Note -->
+            <div class="hw-trench p-4 border-l-2 border-l-[color:var(--ink-muted)]">
+              <div class="font-mono-tech text-[10px] text-[color:var(--ink-primary)] mb-1">
+                FORMALIZATION BOUNDARY // WHY THEOREM 6.3 WAS NOT MECHANIZED IN UNARY PEANO ARITHMETIC
+              </div>
+              <p class="text-[0.80rem] leading-relaxed text-[color:var(--ink-muted)] italic">
+                &ldquo;Formalizing 64-bit <span class="not-italic font-mono-tech text-[color:var(--ink-primary)]">GF(2<sup>8</sup>)</span> Horner–B&eacute;zout division and unclamped Peano queue invariants (<span class="not-italic font-mono-tech text-[color:var(--ink-primary)]">@Nat.rec</span>) in bare <span class="not-italic font-mono-tech text-[color:var(--ink-primary)]">Init.Prelude</span> Lean 4 without <span class="not-italic font-mono-tech text-[color:var(--ink-primary)]">Mathlib</span> (<span class="not-italic font-mono-tech text-[color:var(--accent-pass)]">0 sorry, 0 axioms</span>) took 38 core lifecycle theorems (<span class="not-italic font-mono-tech text-[color:var(--ink-primary)]">thm00</span>–<span class="not-italic font-mono-tech text-[color:var(--ink-primary)]">thm37</span>, plus 25 fast-core theorems in SheafCosetIsometry.lean); formalizing the IEEE/ASHRAE psychrometric chart of an evaporative cooling tower (<span class="not-italic font-mono-tech text-[color:var(--ink-primary)]">WUE = 1.80 L/kWh_IT</span>) and the EPA eGRID2024 coal/gas balancing-authority dispatch curve in unary Peano natural numbers during toddler nap time was judged a poor use of recursion depth.&rdquo;
+              </p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -746,34 +1025,31 @@
       <!-- Left Colophon Monument (Cols 1..10) -->
       <div class="col-span-6 lg:col-span-10 flex flex-col justify-between gap-6">
         <div>
-          <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-2">
-            SPECTRAL SYSTEMS LLC &middot; VIRGINIA BEACH, VA &middot; CAGE: 268E1 &middot; UEI: VTP2JPCJU3D9 &middot; VA eVA: SUP373159
+          <div class="font-mono-tech text-[10px] text-[color:var(--accent-pass)] mb-2">
+            SPECTRAL SYSTEMS LLC &middot; VIRGINIA BEACH, VA &middot; <a href="https://spectralsystems.org" target="_blank" rel="noopener" class="underline hover:text-white">spectralsystems.org</a>
           </div>
           <h2 class="font-serif-display text-4xl sm:text-5xl text-[color:var(--ink-primary)]">
-            Spectral Flit-Filter <em class="italic font-normal">v1.0.0 / v1.1.0</em>
+            SPECTRAL FLIT-FILTER
           </h2>
-          <p class="font-sans text-sm text-[color:var(--ink-muted)] mt-3 max-w-md leading-relaxed">
-            Conceived and reduced to practice exclusively at private expense. Public Lean 4 formal proofs (38 zero-axiom core lifecycle theorems <span class="font-mono-tech text-xs">thm00–thm37</span> + 25 fast-core theorems), simulators, and silicon receipts licensed under Apache-2.0; commercial synthesis and patent lots (<span class="font-mono-tech text-xs">PPA-19 Groups I–V</span>) reserved; Zone-1 <span class="font-mono-tech text-xs">.sv/.edf</span> netlists air-gapped per DFARS 252.227-7018.
+          <div class="font-mono-tech text-[11px] text-[color:var(--ink-primary)] mt-2">
+            Authored by Eric C. Murphy (B.S. Mathematics, Old Dominion University)
+          </div>
+          <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)] mt-1">
+            CAGE: 268E1 &middot; SAM UEI: VTP2JPCJU3D9 &middot; VA eVA: VA10140357 / SUP373159
+          </div>
+          <p class="arch-subtext mt-3">
+            Conceived and reduced to practice exclusively at private expense. Public Lean 4 formal proofs (38 zero-axiom core lifecycle theorems thm00–thm37 + 25 fast-core theorems), cycle-accurate simulators, and silicon receipts are published under Apache-2.0; commercial hardware synthesis rights are reserved while Zone-1 .sv/.edf netlists and unpublished provisional serials remain air-gapped per DFARS 252.227-7018 and DEAR 952.227-14.
           </p>
         </div>
 
-        <!-- Archival DOI, Monograph PDFs & Live AWS F2 AFI Verification Triggers -->
-        <div class="flex flex-wrap items-center gap-2">
+        <!-- Archival DOI & Live AWS F2 AFI Verification Triggers -->
+        <div class="flex flex-wrap items-center gap-2.5">
           <button id="btn-copy-doi" type="button" class="hw-btn px-3 py-2 flex items-center gap-2" title="Copy Zenodo Preprint DOI Receipt">
-            <span class="inline-block w-1.5 h-1.5 bg-[color:var(--ink-primary)]"></span>
+            <span class="pass-dot"></span>
             <span id="doi-label">DOI: 10.5281/zenodo.24047902</span>
           </button>
 
-          <a href="/preprint_Murphy_v1_0_0.pdf" target="_blank" rel="noopener" class="hw-btn px-3 py-2 inline-flex items-center gap-1.5">
-            <span>PART I PDF (v1.0.0) &nearr;</span>
-          </a>
-
-          <a href="/preprint_Murphy_v1_1_0.pdf" target="_blank" rel="noopener" class="hw-btn px-3 py-2 inline-flex items-center gap-1.5">
-            <span>PART II PDF (v1.1.0) &nearr;</span>
-          </a>
-
           <button id="btn-verify-afi" type="button" class="hw-btn is-active px-3.5 py-2 flex items-center gap-2" title="Verify Live AWS EC2 f2.6xlarge 16 GB HBM2 DMA AFI Receipt">
-            <span class="signal-dot"></span>
             <span>VERIFY AWS F2 AFI: agfi-08becf3b40b169674 &nearr;</span>
           </button>
         </div>
@@ -785,54 +1061,54 @@
           DIRECT INSTRUMENT KEYBOARD INDEX (CLICK OR PRESS KEY)
         </div>
         <div class="space-y-2.5 font-mono-tech text-[11px]">
-          <button type="button" data-shortcut="slope" class="w-full flex items-center justify-between py-1.5 px-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)] hover:border-[color:var(--ink-primary)] text-left transition-colors">
+          <button type="button" data-shortcut="slope" class="w-full flex items-center justify-between py-1.5 px-2.5 hw-trench hover:border-[color:var(--accent-pass)] text-left transition-colors">
             <span class="text-[color:var(--ink-primary)]">Cycle AG(2,8) Affine Slope b &isin; GF(8)</span>
             <span class="hw-keycap">1–8</span>
           </button>
-          <button type="button" data-shortcut="mode" class="w-full flex items-center justify-between py-1.5 px-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)] hover:border-[color:var(--ink-primary)] text-left transition-colors">
+          <button type="button" data-shortcut="mode" class="w-full flex items-center justify-between py-1.5 px-2.5 hw-trench hover:border-[color:var(--accent-pass)] text-left transition-colors">
             <span class="text-[color:var(--ink-primary)]">Toggle Spectral NOP vs. Tail-CRC Mode</span>
             <span class="hw-keycap">M</span>
           </button>
-          <button type="button" data-shortcut="revoke" class="w-full flex items-center justify-between py-1.5 px-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)] hover:border-[color:var(--ink-primary)] text-left transition-colors">
+          <button type="button" data-shortcut="revoke" class="w-full flex items-center justify-between py-1.5 px-2.5 hw-trench hover:border-[color:var(--accent-pass)] text-left transition-colors">
             <span class="text-[color:var(--ink-primary)]">Insert GF(2&sup8;) Vieta Cohort Root (+CSR 0x60)</span>
             <span class="hw-keycap">R</span>
           </button>
-          <button type="button" data-shortcut="bezout" class="w-full flex items-center justify-between py-1.5 px-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)] hover:border-[color:var(--ink-primary)] text-left transition-colors">
+          <button type="button" data-shortcut="bezout" class="w-full flex items-center justify-between py-1.5 px-2.5 hw-trench hover:border-[color:var(--accent-pass)] text-left transition-colors">
             <span class="text-[color:var(--ink-primary)]">8-Step Shadow B&eacute;zout Deflation (q_8 = 0)</span>
             <span class="hw-keycap">B</span>
           </button>
         </div>
       </div>
 
-      <!-- Right Canonical Four-Layer Verification Ledger (Cols 18..24) -->
+      <!-- Right Canonical Four-Invariant Ledger (Cols 18..24) -->
       <div class="col-span-6 lg:col-start-18 lg:col-span-7 border-t lg:border-t-0 lg:border-l border-[color:var(--hairline-strong)] pt-6 lg:pt-0 lg:pl-6 flex flex-col justify-between">
         <div>
           <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-3">
-            VERIFIED ARCHITECTURAL PILLARS (+0 ADDED CORE GATES)
+            FOUR CANONICAL INVARIANTS (+0 ADDED CORE GATES)
           </div>
           <ul class="space-y-2 font-mono-tech text-[11px] text-[color:var(--ink-muted)]">
             <li class="flex justify-between gap-2">
               <span class="text-[color:var(--ink-primary)]">I. Cut-Set &amp; B&eacute;zout Root Lifecycle</span>
-              <span>132.6k Cohorts / 64b</span>
+              <span class="text-[color:var(--accent-pass)]">132.6k Cohorts / 64b</span>
             </li>
             <li class="flex justify-between gap-2">
               <span class="text-[color:var(--ink-primary)]">II. Rate-Distortion &amp; Egress Zero</span>
               <span>&Delta;t_CRD &equiv; 0 ps&sup2;</span>
             </li>
             <li class="flex justify-between gap-2">
-              <span class="text-[color:var(--ink-primary)]">III. De Morgan RAIN &amp; DOM TVLA</span>
-              <span>64'hAB..FE | max|t|=0.0</span>
+              <span class="text-[color:var(--ink-primary)]">III. Welch–Kirchhoff &amp; RAIN Dual</span>
+              <span>G_WS L = 8L | TVLA 0.0</span>
             </li>
             <li class="flex justify-between gap-2">
-              <span class="text-[color:var(--ink-primary)]">IV. CSS Split-Coset &amp; ZK-IC3 Miter</span>
+              <span class="text-[color:var(--ink-primary)]">IV. Singer 512b &amp; ZK-IC3 Cochain</span>
               <span>H_FEC &compfn; E_fold = 0 (thm32)</span>
             </li>
           </ul>
         </div>
 
         <div class="pt-6 mt-6 border-t border-[color:var(--hairline)] flex items-center justify-between font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
-          <span>CORRESPONDENCE: eric@spectralsystems.org</span>
-          <a href="#hero" class="text-[color:var(--ink-primary)] hover:underline">TOP &uarr;</a>
+          <span>eric@spectralsystems.org</span>
+          <a href="#hero" class="text-[color:var(--accent-pass)] hover:underline">TOP &uarr;</a>
         </div>
       </div>
 
@@ -840,33 +1116,33 @@
   </footer>
 
   <!-- ================================================================
-       FIVE-ORACLE PROVENANCE, FAR 13.106-1(b) J&A & TURNKEY LICENSING MODAL
+       FIVE-ORACLE PROVENANCE & INSTITUTIONAL LICENSING MODAL DOSSIER
        ================================================================ -->
-  <div id="dossier-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="dossier-title">
+  <div id="dossier-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/75 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="dossier-title">
     <div class="hw-plate w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative">
-      <div class="flex items-start justify-between gap-4 border-b border-[color:var(--hairline-strong)] pb-4 mb-5">
+      <div class="flex items-start justify-between gap-4 border-b border-[color:var(--hairline-strong)] pb-4 mb-6">
         <div>
-          <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">SPECTRAL SYSTEMS LLC &middot; CAGE: 268E1 &middot; SAM UEI: VTP2JPCJU3D9 &middot; VA eVA: VA10140357 / SUP373159</div>
+          <div class="font-mono-tech text-[10px] text-[color:var(--accent-pass)]">SPECTRAL SYSTEMS LLC &middot; CAGE: 268E1 &middot; UEI: VTP2JPCJU3D9 &middot; VA eVA: VA10140357</div>
           <h3 id="dossier-title" class="font-serif-display text-3xl sm:text-4xl text-[color:var(--ink-primary)] mt-1">
-            Five-Oracle Silicon Provenance &amp; Turnkey COTS Licensing
+            Five-Oracle Silicon Provenance &amp; Zone-1 Licensing
           </h3>
         </div>
         <button id="btn-close-dossier" type="button" class="hw-btn px-3 py-1.5" aria-label="Close Dossier">ESC &times;</button>
       </div>
 
       <!-- Verified Cryptographic Receipts Table -->
-      <div class="mb-5">
+      <div class="mb-6">
         <div class="flex items-center justify-between font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-2">
-          <span>PUBLIC ZONE-2 ARTIFACT MANIFEST (SBOM.cdx.json)</span>
-          <span id="afi-highlight-tag" class="text-[color:var(--ink-primary)] font-semibold">ALL 5 ORACLES SEALED</span>
+          <span>PUBLIC ZONE-2 ARTIFACT MANIFEST (APACHE-2.0 VERIFICATION SUITE)</span>
+          <span id="afi-highlight-tag" class="text-[color:var(--accent-pass)] font-semibold">ALL 5 ORACLES SEALED</span>
         </div>
-        <div class="hw-bezel divide-y divide-[color:var(--hairline)] font-mono-tech text-[11px]">
+        <div class="hw-trench divide-y divide-[color:var(--hairline)] font-mono-tech text-[11px]">
           <div class="p-2.5 flex flex-col sm:flex-row sm:justify-between gap-1">
             <span class="font-medium text-[color:var(--ink-primary)]">Oracle 1: 38 Pure Init.Prelude Lean 4 Proofs (thm00–thm37, 0 sorry, 0 axioms)</span>
             <span class="text-[color:var(--ink-muted)]">SHA256: fe8efc2f6a76..bfcbc1f6</span>
           </div>
           <div class="p-2.5 flex flex-col sm:flex-row sm:justify-between gap-1">
-            <span class="font-medium text-[color:var(--ink-primary)]">Oracle 4: CNF/LRAT Miter UNSAT &amp; Inductive ZK-IC3 Receipt (0 .sv leaked)</span>
+            <span class="font-medium text-[color:var(--ink-primary)]">Oracle 4: ZK_LEC_MITER_RECEIPT.json (UNSAT + Inductive ZK-IC3)</span>
             <span class="text-[color:var(--ink-muted)]">SHA256: 46bee17ecb43..f52ee359</span>
           </div>
           <div class="p-2.5 flex flex-col sm:flex-row sm:justify-between gap-1">
@@ -884,54 +1160,28 @@
         </div>
       </div>
 
-      <!-- Self-Serve Micro-Purchase Tiers & 1-Click FAR 13.106-1(b) Memo Copy -->
-      <div class="hw-bezel p-3.5 mb-5">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
-          <span class="font-mono-tech text-[10px] text-[color:var(--ink-primary)] font-semibold">
-            TURNKEY "AS-IS" COTS MICRO-PURCHASE SEATS (ZERO ONGOING SERVICE LABOR)
-          </span>
-          <button id="btn-copy-far-memo" type="button" class="hw-btn px-2.5 py-1 text-[10px]">
-            COPY FAR 13.106-1(b) SOLE-SOURCE MEMO
-          </button>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono-tech text-[11px]">
-          <div class="p-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)]">
-            <div class="text-[color:var(--ink-muted)] text-[10px]">ACADEMIC / LAB SEAT</div>
-            <div class="text-[color:var(--ink-primary)] font-semibold text-sm">$4,850 FFP</div>
-          </div>
-          <div class="p-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)]">
-            <div class="text-[color:var(--ink-muted)] text-[10px]">VA eVA SINGLE-QUOTE</div>
-            <div class="text-[color:var(--ink-primary)] font-semibold text-sm">$9,850 FFP</div>
-          </div>
-          <div class="p-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline)]">
-            <div class="text-[color:var(--ink-muted)] text-[10px]">DoD / FED GPC P-CARD</div>
-            <div class="text-[color:var(--accent-signal)] font-semibold text-sm">$14,850 FFP</div>
-          </div>
-        </div>
-      </div>
-
       <!-- Institutional Evaluation / Zone-1 DFARS Inquiry Form -->
       <form id="inquiry-form" class="space-y-4">
         <div class="font-mono-tech text-[10px] text-[color:var(--ink-muted)]">
-          REQUEST TURNKEY COTS SEAT / ZONE-1 HARD-IP EVALUATION OR PATENT LOT LICENSE (GROUPS I–V)
+          REQUEST ZONE-1 RTL / HARD-IP TAPEOUT EVALUATION (DFARS 252.227-7018 / COMMERCIAL)
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label for="org-input" class="block font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-1">INSTITUTION / FOUNDRY / AGENCY</label>
-            <input id="org-input" required type="text" placeholder="e.g., DARPA / DOE Lab / Hyperscale Silicon Team" class="w-full px-3 py-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline-strong)] font-sans text-sm text-[color:var(--ink-primary)]" />
+            <label for="org-input" class="block font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-1">INSTITUTION / FOUNDRY / LAB</label>
+            <input id="org-input" required type="text" placeholder="e.g., DOE National Lab / Hyperscale Silicon Team" class="w-full px-3 py-2 hw-trench font-sans text-sm text-[color:var(--ink-primary)] placeholder-[#566075]" />
           </div>
           <div>
             <label for="email-input" class="block font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-1">INSTITUTIONAL EMAIL</label>
-            <input id="email-input" required type="email" placeholder="architect@organization.org" class="w-full px-3 py-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline-strong)] font-sans text-sm text-[color:var(--ink-primary)]" />
+            <input id="email-input" required type="email" placeholder="architect@organization.org" class="w-full px-3 py-2 hw-trench font-sans text-sm text-[color:var(--ink-primary)] placeholder-[#566075]" />
           </div>
         </div>
         <div>
-          <label for="track-select" class="block font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-1">TARGET COTS / PATENT LOT PROFILE</label>
-          <select id="track-select" class="w-full px-3 py-2 bg-[color:var(--surface-base)] border border-[color:var(--hairline-strong)] font-mono-tech text-xs text-[color:var(--ink-primary)]">
-            <option value="gpc-cots">DoD / Federal GPC P-Card Turnkey COTS Seat ($14,850 FFP) or VA eVA ($9,850 FFP)</option>
-            <option value="cxl-asic">7nm/3nm HBM3e/HBM4 Base-Die Hard-IP &amp; Divisible Patent Lots (PPA-19 Groups I–V)</option>
+          <label for="track-select" class="block font-mono-tech text-[10px] text-[color:var(--ink-muted)] mb-1">TARGET INTERPOSER PROFILE</label>
+          <select id="track-select" class="w-full px-3 py-2 hw-trench font-mono-tech text-xs text-[color:var(--ink-primary)] bg-[#05070b]">
+            <option value="cxl-asic">7nm/3nm HBM3e/HBM4 Base-Die Hard-IP (Modes A/B.2/C — 693+ MHz, 0 SRAM)</option>
             <option value="aws-f2">16nm xcvu47p FPGA / Private AWS EC2 f2.6xlarge Dual-AFI Reproduction</option>
             <option value="rain-moded">Cross-Domain RAIN Gateway Enclave (Mode D De Morgan + 2-Share DOM)</option>
+            <option value="vole-zk">Tier-2 Commit-and-Prove VOLE-ZK / ZK-IC3 Netlist Verification</option>
           </select>
         </div>
         <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
@@ -947,8 +1197,8 @@
   </div>
 
   <!-- ================================================================
-       UNIFIED ENGINE: FINITE-FIELD ALGEBRA + DARK-MODE CHAMFER SHADERS
-       + MULTI-LAYER RAYCASTER + 3D-PROJECTED SVG LEADERS + LENIS/GSAP
+       UNIFIED DARK-MODE OSCILLOSCOPE ENGINE: FINITE-FIELD ALGEBRA +
+       CLOSED-LOOP WIRE BRIDGE + 3D GLSL + THEOREM 6.3 CALCULATOR
        ================================================================ -->
   <script type="module">
     import * as THREE from 'three';
@@ -960,7 +1210,6 @@
 
     /* ------------------------------------------------------------------
        1. EXACT FINITE-FIELD HARDWARE ALGEBRA (GF(8) & GF(2^8) [0x11B])
-          100% Preserved from Part I Theorem 3.3 & Part II Theorem 3.1
        ------------------------------------------------------------------ */
     function gf8Mul(a, b) {
       let res = 0;
@@ -996,7 +1245,8 @@
       slopeB: 1,
       interceptA: 3,
       legacyCrcMode: false,
-      revokedGridPins: new Set([10, 43]),
+      // Seed initial revoked pins inside Slot s2 (Cols 4..5: idx 20 = row 2 col 4, idx 37 = row 4 col 5)
+      revokedGridPins: new Set([20, 37]),
       clampTier: 2,
       flitSpeedMult: 1.0
     };
@@ -1137,7 +1387,7 @@
     });
 
     /* ------------------------------------------------------------------
-       4. THREE.JS SCENE & 100% DARK-MODE OBSIDIAN SHADERS
+       4. THREE.JS PERMANENT OBSIDIAN DARK-MODE SCENE & SHADERS (#07090e)
        ------------------------------------------------------------------ */
     const container = document.getElementById('webgl-stage');
     const renderer = new THREE.WebGLRenderer({
@@ -1156,7 +1406,7 @@
 
     const GRID_SPACING = 0.74;
 
-    // --- DRAW CALL 1: OBSIDIAN SILICON SUBSTRATE + STEINER CELL CONDUITS ---
+    // --- DRAW CALL 1: OBSIDIAN INTERPOSER + 4-SLOT PHYSICAL WIRE BUS TRACES ---
     const substrateUniforms = {
       uTime: { value: 0 },
       uScrollVelocity: { value: 0 },
@@ -1164,7 +1414,8 @@
       uLegacyCrcMode: { value: 0 },
       uNakPulse: { value: 0 },
       uFlitSpeed: { value: 1.0 },
-      uSlopeY: { value: [3, 2, 1, 0, 7, 6, 5, 4] }
+      uSlopeY: { value: [3, 2, 1, 0, 7, 6, 5, 4] },
+      uSlotViolMask: { value: [0.0, 0.0, 1.0, 0.0] } // Live causal mask per 128b slot s0..s3
     };
 
     const substrateMat = new THREE.ShaderMaterial({
@@ -1188,6 +1439,7 @@
         uniform float uNakPulse;
         uniform float uFlitSpeed;
         uniform float uSlopeY[8];
+        uniform float uSlotViolMask[4];
 
         varying vec2 vWorldXZ;
         varying float vViewDist;
@@ -1203,79 +1455,115 @@
           return uSlopeY[7];
         }
 
+        float getSlotViol(int slotIdx) {
+          if (slotIdx == 0) return uSlotViolMask[0];
+          if (slotIdx == 1) return uSlotViolMask[1];
+          if (slotIdx == 2) return uSlotViolMask[2];
+          return uSlotViolMask[3];
+        }
+
         void main() {
-          vec3 baseCol = vec3(0.028, 0.035, 0.055);
-          vec3 bezelCol = vec3(0.058, 0.072, 0.110);
-          vec3 inkCol = vec3(0.895, 0.880, 0.845);
-          vec3 signalCol = vec3(0.945, 0.310, 0.140);
+          // Exact #07090e Obsidian Base for 100% seamless horizon fusion
+          vec3 baseCol   = vec3(0.02745, 0.03529, 0.05490);
+          vec3 wellCol   = vec3(0.048, 0.064, 0.098);
+          vec3 traceCol  = vec3(0.11, 0.145, 0.215);
+          vec3 cyanCol   = vec3(0.22, 0.86, 0.89);
+          vec3 signalCol = vec3(1.00, 0.30, 0.16);
+          vec3 inkLine   = vec3(0.45, 0.52, 0.66);
 
           float spacing = 0.74;
           vec2 gridUV = (vWorldXZ / spacing) + 4.0;
-          bool inMatrix = (gridUV.x > 0.0 && gridUV.x < 8.0 && gridUV.y > 0.0 && gridUV.y < 8.0);
+          bool inCols = (gridUV.x > 0.0 && gridUV.x < 8.0);
+          bool inMatrix = (inCols && gridUV.y > 0.0 && gridUV.y < 8.0);
+          bool inWireBus = (inCols && abs(vWorldXZ.y) < 8.2);
 
-          // Recessed Anodized Well
+          // Recessed Silicon Sieve Cavity
           vec2 boxDist = abs(vWorldXZ) - vec2(3.15);
           float wellSdf = length(max(boxDist, 0.0)) + min(max(boxDist.x, boxDist.y), 0.0);
           float wellMask = 1.0 - smoothstep(-0.02, 0.02, wellSdf);
-          vec3 col = mix(baseCol, bezelCol, wellMask * 0.82);
+          vec3 col = mix(baseCol, wellCol, wellMask * 0.92);
 
-          // Derivative-filtered Photolithographic Grid Hairlines
+          // Derivative-filtered Oscilloscope Reticle Hairlines
           vec2 cell = abs(fract(gridUV) - 0.5);
           vec2 cellAa = (0.5 - cell) / fwidth(gridUV);
           float line = 1.0 - clamp(min(cellAa.x, cellAa.y), 0.0, 1.0);
           float distFade = exp(-0.028 * vViewDist);
-          col = mix(col, inkCol, line * 0.13 * distFade);
+          col = mix(col, inkLine, line * 0.16 * distFade);
 
+          // Physical 512-Bit CXL Wire Traces Entering from Ingress (z < -3.15) -> Sieve -> HBM2 Egress (z > +3.15)
+          if (inWireBus) {
+            int cx = int(clamp(floor(gridUV.x), 0.0, 7.0));
+            int slotIdx = cx / 2;
+            float isSlotViol = getSlotViol(slotIdx);
+
+            vec2 localCell = fract(gridUV) - 0.5;
+            float wireTrace = 1.0 - smoothstep(0.025, 0.025 + fwidth(gridUV.x), abs(localCell.x));
+            float busFadeZ = 1.0 - smoothstep(4.2, 8.0, abs(vWorldXZ.y));
+            col = mix(col, traceCol, wireTrace * 0.65 * busFadeZ);
+
+            // 4 Parallel 128-bit Slot Lane Dividers (s0 | s1 | s2 | s3)
+            float slotCoord = gridUV.x * 0.5;
+            float slotBorder = 1.0 - smoothstep(0.0, fwidth(slotCoord) * 1.8, abs(fract(slotCoord)));
+            col = mix(col, cyanCol, slotBorder * 0.24 * busFadeZ);
+
+            // Streaming 250 MHz Flit Wavefronts from Wire Ingress (-Z) toward HBM2 (+Z)
+            float dirMult = (uLegacyCrcMode > 0.5) ? (-0.65 * uNakPulse + 0.28) : 1.0;
+            float wavePhase = fract(vWorldXZ.y * 0.26 - uTime * (0.62 * uFlitSpeed + abs(uScrollVelocity) * 0.25) * dirMult);
+            float packetBand = smoothstep(0.0, 0.15, wavePhase) * (1.0 - smoothstep(0.15, 0.48, wavePhase));
+
+            bool pastSieveToHbm = (vWorldXZ.y > 0.15);
+
+            if (uLegacyCrcMode > 0.5) {
+              // Legacy Tail-CRC Poisoning: Go-Back-N NAK Replay Shockwave destroys ALL 4 slots
+              float ring = sin(length(vWorldXZ) * 3.8 - uTime * 9.5) * 0.5 + 0.5;
+              col += signalCol * (packetBand * 0.22 + ring * uNakPulse * 0.24) * busFadeZ;
+            } else {
+              if (isSlotViol > 0.5) {
+                // Violating Slot (e.g. s2): Hot Vermilion on Ingress, SURGICALLY ZEROED (WSTRB=16'h0000) past Sieve!
+                float ingressOnly = 1.0 - smoothstep(-0.4, 0.35, vWorldXZ.y);
+                col += signalCol * packetBand * (0.34 * wireTrace + 0.14) * ingressOnly * busFadeZ;
+              } else {
+                // Authorized Slots (s0, s1, s3): Coherent Cyan-Teal commits cleanly into HBM2!
+                float boost = pastSieveToHbm ? 1.15 : 0.85;
+                col += cyanCol * packetBand * (0.28 * wireTrace + 0.09) * boost * busFadeZ;
+              }
+            }
+          }
+
+          // Illuminated AG(2,8) Collinear Steiner Coordinate Pads inside 8x8 Sieve
           if (inMatrix) {
             int cx = int(floor(gridUV.x));
             float cy = floor(gridUV.y);
             float targetY = getSlopeRow(cx);
-
             vec2 localCell = fract(gridUV) - 0.5;
-            float colTrace = 1.0 - smoothstep(0.015, 0.015 + fwidth(gridUV.x), abs(localCell.x));
-            col = mix(col, inkCol, colTrace * 0.06);
 
             if (abs(cy - targetY) < 0.25) {
               float padBox = max(abs(localCell.x), abs(localCell.y));
               float padFill = 1.0 - smoothstep(0.41, 0.43, padBox);
-              float padRing = smoothstep(0.38, 0.40, padBox) * (1.0 - smoothstep(0.43, 0.45, padBox));
+              float padRing = smoothstep(0.37, 0.395, padBox) * (1.0 - smoothstep(0.43, 0.455, padBox));
               float harmonic = 0.55 + 0.45 * sin(uTime * 4.2 - float(cx) * 0.78);
 
-              col = mix(col, inkCol, padFill * (0.14 + 0.10 * harmonic));
-              col = mix(col, signalCol, padRing * (0.55 + 0.35 * harmonic));
-            }
-
-            float slotCoord = gridUV.x * 0.5;
-            float slotBorder = 1.0 - smoothstep(0.0, fwidth(slotCoord) * 1.7, abs(fract(slotCoord)));
-            col = mix(col, inkCol, slotBorder * 0.26);
-
-            float dirMult = (uLegacyCrcMode > 0.5) ? (-0.65 * uNakPulse + 0.32) : 1.0;
-            float wavePhase = fract(vWorldXZ.y * 0.28 - uTime * (0.58 * uFlitSpeed + abs(uScrollVelocity) * 0.25) * dirMult);
-            float packetBand = smoothstep(0.0, 0.14, wavePhase) * (1.0 - smoothstep(0.14, 0.46, wavePhase));
-
-            bool inSlot2 = (gridUV.x >= 4.0 && gridUV.x < 6.0);
-            if (uLegacyCrcMode > 0.5) {
-              float ring = sin(length(vWorldXZ) * 3.8 - uTime * 9.0) * 0.5 + 0.5;
-              col = mix(col, signalCol, (packetBand * 0.26 + ring * uNakPulse * 0.28));
-            } else {
-              vec3 laneTint = inSlot2 ? signalCol : inkCol;
-              float alpha = inSlot2 ? 0.18 : 0.085;
-              col = mix(col, laneTint, packetBand * alpha);
+              col += cyanCol * padFill * (0.09 + 0.08 * harmonic);
+              col = mix(col, cyanCol, padRing * (0.55 + 0.35 * harmonic));
             }
           }
 
+          // Sieve Perimeter Hairline Border
           float borderAa = fwidth(wellSdf);
-          float wellStroke = 1.0 - smoothstep(0.0, borderAa * 1.5, abs(wellSdf));
-          col = mix(col, inkCol, wellStroke * 0.34);
+          float wellStroke = 1.0 - smoothstep(0.0, borderAa * 1.6, abs(wellSdf));
+          col = mix(col, cyanCol, wellStroke * 0.32);
 
+          // Cursor Probe Field
           float cDist = length(vWorldXZ - uCursorWorld);
           float probeGlow = exp(-1.25 * cDist * cDist);
-          col = mix(col, inkCol, probeGlow * 0.085);
+          col += cyanCol * probeGlow * 0.09;
 
+          // Subtle Sensor Dither
           float grain = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
-          col += (grain - 0.5) * 0.011;
+          col += (grain - 0.5) * 0.010;
 
-          float edgeFade = smoothstep(4.9, 10.0, length(vWorldXZ));
+          // Seamless Horizon Vignette into #07090e
+          float edgeFade = smoothstep(5.4, 10.5, length(vWorldXZ));
           col = mix(col, baseCol, edgeFade);
 
           gl_FragColor = vec4(col, 1.0);
@@ -1283,12 +1571,13 @@
       `
     });
 
-    const substrateGeo = new THREE.PlaneGeometry(22, 22, 1, 1);
+    const substrateGeo = new THREE.PlaneGeometry(24, 24, 1, 1);
     substrateGeo.rotateX(-Math.PI / 2);
     const substrateMesh = new THREE.Mesh(substrateGeo, substrateMat);
     substrateMesh.position.y = -0.20;
     scene.add(substrateMesh);
 
+    // --- HELPER: SUBDIVIDED CHAMFER-READY BOX GEOMETRY ---
     function createChamferedPinBox(w, h, d) {
       const geo = new THREE.BoxGeometry(w, h, d, 4, 2, 4);
       const pos = geo.attributes.position;
@@ -1310,8 +1599,7 @@
         let py = snapAxis(pos.getY(i), hh);
         let pz = snapAxis(pos.getZ(i), hd);
 
-        const nx = norm.getX(i), ny = norm.getY(i), nz = norm.getZ(i);
-
+        const nx = norm.getX(i), ny = norm.getY(i);
         if (Math.abs(ny) > 0.5) {
           uv.setXY(i, (px / w) + 0.5, (pz / d) + 0.5);
         } else if (Math.abs(nx) > 0.5) {
@@ -1332,7 +1620,7 @@
       return geo;
     }
 
-    // --- DRAW CALL 2: 192-INSTANCE CHAMFERED SPECULAR LUT6_2 + SHADOW MATRIX ---
+    // --- DRAW CALL 2: 192-INSTANCE BLACK-ANODIZED CHAMFERED LUT6_2 + SHADOW MATRIX ---
     const INSTANCE_COUNT = 64 * 3;
     const pinBaseGeo = createChamferedPinBox(0.54, 0.22, 0.54);
     const pinInstGeo = new THREE.InstancedBufferGeometry();
@@ -1404,12 +1692,13 @@
           float spacing = 0.74;
           vec2 worldXZ = (aGridCoord.xy - 3.5) * spacing;
 
-          float layer = aGridCoord.z;
+          float layer = aGridCoord.z; // 0 = Shadow, 1 = O5 Pass, 2 = O6 Violation
           float isSlope = aPinState.x;
           float isRevoked = aPinState.y;
           float isViolO6 = aPinState.z;
           float shadowBit = aPinState.w;
 
+          // True 3D Diamond-Machined Bevel Normal at |uv - 0.5| > 0.42
           vec3 relPos = clamp(position / vec3(0.27, 0.11, 0.27), -1.0, 1.0);
           vec3 inPlane = relPos * (1.0 - abs(normal));
           vec2 uvDist = abs(uv - 0.5);
@@ -1426,6 +1715,7 @@
                               abs(aGridCoord.z - uHoveredInstance.z) < 0.1) ? 1.0 : 0.0;
           vExactPick = exactMatch;
 
+          // Zero-Overdraw Layer Nesting at uExplode == 0 -> [-1.25, 0.0, +1.25] at uExplode == 1
           float expRamp = smoothstep(0.0, 0.25, uExplode);
           float targetGap = 1.25 + 0.16 * abs(uScrollVelocity) * uExplode;
 
@@ -1446,7 +1736,7 @@
             actuation = (1.0 - isRevoked) * 0.06 * tierScale + isSlope * 0.14 - isRevoked * 0.06;
           } else {
             if (isViolO6 > 0.5) {
-              float sy2v = mix(0.72, 0.94, expRamp);
+              float sy2v = mix(0.74, 0.94, expRamp);
               float sxz2v = mix(0.86, 1.0, expRamp);
               pos.y *= sy2v;
               pos.xz *= sxz2v;
@@ -1491,10 +1781,12 @@
         uniform float uNakPulse;
 
         void main() {
-          vec3 alumLight  = vec3(0.165, 0.192, 0.258);
-          vec3 alumMid    = vec3(0.095, 0.112, 0.155);
-          vec3 carbonEtch = vec3(0.915, 0.892, 0.842);
-          vec3 vermilion  = vec3(0.945, 0.310, 0.140);
+          // Permanent Obsidian Dark-Mode Anodized Titanium & Phosphor Materials
+          vec3 gunmetal   = vec3(0.125, 0.155, 0.220); // Black-Anodized Aluminum Cap
+          vec3 recessed   = vec3(0.058, 0.072, 0.105); // Revoked / Idle Matte Carbon
+          vec3 cyanPass   = vec3(0.180, 0.780, 0.840); // Active AG(2,8) O5 Pass Rail
+          vec3 shadowCyan = vec3(0.240, 0.580, 0.760); // CSR 0x60 Shadow Bezout Bit
+          vec3 vermilion  = vec3(0.980, 0.270, 0.145); // O6 Delta_P Quarantine
 
           float layer = vGrid.z;
           float isSlope = vState.x;
@@ -1502,61 +1794,66 @@
           float isViolO6 = vState.z;
           float shadowBit = vState.w;
 
-          vec3 matCol = alumLight;
-          float shininess = 48.0;
-          float specStrength = 0.36;
+          vec3 matCol = gunmetal;
+          float shininess = 52.0;
+          float specStrength = 0.42;
 
           if (layer > 1.5) {
-            matCol = mix(alumLight, vermilion, clamp(isViolO6, 0.0, 1.0));
+            matCol = mix(gunmetal * 0.85, vermilion, clamp(isViolO6, 0.0, 1.0));
             if (isViolO6 < 0.5 && isSlope > 0.5) {
-              matCol = mix(alumLight, carbonEtch, 0.78);
+              matCol = mix(gunmetal, cyanPass, 0.42);
             }
-            specStrength = 0.44;
+            specStrength = 0.52;
           } else if (layer > 0.5) {
-            matCol = mix(alumLight, carbonEtch, isSlope * 0.84);
+            matCol = mix(gunmetal, cyanPass, isSlope * 0.68);
             if (isRevoked > 0.5) {
-              matCol = mix(alumMid, vermilion, 0.48);
+              matCol = recessed;
             }
-            specStrength = 0.38;
+            specStrength = 0.46;
           } else {
-            matCol = mix(alumMid, carbonEtch, shadowBit * 0.82);
-            specStrength = 0.30;
+            matCol = mix(recessed, shadowCyan, shadowBit * 0.85);
+            specStrength = 0.36;
           }
 
           if (uLegacyCrcMode > 0.5) {
-            matCol = mix(matCol, vermilion, uNakPulse * 0.65);
+            matCol = mix(matCol, vermilion, uNakPulse * 0.68);
           }
 
+          // Dual-Light View-Space Blinn-Phong Metallic Lighting
           vec3 N = normalize(vNormalV);
           vec3 V = normalize(vViewPos);
-          vec3 L1 = normalize(vec3(0.45, 0.82, 0.52));
-          vec3 L2 = normalize(vec3(-0.62, 0.45, -0.35));
+          vec3 L1 = normalize(vec3(0.45, 0.84, 0.50));
+          vec3 L2 = normalize(vec3(-0.65, 0.48, -0.35));
 
           float diff1 = max(dot(N, L1), 0.0);
-          float diff2 = max(dot(N, L2), 0.0) * 0.32;
+          float diff2 = max(dot(N, L2), 0.0) * 0.35;
 
           vec3 H1 = normalize(L1 + V);
           vec3 H2 = normalize(L2 + V);
           float spec1 = pow(max(dot(N, H1), 0.0), shininess);
-          float spec2 = pow(max(dot(N, H2), 0.0), 28.0) * 0.52;
+          float spec2 = pow(max(dot(N, H2), 0.0), 26.0) * 0.50;
 
-          float ao = 1.0 - (1.0 - uExplode) * (layer < 0.5 ? 0.25 : 0.0);
-          vec3 shaded = matCol * (0.58 + 0.42 * diff1 + diff2) * ao;
+          float ao = 1.0 - (1.0 - uExplode) * (layer < 0.5 ? 0.35 : 0.0);
+          vec3 shaded = matCol * (0.48 + 0.56 * diff1 + diff2) * ao;
 
-          shaded += vec3(1.0, 0.985, 0.955) * (spec1 + spec2) * specStrength;
+          // Crisp Anodized Bevel Specular Highlight
+          shaded += vec3(0.82, 0.94, 1.0) * (spec1 + spec2) * specStrength;
 
+          // Derivative-Filtered 1px Chamfer Rim & Silkscreen Fiducial Dot
           vec2 dEdge = abs(vUv - 0.5);
           float maxEdge = max(dEdge.x, dEdge.y);
           float aa = fwidth(maxEdge);
           float rim = smoothstep(0.44 - aa, 0.465 + aa, maxEdge);
-          vec3 rimTint = (vExactPick > 0.5) ? vermilion : carbonEtch;
-          shaded = mix(shaded, rimTint, rim * (vExactPick > 0.5 ? 0.82 : 0.28));
+          vec3 rimTint = (vExactPick > 0.5)
+            ? vec3(1.0, 0.96, 0.92)
+            : ((isViolO6 > 0.5 && layer > 1.5) ? vec3(1.0, 0.62, 0.45) : vec3(0.32, 0.42, 0.58));
+          shaded = mix(shaded, rimTint, rim * (vExactPick > 0.5 ? 0.92 : 0.42));
 
           float centerDot = 1.0 - smoothstep(0.038, 0.038 + fwidth(length(dEdge)), length(dEdge));
-          vec3 dotCol = (isViolO6 > 0.5 && layer > 1.5) ? carbonEtch : ((isSlope > 0.5) ? alumMid : carbonEtch);
-          shaded = mix(shaded, dotCol, centerDot * 0.48);
+          vec3 dotCol = (isViolO6 > 0.5 && layer > 1.5) ? vec3(1.0, 0.92, 0.88) : cyanPass;
+          shaded = mix(shaded, dotCol, centerDot * 0.58);
 
-          shaded += vec3(0.07, 0.065, 0.055) * (vHover + vExactPick * 0.85);
+          shaded += cyanPass * (vHover * 0.08 + vExactPick * 0.14);
 
           gl_FragColor = vec4(shaded, 1.0);
         }
@@ -1568,7 +1865,7 @@
     scene.add(pinInstancedMesh);
 
     // --- DRAW CALL 3: INSTANCED VERTICAL OPTICAL RETICLE PILLARS ---
-    const conduitBaseGeo = new THREE.CylinderGeometry(0.046, 0.046, 1.0, 12, 1, false);
+    const conduitBaseGeo = new THREE.CylinderGeometry(0.045, 0.045, 1.0, 12, 1, false);
     const conduitInstGeo = new THREE.InstancedBufferGeometry();
     conduitInstGeo.index = conduitBaseGeo.index;
     conduitInstGeo.attributes.position = conduitBaseGeo.attributes.position;
@@ -1605,6 +1902,7 @@
       uniforms: conduitUniforms,
       transparent: true,
       depthWrite: false,
+      blending: THREE.AdditiveBlending,
       vertexShader: /* glsl */ `
         attribute vec2 aConduitCoord;
         attribute float aConduitActive;
@@ -1634,7 +1932,7 @@
 
           float gap = 1.25 + 0.16 * abs(uScrollVelocity) * uExplode;
           float yBottom = mix(0.11, -gap, uExplode);
-          float yTop    = mix(0.11 + 0.46 * aConduitActive, gap + 0.22, uExplode);
+          float yTop    = mix(0.11 + 0.48 * aConduitActive, gap + 0.22, uExplode);
 
           float spanH = max(yTop - yBottom, 0.01);
           float centerY = 0.5 * (yBottom + yTop);
@@ -1654,21 +1952,24 @@
         varying vec3 vNormalV;
 
         uniform float uTime;
-        uniform float uExplode;
+        uniform float uLegacyCrcMode;
 
         void main() {
-          vec3 inkCol = vec3(0.865, 0.885, 0.935);
-          vec3 vermilion = vec3(0.945, 0.310, 0.140);
+          vec3 cyanBeam = vec3(0.22, 0.88, 0.94);
+          vec3 vermilion = vec3(1.00, 0.30, 0.16);
 
           float wave = sin(vYNorm * 9.0 - uTime * 5.2 + vColIdx * 0.65) * 0.5 + 0.5;
           float endCap = smoothstep(0.0, 0.08, vYNorm) * (1.0 - smoothstep(0.92, 1.0, vYNorm));
-          float ringTick = step(0.92, fract(vYNorm * 6.0));
+          float ringTick = step(0.90, fract(vYNorm * 6.0));
 
-          vec3 col = mix(inkCol, vermilion, wave * 0.68 + ringTick * 0.35);
-          float rim = 0.55 + 0.45 * abs(vNormalV.z);
-          float alpha = vStrength * (0.52 + 0.36 * wave) * mix(0.85, 1.0, endCap);
+          bool isRogueSlot2 = (vColIdx >= 3.9 && vColIdx <= 5.1);
+          vec3 baseTone = (uLegacyCrcMode > 0.5 || isRogueSlot2) ? mix(cyanBeam, vermilion, 0.75) : cyanBeam;
+          vec3 col = mix(baseTone * 0.65, vec3(1.0), ringTick * 0.45 + wave * 0.25);
 
-          gl_FragColor = vec4(col * (0.78 + 0.35 * rim), alpha);
+          float rim = 0.5 + 0.5 * abs(vNormalV.z);
+          float alpha = vStrength * (0.34 + 0.36 * wave) * mix(0.75, 1.0, endCap) * rim;
+
+          gl_FragColor = vec4(col, alpha);
         }
       `
     });
@@ -1678,8 +1979,60 @@
     scene.add(conduitInstancedMesh);
 
     /* ------------------------------------------------------------------
-       5. SYNCHRONIZE HARDWARE ALGEBRA -> 3D INSTANCE ATTRIBUTES & DOM
+       5. CLOSED-LOOP SYNCHRONIZATION: 3D MATRIX <-> 512b WIRE BUS HUD
        ------------------------------------------------------------------ */
+    function updateLiveWireBusHUD(slopeArr, slotViolCounts) {
+      const isLegacy = vietaState.legacyCrcMode;
+      const sentinelBadge = document.getElementById('hbm-sentinel-badge');
+      const busDot = document.getElementById('wire-bus-dot');
+
+      if (isLegacy) {
+        sentinelBadge.textContent = 'TAIL-CRC POISONED: 32-FLIT GO-BACK-N LINK REPLAY STALL (48.90% GOODPUT)';
+        sentinelBadge.style.color = 'var(--accent-signal)';
+        busDot.className = 'signal-dot';
+      } else {
+        sentinelBadge.textContent = 'HBM2 VICTIM SENTINEL 0xAAAAAAAAAAAAAAAA: 100% INTACT (99.20% GOODPUT)';
+        sentinelBadge.style.color = 'var(--accent-pass)';
+        busDot.className = 'pass-dot';
+      }
+
+      for (let s = 0; s < 4; s++) {
+        const card = document.getElementById(`wire-card-${s}`);
+        const pill = document.getElementById(`slot${s}-pill`);
+        const agSpan = document.getElementById(`slot${s}-ag`);
+        const egress = document.getElementById(`slot${s}-egress`);
+
+        const colEven = s * 2;
+        const yEven = slopeArr[colEven];
+        agSpan.textContent = `AG(${colEven},${yEven})`;
+
+        const hasViol = slotViolCounts[s] > 0;
+        substrateUniforms.uSlotViolMask.value[s] = hasViol ? 1.0 : 0.0;
+
+        if (isLegacy) {
+          card.className = 'wire-slot-card is-poisoned p-2.5 border';
+          pill.className = 'px-1.5 py-0.5 bg-[#471410] text-[color:var(--accent-signal)]';
+          pill.textContent = s === 2 || hasViol ? 'CRC INVERTED' : 'COLLATERAL KILL';
+          egress.style.color = 'var(--accent-signal)';
+          egress.textContent = s === 2 || hasViol
+            ? 'Tail CRC Poisoned -> Triggers N=32 Replay'
+            : 'ABORTED! Innocent Tenant Destroyed by NAK';
+        } else if (hasViol) {
+          card.className = 'wire-slot-card is-quarantined p-2.5 border';
+          pill.className = 'px-1.5 py-0.5 bg-[#3b1410] text-[color:var(--accent-signal)]';
+          pill.textContent = `O6 SCRUB (${slotViolCounts[s]})`;
+          egress.style.color = 'var(--accent-signal)';
+          egress.textContent = `WSTRB_${s}=16'h0000 -> CXL_NOP (0.124ns)`;
+        } else {
+          card.className = 'wire-slot-card is-pass p-2.5 border';
+          pill.className = 'px-1.5 py-0.5 bg-[#102a30] text-[color:var(--accent-pass)]';
+          pill.textContent = 'O5 PASS';
+          egress.style.color = 'var(--accent-pass)';
+          egress.textContent = `WSTRB_${s}=16'hFFFF -> 0x5555555555555555`;
+        }
+      }
+    }
+
     function updateHardwareMatrixAttributes(snapConduits = false) {
       const b = vietaState.slopeB;
       const a = vietaState.interceptA;
@@ -1702,6 +2055,8 @@
       if (snapConduits) attrConduitActive.needsUpdate = true;
 
       let violCount = 0;
+      const slotViolCounts = [0, 0, 0, 0];
+
       for (let layer = 0; layer < 3; layer++) {
         for (let row = 0; row < 8; row++) {
           const sigmaByte = vietaState.sigma[row];
@@ -1711,9 +2066,14 @@
             const isSlope = activeSlopeSet.has(idx64) ? 1.0 : 0.0;
             const isRevoked = vietaState.revokedGridPins.has(idx64) ? 1.0 : 0.0;
 
-            const inSlotS2 = (col === 4 || col === 5);
-            const isViolO6 = (inSlotS2 && (row >= 2 && row <= 5)) || isRevoked > 0.5 ? 1.0 : 0.0;
-            if (layer === 2 && isViolO6 > 0.5) violCount++;
+            // Slot s2 (Cols 4..5) carries baseline rogue DMA write; clicking ANY pin in s0..s3 also triggers O6 scrub!
+            const inSlotS2Baseline = (col === 4 || col === 5) && (row >= 2 && row <= 5);
+            const isViolO6 = (inSlotS2Baseline || isRevoked > 0.5) ? 1.0 : 0.0;
+
+            if (layer === 2 && isViolO6 > 0.5) {
+              violCount++;
+              slotViolCounts[Math.floor(col / 2)]++;
+            }
 
             const shadowBit = ((sigmaByte >> (7 - col)) & 1) ? 1.0 : 0.0;
 
@@ -1735,6 +2095,8 @@
         ? `y = 0.00 | 48.90% NAK STALL`
         : `y = 0.00 | 99.20% GOODPUT`;
       document.getElementById('badge-sh-stat').textContent = `y = \u22121.25 | d_rev = ${vietaState.roots.length}/8`;
+
+      updateLiveWireBusHUD(slopeArr, slotViolCounts);
     }
 
     updateHardwareMatrixAttributes(true);
@@ -1812,9 +2174,11 @@
 
     const railLabels = [
       { title: "SHADOW BANK 0x60 (B\u00C9ZOUT)", color: "var(--ink-primary)" },
-      { title: "RAIL O5 (8'h80 // \u03A0_P PASS)", color: "var(--ink-primary)" },
-      { title: "RAIL O6 (8'h2A // \u0394_P VIOL)", color: "var(--accent-signal)" }
+      { title: "RAIL O5 (8'h80 // \u03A0_P PASS)", color: "var(--accent-pass)" },
+      { title: "RAIL O6 (8'h2A // \u0394_P SCRUB)", color: "var(--accent-signal)" }
     ];
+
+    const slotBitRanges = ['[127:0]', '[255:128]', '[383:256]', '[511:384]'];
 
     window.addEventListener('pointermove', (e) => {
       state.cursorNDC.x = (e.clientX / cachedViewport.w) * 2 - 1;
@@ -1843,21 +2207,21 @@
         tipRail.style.color = railLabels[layer].color;
         tipCoord.textContent = `AG(2,8) [x=${gx}, y=${gy}]`;
         tipElev.textContent = `y = ${y >= 0 ? '+' : ''}${y.toFixed(2)}`;
-        tipSlot.textContent = `SLOT s${slotId} (128b)`;
+        tipSlot.textContent = `SLOT s${slotId} ${slotBitRanges[slotId]}`;
 
         if (layer === 0) {
           tipState.textContent = `CSR 0x60[\u03C3_${gy + 1}, b${7 - gx}] = ${shadowBit} | d_rev=${vietaState.roots.length}`;
         } else if (layer === 2) {
           tipState.textContent = inS2Rogue
-            ? `O6 \u0394_P = 1 (CLAMPED TO CXL_NOP)`
+            ? `O6 \u0394_P = 1 -> WSTRB_${slotId}=16'h0000 (CXL_NOP)`
             : `O6 \u0394_P = 0 (NO EXCESS PRIVILEGE)`;
         } else {
           tipState.textContent = inS2Rogue
-            ? `O5 \u03A0_P = 0 (SCRUBBED BY SIEVE)`
-            : `O5 \u03A0_P = 1 (WORK-CONSERVING PASS)`;
+            ? `O5 \u03A0_P = 0 (BLOCKED AT 0.124ns SIEVE)`
+            : `O5 \u03A0_P = 1 -> WSTRB_${slotId}=16'hFFFF COMMIT`;
         }
 
-        inspectorEl.style.transform = `translate3d(${Math.min(e.clientX + 16, cachedViewport.w - 265)}px, ${Math.max(e.clientY - 82, 58)}px, 0)`;
+        inspectorEl.style.transform = `translate3d(${Math.min(e.clientX + 16, cachedViewport.w - 280)}px, ${Math.max(e.clientY - 86, 58)}px, 0)`;
         inspectorEl.style.opacity = '1';
       } else {
         state.hoveredGridIndex = -1;
@@ -1891,13 +2255,14 @@
     });
 
     /* ------------------------------------------------------------------
-       7. HARDWARE CONTROLS, BEAT-2 TELEMETRY SWITCHER & KEYBOARD INDEX
+       7. HARDWARE CONTROLS, SILICON SWITCHER & THEOREM 6.3 CALCULATOR
        ------------------------------------------------------------------ */
     const btnModeSpectral = document.getElementById('mode-spectral');
     const btnModeLegacy = document.getElementById('mode-legacy');
     const metricGoodput = document.getElementById('metric-goodput');
     const metricGoodputSub = document.getElementById('metric-goodput-sub');
     const heroStatusTag = document.getElementById('hero-status-tag');
+    const heroStatusDot = document.getElementById('hero-status-dot');
 
     function setEnforcementMode(isLegacy) {
       playTactileClick(isLegacy ? 920 : 1750);
@@ -1915,12 +2280,14 @@
         metricGoodput.textContent = '48.90%';
         metricGoodput.style.color = 'var(--accent-signal)';
         metricGoodputSub.textContent = 'N_pipe=32 NAK STORM';
-        heroStatusTag.textContent = 'WARNING: TAIL-CRC FATE-SHARING DESTROYS 3 INNOCENT SLOTS';
+        heroStatusDot.className = 'signal-dot';
+        heroStatusTag.textContent = 'TAIL-CRC FATE-SHARING: 3 INNOCENT NEIGHBOR SLOTS ABORTED';
       } else {
         metricGoodput.textContent = '99.20%';
-        metricGoodput.style.color = 'var(--ink-primary)';
+        metricGoodput.style.color = 'var(--accent-pass)';
         metricGoodputSub.textContent = 'N_replay \u2261 0 NAKs';
-        heroStatusTag.textContent = 'MONOGRAPH PART I & II \u00B7 CXL 3.0\u20134.0 / UCIe 1.1\u20133.0';
+        heroStatusDot.className = 'pass-dot';
+        heroStatusTag.textContent = 'SPECTRAL SYSTEMS LLC \u00B7 CXL 3.0\u20134.0 & UCIe 1.1\u20133.0 INTERPOSER';
       }
       updateHardwareMatrixAttributes(false);
     }
@@ -1957,6 +2324,7 @@
     document.getElementById('btn-revoke-root').addEventListener('click', triggerVietaRevoke);
     document.getElementById('btn-bezout-deflate').addEventListener('click', triggerBezoutDeflate);
 
+    // Stage-2 BF16 Mantissa Clamp Verifier
     const clampConfigs = [
       { mi: 'I(W; Y) \u2261 0 bits (FULL SCRUB)', hex: '0x0000_0000', q: 'Q = \u221E (ZERO LEAKAGE)' },
       { mi: 'I(W; Y) \u2264 9 bits/elem (E8M0)', hex: '0x3F80_3F80', q: 'Q*_BBP = 21,845\u201343,691' },
@@ -1977,12 +2345,13 @@
       });
     });
 
+    // Section 02 Multi-Track Silicon Provenance Switcher
     const siliconProfiles = {
       fpga: {
         track: 'TRACK B // 16nm XCVU47P + LIVE AWS EC2 f2.6xlarge DUAL-AFI',
         clock: '338.8 / 899.3 MHz',
-        headerHz: '338.8 MHz',
-        speed: 0.92,
+        headerHz: '338.8 MHz (FPGA)',
+        speed: 0.95,
         k1L: '2-STAGE CORE', k1V: '1,585', k1S: 'CLB LUTs (0.12% Die)',
         k2L: 'SETUP SLACK', k2V: '+1.048<span class="text-lg">ns</span>', k2S: '0 DRC · 1,157 FDCE FFs',
         k3L: 'TVLA LEAKAGE', k3V: '0.0<span class="text-lg">|t|</span>', k3S: '19,990 Live F2 Traces',
@@ -1991,22 +2360,22 @@
       asic: {
         track: 'TRACK A // OPENROAD + OPENSTA 7nm FINFET SIGN-OFF',
         clock: '693 MHz (2.77\u00D7)',
-        headerHz: '693 MHz',
+        headerHz: '693 MHz (7nm)',
         speed: 1.35,
         k1L: 'ENCLAVE AREA', k1V: '27,877', k1S: 'Cells (0.0033 mm\u00B2)',
         k2L: 'CRITICAL PATH', k2V: '1,444<span class="text-lg">ps</span>', k2S: '+2,556.4 ps WNS',
         k3L: 'TOTAL POWER', k3V: '3.728<span class="text-lg">mW</span>', k3S: '0 SRAM · 0 DRC',
         receipt: 'RECEIPT: TRL6_ASIC_7NM_ASAP7_SIGNOFF.json · SHA256: 29d30a340852..1712c7ab'
       },
-      tco: {
-        track: 'THEOREM 6.3 // 10,000-RACK HYPERSCALE CONSERVATION (160 PB)',
-        clock: '0% DRAM CARVE-OUT',
-        headerHz: '128 Gbps/Port',
+      k8s: {
+        track: 'TRACK C & ORACLE 4 // CNCF k3s WEBHOOK HIL & ZK-IC3 MITER',
+        clock: '1.36 ms 403 GATE',
+        headerHz: 'ZK-IC3 UNSAT',
         speed: 1.15,
-        k1L: 'RECLAIMED HBM', k1V: '$38.4<span class="text-lg">M</span>', k1S: '2,560 TiB Unstranded',
-        k2L: 'GRID POWER SAVED', k2V: '39.44<span class="text-lg">MW</span>', k2S: '345.5 GWh/yr Peak',
-        k3L: 'WATER & CARBON', k3V: '497.5<span class="text-lg">ML</span>', k3S: '117,814 tCO2e/yr Saved',
-        receipt: 'WEBHOOK HIL: TRL8_K8S_OPERATOR_HIL_RECEIPT.json · 1.36 ms HTTP 403 Block'
+        k1L: 'MITER CONES', k1V: '100<span class="text-lg">%</span>', k1S: '2^w_k UNSAT (0 .sv Leaked)',
+        k2L: 'WARM WEBHOOK', k2V: '1.36<span class="text-lg">ms</span>', k2S: 'FIPS-204 ML-DSA-87',
+        k3L: 'RSM LIVENESS', k3V: '137<span class="text-lg">tick</span>', k3S: '548.0 ns Shootdown Cap',
+        receipt: 'RECEIPT: ZK_LEC_MITER_RECEIPT.json · SHA256: 46bee17ecb43..f52ee359'
       }
     };
 
@@ -2039,6 +2408,138 @@
       });
     });
 
+    // --- SECTION 03: EXACT THEOREM 6.3 THERMODYNAMIC & HYDROLOGICAL CALCULATOR ---
+    const tcoState = {
+      racks: 10000,
+      etaStallPct: 14.1, // %
+      isBinary: true,    // true = 16,384 GiB/rack, false = 16,000 GB/rack
+      isCoalGas: false   // false = EPA eGRID US 0.341 kg/kWh, true = Coal/Gas BA 0.545 kg/kWh
+    };
+
+    const sliderRacks = document.getElementById('slider-racks');
+    const sliderStall = document.getElementById('slider-stall');
+    const presetBtns = document.querySelectorAll('[data-preset]');
+    const btnBasisBin = document.getElementById('btn-basis-bin');
+    const btnBasisDec = document.getElementById('btn-basis-dec');
+    const btnGridUs = document.getElementById('btn-grid-us');
+    const btnGridCoal = document.getElementById('btn-grid-coal');
+
+    function evaluateTheorem63() {
+      const N = tcoState.racks;
+      const eta = tcoState.etaStallPct / 100.0;
+      const PUE = 1.25;
+      const pDram = 0.45; // W/GB JEDEC tREFI=3.9us refresh + buffer standby
+      const alphaWait = 0.40; // 16 kW/rack non-gated stall-wait factor on 40 kW/rack IT load
+      const pRackIT = 0.040; // MW per rack (400 MW at 10,000 racks)
+      const pCoreClusterMW = (N * 8 * 0.003728) / 1e6; // 8 ports/rack * 3.728 mW 7nm ASIC (< 0.0003 MW)
+
+      // 1. Reclaimed Memory & CapEx (Eqs. 32-33)
+      const mRackUnits = tcoState.isBinary ? 16384 : 16000; // GiB or GB per rack
+      const reclaimedUnits = (N * mRackUnits) / 64.0; // f_meta = 1/64 = 1.5625%
+      const capExM = (reclaimedUnits * 15.0) / 1e6; // $15/GB or $15/GiB
+
+      // 2. Passive Refresh Floor + Active Stall-Wait Power (Eqs. 30 & 34)
+      const pPassMW = PUE * ((reclaimedUnits * pDram) / 1e6 - pCoreClusterMW);
+      const pFleetMW = N * pRackIT;
+      const pStallMW = PUE * pFleetMW * eta * alphaWait;
+      const pTotalMW = Math.max(0, pPassMW + pStallMW);
+
+      // 3. Annual Energy, Cooling Water (WUE = 1.80 L/kWh_IT), Scope-2 & Scope-3 Carbon (Eq. 35)
+      const eYrGWh = (pTotalMW * 8760.0) / 1000.0;
+      const eItYrGWh = eYrGWh / PUE;
+      const waterML = eItYrGWh * 1.80; // Million Liters/yr (since 1 GWh = 10^6 kWh)
+      const waterMGal = waterML / 3.78541178;
+
+      const iCo2 = tcoState.isCoalGas ? 0.545 : 0.341; // tCO2e / MWh
+      const scope2Tons = eYrGWh * 1000.0 * iCo2;
+      const scope3Tons = (reclaimedUnits * 0.60) / 1000.0; // ACT upper fab carbon tCO2e
+
+      // Update UI Readouts
+      const poolStr = tcoState.isBinary
+        ? `${((N * 16) / 1024).toFixed(2)} PiB`
+        : `${((N * 16) / 1000).toFixed(0)} PB`;
+      document.getElementById('val-racks').textContent = `${N.toLocaleString()} Racks (${poolStr})`;
+
+      let stallTag = 'Custom';
+      if (tcoState.etaStallPct === 0) stallTag = 'Static Batch Floor';
+      else if (Math.abs(tcoState.etaStallPct - 3.3) < 0.05) stallTag = 'Fleet Average';
+      else if (Math.abs(tcoState.etaStallPct - 14.1) < 0.05) stallTag = 'Sparse MoE';
+      else if (Math.abs(tcoState.etaStallPct - 19.0) < 0.05) stallTag = 'KV/MoE Thrash Peak';
+      document.getElementById('val-stall').textContent = `${tcoState.etaStallPct.toFixed(2)}% (${stallTag})`;
+
+      document.getElementById('tco-capex').textContent = `$${capExM.toFixed(2)}M`;
+      document.getElementById('tco-tb').textContent = tcoState.isBinary
+        ? `${(reclaimedUnits / 1000).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')} TiB Unstranded`
+        : `${(reclaimedUnits / 1000).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')} TB Unstranded`;
+
+      document.getElementById('tco-mw').textContent = `${pTotalMW.toFixed(2)} MW`;
+      document.getElementById('tco-mw-split').textContent = `${pPassMW.toFixed(2)} Floor + ${pStallMW.toFixed(2)} Stall`;
+
+      document.getElementById('tco-water').innerHTML = `${waterMGal.toFixed(1)}M<span class="text-base"> gal</span>`;
+      document.getElementById('tco-liters').textContent = `${waterML.toFixed(1)}M L/yr (WUE 1.80)`;
+
+      document.getElementById('tco-co2').innerHTML = `${Math.round(scope2Tons).toLocaleString()}<span class="text-base"> t</span>`;
+      document.getElementById('tco-gwh').textContent = `${eYrGWh.toFixed(1)} GWh/yr (+${Math.round(scope3Tons)}t Fab)`;
+    }
+
+    sliderRacks.addEventListener('input', (e) => {
+      tcoState.racks = parseInt(e.target.value, 10);
+      evaluateTheorem63();
+    });
+
+    sliderStall.addEventListener('input', (e) => {
+      tcoState.etaStallPct = parseFloat(e.target.value);
+      presetBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
+      evaluateTheorem63();
+    });
+
+    const presetMap = { floor: 0.0, avg: 3.3, moe: 14.1, peak: 19.0 };
+    presetBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        playTactileClick(1800);
+        const val = presetMap[btn.dataset.preset];
+        tcoState.etaStallPct = val;
+        sliderStall.value = String(val);
+        presetBtns.forEach(el => el.setAttribute('aria-pressed', String(el === btn)));
+        evaluateTheorem63();
+      });
+    });
+
+    btnBasisBin.addEventListener('click', () => {
+      playTactileClick(1720);
+      tcoState.isBinary = true;
+      btnBasisBin.setAttribute('aria-pressed', 'true');
+      btnBasisDec.setAttribute('aria-pressed', 'false');
+      evaluateTheorem63();
+    });
+
+    btnBasisDec.addEventListener('click', () => {
+      playTactileClick(1720);
+      tcoState.isBinary = false;
+      btnBasisBin.setAttribute('aria-pressed', 'false');
+      btnBasisDec.setAttribute('aria-pressed', 'true');
+      evaluateTheorem63();
+    });
+
+    btnGridUs.addEventListener('click', () => {
+      playTactileClick(1720);
+      tcoState.isCoalGas = false;
+      btnGridUs.setAttribute('aria-pressed', 'true');
+      btnGridCoal.setAttribute('aria-pressed', 'false');
+      evaluateTheorem63();
+    });
+
+    btnGridCoal.addEventListener('click', () => {
+      playTactileClick(1720);
+      tcoState.isCoalGas = true;
+      btnGridUs.setAttribute('aria-pressed', 'false');
+      btnGridCoal.setAttribute('aria-pressed', 'true');
+      evaluateTheorem63();
+    });
+
+    evaluateTheorem63();
+
+    // Footer Interactive Shortcut Index & DOI Copy
     document.querySelectorAll('[data-shortcut]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const action = btn.dataset.shortcut;
@@ -2059,23 +2560,6 @@
       setTimeout(() => { label.textContent = 'DOI: 10.5281/zenodo.24047902'; }, 2400);
     });
 
-    // 1-Click FAR 13.106-1(b) Single-Source Determination Memo Copy
-    const farMemoText = `MEMORANDUM FOR RECORD — SINGLE-SOURCE TECHNICAL DETERMINATION (FAR 13.106-1(b)(1) / VA eVA MICRO-SWaM)
-1. VENDOR & PRODUCT: Spectral Systems LLC (Virginia Beach, VA) | SAM UEI: VTP2JPCJU3D9 | CAGE: 268E1 | VA eVA: VA10140357 (SUP373159).
-   Product: SPECTRAL FLIT-FILTER (v1.0.0 / v1.1.0) Turnkey COTS Verification & Encrypted Netlist Evaluation Package (DOI: 10.5281/zenodo.24047902).
-   Firm-Fixed-Price: USD 14,850.00 (DoD/Federal GPC Micro-Purchase) / USD 9,850.00 (Virginia eVA Single-Quote) / USD 4,850.00 (Academic Seat).
-2. SOLE-SOURCE JUSTIFICATION: Spectral Systems LLC is the sole creator and rights-holder of the 0.124 ns single-LUT6_2 sub-flit sanitizer (1,585 Core LUTs, 0 BRAM on 16nm xcvu47p; 693 MHz / 3.728 mW in 7nm ASAP7), GF(2^8)[Z] Vieta/Bezout revocation ratchet, and 38 zero-axiom Lean 4 formal proofs (thm00-thm37) verified on live AWS EC2 f2.6xlarge HBM2 silicon (agfi-08becf3b40b169674 & agfi-03b742e2a9cd2c0f2). Delivered 100% turnkey "AS-IS" under DFARS 252.227-7018 with zero ongoing service labor.`;
-
-    document.getElementById('btn-copy-far-memo').addEventListener('click', (e) => {
-      playTactileClick(2050);
-      const btn = e.currentTarget;
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(farMemoText).catch(() => {});
-      }
-      btn.textContent = 'COPIED FAR 13.106-1(b) MEMO \u2713';
-      setTimeout(() => { btn.textContent = 'COPY FAR 13.106-1(b) SOLE-SOURCE MEMO'; }, 2600);
-    });
-
     window.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
       const k = e.key.toLowerCase();
@@ -2093,7 +2577,7 @@
     });
 
     /* ------------------------------------------------------------------
-       8. MODAL DOSSIER & LIVE MAILTO LEAD CAPTURE
+       8. MODAL DOSSIER & MAGNETIC MICRO-INTERACTIONS
        ------------------------------------------------------------------ */
     const modal = document.getElementById('dossier-modal');
     const oracleRowAfi = document.getElementById('oracle-row-afi');
@@ -2105,13 +2589,13 @@
       modal.classList.add('flex');
       if (highlightAfi) {
         document.getElementById('track-select').value = 'aws-f2';
-        oracleRowAfi.style.backgroundColor = 'oklch(0.635 0.218 28.5 / 0.18)';
+        oracleRowAfi.style.backgroundColor = 'rgba(56, 220, 226, 0.14)';
         afiHighlightTag.textContent = 'VERIFIED AFI: agfi-08becf3b40b169674 (100% SENTINEL)';
-        afiHighlightTag.style.color = 'var(--accent-signal)';
+        afiHighlightTag.style.color = 'var(--accent-pass)';
       } else {
         oracleRowAfi.style.backgroundColor = '';
         afiHighlightTag.textContent = 'ALL 5 ORACLES SEALED';
-        afiHighlightTag.style.color = 'var(--ink-primary)';
+        afiHighlightTag.style.color = 'var(--accent-pass)';
       }
       document.getElementById('org-input').focus();
     }
@@ -2134,14 +2618,14 @@
       e.preventDefault();
       playTactileClick(2200);
       const org = document.getElementById('org-input').value.trim();
-      const emailVal = document.getElementById('email-input').value.trim();
       const track = document.getElementById('track-select').selectedOptions[0].text;
       const feedback = document.getElementById('form-feedback');
-      const subj = encodeURIComponent(`Turnkey COTS / Zone-1 Evaluation Inquiry — ${org}`);
-      const body = encodeURIComponent(`Institution / Agency: ${org}\nContact Email: ${emailVal}\nTarget Track: ${track}\n\nPlease transmit the Turnkey COTS / Zone-1 Evaluation Package (CAGE: 268E1 | SAM UEI: VTP2JPCJU3D9).`);
+      const emailVal = document.getElementById('email-input').value.trim();
+      const subj = encodeURIComponent(`Zone-1 COTS / Hard-IP Evaluation Inquiry — ${org}`);
+      const body = encodeURIComponent(`Institution / Lab: ${org}\nContact Email: ${emailVal}\nTarget Interposer Profile: ${track}\n\nPlease transmit the Turnkey COTS / Zone-1 Evaluation Brief (CAGE: 268E1 | SAM UEI: VTP2JPCJU3D9).`);
       window.location.href = `mailto:eric@spectralsystems.org?subject=${subj}&body=${body}`;
       feedback.textContent = `OPENED MAIL CLIENT -> eric@spectralsystems.org for ${org}`;
-      feedback.style.color = 'var(--accent-signal)';
+      feedback.style.color = 'var(--accent-pass)';
     });
 
     document.querySelectorAll('.magnetic-el').forEach((el) => {
@@ -2159,7 +2643,11 @@
     });
 
     /* ------------------------------------------------------------------
-       9. EXACT NDC CAMERA CENTERING & DETERMINISTIC 3-BEAT CHOREOGRAPHY
+       9. EXACT NDC CAMERA CENTERING & 4-BEAT SCROLL CHOREOGRAPHY
+          Beat 0 (#hero):       NDC.x = +0.36 (Right Aperture, Wire + Sieve)
+          Beat 1 (#beat-one):   NDC.x = -0.38 (Left Aperture, 32-deg Exploded)
+          Beat 2 (#beat-two):   NDC.x = +0.36 (Right Aperture, Grazing 4-Slot)
+          Beat 3 (#beat-three): NDC.x = -0.37 (Left Aperture, Kirchhoff Lattice)
        ------------------------------------------------------------------ */
     if (!state.reducedMotion) {
       gsap.fromTo('.reveal-line',
@@ -2177,6 +2665,7 @@
 
     const sectionBeatOne = document.getElementById('beat-one');
     const sectionBeatTwo = document.getElementById('beat-two');
+    const sectionBeatThree = document.getElementById('beat-three');
     const vernierNeedle = document.getElementById('vernier-needle');
     const vernierReadout = document.getElementById('vernier-readout');
     const hudLeaderLayer = document.getElementById('hud-leader-layer');
@@ -2187,9 +2676,10 @@
     }
 
     const BEAT_CAM = {
-      b0: { px: 2.35,  py: 10.65, pz: 8.75,  ndcX:  0.36, ndcY:  0.07, explode: 0.00 },
+      b0: { px: 2.35,  py: 11.10, pz: 8.95,  ndcX:  0.36, ndcY:  0.14, explode: 0.00 },
       b1: { px: 7.38,  py: 7.84,  pz: 10.15, ndcX: -0.38, ndcY:  0.00, explode: 1.00 },
-      b2: { px: -5.48, py: 4.51,  pz: 12.30, ndcX:  0.36, ndcY: -0.02, explode: 0.26 }
+      b2: { px: -5.48, py: 4.51,  pz: 12.30, ndcX:  0.36, ndcY: -0.02, explode: 0.26 },
+      b3: { px: 3.10,  py: 12.20, pz: 6.80,  ndcX: -0.37, ndcY:  0.02, explode: 0.10 }
     };
 
     const camCurrent = { ...BEAT_CAM.b0 };
@@ -2226,23 +2716,33 @@
       const vh = Math.max(cachedViewport.h, 1);
       const r1 = sectionBeatOne.getBoundingClientRect();
       const r2 = sectionBeatTwo.getBoundingClientRect();
+      const r3 = sectionBeatThree.getBoundingClientRect();
 
       const p1 = smoothstep01((vh * 0.96 - r1.top) / (vh * 0.76));
       const p2 = smoothstep01((vh * 0.92 - r2.top) / (vh * 0.74));
+      const p3 = smoothstep01((vh * 0.92 - r3.top) / (vh * 0.74));
 
-      const px01 = THREE.MathUtils.lerp(BEAT_CAM.b0.px, BEAT_CAM.b1.px, p1);
-      const py01 = THREE.MathUtils.lerp(BEAT_CAM.b0.py, BEAT_CAM.b1.py, p1);
-      const pz01 = THREE.MathUtils.lerp(BEAT_CAM.b0.pz, BEAT_CAM.b1.pz, p1);
-      const nx01 = THREE.MathUtils.lerp(BEAT_CAM.b0.ndcX, BEAT_CAM.b1.ndcX, p1);
-      const ny01 = THREE.MathUtils.lerp(BEAT_CAM.b0.ndcY, BEAT_CAM.b1.ndcY, p1);
-      const ex01 = THREE.MathUtils.lerp(BEAT_CAM.b0.explode, BEAT_CAM.b1.explode, p1);
+      // Blend b0 -> b1 -> b2 -> b3 deterministically
+      let px = THREE.MathUtils.lerp(BEAT_CAM.b0.px, BEAT_CAM.b1.px, p1);
+      let py = THREE.MathUtils.lerp(BEAT_CAM.b0.py, BEAT_CAM.b1.py, p1);
+      let pz = THREE.MathUtils.lerp(BEAT_CAM.b0.pz, BEAT_CAM.b1.pz, p1);
+      let nx = THREE.MathUtils.lerp(BEAT_CAM.b0.ndcX, BEAT_CAM.b1.ndcX, p1);
+      let ny = THREE.MathUtils.lerp(BEAT_CAM.b0.ndcY, BEAT_CAM.b1.ndcY, p1);
+      let ex = THREE.MathUtils.lerp(BEAT_CAM.b0.explode, BEAT_CAM.b1.explode, p1);
 
-      camCurrent.px = THREE.MathUtils.lerp(px01, BEAT_CAM.b2.px, p2);
-      camCurrent.py = THREE.MathUtils.lerp(py01, BEAT_CAM.b2.py, p2);
-      camCurrent.pz = THREE.MathUtils.lerp(pz01, BEAT_CAM.b2.pz, p2);
-      camCurrent.ndcX = THREE.MathUtils.lerp(nx01, BEAT_CAM.b2.ndcX, p2);
-      camCurrent.ndcY = THREE.MathUtils.lerp(ny01, BEAT_CAM.b2.ndcY, p2);
-      camCurrent.explode = THREE.MathUtils.lerp(ex01, BEAT_CAM.b2.explode, p2);
+      px = THREE.MathUtils.lerp(px, BEAT_CAM.b2.px, p2);
+      py = THREE.MathUtils.lerp(py, BEAT_CAM.b2.py, p2);
+      pz = THREE.MathUtils.lerp(pz, BEAT_CAM.b2.pz, p2);
+      nx = THREE.MathUtils.lerp(nx, BEAT_CAM.b2.ndcX, p2);
+      ny = THREE.MathUtils.lerp(ny, BEAT_CAM.b2.ndcY, p2);
+      ex = THREE.MathUtils.lerp(ex, BEAT_CAM.b2.explode, p2);
+
+      camCurrent.px = THREE.MathUtils.lerp(px, BEAT_CAM.b3.px, p3);
+      camCurrent.py = THREE.MathUtils.lerp(py, BEAT_CAM.b3.py, p3);
+      camCurrent.pz = THREE.MathUtils.lerp(pz, BEAT_CAM.b3.pz, p3);
+      camCurrent.ndcX = THREE.MathUtils.lerp(nx, BEAT_CAM.b3.ndcX, p3);
+      camCurrent.ndcY = THREE.MathUtils.lerp(ny, BEAT_CAM.b3.ndcY, p3);
+      camCurrent.explode = THREE.MathUtils.lerp(ex, BEAT_CAM.b3.explode, p3);
 
       state.explodeProgress = camCurrent.explode;
       pinUniforms.uExplode.value = camCurrent.explode;
@@ -2256,7 +2756,9 @@
       const globalScroll = THREE.MathUtils.clamp(window.scrollY / docMax, 0, 1);
       vernierNeedle.style.transform = `translateY(${(globalScroll * 240).toFixed(1)}px)`;
 
-      if (p2 > 0.5) {
+      if (p3 > 0.5) {
+        vernierReadout.textContent = '39.44MW';
+      } else if (p2 > 0.5) {
         vernierReadout.textContent = '8.000ns';
       } else {
         const ns = (0.124 + p1 * 2.731).toFixed(3);
@@ -2266,7 +2768,7 @@
 
     function applyExactNdcCameraAndProjectLeaders() {
       const isMobile = cachedViewport.w < 1024;
-      vecP0.set(camCurrent.px, isMobile ? camCurrent.py * 1.16 : camCurrent.py, camCurrent.pz);
+      vecP0.set(camCurrent.px, isMobile ? camCurrent.py * 1.18 : camCurrent.py, camCurrent.pz);
 
       const dist = vecP0.length();
       vecFwd.copy(vecP0).negate().normalize();
@@ -2275,7 +2777,7 @@
 
       const tanHalfFov = Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.5));
       const targetNdcX = isMobile ? 0.0 : camCurrent.ndcX;
-      const targetNdcY = isMobile ? 0.05 : camCurrent.ndcY;
+      const targetNdcY = isMobile ? 0.06 : camCurrent.ndcY;
 
       const shiftRight = -targetNdcX * dist * camera.aspect * tanHalfFov;
       const shiftUp    = -targetNdcY * dist * tanHalfFov;
