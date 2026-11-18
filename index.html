@@ -499,6 +499,64 @@
          BEAT 0: HERO — PLAIN-ENGLISH FLIT DEFINITION, LIVE 512b WIRE BUS
          BRIDGE & TACTILE HARDWARE INSTRUMENT CONSOLE
          ================================================================ -->
+        <!-- ================================================================
+         PROLOGUE: POWERS-OF-TEN SILICON DIE ZOOM (10^-2m WAFER -> 10^-8m GATE)
+         ================================================================ -->
+    <section id="silicon-prologue" class="min-h-[210vh] pt-20 pb-12 flex flex-col justify-between relative">
+      <!-- Beat P.1: 10^-2 m Macro Silicon Die -->
+      <div class="swiss-grid items-start pt-8">
+        <div class="col-span-6 lg:col-span-9 pointer-events-auto hw-plate p-6 sm:p-8">
+          <div class="font-mono-tech text-[10px] text-[color:var(--accent-pass)] mb-2 flex justify-between">
+            <span>SCALE 10&#8315;&sup2; m // MACRO SILICON DIE &amp; HBM PACKAGE</span>
+            <span class="text-[color:var(--ink-muted)]">SCROLL TO ZOOM IN &darr;</span>
+          </div>
+          <h2 class="beat-h1 text-[color:var(--ink-primary)] mb-3">
+            This is a silicon chip.
+          </h2>
+          <p class="prose-monograph text-[color:var(--ink-primary)]/90 mb-3">
+            For seventy years, we made computers faster by shrinking transistors and packing them closer together on a single slice of silicon. Then AI models grew larger than any single chip could hold—forcing thousands of processors to share giant pools of memory over high-speed wires.
+          </p>
+          <p class="arch-subtext">
+            Scroll down to zoom 1,000,000&times; into the copper interconnect boundary—from the millimeter package down to a single 0.124-nanosecond lookup gate.
+          </p>
+        </div>
+      </div>
+
+      <!-- Beat P.2: 10^-4 m The 50-Year Memory Tollbooth -->
+      <div class="swiss-grid items-center my-auto py-24">
+        <div class="col-span-6 lg:col-start-15 lg:col-span-10 pointer-events-auto hw-plate p-6 sm:p-8">
+          <div class="font-mono-tech text-[10px] text-[color:var(--accent-signal)] mb-2 flex justify-between">
+            <span>SCALE 10&#8315;&#8308; m // THE 50-YEAR PERMISSION TABLE BOTTLENECK</span>
+            <span>250 GB/RACK TAX</span>
+          </div>
+          <h2 class="beat-h1 text-[color:var(--ink-primary)] mb-3">
+            For half a century, memory policed itself with a ledger stored <em class="italic font-normal text-[color:var(--accent-signal)]">inside memory</em>.
+          </h2>
+          <p class="prose-monograph text-[color:var(--ink-primary)]/90 mb-3">
+            Every time an AI accelerator asks for a 64-byte line of shared memory, the controller has to check who owns it. Storing that ledger in DRAM carves out 2,500 terabytes across ten thousand racks ($38.4M) and stalls the processor for 32 to 68 nanoseconds every time the on-chip cache misses.
+          </p>
+          <p class="arch-subtext">
+            Like a living organism, an AI cluster drinks cooling water and excretes waste heat: refreshing those 2.5 million gigabytes of permission tables every 3.9 microseconds while stalled GPUs spin their clocks burns up to 39.44 megawatts and evaporates 131.4 million gallons of water a year.
+          </p>
+        </div>
+      </div>
+
+      <!-- Beat P.3: 10^-6 m -> 10^-8 m Transition into the 512-Bit Flit & Toy Model -->
+      <div class="swiss-grid items-end pb-8">
+        <div class="col-span-6 lg:col-span-10 pointer-events-auto hw-plate p-6 sm:p-8">
+          <div class="font-mono-tech text-[10px] text-[color:var(--accent-pass)] mb-2 flex justify-between">
+            <span>SCALE 10&#8315;&#8312; m // INSIDE ONE 0.124 ns LUT6_2 GATE</span>
+            <span>TOY MODEL UNLOCKED</span>
+          </div>
+          <h2 class="beat-h1 text-[color:var(--ink-primary)] mb-3">
+            Instead of looking up a table, we wired the math into <em class="italic font-normal text-[color:var(--accent-pass)]">one gate</em>.
+          </h2>
+          <p class="prose-monograph text-[color:var(--ink-primary)]/90 mb-3">
+            Below is the actual mathematical toy model sitting on that wire. Every 4 nanoseconds, one 512-bit <strong>flit</strong> (<em>Flow Control Digit</em>) carries four 128-bit memory requests (<span class="font-mono-tech text-[color:var(--accent-pass)]">s0, s1, s2, s3</span>) through this 8&times;8 finite-field sieve—blocking rogue writes in 0.124 nanoseconds using zero memory tables.
+          </p>
+        </div>
+      </div>
+    </section>
     <section id="hero" class="min-h-screen pt-16 pb-6 flex flex-col justify-between relative">
       <div class="swiss-grid items-start pt-2 lg:pt-4">
         <div class="col-span-6 lg:col-span-12 pointer-events-auto">
@@ -2675,7 +2733,9 @@
       return c * c * (3 - 2 * c);
     }
 
+        const sectionPrologue = document.getElementById('silicon-prologue');
     const BEAT_CAM = {
+      macro: { px: 0.00, py: 24.50, pz: 15.50, ndcX: 0.08, ndcY: 0.00, explode: 0.00 },
       b0: { px: 2.35,  py: 11.10, pz: 8.95,  ndcX:  0.36, ndcY:  0.14, explode: 0.00 },
       b1: { px: 7.38,  py: 7.84,  pz: 10.15, ndcX: -0.38, ndcY:  0.00, explode: 1.00 },
       b2: { px: -5.48, py: 4.51,  pz: 12.30, ndcX:  0.36, ndcY: -0.02, explode: 0.26 },
@@ -2714,6 +2774,8 @@
 
     function evaluateScrollChoreography() {
       const vh = Math.max(cachedViewport.h, 1);
+            const rPro = sectionPrologue ? sectionPrologue.getBoundingClientRect() : { bottom: 0, height: 1 };
+      const pZoomIn = sectionPrologue ? smoothstep01(1.0 - Math.max(0, rPro.bottom - vh * 0.35) / Math.max(1, rPro.height - vh * 0.35)) : 1.0;
       const r1 = sectionBeatOne.getBoundingClientRect();
       const r2 = sectionBeatTwo.getBoundingClientRect();
       const r3 = sectionBeatThree.getBoundingClientRect();
@@ -2723,11 +2785,11 @@
       const p3 = smoothstep01((vh * 0.92 - r3.top) / (vh * 0.74));
 
       // Blend b0 -> b1 -> b2 -> b3 deterministically
-      let px = THREE.MathUtils.lerp(BEAT_CAM.b0.px, BEAT_CAM.b1.px, p1);
-      let py = THREE.MathUtils.lerp(BEAT_CAM.b0.py, BEAT_CAM.b1.py, p1);
-      let pz = THREE.MathUtils.lerp(BEAT_CAM.b0.pz, BEAT_CAM.b1.pz, p1);
-      let nx = THREE.MathUtils.lerp(BEAT_CAM.b0.ndcX, BEAT_CAM.b1.ndcX, p1);
-      let ny = THREE.MathUtils.lerp(BEAT_CAM.b0.ndcY, BEAT_CAM.b1.ndcY, p1);
+      let b0px = THREE.MathUtils.lerp(BEAT_CAM.macro.px, BEAT_CAM.b0.px, pZoomIn); let b0py = THREE.MathUtils.lerp(BEAT_CAM.macro.py, BEAT_CAM.b0.py, pZoomIn); let b0pz = THREE.MathUtils.lerp(BEAT_CAM.macro.pz, BEAT_CAM.b0.pz, pZoomIn); let b0nx = THREE.MathUtils.lerp(BEAT_CAM.macro.ndcX, BEAT_CAM.b0.ndcX, pZoomIn); let b0ny = THREE.MathUtils.lerp(BEAT_CAM.macro.ndcY, BEAT_CAM.b0.ndcY, pZoomIn); let px = THREE.MathUtils.lerp(b0px, BEAT_CAM.b1.px, p1);
+      let py = THREE.MathUtils.lerp(b0py, BEAT_CAM.b1.py, p1);
+      let pz = THREE.MathUtils.lerp(b0pz, BEAT_CAM.b1.pz, p1);
+      let nx = THREE.MathUtils.lerp(b0nx, BEAT_CAM.b1.ndcX, p1);
+      let ny = THREE.MathUtils.lerp(b0ny, BEAT_CAM.b1.ndcY, p1);
       let ex = THREE.MathUtils.lerp(BEAT_CAM.b0.explode, BEAT_CAM.b1.explode, p1);
 
       px = THREE.MathUtils.lerp(px, BEAT_CAM.b2.px, p2);
