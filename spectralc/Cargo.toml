@@ -1,0 +1,10 @@
+[package]
+name = "spectralc"
+version = "1.0.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Spectral Systems LLC Policy-to-BAR0 Compiler & Lean 4 Monotonicity Verifier"
+
+[[bin]]
+name = "spectralc"
+path = "src/main.rs"

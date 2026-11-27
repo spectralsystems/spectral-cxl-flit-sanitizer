@@ -1,0 +1,10 @@
+{
+    "schema_version":  "1.0.0-FAR-PART12-COTS-SEALED",
+    "entity":  "Spectral Systems LLC (CAGE: 268E1 | SAM UEI: VTP2JPCJU3D9)",
+    "baseline_bist_agfi":  "agfi-03b742e2a9cd2c0f2 (afi-07282de69eecfd279)",
+    "production_hbm2_dma_agfi":  "agfi-08becf3b40b169674 (afi-0f2ddd7dc87d81193)",
+    "track_a_7nm_asap7_gdsii":  true,
+    "track_b_16gb_hbm2_bar4":  true,
+    "track_c_k8s_operator_hil":  true,
+    "sealed_utc":  "2026-11-05T18:45:54.3600710Z"
+}

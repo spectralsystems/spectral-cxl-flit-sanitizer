@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>06 DARPA ERIS &amp; Procurement | Video Briefing &amp; FAR 13.201 GPC | KERNEL // ZERO</title>
+  <meta name="description" content="DARPA ERIS &amp; CDAO Tradewinds technical briefing video deck, CAGE 268E1 / UEI VTP2JPCJU3D9 identifiers, and FAR 13.201 micro-purchase COTS evaluation quote engine.">
+  <link rel="canonical" href="https://spectralsystems.org/cots-procurement"/>
+  <meta property="og:title" content="06 DARPA ERIS &amp; Procurement | Video Briefing &amp; FAR 13.201 GPC | KERNEL // ZERO">
+  <meta property="og:description" content="DARPA ERIS &amp; CDAO Tradewinds technical briefing video deck, CAGE 268E1 / UEI VTP2JPCJU3D9 identifiers, and FAR 13.201 micro-purchase COTS evaluation quote engine.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://spectralsystems.org/cots-procurement.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='2' fill='%2309090B' stroke='%2324242C' stroke-width='2'/%3E%3Ctext x='5' y='43' font-family='monospace' font-weight='700' font-size='25' fill='%23FF5500'%3E-%26lt%3B%3C/text%3E%3Ctext x='36' y='44' font-family='monospace' font-weight='700' font-size='27' fill='%23F8F7F4'%3E%26%23216%3B%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <style>
+:root {
+  --bg-void: #09090B;
+  --bg-bay: #111115;
+  --bg-grid: #0D1119;
+  --line: #24242C;
+  --line-hi: #343442;
+  --ink-hi: #F8F7F4;
+  --ink-body: #D8DEE9;
+  --ink-muted: #94A3B8;
+  --ink-slate: #CBD5E1;
+  --orange: #FF5500;
+  --emerald: #10B981;
+  --cyan: #38BDF8;
+  --amber: #F59E0B;
+  --crimson: #F43F5E;
+  --font-serif: 'Newsreader', 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', Consolas, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-void);
+  color: var(--ink-body);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-void);
+  color: var(--ink-body);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .serif-head {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--ink-hi);
+  letter-spacing: -0.026em;
+  line-height: 1.14;
+  margin: 0 0 0.65em 0;
+}
+
+p {
+  margin: 0 0 1.15em 0;
+  max-width: 66ch;
+  color: var(--ink-body);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--ink-hi);
+  text-decoration-color: var(--line-hi);
+  text-underline-offset: 3px;
+  transition: color 0.14s ease, border-color 0.14s ease;
+}
+
+a:hover {
+  color: var(--orange);
+  text-decoration-color: var(--orange);
+}
+
+code, pre, .mono, .num, .csr-hex {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+code {
+  font-size: 0.88em;
+  color: var(--ink-slate);
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 1px 5px;
+}
+
+pre code {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+
+.muted { color: var(--ink-muted); }
+.slate { color: var(--ink-slate); }
+.sig-orange { color: var(--orange); }
+.sig-emerald { color: var(--emerald); }
+.sig-cyan { color: var(--cyan); }
+.sig-amber { color: var(--amber); }
+.sig-crimson { color: var(--crimson); }
+
+/* Exposed 1px Structural Hairlines & + Corner Fiducials */
+.fiducial-box {
+  position: relative;
+  background: var(--bg-bay);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+.fiducial-box::before,
+.fiducial-box::after {
+  content: "+";
+  position: absolute;
+  top: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--ink-muted);
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.fiducial-box::before { left: 7px; }
+.fiducial-box::after { right: 7px; }
+
+/* Top Masthead Strip + Single-Row Sticky Navigation */
+.masthead-strip {
+  background: var(--bg-void);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
+}
+
+.masthead-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 14px;
+}
+
+.brand-glyph {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--orange);
+  border: 1px solid var(--line-hi);
+  background: var(--bg-grid);
+  border-radius: 2px;
+  padding: 2px 7px;
+  text-decoration: none;
+}
+
+.brand-wordmark {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ink-hi);
+  text-decoration: none;
+}
+
+.brand-lockstep {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.masthead-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn,
+.hw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--ink-slate);
+  background: var(--bg-bay);
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  padding: 7px 11px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+}
+
+.action-btn:hover,
+.hw-btn:hover {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.08);
+  text-decoration: none;
+}
+
+.action-btn-primary,
+.hw-btn.active {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.14);
+}
+
+.hw-btn.pass-active {
+  color: var(--ink-hi);
+  border-color: var(--emerald);
+  background: rgba(16, 185, 129, 0.14);
+}
+
+.site-nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  height: 56px;
+  max-height: 60px;
+  background: rgba(9, 9, 11, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.site-nav-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.site-nav-inner {
+  display: inline-flex;
+  align-items: center;
+  height: 56px;
+  min-width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+  gap: 6px;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.nav-link:hover {
+  color: var(--ink-hi);
+  border-color: var(--line-hi);
+  background: var(--bg-bay);
+  text-decoration: none;
+}
+
+.nav-link.active {
+  color: var(--ink-hi);
+  background: var(--bg-bay);
+  border-color: var(--line-hi);
+  border-bottom: 2px solid var(--orange);
+}
+
+/* Screen 1: Cold Open (min-height: 78vh) */
+.screen-cold-open {
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 68px 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+
+.cold-open-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.85rem);
+  letter-spacing: -0.032em;
+  line-height: 1.08;
+  max-width: 23ch;
+  margin-bottom: 24px;
+}
+
+.cold-open-lede {
+  font-size: clamp(1.06rem, 1.3vw, 1.2rem);
+  line-height: 1.74;
+  max-width: 65ch;
+  color: var(--ink-body);
+}
+
+.glyph-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 40px;
+}
+
+.glyph-cell {
+  background: var(--bg-bay);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.glyph-token {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--orange);
+  line-height: 1.1;
+}
+
+.glyph-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-hi);
+  letter-spacing: 0.02em;
+}
+
+.glyph-desc {
+  font-size: 12.5px;
+  line-height: 1.42;
+  color: var(--ink-muted);
+}
+
+/* Screen 2: KERNEL // ZERO Calligraphy Marquee (min-height: 86vh) */
+.screen-marquee {
+  min-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 76px 0;
+  border-bottom: 1px solid var(--line);
+  background-color: var(--bg-void);
+  background-image:
+    linear-gradient(to right, rgba(36, 36, 44, 0.34) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(36, 36, 44, 0.34) 1px, transparent 1px);
+  background-size: 48px 48px;
+  position: relative;
+}
+
+.marquee-wordmark {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 10.8vw, 9.2rem);
+  line-height: 0.94;
+  letter-spacing: -0.038em;
+  color: var(--ink-hi);
+  margin: 12px 0 22px 0;
+}
+
+.marquee-slashes {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--orange);
+  letter-spacing: -0.06em;
+  padding: 0 0.05em;
+}
+
+.marquee-tm {
+  font-family: var(--font-sans);
+  font-size: 0.22em;
+  vertical-align: super;
+  color: var(--ink-muted);
+  letter-spacing: 0;
+}
+
+.marquee-sub {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-slate);
+  margin-bottom: 24px;
+}
+
+.telemetry-strip {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 36px;
+}
+
+.telemetry-cell {
+  background: var(--bg-bay);
+  padding: 16px 14px;
+}
+
+.telemetry-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.telemetry-value {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink-hi);
+  font-variant-numeric: tabular-nums;
+}
+
+.telemetry-note {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+/* Screen 3: 4-Card ASCII Skeptic Grid */
+.screen-skeptic {
+  padding: 84px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-header {
+  max-width: 780px;
+  margin-bottom: 36px;
+}
+
+.section-title {
+  font-size: clamp(1.95rem, 3.4vw, 2.85rem);
+  letter-spacing: -0.028em;
+}
+
+.skeptic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.skeptic-card {
+  background: var(--bg-bay);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.skeptic-card-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeptic-q {
+  font-family: var(--font-serif);
+  font-size: 1.52rem;
+  line-height: 1.22;
+  color: var(--ink-hi);
+  margin-bottom: 16px;
+}
+
+.ascii-diagram {
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 14px 16px;
+  margin: 0 0 18px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-slate);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Screen 4: 3-Bay CMOS Transistor Schematic Workbench */
+.screen-cmos-workbench {
+  padding: 84px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.cmos-bays {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.cmos-bay {
+  background: var(--bg-bay);
+  display: flex;
+  flex-direction: column;
+}
+
+.cmos-bay-head {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.cmos-bay-title {
+  font-family: var(--font-serif);
+  font-size: 1.32rem;
+  color: var(--ink-hi);
+  margin: 4px 0 0 0;
+}
+
+.cmos-canvas-stage {
+  background: var(--bg-grid);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  width: 100%;
+  height: 290px;
+}
+
+.cmos-canvas-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cmos-controls {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.cmos-bay-copy {
+  padding: 18px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 15.5px;
+  line-height: 1.66;
+}
+
+/* Screen 5: Split-Stage Scrollytelling Spine (38% Left / 62% Sticky Right) */
+.screen-scrolly {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.scrolly-intro {
+  padding: 76px 0 42px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.scrolly-spine {
+  display: grid;
+  grid-template-columns: 38% 62%;
+  max-width: 1440px;
+  margin: 0 auto;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  align-items: start;
+}
+
+.scrolly-narrative {
+  border-right: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.scrolly-step {
+  min-height: 82vh;
+  padding: 48px 32px;
+  border-bottom: 1px solid var(--line);
+  border-left: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: background 0.2s ease, border-left-color 0.2s ease;
+}
+
+.scrolly-step:last-child {
+  border-bottom: 0;
+}
+
+.scrolly-step.is-active {
+  border-left-color: var(--orange);
+  background: rgba(17, 17, 21, 0.78);
+}
+
+.scrolly-step-title {
+  font-size: 1.65rem;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.scrolly-stage {
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  background: var(--bg-grid);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.microscope-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-void);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-slate);
+  flex-shrink: 0;
+}
+
+.stage-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.stage-jump-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 3px 7px;
+  background: var(--bg-bay);
+  color: var(--ink-muted);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.stage-jump-btn.active,
+.stage-jump-btn:hover {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+}
+
+.microscope-canvas-wrap {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 300px;
+  background: var(--bg-grid);
+  overflow: hidden;
+}
+
+.microscope-canvas-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#microscope-latex-hud {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  background: rgba(9, 9, 11, 0.93);
+  border: 1px solid var(--line-hi);
+  border-left: 2px solid var(--orange);
+  border-radius: 2px;
+  padding: 12px 16px;
+  z-index: 25;
+}
+
+.hud-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.hud-math {
+  color: var(--ink-hi);
+  font-size: 15px;
+  overflow-x: auto;
+}
+
+/* Collapsible Rosetta LaTeX Drawers (Closed by Default) */
+details.rosetta-drawer {
+  margin-top: 20px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--bg-grid);
+}
+
+details.rosetta-drawer > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: var(--ink-slate);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+details.rosetta-drawer > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.rosetta-drawer > summary:hover {
+  color: var(--orange);
+  background: rgba(255, 85, 0, 0.05);
+}
+
+details.rosetta-drawer[open] > summary {
+  color: var(--orange);
+  border-bottom: 1px solid var(--line);
+}
+
+.rosetta-content {
+  padding: 16px;
+  font-size: 15px;
+  line-height: 1.66;
+  color: var(--ink-body);
+  overflow-x: auto;
+}
+
+/* Shared Technical Workbench Styles (Routes 02 - 07) */
+.page-hero {
+  padding: 56px 0 40px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.page-title {
+  font-size: clamp(2.1rem, 4vw, 3.25rem);
+  letter-spacing: -0.03em;
+  max-width: 26ch;
+}
+
+.workbench-section {
+  padding: 52px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.instrument-card {
+  background: var(--bg-bay);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 24px;
+  position: relative;
+}
+
+.instrument-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hw-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-slate);
+  margin-bottom: 6px;
+}
+
+.hw-input,
+.hw-select,
+.hw-textarea {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-hi);
+  background: var(--bg-grid);
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  padding: 9px 11px;
+}
+
+.hw-input:focus,
+.hw-select:focus,
+.hw-textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+
+.terminal-out {
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-slate);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.spec-table th,
+.spec-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.spec-table th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  background: var(--bg-grid);
+}
+
+/* KaTeX Classical Computer Modern Tuning */
+.katex {
+  font-size: 1.04em;
+  color: var(--ink-hi);
+}
+
+.katex-display {
+  margin: 0.85em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+}
+
+/* Site Footer & Apache-2.0 Sec. 6 Reservation */
+.site-footer {
+  background: var(--bg-void);
+  border-top: 1px solid var(--line);
+  padding: 56px 0 64px 0;
+  font-size: 14px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.footer-heading {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-hi);
+  margin-bottom: 12px;
+}
+
+.footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.footer-legal {
+  padding-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.65;
+  color: var(--ink-muted);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1120px) {
+  .glyph-legend-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .telemetry-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .cmos-bays {
+    grid-template-columns: 1fr;
+  }
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 980px) {
+  .skeptic-grid,
+  .grid-2,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .scrolly-spine {
+    grid-template-columns: 1fr;
+  }
+  .scrolly-stage {
+    order: -1;
+    position: sticky;
+    top: 56px;
+    height: 46vh;
+    min-height: 320px;
+    z-index: 40;
+    border-bottom: 1px solid var(--line);
+  }
+  .scrolly-narrative {
+    border-right: 0;
+  }
+  .scrolly-step {
+    min-height: auto;
+    padding: 36px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 0 16px;
+  }
+  .glyph-legend-grid,
+  .telemetry-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .masthead-actions {
+    width: 100%;
+  }
+}
+</style>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  function runKatex(rootEl) {
+    if (typeof renderMathInElement === "function") {
+      renderMathInElement(rootEl || document.body, {
+        delimiters: [
+          {left: "\\[", right: "\\]", display: true},
+          {left: "\\(", right: "\\)", display: false}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+  window.spectralRenderMath = runKatex;
+  runKatex(document.body);
+  var drawers = document.querySelectorAll("details.rosetta-drawer");
+  for (var i = 0; i < drawers.length; i++) {
+    drawers[i].addEventListener("toggle", function () {
+      if (this.open) {
+        runKatex(this);
+      }
+    });
+  }
+});
+</script>
+  <!-- Highwire Press / Google Scholar / IACR / Zenodo Citation Meta -->
+  <meta name="citation_title" content="Finite Fields Forever: Assured Memory Isolation in a Single Logic Gate">
+  <meta name="citation_author" content="Eric Murphy">
+  <meta name="citation_author_institution" content="Spectral Systems LLC">
+  <meta name="citation_publication_date" content="2026/11/20">
+  <meta name="citation_doi" content="10.5281/zenodo.24047901">
+  <meta name="citation_pdf_url" content="https://spectralsystems.org/preprint_Murphy_v1.pdf">
+  <meta name="citation_technical_report_institution" content="Spectral Systems LLC">
+  <link rel="cite-as" href="https://doi.org/10.5281/zenodo.24047901">
+</head>
+<body>
+<header class="masthead-strip" role="banner">
+  <div class="wrap masthead-inner">
+    <div class="brand-cluster">
+      <a class="brand-glyph" href="/" aria-label="KERNEL ZERO Home">-&lt;&Oslash;</a>
+      <a class="brand-wordmark" href="/">KERNEL // ZERO&trade;</a>
+      <span class="brand-lockstep">SPECTRAL SYSTEMS // SUB-FLIT ALGEBRAIC MEMORY ISOLATION</span>
+    </div>
+    <div class="masthead-actions">
+      <a class="action-btn action-btn-primary" href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Preprint v1 (PDF) ]</a>
+      <a class="action-btn" href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener">[ Zenodo DOI: 10.5281/zenodo.24047902 ]</a>
+      <a class="action-btn" href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer" target="_blank" rel="noopener">[ GitHub Repo (Lean 4 &amp; AWS F2) ]</a>
+    </div>
+  </div>
+</header>
+<nav class="site-nav-bar" aria-label="Primary Instrument Routes">
+  <div class="site-nav-inner">
+    <a class="nav-link" href="/">01 KERNEL // ZERO (Story)</a>
+    <a class="nav-link" href="/zero-trust.html">02 Interactive Locks</a>
+    <a class="nav-link" href="/benchmarks.html">03 Silicon Benchmarks</a>
+    <a class="nav-link" href="/verification.html">04 Lean 4 Proofs</a>
+    <a class="nav-link" href="/console-demo/">05 Policy Compiler</a>
+    <a class="nav-link active" href="/cots-procurement.html" aria-current="page">06 DARPA ERIS &amp; Procurement</a>
+    <a class="nav-link" href="/patents.html">07 IP &amp; Air-Gap</a>
+  </div>
+</nav>
+
+<style>
+  .video-deck-grid {
+    display: grid;
+    grid-template-columns: 1.45fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .video-stage-box {
+    background: #050608;
+    border: 1px solid var(--line-hi);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .video-stage-box video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #050608;
+  }
+  .chapter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .chapter-btn {
+    width: 100%;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    line-height: 1.4;
+    padding: 10px 12px;
+    background: var(--bg-grid);
+    color: var(--ink-slate);
+    border: 1px solid var(--line-hi);
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    transition: border-color 0.14s ease, color 0.14s ease, background 0.14s ease;
+  }
+  .chapter-btn:hover,
+  .chapter-btn.active {
+    color: var(--ink-hi);
+    border-color: var(--orange);
+    background: rgba(255, 85, 0, 0.12);
+  }
+  .entity-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 24px;
+  }
+  .entity-cell {
+    background: var(--bg-bay);
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .loupe-canvas-wrap {
+    width: 100%;
+    height: 300px;
+    background: #0D1119;
+    border: 1px solid var(--line-hi);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    cursor: crosshair;
+  }
+  .loupe-canvas-wrap canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  @media (max-width: 980px) {
+    .video-deck-grid {
+      grid-template-columns: 1fr;
+    }
+    .entity-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 600px) {
+    .entity-strip {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<main id="main-content">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="kicker">ROUTE 06 // DARPA ERIS TECHNICAL BRIEFING VIDEO &amp; COTS PROCUREMENT HUB</span>
+      <h1 class="page-title">DARPA ERIS &amp; CDAO Tradewinds Briefing Deck + Instant FAR 13.201 Evaluation Licensing.</h1>
+      <p class="muted">Privately developed commercial off-the-shelf (COTS) hardware IP and AWS F2 evaluation bitstreams reduced to practice at 100% private expense (<code>DFARS 252.227-7018</code>).</p>
+
+      <div class="entity-strip">
+        <div class="entity-cell">
+          <div>
+            <span class="telemetry-label">DLA CAGE Code</span>
+            <span class="telemetry-value sig-orange">268E1</span>
+          </div>
+          <button type="button" class="hw-btn" data-copy-val="268E1">[Copy]</button>
+        </div>
+        <div class="entity-cell">
+          <div>
+            <span class="telemetry-label">SAM.gov UEI</span>
+            <span class="telemetry-value sig-cyan">VTP2JPCJU3D9</span>
+          </div>
+          <button type="button" class="hw-btn" data-copy-val="VTP2JPCJU3D9">[Copy]</button>
+        </div>
+        <div class="entity-cell">
+          <div>
+            <span class="telemetry-label">Acquisition Point of Contact</span>
+            <span class="telemetry-value" style="font-size:14px;">eric@spectralsystems.org</span>
+          </div>
+          <button type="button" class="hw-btn" data-copy-val="eric@spectralsystems.org">[Copy]</button>
+        </div>
+        <div class="entity-cell">
+          <div>
+            <span class="telemetry-label">Legal Entity &amp; Jurisdiction</span>
+            <span class="telemetry-value" style="font-size:14px;">Spectral Systems LLC (United States)</span>
+          </div>
+          <button type="button" class="hw-btn" data-copy-val="Spectral Systems LLC (United States)">[Copy]</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 1. DARPA ERIS / CDAO TRADEWINDS TECHNICAL BRIEFING VIDEO DECK         -->
+  <!-- ===================================================================== -->
+  <section class="workbench-section">
+    <div class="wrap">
+      <div class="instrument-card fiducial-box">
+        <div class="instrument-head">
+          <div>
+            <span class="kicker">TECHNICAL BRIEFING VIDEO DECK // DYNAMIC METADATA SEQUENCER</span>
+            <h2 class="serif-head" style="font-size:1.7rem;margin:0;">DARPA ERIS &amp; CDAO Tradewinds Silicon Walkthrough</h2>
+          </div>
+          <span class="mono sig-cyan" id="eris-video-runtime">RUNTIME: ~07:50 (PROBING METADATA)</span>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+          <button type="button" class="hw-btn active" data-video-src="/darpa_eris_v1.mp4">[Deck A: darpa_eris_v1.mp4]</button>
+          <button type="button" class="hw-btn" data-video-src="/cdao_tradewinds_v1.mp4">[Deck B: cdao_tradewinds_v1.mp4]</button>
+        </div>
+
+        <div class="video-deck-grid">
+          <div class="video-stage-box">
+            <video id="eris-video" controls preload="metadata" playsinline>
+              <source src="/darpa_eris_v1.mp4" type="video/mp4">
+              <source src="/cdao_tradewinds_v1.mp4" type="video/mp4">
+              Your browser does not support HTML5 MP4 video playback.
+            </video>
+          </div>
+
+          <div class="chapter-list" role="navigation" aria-label="Briefing Video Chapters">
+            <button type="button" class="chapter-btn active" data-seek-sec="0">
+              <span>CH 01 // 250 GB Memory Wall &amp; CRC Crash</span>
+              <span class="sig-orange">00:00</span>
+            </button>
+            <button type="button" class="chapter-btn" data-seek-sec="78">
+              <span>CH 02 // 0.124 ns Fractured LUT6_2 &amp; AG(2,8) Sieve</span>
+              <span class="sig-orange">01:18</span>
+            </button>
+            <button type="button" class="chapter-btn" data-seek-sec="162">
+              <span>CH 03 // 548.0 ns Little-Vieta Eviction Airlock</span>
+              <span class="sig-orange">02:42</span>
+            </button>
+            <button type="button" class="chapter-btn" data-seek-sec="245">
+              <span>CH 04 // +0-LUT BF16 Blade &amp; Dual-AFI AWS F2 Silicon</span>
+              <span class="sig-orange">04:05</span>
+            </button>
+            <button type="button" class="chapter-btn" data-seek-sec="328">
+              <span>CH 05 // 7nm ASAP7 0.003335 mm&sup2; GDSII &amp; TVLA |t|=0.0</span>
+              <span class="sig-orange">05:28</span>
+            </button>
+            <button type="button" class="chapter-btn" data-seek-sec="395">
+              <span>CH 06 // Two-Zone DFARS &amp; Pilot Roadmap</span>
+              <span class="sig-orange">06:35</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 2. FAR 13.201 GPC QUOTE GENERATOR & 10,000-RACK TCO ENGINE            -->
+  <!-- ===================================================================== -->
+  <section class="workbench-section" id="spectral-gpc-quote-tco-engine">
+    <div class="wrap">
+      <div class="grid-2">
+        <div class="instrument-card fiducial-box">
+          <div class="instrument-head">
+            <div>
+              <span class="kicker">FAR 13.201 MICRO-PURCHASE (&lt;$25,000 GPC) &amp; CLUSTER TCO ENGINE</span>
+              <h2 class="serif-head" style="font-size:1.55rem;margin:0;">Instant Evaluation Quote &amp; 10,000-Rack Savings</h2>
+            </div>
+            <span class="mono sig-emerald">$24,500 COTS SEAT</span>
+          </div>
+
+          <label class="hw-label" for="gpc-agency-input">Program Office / National Lab / Prime Integrator</label>
+          <input type="text" id="gpc-agency-input" class="hw-input" value="DARPA ERIS / DoD Enclave Evaluation Office">
+
+          <label class="hw-label" for="gpc-racks-slider" style="margin-top:14px;">AI / HPC Cluster Scale: <strong id="gpc-racks-val" class="sig-orange">10,000</strong> Racks (<code>250 GB/rack</code> reclaimed)</label>
+          <input type="range" id="gpc-racks-slider" class="tangle-slider" min="100" max="50000" step="100" value="10000" style="width:100%;accent-color:#FF5500;">
+
+          <div class="terminal-out" id="gpc-tco-memo" style="margin-top:14px;"></div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
+            <button type="button" class="hw-btn active" id="gpc-copy-memo-btn">[Copy FAR 13.201 GPC Determination Memo]</button>
+          </div>
+        </div>
+
+        <!-- TRUE-SCALE 100 mm^2 HBM4 DIE 50x LOUPE -->
+        <div class="instrument-card fiducial-box">
+          <div class="instrument-head">
+            <div>
+              <span class="kicker">TRUE-SCALE \(100\text{ mm}^2\) HBM4 BASE DIE // \(50\times\) LOUPE</span>
+              <h2 class="serif-head" style="font-size:1.55rem;margin:0;"><code>180 &times; 180 &mu;m</code> (<code>0.003335 mm&sup2;</code>) Macro Footprint</h2>
+            </div>
+            <span class="mono sig-orange">0.003335% OF 100 mm&sup2; DIE</span>
+          </div>
+
+          <p style="font-size:14.5px;">
+            Inspect the \(10\text{ mm} \times 10\text{ mm}\) (\(100\text{ mm}^2\)) HBM4 / CXL controller base die where our <code>1,460</code>-pin <code>180 &times; 180 &mu;m</code> enclave (<code>27,877</code> cells, <code>+2,556.41 ps</code> post-SPEF WNS, <code>693 MHz</code>, <code>3.728 mW</code>, <code>0</code> TritonRoute DRCs) occupies a microscopic <code>0.003335 mm&sup2;</code> corner under a \(50\times\) loupe.
+          </p>
+
+          <div class="loupe-canvas-wrap">
+            <canvas id="hbm4-loupe-canvas" aria-label="100 sq mm HBM4 Base Die 50x Loupe"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 3. BACKGROUND IP (v1) vs. FUNDABLE PHASE II / OTA FOREGROUND R&D  -->
+  <!-- ===================================================================== -->
+  <section class="workbench-section">
+    <div class="wrap">
+      <div class="instrument-card fiducial-box" style="overflow-x:auto;">
+        <div class="instrument-head">
+          <div>
+            <span class="kicker">ACQUISITION DEMARCATION // <code>DFARS 252.227-7018</code></span>
+            <h2 class="serif-head" style="font-size:1.6rem;margin:0;">Privately Funded Background IP (<code>v1</code>) vs. Fundable Phase II / OTA R&amp;D</h2>
+          </div>
+          <span class="mono sig-emerald">100% PRIVATE EXPENSE BASELINE</span>
+        </div>
+
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Scope Dimension</th>
+              <th>100% Privately Funded Background IP (<code>v1</code> Complete Today)</th>
+              <th>Fundable Phase II / OTA / Agency Foreground R&amp;D</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Silicon &amp; Physical IP</strong></td>
+              <td>16nm <code>xcvu47p</code> core (<code>1,585</code> LUTs, <code>+1.048 ns</code> WNS, <code>0.124 ns</code> Stage-1 sieve), Dual AWS F2 AFIs (<code>agfi-03b742e2a9cd2c0f2</code> &amp; <code>agfi-08becf3b40b169674</code>), 7nm <code>ASAP7</code> GDSII/SPEF (<code>0.003335 mm&sup2;</code>, <code>693 MHz</code>, <code>3.728 mW</code>, <code>0</code> DRCs).</td>
+              <td>Commercial foundry TSMC N5/N3 or Intel 18A hard-macro tape-out, CXL 3.1 PCIe Gen6 64 GT/s PHY wrapper integration, and multi-die UCIe bridge qualification.</td>
+            </tr>
+            <tr>
+              <td><strong>Formal &amp; Side-Channel</strong></td>
+              <td><code>43,691</code> lines of zero-axiom Lean 4 proofs (<code>thm00</code>&ndash;<code>thm37</code>, <code>0 sorry</code>) and <code>19,990</code>-trace ISO/IEC 17825 Welch TVLA (\(\max |t| = 0.0\)).</td>
+              <td>Physical EM-probe fault-injection certification, radiation-hardened-by-design (RHBD) orbital/tactical qualification, and CXL switch fabric model checking.</td>
+            </tr>
+            <tr>
+              <td><strong>Control Plane &amp; KMS</strong></td>
+              <td><code>spectralc</code> certifying compiler (<code>thm18</code>), <code>FIPS-204 ML-DSA-87</code> 128-byte <code>.sbundle</code> sealer, and CNCF <code>k3s</code> admission webhook (<code>1.36 ms</code>).</td>
+              <td>Air-gapped agency HSM key-management integration, multi-rack <code>548.0 ns</code> fabric shootdown telemetry orchestrator, and mission workload co-design.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var copyBtns = document.querySelectorAll("[data-copy-val]");
+  for (var i = 0; i < copyBtns.length; i++) {
+    copyBtns[i].addEventListener("click", function () {
+      var val = this.getAttribute("data-copy-val") || "";
+      var self = this;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(val).then(function () {
+          self.textContent = "[Copied!]";
+          setTimeout(function () { self.textContent = "[Copy]"; }, 1200);
+        });
+      }
+    });
+  }
+
+  var videoEl = document.getElementById("eris-video");
+  var runtimeEl = document.getElementById("eris-video-runtime");
+  var chBtns = document.querySelectorAll("[data-seek-sec]");
+  var deckBtns = document.querySelectorAll("[data-video-src]");
+
+  function fmtDuration(sec) {
+    if (!Number.isFinite(sec) || sec <= 0) return "~07:50";
+    var total = Math.round(sec);
+    var mm = Math.floor(total / 60);
+    var ss = total % 60;
+    return (mm < 10 ? "0" : "") + mm + ":" + (ss < 10 ? "0" : "") + ss;
+  }
+
+  if (videoEl) {
+    videoEl.addEventListener("loadedmetadata", function () {
+      if (runtimeEl) {
+        runtimeEl.textContent = "MEASURED RUNTIME: " + fmtDuration(videoEl.duration);
+      }
+    });
+  }
+
+  for (var d = 0; d < deckBtns.length; d++) {
+    deckBtns[d].addEventListener("click", function () {
+      var src = this.getAttribute("data-video-src");
+      for (var k = 0; k < deckBtns.length; k++) deckBtns[k].classList.remove("active");
+      this.classList.add("active");
+      if (videoEl && src) {
+        videoEl.src = src;
+        videoEl.load();
+      }
+    });
+  }
+
+  for (var c = 0; c < chBtns.length; c++) {
+    chBtns[c].addEventListener("click", function () {
+      var sec = parseFloat(this.getAttribute("data-seek-sec") || "0") || 0;
+      for (var j = 0; j < chBtns.length; j++) chBtns[j].classList.remove("active");
+      this.classList.add("active");
+      if (videoEl) {
+        try {
+          videoEl.currentTime = sec;
+          var p = videoEl.play();
+          if (p && typeof p.catch === "function") p.catch(function () {});
+        } catch (e) {}
+      }
+    });
+  }
+
+  var agencyIn = document.getElementById("gpc-agency-input");
+  var racksSlider = document.getElementById("gpc-racks-slider");
+  var racksVal = document.getElementById("gpc-racks-val");
+  var memoEl = document.getElementById("gpc-tco-memo");
+  var copyMemoBtn = document.getElementById("gpc-copy-memo-btn");
+
+  function renderGpcMemo() {
+    var agency = (agencyIn && agencyIn.value) ? agencyIn.value : "Government Evaluation Office";
+    var racks = parseInt(racksSlider ? racksSlider.value : "10000", 10) || 10000;
+    if (racksVal) racksVal.textContent = racks.toLocaleString("en-US");
+
+    var tbSaved = Math.round(racks * 0.25);
+    var capexLowM = (racks * 0.00375).toFixed(2);
+    var capexHighM = (racks * 0.00384).toFixed(2);
+    var mwLow = (racks * 0.000801).toFixed(2);
+    var mwHigh = (racks * 0.003944).toFixed(2);
+
+    if (memoEl) {
+      memoEl.textContent =
+        "FAR 13.201 MICRO-PURCHASE COTS EVALUATION QUOTE (< $25,000 GPC THRESHOLD)\n" +
+        "VENDOR       : Spectral Systems LLC (United States) | CAGE: 268E1 | UEI: VTP2JPCJU3D9\n" +
+        "CUSTOMER     : " + agency + "\n" +
+        "DELIVERABLE  : KERNEL // ZERO COTS AWS F2 AFI + spectralc ML-DSA-87 Eval License ($24,500.00)\n" +
+        "RIGHTS BASIS : DFARS 252.227-7018 (100% Private-Expense Commercial/COTS Baseline v1)\n" +
+        "CLUSTER TCO  : " + tbSaved.toLocaleString("en-US") + " TB DRAM Reclaimed ($" + capexLowM + "M-$" + capexHighM + "M CapEx) | " + mwLow + "-" + mwHigh + " MW Power Saved";
+    }
+  }
+
+  if (agencyIn) agencyIn.addEventListener("input", renderGpcMemo);
+  if (racksSlider) racksSlider.addEventListener("input", renderGpcMemo);
+  if (copyMemoBtn) {
+    copyMemoBtn.addEventListener("click", function () {
+      if (memoEl && navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(memoEl.textContent).then(function () {
+          copyMemoBtn.textContent = "[Copied FAR 13.201 Memo!]";
+          setTimeout(function () { copyMemoBtn.textContent = "[Copy FAR 13.201 GPC Determination Memo]"; }, 1500);
+        });
+      }
+    });
+  }
+  renderGpcMemo();
+
+  // True-Scale 100 mm^2 HBM4 Die 50x Loupe Canvas
+  var lCanvas = document.getElementById("hbm4-loupe-canvas");
+  if (lCanvas) {
+    var lctx = lCanvas.getContext("2d");
+    function drawLoupe() {
+      var rect = lCanvas.parentElement.getBoundingClientRect();
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = Math.max(280, Math.floor(rect.width));
+      var h = Math.max(240, Math.floor(rect.height));
+      if (lCanvas.width !== Math.floor(w * dpr) || lCanvas.height !== Math.floor(h * dpr)) {
+        lCanvas.width = Math.floor(w * dpr);
+        lCanvas.height = Math.floor(h * dpr);
+      }
+      lctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      lctx.fillStyle = "#0D1119";
+      lctx.fillRect(0, 0, w, h);
+
+      var dieS = Math.min(210, h - 46);
+      var dx = 24;
+      var dy = Math.round((h - dieS) * 0.5);
+      lctx.fillStyle = "#121A27";
+      lctx.strokeStyle = "#475569";
+      lctx.lineWidth = 1.6;
+      lctx.fillRect(dx, dy, dieS, dieS);
+      lctx.strokeRect(dx, dy, dieS, dieS);
+
+      for (var ch = 0; ch < 4; ch++) {
+        for (var bk = 0; bk < 4; bk++) {
+          lctx.strokeStyle = "#243247";
+          lctx.strokeRect(dx + 10 + bk * ((dieS - 20) / 4), dy + 10 + ch * ((dieS - 20) / 4), (dieS - 28) / 4, (dieS - 28) / 4);
+        }
+      }
+
+      var speckS = Math.max(3.8, dieS * 0.018);
+      var sx = dx + dieS * 0.52;
+      var sy = dy + dieS * 0.78;
+      lctx.fillStyle = "#FF5500";
+      lctx.fillRect(sx, sy, speckS, speckS);
+
+      lctx.fillStyle = "#F8F7F4";
+      lctx.font = "10.5px 'JetBrains Mono', monospace";
+      lctx.fillText("10mm x 10mm HBM4 DIE (100 mm\u00b2)", dx, dy - 8);
+      lctx.fillStyle = "#FF5500";
+      lctx.fillText("<- 180\u00b5m ENCLAVE SPECK", sx + 8, sy + 5);
+
+      var loupeR = Math.min(96, Math.floor((w - (dx + dieS) - 48) * 0.46));
+      if (loupeR > 42) {
+        var lcx = dx + dieS + Math.round((w - (dx + dieS)) * 0.52);
+        var lcy = Math.round(h * 0.52);
+
+        lctx.strokeStyle = "rgba(255, 85, 0, 0.45)";
+        lctx.beginPath();
+        lctx.moveTo(sx + speckS * 0.5, sy + speckS * 0.5);
+        lctx.lineTo(lcx - loupeR, lcy);
+        lctx.stroke();
+
+        lctx.save();
+        lctx.beginPath();
+        lctx.arc(lcx, lcy, loupeR, 0, Math.PI * 2);
+        lctx.clip();
+
+        lctx.fillStyle = "#090D14";
+        lctx.fillRect(lcx - loupeR, lcy - loupeR, loupeR * 2, loupeR * 2);
+
+        var mSide = loupeR * 1.15;
+        lctx.fillStyle = "rgba(255, 85, 0, 0.16)";
+        lctx.strokeStyle = "#FF5500";
+        lctx.lineWidth = 2;
+        lctx.fillRect(lcx - mSide * 0.5, lcy - mSide * 0.5, mSide, mSide);
+        lctx.strokeRect(lcx - mSide * 0.5, lcy - mSide * 0.5, mSide, mSide);
+
+        var cSide = mSide * 0.81;
+        lctx.fillStyle = "rgba(16, 185, 129, 0.18)";
+        lctx.strokeStyle = "#10B981";
+        lctx.fillRect(lcx - cSide * 0.5, lcy - cSide * 0.5, cSide, cSide);
+        lctx.strokeRect(lcx - cSide * 0.5, lcy - cSide * 0.5, cSide, cSide);
+
+        lctx.fillStyle = "#F8F7F4";
+        lctx.font = "9.5px 'JetBrains Mono', monospace";
+        lctx.fillText("50x: 180x180 \u00b5m", lcx - 46, lcy - 6);
+        lctx.fillStyle = "#10B981";
+        lctx.fillText("1,460 PINS | 0 DRC", lcx - 52, lcy + 10);
+        lctx.restore();
+
+        lctx.strokeStyle = "#38BDF8";
+        lctx.lineWidth = 2;
+        lctx.beginPath();
+        lctx.arc(lcx, lcy, loupeR, 0, Math.PI * 2);
+        lctx.stroke();
+      }
+    }
+    drawLoupe();
+    window.addEventListener("resize", drawLoupe);
+  }
+})();
+</script>
+<footer class="site-footer" role="contentinfo">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-heading">KERNEL // ZERO&trade; &mdash; &ldquo;FINITE FIELDS FOREVER&rdquo;</div>
+        <p class="mono muted" style="font-size:12px;max-width:58ch;">SPECTRAL SYSTEMS // SUB-FLIT ALGEBRAIC MEMORY ISOLATION</p>
+        <p class="mono slate" style="font-size:12px;margin-top:10px;">Spectral Systems LLC (United States) &middot; Founder &amp; Principal Architect: Eric C. Murphy &middot; CAGE: <code>268E1</code> &middot; SAM.gov UEI: <code>VTP2JPCJU3D9</code> &middot; DFARS <code>252.227-7018</code> &middot; All Patents Pending</p>
+      </div>
+      <div>
+        <div class="footer-heading">Primary Artifacts &amp; Silicon</div>
+        <ul class="footer-list">
+          <li><a href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Preprint v1 (PDF) ]</a></li>
+          <li><a href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener">[ Zenodo DOI: 10.5281/zenodo.24047902 ]</a></li>
+          <li><a href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer" target="_blank" rel="noopener">[ GitHub Repo (Lean 4 &amp; AWS F2) ]</a></li>
+          <li><span class="muted">AGFI-0: <code>agfi-08becf3b40b169674</code></span></li>
+          <li><span class="muted">AGFI-1: <code>agfi-03b742e2a9cd2c0f2</code></span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Verification &amp; Acquisition Routes</div>
+        <ul class="footer-list">
+          <li><a href="/">01 KERNEL // ZERO (Story)</a></li>
+          <li><a href="/zero-trust.html">02 Interactive Locks</a></li>
+          <li><a href="/benchmarks.html">03 Silicon Benchmarks</a></li>
+          <li><a href="/verification.html">04 Lean 4 Proofs</a></li>
+          <li><a href="/console-demo/">05 Policy Compiler</a></li>
+          <li><a href="/cots-procurement.html">06 DARPA ERIS &amp; Procurement</a></li>
+          <li><a href="/patents.html">07 IP &amp; Air-Gap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      KERNEL ZERO&trade;, KERNEL // ZERO&trade;, KERNEL ZERO&trade;, and spectralc&trade; are trademarks of Spectral Systems LLC. Pursuant to Section 6 of the Apache License, Version 2.0, no trademark rights are granted under the open-source verification license. Reduced to practice at 100% private expense by Eric C. Murphy. All Patents Pending.
+    </div>
+  </div>
+</footer>
+  <!-- spectral-elegant-editorial-theme spectral-guided-discovery spectral-scope-and-differentiation spectral-formal-input-validator spectral-arid-fifo-guardrail -->\n</body>
+</html>

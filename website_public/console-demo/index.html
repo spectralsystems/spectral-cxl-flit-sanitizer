@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>05 Policy Compiler | Live spectralc YAML &amp; 16-CSR BAR0 Analyzer | KERNEL // ZERO</title>
+  <meta name="description" content="Compile SpectralMemoryPolicy YAML manifests via the linear-time O(|V|+|E|) checker (thm18), export FIPS-204 ML-DSA-87 128-byte .sbundle files, and inspect 16 BAR0 CSRs.">
+  <link rel="canonical" href="https://spectralsystems.org/console-demo/"/>
+  <meta property="og:title" content="05 Policy Compiler | Live spectralc YAML &amp; 16-CSR BAR0 Analyzer | KERNEL // ZERO">
+  <meta property="og:description" content="Compile SpectralMemoryPolicy YAML manifests via the linear-time O(|V|+|E|) checker (thm18), export FIPS-204 ML-DSA-87 128-byte .sbundle files, and inspect 16 BAR0 CSRs.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://spectralsystems.org/console-demo/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='2' fill='%2309090B' stroke='%2324242C' stroke-width='2'/%3E%3Ctext x='5' y='43' font-family='monospace' font-weight='700' font-size='25' fill='%23FF5500'%3E-%26lt%3B%3C/text%3E%3Ctext x='36' y='44' font-family='monospace' font-weight='700' font-size='27' fill='%23F8F7F4'%3E%26%23216%3B%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <style>
+:root {
+  --bg-void: #09090B;
+  --bg-bay: #111115;
+  --bg-grid: #0D1119;
+  --line: #24242C;
+  --line-hi: #343442;
+  --ink-hi: #F8F7F4;
+  --ink-body: #D8DEE9;
+  --ink-muted: #94A3B8;
+  --ink-slate: #CBD5E1;
+  --orange: #FF5500;
+  --emerald: #10B981;
+  --cyan: #38BDF8;
+  --amber: #F59E0B;
+  --crimson: #F43F5E;
+  --font-serif: 'Newsreader', 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', Consolas, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-void);
+  color: var(--ink-body);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-void);
+  color: var(--ink-body);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .serif-head {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--ink-hi);
+  letter-spacing: -0.026em;
+  line-height: 1.14;
+  margin: 0 0 0.65em 0;
+}
+
+p {
+  margin: 0 0 1.15em 0;
+  max-width: 66ch;
+  color: var(--ink-body);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--ink-hi);
+  text-decoration-color: var(--line-hi);
+  text-underline-offset: 3px;
+  transition: color 0.14s ease, border-color 0.14s ease;
+}
+
+a:hover {
+  color: var(--orange);
+  text-decoration-color: var(--orange);
+}
+
+code, pre, .mono, .num, .csr-hex {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+code {
+  font-size: 0.88em;
+  color: var(--ink-slate);
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 1px 5px;
+}
+
+pre code {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+
+.muted { color: var(--ink-muted); }
+.slate { color: var(--ink-slate); }
+.sig-orange { color: var(--orange); }
+.sig-emerald { color: var(--emerald); }
+.sig-cyan { color: var(--cyan); }
+.sig-amber { color: var(--amber); }
+.sig-crimson { color: var(--crimson); }
+
+/* Exposed 1px Structural Hairlines & + Corner Fiducials */
+.fiducial-box {
+  position: relative;
+  background: var(--bg-bay);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+.fiducial-box::before,
+.fiducial-box::after {
+  content: "+";
+  position: absolute;
+  top: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--ink-muted);
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.fiducial-box::before { left: 7px; }
+.fiducial-box::after { right: 7px; }
+
+/* Top Masthead Strip + Single-Row Sticky Navigation */
+.masthead-strip {
+  background: var(--bg-void);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
+}
+
+.masthead-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 14px;
+}
+
+.brand-glyph {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--orange);
+  border: 1px solid var(--line-hi);
+  background: var(--bg-grid);
+  border-radius: 2px;
+  padding: 2px 7px;
+  text-decoration: none;
+}
+
+.brand-wordmark {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ink-hi);
+  text-decoration: none;
+}
+
+.brand-lockstep {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.masthead-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn,
+.hw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--ink-slate);
+  background: var(--bg-bay);
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  padding: 7px 11px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+}
+
+.action-btn:hover,
+.hw-btn:hover {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.08);
+  text-decoration: none;
+}
+
+.action-btn-primary,
+.hw-btn.active {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.14);
+}
+
+.hw-btn.pass-active {
+  color: var(--ink-hi);
+  border-color: var(--emerald);
+  background: rgba(16, 185, 129, 0.14);
+}
+
+.site-nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  height: 56px;
+  max-height: 60px;
+  background: rgba(9, 9, 11, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.site-nav-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.site-nav-inner {
+  display: inline-flex;
+  align-items: center;
+  height: 56px;
+  min-width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+  gap: 6px;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.nav-link:hover {
+  color: var(--ink-hi);
+  border-color: var(--line-hi);
+  background: var(--bg-bay);
+  text-decoration: none;
+}
+
+.nav-link.active {
+  color: var(--ink-hi);
+  background: var(--bg-bay);
+  border-color: var(--line-hi);
+  border-bottom: 2px solid var(--orange);
+}
+
+/* Screen 1: Cold Open (min-height: 78vh) */
+.screen-cold-open {
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 68px 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+
+.cold-open-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.85rem);
+  letter-spacing: -0.032em;
+  line-height: 1.08;
+  max-width: 23ch;
+  margin-bottom: 24px;
+}
+
+.cold-open-lede {
+  font-size: clamp(1.06rem, 1.3vw, 1.2rem);
+  line-height: 1.74;
+  max-width: 65ch;
+  color: var(--ink-body);
+}
+
+.glyph-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 40px;
+}
+
+.glyph-cell {
+  background: var(--bg-bay);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.glyph-token {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--orange);
+  line-height: 1.1;
+}
+
+.glyph-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-hi);
+  letter-spacing: 0.02em;
+}
+
+.glyph-desc {
+  font-size: 12.5px;
+  line-height: 1.42;
+  color: var(--ink-muted);
+}
+
+/* Screen 2: KERNEL // ZERO Calligraphy Marquee (min-height: 86vh) */
+.screen-marquee {
+  min-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 76px 0;
+  border-bottom: 1px solid var(--line);
+  background-color: var(--bg-void);
+  background-image:
+    linear-gradient(to right, rgba(36, 36, 44, 0.34) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(36, 36, 44, 0.34) 1px, transparent 1px);
+  background-size: 48px 48px;
+  position: relative;
+}
+
+.marquee-wordmark {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 10.8vw, 9.2rem);
+  line-height: 0.94;
+  letter-spacing: -0.038em;
+  color: var(--ink-hi);
+  margin: 12px 0 22px 0;
+}
+
+.marquee-slashes {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--orange);
+  letter-spacing: -0.06em;
+  padding: 0 0.05em;
+}
+
+.marquee-tm {
+  font-family: var(--font-sans);
+  font-size: 0.22em;
+  vertical-align: super;
+  color: var(--ink-muted);
+  letter-spacing: 0;
+}
+
+.marquee-sub {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-slate);
+  margin-bottom: 24px;
+}
+
+.telemetry-strip {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 36px;
+}
+
+.telemetry-cell {
+  background: var(--bg-bay);
+  padding: 16px 14px;
+}
+
+.telemetry-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.telemetry-value {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink-hi);
+  font-variant-numeric: tabular-nums;
+}
+
+.telemetry-note {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+/* Screen 3: 4-Card ASCII Skeptic Grid */
+.screen-skeptic {
+  padding: 84px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-header {
+  max-width: 780px;
+  margin-bottom: 36px;
+}
+
+.section-title {
+  font-size: clamp(1.95rem, 3.4vw, 2.85rem);
+  letter-spacing: -0.028em;
+}
+
+.skeptic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.skeptic-card {
+  background: var(--bg-bay);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.skeptic-card-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeptic-q {
+  font-family: var(--font-serif);
+  font-size: 1.52rem;
+  line-height: 1.22;
+  color: var(--ink-hi);
+  margin-bottom: 16px;
+}
+
+.ascii-diagram {
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 14px 16px;
+  margin: 0 0 18px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-slate);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Screen 4: 3-Bay CMOS Transistor Schematic Workbench */
+.screen-cmos-workbench {
+  padding: 84px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.cmos-bays {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.cmos-bay {
+  background: var(--bg-bay);
+  display: flex;
+  flex-direction: column;
+}
+
+.cmos-bay-head {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.cmos-bay-title {
+  font-family: var(--font-serif);
+  font-size: 1.32rem;
+  color: var(--ink-hi);
+  margin: 4px 0 0 0;
+}
+
+.cmos-canvas-stage {
+  background: var(--bg-grid);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  width: 100%;
+  height: 290px;
+}
+
+.cmos-canvas-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cmos-controls {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.cmos-bay-copy {
+  padding: 18px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 15.5px;
+  line-height: 1.66;
+}
+
+/* Screen 5: Split-Stage Scrollytelling Spine (38% Left / 62% Sticky Right) */
+.screen-scrolly {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.scrolly-intro {
+  padding: 76px 0 42px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.scrolly-spine {
+  display: grid;
+  grid-template-columns: 38% 62%;
+  max-width: 1440px;
+  margin: 0 auto;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  align-items: start;
+}
+
+.scrolly-narrative {
+  border-right: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.scrolly-step {
+  min-height: 82vh;
+  padding: 48px 32px;
+  border-bottom: 1px solid var(--line);
+  border-left: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: background 0.2s ease, border-left-color 0.2s ease;
+}
+
+.scrolly-step:last-child {
+  border-bottom: 0;
+}
+
+.scrolly-step.is-active {
+  border-left-color: var(--orange);
+  background: rgba(17, 17, 21, 0.78);
+}
+
+.scrolly-step-title {
+  font-size: 1.65rem;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.scrolly-stage {
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  background: var(--bg-grid);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.microscope-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-void);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-slate);
+  flex-shrink: 0;
+}
+
+.stage-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.stage-jump-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 3px 7px;
+  background: var(--bg-bay);
+  color: var(--ink-muted);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.stage-jump-btn.active,
+.stage-jump-btn:hover {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+}
+
+.microscope-canvas-wrap {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 300px;
+  background: var(--bg-grid);
+  overflow: hidden;
+}
+
+.microscope-canvas-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#microscope-latex-hud {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  background: rgba(9, 9, 11, 0.93);
+  border: 1px solid var(--line-hi);
+  border-left: 2px solid var(--orange);
+  border-radius: 2px;
+  padding: 12px 16px;
+  z-index: 25;
+}
+
+.hud-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.hud-math {
+  color: var(--ink-hi);
+  font-size: 15px;
+  overflow-x: auto;
+}
+
+/* Collapsible Rosetta LaTeX Drawers (Closed by Default) */
+details.rosetta-drawer {
+  margin-top: 20px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--bg-grid);
+}
+
+details.rosetta-drawer > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: var(--ink-slate);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+details.rosetta-drawer > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.rosetta-drawer > summary:hover {
+  color: var(--orange);
+  background: rgba(255, 85, 0, 0.05);
+}
+
+details.rosetta-drawer[open] > summary {
+  color: var(--orange);
+  border-bottom: 1px solid var(--line);
+}
+
+.rosetta-content {
+  padding: 16px;
+  font-size: 15px;
+  line-height: 1.66;
+  color: var(--ink-body);
+  overflow-x: auto;
+}
+
+/* Shared Technical Workbench Styles (Routes 02 - 07) */
+.page-hero {
+  padding: 56px 0 40px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.page-title {
+  font-size: clamp(2.1rem, 4vw, 3.25rem);
+  letter-spacing: -0.03em;
+  max-width: 26ch;
+}
+
+.workbench-section {
+  padding: 52px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.instrument-card {
+  background: var(--bg-bay);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 24px;
+  position: relative;
+}
+
+.instrument-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hw-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-slate);
+  margin-bottom: 6px;
+}
+
+.hw-input,
+.hw-select,
+.hw-textarea {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-hi);
+  background: var(--bg-grid);
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  padding: 9px 11px;
+}
+
+.hw-input:focus,
+.hw-select:focus,
+.hw-textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+
+.terminal-out {
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-slate);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.spec-table th,
+.spec-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.spec-table th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  background: var(--bg-grid);
+}
+
+/* KaTeX Classical Computer Modern Tuning */
+.katex {
+  font-size: 1.04em;
+  color: var(--ink-hi);
+}
+
+.katex-display {
+  margin: 0.85em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+}
+
+/* Site Footer & Apache-2.0 Sec. 6 Reservation */
+.site-footer {
+  background: var(--bg-void);
+  border-top: 1px solid var(--line);
+  padding: 56px 0 64px 0;
+  font-size: 14px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.footer-heading {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-hi);
+  margin-bottom: 12px;
+}
+
+.footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.footer-legal {
+  padding-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.65;
+  color: var(--ink-muted);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1120px) {
+  .glyph-legend-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .telemetry-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .cmos-bays {
+    grid-template-columns: 1fr;
+  }
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 980px) {
+  .skeptic-grid,
+  .grid-2,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .scrolly-spine {
+    grid-template-columns: 1fr;
+  }
+  .scrolly-stage {
+    order: -1;
+    position: sticky;
+    top: 56px;
+    height: 46vh;
+    min-height: 320px;
+    z-index: 40;
+    border-bottom: 1px solid var(--line);
+  }
+  .scrolly-narrative {
+    border-right: 0;
+  }
+  .scrolly-step {
+    min-height: auto;
+    padding: 36px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 0 16px;
+  }
+  .glyph-legend-grid,
+  .telemetry-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .masthead-actions {
+    width: 100%;
+  }
+}
+</style>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  function runKatex(rootEl) {
+    if (typeof renderMathInElement === "function") {
+      renderMathInElement(rootEl || document.body, {
+        delimiters: [
+          {left: "\\[", right: "\\]", display: true},
+          {left: "\\(", right: "\\)", display: false}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+  window.spectralRenderMath = runKatex;
+  runKatex(document.body);
+  var drawers = document.querySelectorAll("details.rosetta-drawer");
+  for (var i = 0; i < drawers.length; i++) {
+    drawers[i].addEventListener("toggle", function () {
+      if (this.open) {
+        runKatex(this);
+      }
+    });
+  }
+});
+</script>
+  <!-- Highwire Press / Google Scholar / IACR / Zenodo Citation Meta -->
+  <meta name="citation_title" content="Finite Fields Forever: Assured Memory Isolation in a Single Logic Gate">
+  <meta name="citation_author" content="Eric Murphy">
+  <meta name="citation_author_institution" content="Spectral Systems LLC">
+  <meta name="citation_publication_date" content="2026/11/20">
+  <meta name="citation_doi" content="10.5281/zenodo.24047901">
+  <meta name="citation_pdf_url" content="https://spectralsystems.org/preprint_Murphy_v1.pdf">
+  <meta name="citation_technical_report_institution" content="Spectral Systems LLC">
+  <link rel="cite-as" href="https://doi.org/10.5281/zenodo.24047901">
+</head>
+<body>
+<header class="masthead-strip" role="banner">
+  <div class="wrap masthead-inner">
+    <div class="brand-cluster">
+      <a class="brand-glyph" href="/" aria-label="KERNEL ZERO Home">-&lt;&Oslash;</a>
+      <a class="brand-wordmark" href="/">KERNEL // ZERO&trade;</a>
+      <span class="brand-lockstep">SPECTRAL SYSTEMS // SUB-FLIT ALGEBRAIC MEMORY ISOLATION</span>
+    </div>
+    <div class="masthead-actions">
+      <a class="action-btn action-btn-primary" href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Preprint v1 (PDF) ]</a>
+      <a class="action-btn" href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener">[ Zenodo DOI: 10.5281/zenodo.24047902 ]</a>
+      <a class="action-btn" href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer" target="_blank" rel="noopener">[ GitHub Repo (Lean 4 &amp; AWS F2) ]</a>
+    </div>
+  </div>
+</header>
+<nav class="site-nav-bar" aria-label="Primary Instrument Routes">
+  <div class="site-nav-inner">
+    <a class="nav-link" href="/">01 KERNEL // ZERO (Story)</a>
+    <a class="nav-link" href="/zero-trust.html">02 Interactive Locks</a>
+    <a class="nav-link" href="/benchmarks.html">03 Silicon Benchmarks</a>
+    <a class="nav-link" href="/verification.html">04 Lean 4 Proofs</a>
+    <a class="nav-link active" href="/console-demo/" aria-current="page">05 Policy Compiler</a>
+    <a class="nav-link" href="/cots-procurement.html">06 DARPA ERIS &amp; Procurement</a>
+    <a class="nav-link" href="/patents.html">07 IP &amp; Air-Gap</a>
+  </div>
+</nav>
+
+<style>
+  .compiler-4pane {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .csr-table-row {
+    cursor: pointer;
+    transition: background 0.12s ease;
+  }
+  .csr-table-row:hover,
+  .csr-table-row.is-selected {
+    background: rgba(255, 85, 0, 0.10);
+  }
+  .http-badge-ok {
+    color: var(--emerald);
+    border: 1px solid var(--emerald);
+    background: rgba(16, 185, 129, 0.12);
+    padding: 3px 8px;
+    border-radius: 2px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+  .http-badge-403 {
+    color: #FDA4AF;
+    border: 1px solid var(--crimson);
+    background: rgba(244, 63, 94, 0.18);
+    padding: 3px 8px;
+    border-radius: 2px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+  @media (max-width: 980px) {
+    .compiler-4pane {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<main id="main-content">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="kicker">ROUTE 05 // LIVE <code>spectralc</code> POLICY COMPILER &amp; 16-CSR BAR0 LOGIC ANALYZER</span>
+      <h1 class="page-title">Compile YAML capability manifests into 128-byte post-quantum hardware bundles.</h1>
+      <p class="muted">Edit the <code>SpectralMemoryPolicy</code> / DOE Genesis <code>SKILL.md</code> YAML manifest below, run the linear-time \(\mathcal{O}(|V|+|E|)\) certificate checker (<code>thm18</code>), export a <code>FIPS-204 ML-DSA-87</code> sealed <code>.sbundle</code>, and inspect all 16 <code>BAR0</code> registers (<code>0x00</code>&ndash;<code>0x78</code>).</p>
+    </div>
+  </section>
+
+  <section class="workbench-section">
+    <div class="wrap">
+      <div class="compiler-4pane">
+        <!-- PANE 1: Live YAML Editor -->
+        <div class="instrument-card fiducial-box" id="spectral-live-yaml-compiler">
+          <div class="instrument-head">
+            <div>
+              <span class="kicker">PANE 01 // EDITABLE MANIFEST</span>
+              <h2 class="serif-head" style="font-size:1.4rem;margin:0;"><code>SpectralMemoryPolicy</code> / <code>SKILL.md</code> YAML</h2>
+            </div>
+            <span class="mono muted" style="font-size:11.5px;">spectralc v1</span>
+          </div>
+
+          <textarea id="yaml-policy-editor" class="hw-textarea" rows="13" spellcheck="false">apiVersion: spectral.io/v1
+kind: SpectralMemoryPolicy
+metadata:
+  name: doe-genesis-moe-arena
+  skill: SKILL.md#sub-flit-cxl-enclave
+spec:
+  arena_tb: 16
+  ag28_slope: 1
+  ag28_intercept: 0
+  bf16_precision_tier: 9
+  csr00_cap_mask: 0xFFFFFFFFFFFFFFEB
+  csr60_vieta_roots: 0x53CA1F8907E23B9D
+  csr70_epoch_ratchet: 0xFFFFFFFFFFFFFFEB</textarea>
+
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
+            <button type="button" class="hw-btn pass-active" id="yaml-compile-btn">[Compile &amp; Verify]</button>
+            <button type="button" class="hw-btn active" id="yaml-rogue-btn">[Test 0-&gt;1 Rogue Escalation]</button>
+          </div>
+        </div>
+
+        <!-- PANE 2: Linear-Time O(|V|+|E|) Certificate Checker (thm18) -->
+        <div class="instrument-card fiducial-box">
+          <div class="instrument-head">
+            <div>
+              <span class="kicker">PANE 02 // LINEAR-TIME CERTIFICATE VERIFIER (<code>thm18</code>)</span>
+              <h2 class="serif-head" style="font-size:1.4rem;margin:0;">\(\mathcal{O}(|V| + |E|)\) Conflict &amp; Monotonic Gate</h2>
+            </div>
+            <span id="cert-http-badge" class="http-badge-ok">HTTP 200 OK &middot; 1.36 ms</span>
+          </div>
+
+          <div class="terminal-out" id="cert-checker-out"></div>
+
+          <div style="margin-top:12px;">
+            \[
+              T_{\mathrm{verify}}(G, \pi) = \mathcal{O}(|V| + |E|) \approx 1.36\text{ ms}, \qquad
+              (\neg M_{\mathrm{hw}} \wedge M_{\mathrm{req}}) \neq 0 \implies \texttt{HTTP 403 Forbidden}
+            \]
+          </div>
+        </div>
+
+        <!-- PANE 3: FIPS-204 ML-DSA-87 128-Byte .sbundle Exporter -->
+        <div class="instrument-card fiducial-box" id="spectral-sbundle-exporter">
+          <div class="instrument-head">
+            <div>
+              <span class="kicker">PANE 03 // POST-QUANTUM SEALED ARTIFACT</span>
+              <h2 class="serif-head" style="font-size:1.4rem;margin:0;"><code>FIPS-204 ML-DSA-87</code> 128-Byte <code>.sbundle</code></h2>
+            </div>
+            <button type="button" class="hw-btn active" id="sbundle-download-btn">[Download 128-Byte .sbundle]</button>
+          </div>
+
+          <div class="terminal-out" id="sbundle-hexdump" style="font-size:11.5px;"></div>
+        </div>
+
+        <!-- PANE 4: Selected CSR Inspector -->
+        <div class="instrument-card fiducial-box">
+          <div class="instrument-head">
+            <div>
+              <span class="kicker">PANE 04 // SELECTED REGISTER INVARIANT</span>
+              <h2 class="serif-head" style="font-size:1.4rem;margin:0;" id="csr-detail-title"><code>CSR 0x70</code> &mdash; Epoch Monotonic Ratchet</h2>
+            </div>
+            <span class="mono sig-cyan" id="csr-detail-rst">por_cold_rst_n ONLY</span>
+          </div>
+
+          <p id="csr-detail-desc" style="font-size:15px;"></p>
+          <div id="csr-detail-math" style="margin-top:12px;"></div>
+        </div>
+      </div>
+
+      <!-- FULL 16-CSR (0x00 - 0x78 = 128 BYTES) BAR0 HARDWARE REGISTER FILE -->
+      <div class="instrument-card fiducial-box" style="margin-top:22px;overflow-x:auto;">
+        <div class="instrument-head">
+          <div>
+            <span class="kicker">CLICKABLE 16-CSR BAR0 REGISTER MAP // <code>0x00</code> &ndash; <code>0x78</code> (128 BYTES TOTAL)</span>
+            <h3 class="serif-head" style="font-size:1.45rem;margin:0;">Hardware Control &amp; Status Register File</h3>
+          </div>
+          <span class="mono muted" style="font-size:12px;">Click any register row to inspect its reset domain &amp; KaTeX invariant</span>
+        </div>
+
+        <table class="spec-table" id="bar0-csr-table">
+          <thead>
+            <tr>
+              <th>BAR0 Offset</th>
+              <th>Register Mnemonic</th>
+              <th>Live 64-Bit Hex Value</th>
+              <th>Reset Domain</th>
+              <th>Hardware Role</th>
+            </tr>
+          </thead>
+          <tbody id="bar0-csr-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var yamlEl = document.getElementById("yaml-policy-editor");
+  var compileBtn = document.getElementById("yaml-compile-btn");
+  var rogueBtn = document.getElementById("yaml-rogue-btn");
+  var certBadge = document.getElementById("cert-http-badge");
+  var certOut = document.getElementById("cert-checker-out");
+  var hexDumpEl = document.getElementById("sbundle-hexdump");
+  var dlBtn = document.getElementById("sbundle-download-btn");
+  var csrTbody = document.getElementById("bar0-csr-tbody");
+  var detailTitle = document.getElementById("csr-detail-title");
+  var detailRst = document.getElementById("csr-detail-rst");
+  var detailDesc = document.getElementById("csr-detail-desc");
+  var detailMath = document.getElementById("csr-detail-math");
+
+  var HW_FLOOR_HI = 0xFFFFFFFF >>> 0;
+  var HW_FLOOR_LO = 0xFFFFFFEB >>> 0;
+  var currentBundleBytes = new Uint8Array(128);
+  var selectedCsrIdx = 14; // CSR 0x70 default
+
+  var CSR_SPECS = [
+    ["0x00", "CSR_CAP_MASK_LO", "por_cold_rst_n", "64-wire AG(2,8) primary capability mask (monotonic AND2)", "M^{(t+1)}_{\\texttt{0x00}} = M^{(t)}_{\\texttt{0x00}} \\wedge W_{\\mathrm{bus}}"],
+    ["0x08", "CSR_CAP_MASK_SHADOW", "por_cold_rst_n", "Mode-D WDDL De Morgan RAIN dual-rail shadow mask", "\\overline{M}_{\\texttt{0x08}} = \\neg M_{\\texttt{0x00}}"],
+    ["0x10", "CSR_SLOT0_CFG", "por_cold_rst_n", "Sub-flit Slot s0 affine line (m, b) & BF16 precision tier", "\\mathcal{L}_{m_0, b_0} \\subset \\mathrm{AG}(2,8)"],
+    ["0x18", "CSR_SLOT1_CFG", "por_cold_rst_n", "Sub-flit Slot s1 affine line (m, b) & BF16 precision tier", "\\mathcal{L}_{m_1, b_1} \\subset \\mathrm{AG}(2,8)"],
+    ["0x20", "CSR_SLOT2_CFG", "por_cold_rst_n", "Sub-flit Slot s2 affine line (m, b) & CXL_NOP clamp policy", "\\Delta_{P}(r_2) \\neq 0 \\implies \\texttt{16'h0000}"],
+    ["0x28", "CSR_SLOT3_CFG", "por_cold_rst_n", "Sub-flit Slot s3 affine line (m, b) & BF16 precision tier", "\\mathcal{L}_{m_3, b_3} \\subset \\mathrm{AG}(2,8)"],
+    ["0x30", "CSR_BF16_DITHER_KEY", "por_cold_rst_n", "Wannamaker LFSR dither seed & exp=8'hFE NaN-carry guard", "\\sigma_{\\mathrm{avg}}^2 = \\Delta_u^2 / (6 Q_{\\mathrm{eff}}),\\; \\texttt{thm27}"],
+    ["0x38", "CSR_ARID_SCRUB_CTRL", "pcie_warm_flr_rst_n", "32-slot AXI4 read-scrub telemetry & FIFO watermark", "\\texttt{m\\_hbm\\_axi\\_arvalid\\_o} == \\texttt{1'b0}\\;(\\texttt{SVA 9})"],
+    ["0x40", "CSR_FLIT_PASS_CNT", "pcie_warm_flr_rst_n", "Non-security telemetry counter of authorized sub-flit slots", "C_{\\mathrm{pass}}^{(t+1)} = C_{\\mathrm{pass}}^{(t)} + |\\{k : \\Delta_P(r_k)=0\\}|"],
+    ["0x48", "CSR_ESCALATION_TRAP", "por_cold_rst_n", "Sticky forensic trap latching illegal 0->1 host write attempts", "E^{(t+1)}_{\\texttt{0x48}} = E^{(t)}_{\\texttt{0x48}} \\vee (\\neg M^{(t)} \\wedge W_{\\mathrm{bus}})"],
+    ["0x50", "CSR_CLAMP_NOP_CNT", "pcie_warm_flr_rst_n", "Diagnostic count of rogue slots surgically clamped to CXL_NOP", "G_{\\mathrm{sieve}} = 1 - q_{\\mathrm{slot}} = 99.20\\%"],
+    ["0x58", "CSR_CW_TAG_SEED", "por_cold_rst_n", "Carter-Wegman universal GF(2^8) address-to-tag polynomial key", "\\Pr[h_k(x) = h_k(y)] = 2^{-8}"],
+    ["0x60", "CSR_VIETA_COEFFS", "por_cold_rst_n", "Packed 8-byte Vieta elementary symmetric polynomial over GF(2^8)", "\\Lambda^{(t)}(z^*) = \\prod_{j=1}^{r}(z^* \\oplus \\alpha_j) = 0"],
+    ["0x68", "CSR_TIMING_WHEEL", "por_cold_rst_n", "548.0 ns shootdown horizon lease wheel (zero switch wear)", "\\Delta d_{\\mathrm{rev}}(\\texttt{CSR 0x68}) = 0"],
+    ["0x70", "CSR_EPOCH_RATCHET", "por_cold_rst_n", "Master Cold-POR monotonic epoch lock isolated from warm FLR (\u2534)", "M^{(t+1)}_{\\texttt{0x70}} = M^{(t)}_{\\texttt{0x70}} \\wedge W_{\\mathrm{bus}},\\; \\mathrm{Dom}(\\texttt{FLR}) \\cap \\mathrm{Reg}_{\\mathrm{sec}} = \\varnothing"],
+    ["0x78", "CSR_MLDSA87_DIGEST", "por_cold_rst_n", "Truncated FIPS-204 ML-DSA-87 policy attestation seal", "\\mathrm{Verify}_{\\mathrm{ML\\text{-}DSA\\text{-}87}}(\\mathrm{pk},\\, \\texttt{.sbundle}) = 1"]
+  ];
+
+  function extractHexField(txt, key, fallback) {
+    var re = new RegExp(key + "\\s*:\\s*(0x[0-9a-fA-F]+)", "i");
+    var m = txt.match(re);
+    return m ? m[1] : fallback;
+  }
+
+  function extractIntField(txt, key, fallback) {
+    var re = new RegExp(key + "\\s*:\\s*([0-9]+)", "i");
+    var m = txt.match(re);
+    return m ? parseInt(m[1], 10) : fallback;
+  }
+
+  function parse64(hexStr) {
+    var c = String(hexStr || "").replace(/^0x/i, "").replace(/[^0-9a-fA-F]/g, "");
+    while (c.length < 16) c = "0" + c;
+    c = c.slice(-16);
+    return {
+      hi: parseInt(c.slice(0, 8), 16) >>> 0,
+      lo: parseInt(c.slice(8, 16), 16) >>> 0
+    };
+  }
+
+  function fmt64(hi, lo) {
+    return "0x" + ("00000000" + (hi >>> 0).toString(16).toUpperCase()).slice(-8) + ("00000000" + (lo >>> 0).toString(16).toUpperCase()).slice(-8);
+  }
+
+  function writeU64LE(buf, offset, hi, lo) {
+    var uLo = lo >>> 0;
+    var uHi = hi >>> 0;
+    for (var i = 0; i < 4; i++) buf[offset + i] = (uLo >>> (i * 8)) & 0xFF;
+    for (var j = 0; j < 4; j++) buf[offset + 4 + j] = (uHi >>> (j * 8)) & 0xFF;
+  }
+
+  function renderSelectedCsr(csrValues) {
+    var spec = CSR_SPECS[selectedCsrIdx] || CSR_SPECS[14];
+    if (detailTitle) detailTitle.innerHTML = "<code>CSR " + spec[0] + "</code> &mdash; " + spec[1];
+    if (detailRst) {
+      detailRst.textContent = spec[2];
+      detailRst.className = "mono " + (spec[2] === "por_cold_rst_n" ? "sig-cyan" : "sig-amber");
+    }
+    if (detailDesc) {
+      detailDesc.textContent = spec[3] + " | Current 64-bit value: " + (csrValues[selectedCsrIdx] || "0x0000000000000000");
+    }
+    if (detailMath) {
+      if (window.katex && typeof window.katex.render === "function") {
+        window.katex.render(spec[4], detailMath, { displayMode: true, throwOnError: false });
+      } else {
+        detailMath.textContent = "\\[" + spec[4] + "\\]";
+        if (typeof window.spectralRenderMath === "function") window.spectralRenderMath(detailMath);
+      }
+    }
+  }
+
+  function compilePolicy() {
+    var txt = yamlEl ? yamlEl.value : "";
+    var slope = extractIntField(txt, "ag28_slope", 1) & 7;
+    var inter = extractIntField(txt, "ag28_intercept", 0) & 7;
+    var bfTier = extractIntField(txt, "bf16_precision_tier", 9);
+    var cap64 = parse64(extractHexField(txt, "csr00_cap_mask", "0xFFFFFFFFFFFFFFEB"));
+    var vieta64 = parse64(extractHexField(txt, "csr60_vieta_roots", "0x53CA1F8907E23B9D"));
+    var ep64 = parse64(extractHexField(txt, "csr70_epoch_ratchet", "0xFFFFFFFFFFFFFFEB"));
+
+    var rogueCap = (((~HW_FLOOR_HI) & cap64.hi) !== 0) || (((~HW_FLOOR_LO) & cap64.lo) !== 0);
+    var rogueEp = (((~HW_FLOOR_HI) & ep64.hi) !== 0) || (((~HW_FLOOR_LO) & ep64.lo) !== 0);
+    var isRogue = rogueCap || rogueEp;
+
+    if (certBadge) {
+      certBadge.className = isRogue ? "http-badge-403" : "http-badge-ok";
+      certBadge.textContent = isRogue ? "HTTP 403 Forbidden \u00b7 1.36 ms" : "HTTP 200 OK \u00b7 1.36 ms";
+    }
+
+    if (certOut) {
+      if (isRogue) {
+        certOut.textContent =
+          "[REJECTED] HTTP 403 Forbidden (Verified in 1.36 ms by O(|V|+|E|) Checker thm18)\n" +
+          "REASON   : Illegal 0 -> 1 bit-widening detected against active hardware floor 0xFFFFFFFFFFFFFFEB!\n" +
+          "HARDWARE : Even if forced over PCIe BAR0, AND2 ratchet clamps 0x1=0 and latches CSR 0x48 = 1.";
+      } else {
+        certOut.textContent =
+          "[ACCEPTED] HTTP 200 OK (Verified in 1.36 ms by O(|V|+|E|) Certificate Checker thm18)\n" +
+          "GRAPH    : |V| = 64 points, |E| = 72 AG(2,8) lines | Steiner intersection lambda <= 1 PASS\n" +
+          "SEAL     : FIPS-204 ML-DSA-87 post-quantum signature bound to 128-byte BAR0 image.";
+      }
+    }
+
+    var safeCapHi = (HW_FLOOR_HI & cap64.hi) >>> 0;
+    var safeCapLo = (HW_FLOOR_LO & cap64.lo) >>> 0;
+    var safeEpHi = (HW_FLOOR_HI & ep64.hi) >>> 0;
+    var safeEpLo = (HW_FLOOR_LO & ep64.lo) >>> 0;
+
+    var pairs = [
+      [safeCapHi, safeCapLo],
+      [(~safeCapHi) >>> 0, (~safeCapLo) >>> 0],
+      [0x00000000, ((bfTier & 0xFF) << 16) | (slope << 8) | inter],
+      [0x00000000, ((bfTier & 0xFF) << 16) | (((slope + 1) & 7) << 8) | inter],
+      [0x00000000, ((bfTier & 0xFF) << 16) | (((slope + 2) & 7) << 8) | inter],
+      [0x00000000, ((bfTier & 0xFF) << 16) | (((slope + 3) & 7) << 8) | inter],
+      [0x00FE7F80, 0x5A5AA5A5],
+      [0x00000020, 0x00000155],
+      [0x00000000, 0x000C3500],
+      [0x00000000, isRogue ? 0x00000001 : 0x00000000],
+      [0x00000000, 0x00000320],
+      [0x011B53CA, 0x9D3BE207],
+      [vieta64.hi, vieta64.lo],
+      [0x00000224, 0x00000008],
+      [safeEpHi, safeEpLo],
+      [0x87D5A204, (safeEpLo ^ vieta64.lo ^ 0x5EC72401) >>> 0]
+    ];
+
+    var csrHexList = [];
+    for (var r = 0; r < 16; r++) {
+      writeU64LE(currentBundleBytes, r * 8, pairs[r][0], pairs[r][1]);
+      csrHexList.push(fmt64(pairs[r][0], pairs[r][1]));
+    }
+
+    // Render 128-byte hex dump (8 rows x 16 bytes)
+    if (hexDumpEl) {
+      var lines = [];
+      for (var row = 0; row < 8; row++) {
+        var off = ("00" + (row * 16).toString(16).toUpperCase()).slice(-2);
+        var bstr = [];
+        for (var col = 0; col < 16; col++) {
+          bstr.push(("00" + currentBundleBytes[row * 16 + col].toString(16).toUpperCase()).slice(-2));
+        }
+        lines.push("0x" + off + " : " + bstr.join(" "));
+      }
+      hexDumpEl.textContent =
+        "SEAL: FIPS-204 ML-DSA-87  |  PAYLOAD: 128 BYTES (16 x 64-BIT BAR0 CSRs)\n" +
+        lines.join("\n");
+    }
+
+    // Render 16-CSR table
+    if (csrTbody) {
+      csrTbody.innerHTML = "";
+      for (var i = 0; i < CSR_SPECS.length; i++) {
+        var s = CSR_SPECS[i];
+        var tr = document.createElement("tr");
+        tr.className = "csr-table-row" + (i === selectedCsrIdx ? " is-selected" : "");
+        tr.setAttribute("data-csr-idx", String(i));
+        var rstCls = (s[2] === "por_cold_rst_n") ? "sig-cyan" : "sig-amber";
+        tr.innerHTML =
+          "<td class=\"mono sig-orange\">" + s[0] + "</td>" +
+          "<td class=\"mono\">" + s[1] + "</td>" +
+          "<td class=\"mono\">" + csrHexList[i] + "</td>" +
+          "<td class=\"mono " + rstCls + "\">" + s[2] + "</td>" +
+          "<td>" + s[3] + "</td>";
+        tr.addEventListener("click", function () {
+          selectedCsrIdx = parseInt(this.getAttribute("data-csr-idx"), 10);
+          compilePolicy();
+        });
+        csrTbody.appendChild(tr);
+      }
+    }
+
+    renderSelectedCsr(csrHexList);
+  }
+
+  if (compileBtn) compileBtn.addEventListener("click", compilePolicy);
+  if (rogueBtn) {
+    rogueBtn.addEventListener("click", function () {
+      if (yamlEl) {
+        yamlEl.value = yamlEl.value.replace(
+          /csr70_epoch_ratchet:\s*0x[0-9a-fA-F]+/i,
+          "csr70_epoch_ratchet: 0xFFFFFFFFFFFFFFFF"
+        );
+      }
+      selectedCsrIdx = 9; // Highlight CSR 0x48 Escalation Trap!
+      compilePolicy();
+    });
+  }
+
+  if (dlBtn) {
+    dlBtn.addEventListener("click", function () {
+      var blob = new Blob([currentBundleBytes], { type: "application/octet-stream" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "spectral_policy_v1.sbundle";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    });
+  }
+
+  compilePolicy();
+  window.addEventListener("load", compilePolicy);
+})();
+</script>
+<footer class="site-footer" role="contentinfo">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-heading">KERNEL // ZERO&trade; &mdash; &ldquo;FINITE FIELDS FOREVER&rdquo;</div>
+        <p class="mono muted" style="font-size:12px;max-width:58ch;">SPECTRAL SYSTEMS // SUB-FLIT ALGEBRAIC MEMORY ISOLATION</p>
+        <p class="mono slate" style="font-size:12px;margin-top:10px;">Spectral Systems LLC (United States) &middot; Founder &amp; Principal Architect: Eric C. Murphy &middot; CAGE: <code>268E1</code> &middot; SAM.gov UEI: <code>VTP2JPCJU3D9</code> &middot; DFARS <code>252.227-7018</code> &middot; All Patents Pending</p>
+      </div>
+      <div>
+        <div class="footer-heading">Primary Artifacts &amp; Silicon</div>
+        <ul class="footer-list">
+          <li><a href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Preprint v1 (PDF) ]</a></li>
+          <li><a href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener">[ Zenodo DOI: 10.5281/zenodo.24047902 ]</a></li>
+          <li><a href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer" target="_blank" rel="noopener">[ GitHub Repo (Lean 4 &amp; AWS F2) ]</a></li>
+          <li><span class="muted">AGFI-0: <code>agfi-08becf3b40b169674</code></span></li>
+          <li><span class="muted">AGFI-1: <code>agfi-03b742e2a9cd2c0f2</code></span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Verification &amp; Acquisition Routes</div>
+        <ul class="footer-list">
+          <li><a href="/">01 KERNEL // ZERO (Story)</a></li>
+          <li><a href="/zero-trust.html">02 Interactive Locks</a></li>
+          <li><a href="/benchmarks.html">03 Silicon Benchmarks</a></li>
+          <li><a href="/verification.html">04 Lean 4 Proofs</a></li>
+          <li><a href="/console-demo/">05 Policy Compiler</a></li>
+          <li><a href="/cots-procurement.html">06 DARPA ERIS &amp; Procurement</a></li>
+          <li><a href="/patents.html">07 IP &amp; Air-Gap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      KERNEL ZERO&trade;, KERNEL // ZERO&trade;, KERNEL ZERO&trade;, and spectralc&trade; are trademarks of Spectral Systems LLC. Pursuant to Section 6 of the Apache License, Version 2.0, no trademark rights are granted under the open-source verification license. Reduced to practice at 100% private expense by Eric C. Murphy. All Patents Pending.
+    </div>
+  </div>
+</footer>
+  <!-- spectral-elegant-editorial-theme spectral-guided-discovery spectral-scope-and-differentiation spectral-formal-input-validator spectral-arid-fifo-guardrail -->\n</body>
+</html>

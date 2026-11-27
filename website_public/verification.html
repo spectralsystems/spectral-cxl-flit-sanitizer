@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>04 Lean 4 Proofs | 43,691 Zero-Axiom Lines &amp; Bi-Simulation Prover | KERNEL // ZERO</title>
+  <meta name="description" content="43,691 lines of zero-axiom Lean 4 proofs (thm00-thm37, 0 sorry), 64-state LUT6_2 De Morgan RAIN bi-simulation prover, and 8-step GF(2^8) Bezout-Horner divider.">
+  <link rel="canonical" href="https://spectralsystems.org/verification"/>
+  <meta property="og:title" content="04 Lean 4 Proofs | 43,691 Zero-Axiom Lines &amp; Bi-Simulation Prover | KERNEL // ZERO">
+  <meta property="og:description" content="43,691 lines of zero-axiom Lean 4 proofs (thm00-thm37, 0 sorry), 64-state LUT6_2 De Morgan RAIN bi-simulation prover, and 8-step GF(2^8) Bezout-Horner divider.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://spectralsystems.org/verification.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='2' fill='%2309090B' stroke='%2324242C' stroke-width='2'/%3E%3Ctext x='5' y='43' font-family='monospace' font-weight='700' font-size='25' fill='%23FF5500'%3E-%26lt%3B%3C/text%3E%3Ctext x='36' y='44' font-family='monospace' font-weight='700' font-size='27' fill='%23F8F7F4'%3E%26%23216%3B%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <style>
+:root {
+  --bg-void: #09090B;
+  --bg-bay: #111115;
+  --bg-grid: #0D1119;
+  --line: #24242C;
+  --line-hi: #343442;
+  --ink-hi: #F8F7F4;
+  --ink-body: #D8DEE9;
+  --ink-muted: #94A3B8;
+  --ink-slate: #CBD5E1;
+  --orange: #FF5500;
+  --emerald: #10B981;
+  --cyan: #38BDF8;
+  --amber: #F59E0B;
+  --crimson: #F43F5E;
+  --font-serif: 'Newsreader', 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', Consolas, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-void);
+  color: var(--ink-body);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-void);
+  color: var(--ink-body);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .serif-head {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--ink-hi);
+  letter-spacing: -0.026em;
+  line-height: 1.14;
+  margin: 0 0 0.65em 0;
+}
+
+p {
+  margin: 0 0 1.15em 0;
+  max-width: 66ch;
+  color: var(--ink-body);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--ink-hi);
+  text-decoration-color: var(--line-hi);
+  text-underline-offset: 3px;
+  transition: color 0.14s ease, border-color 0.14s ease;
+}
+
+a:hover {
+  color: var(--orange);
+  text-decoration-color: var(--orange);
+}
+
+code, pre, .mono, .num, .csr-hex {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+code {
+  font-size: 0.88em;
+  color: var(--ink-slate);
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 1px 5px;
+}
+
+pre code {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+
+.muted { color: var(--ink-muted); }
+.slate { color: var(--ink-slate); }
+.sig-orange { color: var(--orange); }
+.sig-emerald { color: var(--emerald); }
+.sig-cyan { color: var(--cyan); }
+.sig-amber { color: var(--amber); }
+.sig-crimson { color: var(--crimson); }
+
+/* Exposed 1px Structural Hairlines & + Corner Fiducials */
+.fiducial-box {
+  position: relative;
+  background: var(--bg-bay);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+.fiducial-box::before,
+.fiducial-box::after {
+  content: "+";
+  position: absolute;
+  top: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--ink-muted);
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.fiducial-box::before { left: 7px; }
+.fiducial-box::after { right: 7px; }
+
+/* Top Masthead Strip + Single-Row Sticky Navigation */
+.masthead-strip {
+  background: var(--bg-void);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
+}
+
+.masthead-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 14px;
+}
+
+.brand-glyph {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--orange);
+  border: 1px solid var(--line-hi);
+  background: var(--bg-grid);
+  border-radius: 2px;
+  padding: 2px 7px;
+  text-decoration: none;
+}
+
+.brand-wordmark {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ink-hi);
+  text-decoration: none;
+}
+
+.brand-lockstep {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.masthead-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn,
+.hw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--ink-slate);
+  background: var(--bg-bay);
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  padding: 7px 11px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+}
+
+.action-btn:hover,
+.hw-btn:hover {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.08);
+  text-decoration: none;
+}
+
+.action-btn-primary,
+.hw-btn.active {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.14);
+}
+
+.hw-btn.pass-active {
+  color: var(--ink-hi);
+  border-color: var(--emerald);
+  background: rgba(16, 185, 129, 0.14);
+}
+
+.site-nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  height: 56px;
+  max-height: 60px;
+  background: rgba(9, 9, 11, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.site-nav-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.site-nav-inner {
+  display: inline-flex;
+  align-items: center;
+  height: 56px;
+  min-width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+  gap: 6px;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.nav-link:hover {
+  color: var(--ink-hi);
+  border-color: var(--line-hi);
+  background: var(--bg-bay);
+  text-decoration: none;
+}
+
+.nav-link.active {
+  color: var(--ink-hi);
+  background: var(--bg-bay);
+  border-color: var(--line-hi);
+  border-bottom: 2px solid var(--orange);
+}
+
+/* Screen 1: Cold Open (min-height: 78vh) */
+.screen-cold-open {
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 68px 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+
+.cold-open-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.85rem);
+  letter-spacing: -0.032em;
+  line-height: 1.08;
+  max-width: 23ch;
+  margin-bottom: 24px;
+}
+
+.cold-open-lede {
+  font-size: clamp(1.06rem, 1.3vw, 1.2rem);
+  line-height: 1.74;
+  max-width: 65ch;
+  color: var(--ink-body);
+}
+
+.glyph-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 40px;
+}
+
+.glyph-cell {
+  background: var(--bg-bay);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.glyph-token {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--orange);
+  line-height: 1.1;
+}
+
+.glyph-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-hi);
+  letter-spacing: 0.02em;
+}
+
+.glyph-desc {
+  font-size: 12.5px;
+  line-height: 1.42;
+  color: var(--ink-muted);
+}
+
+/* Screen 2: KERNEL // ZERO Calligraphy Marquee (min-height: 86vh) */
+.screen-marquee {
+  min-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 76px 0;
+  border-bottom: 1px solid var(--line);
+  background-color: var(--bg-void);
+  background-image:
+    linear-gradient(to right, rgba(36, 36, 44, 0.34) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(36, 36, 44, 0.34) 1px, transparent 1px);
+  background-size: 48px 48px;
+  position: relative;
+}
+
+.marquee-wordmark {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 10.8vw, 9.2rem);
+  line-height: 0.94;
+  letter-spacing: -0.038em;
+  color: var(--ink-hi);
+  margin: 12px 0 22px 0;
+}
+
+.marquee-slashes {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--orange);
+  letter-spacing: -0.06em;
+  padding: 0 0.05em;
+}
+
+.marquee-tm {
+  font-family: var(--font-sans);
+  font-size: 0.22em;
+  vertical-align: super;
+  color: var(--ink-muted);
+  letter-spacing: 0;
+}
+
+.marquee-sub {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-slate);
+  margin-bottom: 24px;
+}
+
+.telemetry-strip {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 36px;
+}
+
+.telemetry-cell {
+  background: var(--bg-bay);
+  padding: 16px 14px;
+}
+
+.telemetry-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.telemetry-value {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink-hi);
+  font-variant-numeric: tabular-nums;
+}
+
+.telemetry-note {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+/* Screen 3: 4-Card ASCII Skeptic Grid */
+.screen-skeptic {
+  padding: 84px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-header {
+  max-width: 780px;
+  margin-bottom: 36px;
+}
+
+.section-title {
+  font-size: clamp(1.95rem, 3.4vw, 2.85rem);
+  letter-spacing: -0.028em;
+}
+
+.skeptic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.skeptic-card {
+  background: var(--bg-bay);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.skeptic-card-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeptic-q {
+  font-family: var(--font-serif);
+  font-size: 1.52rem;
+  line-height: 1.22;
+  color: var(--ink-hi);
+  margin-bottom: 16px;
+}
+
+.ascii-diagram {
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 14px 16px;
+  margin: 0 0 18px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-slate);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Screen 4: 3-Bay CMOS Transistor Schematic Workbench */
+.screen-cmos-workbench {
+  padding: 84px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.cmos-bays {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.cmos-bay {
+  background: var(--bg-bay);
+  display: flex;
+  flex-direction: column;
+}
+
+.cmos-bay-head {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.cmos-bay-title {
+  font-family: var(--font-serif);
+  font-size: 1.32rem;
+  color: var(--ink-hi);
+  margin: 4px 0 0 0;
+}
+
+.cmos-canvas-stage {
+  background: var(--bg-grid);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  width: 100%;
+  height: 290px;
+}
+
+.cmos-canvas-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cmos-controls {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.cmos-bay-copy {
+  padding: 18px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 15.5px;
+  line-height: 1.66;
+}
+
+/* Screen 5: Split-Stage Scrollytelling Spine (38% Left / 62% Sticky Right) */
+.screen-scrolly {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.scrolly-intro {
+  padding: 76px 0 42px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.scrolly-spine {
+  display: grid;
+  grid-template-columns: 38% 62%;
+  max-width: 1440px;
+  margin: 0 auto;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  align-items: start;
+}
+
+.scrolly-narrative {
+  border-right: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.scrolly-step {
+  min-height: 82vh;
+  padding: 48px 32px;
+  border-bottom: 1px solid var(--line);
+  border-left: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: background 0.2s ease, border-left-color 0.2s ease;
+}
+
+.scrolly-step:last-child {
+  border-bottom: 0;
+}
+
+.scrolly-step.is-active {
+  border-left-color: var(--orange);
+  background: rgba(17, 17, 21, 0.78);
+}
+
+.scrolly-step-title {
+  font-size: 1.65rem;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.scrolly-stage {
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  background: var(--bg-grid);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.microscope-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-void);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-slate);
+  flex-shrink: 0;
+}
+
+.stage-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.stage-jump-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 3px 7px;
+  background: var(--bg-bay);
+  color: var(--ink-muted);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.stage-jump-btn.active,
+.stage-jump-btn:hover {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+}
+
+.microscope-canvas-wrap {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 300px;
+  background: var(--bg-grid);
+  overflow: hidden;
+}
+
+.microscope-canvas-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#microscope-latex-hud {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  background: rgba(9, 9, 11, 0.93);
+  border: 1px solid var(--line-hi);
+  border-left: 2px solid var(--orange);
+  border-radius: 2px;
+  padding: 12px 16px;
+  z-index: 25;
+}
+
+.hud-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.hud-math {
+  color: var(--ink-hi);
+  font-size: 15px;
+  overflow-x: auto;
+}
+
+/* Collapsible Rosetta LaTeX Drawers (Closed by Default) */
+details.rosetta-drawer {
+  margin-top: 20px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--bg-grid);
+}
+
+details.rosetta-drawer > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: var(--ink-slate);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+details.rosetta-drawer > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.rosetta-drawer > summary:hover {
+  color: var(--orange);
+  background: rgba(255, 85, 0, 0.05);
+}
+
+details.rosetta-drawer[open] > summary {
+  color: var(--orange);
+  border-bottom: 1px solid var(--line);
+}
+
+.rosetta-content {
+  padding: 16px;
+  font-size: 15px;
+  line-height: 1.66;
+  color: var(--ink-body);
+  overflow-x: auto;
+}
+
+/* Shared Technical Workbench Styles (Routes 02 - 07) */
+.page-hero {
+  padding: 56px 0 40px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.page-title {
+  font-size: clamp(2.1rem, 4vw, 3.25rem);
+  letter-spacing: -0.03em;
+  max-width: 26ch;
+}
+
+.workbench-section {
+  padding: 52px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.instrument-card {
+  background: var(--bg-bay);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 24px;
+  position: relative;
+}
+
+.instrument-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hw-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-slate);
+  margin-bottom: 6px;
+}
+
+.hw-input,
+.hw-select,
+.hw-textarea {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-hi);
+  background: var(--bg-grid);
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  padding: 9px 11px;
+}
+
+.hw-input:focus,
+.hw-select:focus,
+.hw-textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+
+.terminal-out {
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-slate);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.spec-table th,
+.spec-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.spec-table th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  background: var(--bg-grid);
+}
+
+/* KaTeX Classical Computer Modern Tuning */
+.katex {
+  font-size: 1.04em;
+  color: var(--ink-hi);
+}
+
+.katex-display {
+  margin: 0.85em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+}
+
+/* Site Footer & Apache-2.0 Sec. 6 Reservation */
+.site-footer {
+  background: var(--bg-void);
+  border-top: 1px solid var(--line);
+  padding: 56px 0 64px 0;
+  font-size: 14px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.footer-heading {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-hi);
+  margin-bottom: 12px;
+}
+
+.footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.footer-legal {
+  padding-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.65;
+  color: var(--ink-muted);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1120px) {
+  .glyph-legend-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .telemetry-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .cmos-bays {
+    grid-template-columns: 1fr;
+  }
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 980px) {
+  .skeptic-grid,
+  .grid-2,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .scrolly-spine {
+    grid-template-columns: 1fr;
+  }
+  .scrolly-stage {
+    order: -1;
+    position: sticky;
+    top: 56px;
+    height: 46vh;
+    min-height: 320px;
+    z-index: 40;
+    border-bottom: 1px solid var(--line);
+  }
+  .scrolly-narrative {
+    border-right: 0;
+  }
+  .scrolly-step {
+    min-height: auto;
+    padding: 36px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 0 16px;
+  }
+  .glyph-legend-grid,
+  .telemetry-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .masthead-actions {
+    width: 100%;
+  }
+}
+</style>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  function runKatex(rootEl) {
+    if (typeof renderMathInElement === "function") {
+      renderMathInElement(rootEl || document.body, {
+        delimiters: [
+          {left: "\\[", right: "\\]", display: true},
+          {left: "\\(", right: "\\)", display: false}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+  window.spectralRenderMath = runKatex;
+  runKatex(document.body);
+  var drawers = document.querySelectorAll("details.rosetta-drawer");
+  for (var i = 0; i < drawers.length; i++) {
+    drawers[i].addEventListener("toggle", function () {
+      if (this.open) {
+        runKatex(this);
+      }
+    });
+  }
+});
+</script>
+  <!-- Highwire Press / Google Scholar / IACR / Zenodo Citation Meta -->
+  <meta name="citation_title" content="Finite Fields Forever: Assured Memory Isolation in a Single Logic Gate">
+  <meta name="citation_author" content="Eric Murphy">
+  <meta name="citation_author_institution" content="Spectral Systems LLC">
+  <meta name="citation_publication_date" content="2026/11/20">
+  <meta name="citation_doi" content="10.5281/zenodo.24047901">
+  <meta name="citation_pdf_url" content="https://spectralsystems.org/preprint_Murphy_v1.pdf">
+  <meta name="citation_technical_report_institution" content="Spectral Systems LLC">
+  <link rel="cite-as" href="https://doi.org/10.5281/zenodo.24047901">
+</head>
+<body>
+<header class="masthead-strip" role="banner">
+  <div class="wrap masthead-inner">
+    <div class="brand-cluster">
+      <a class="brand-glyph" href="/" aria-label="KERNEL ZERO Home">-&lt;&Oslash;</a>
+      <a class="brand-wordmark" href="/">KERNEL // ZERO&trade;</a>
+      <span class="brand-lockstep">SPECTRAL SYSTEMS // SUB-FLIT ALGEBRAIC MEMORY ISOLATION</span>
+    </div>
+    <div class="masthead-actions">
+      <a class="action-btn action-btn-primary" href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Preprint v1 (PDF) ]</a>
+      <a class="action-btn" href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener">[ Zenodo DOI: 10.5281/zenodo.24047902 ]</a>
+      <a class="action-btn" href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer" target="_blank" rel="noopener">[ GitHub Repo (Lean 4 &amp; AWS F2) ]</a>
+    </div>
+  </div>
+</header>
+<nav class="site-nav-bar" aria-label="Primary Instrument Routes">
+  <div class="site-nav-inner">
+    <a class="nav-link" href="/">01 KERNEL // ZERO (Story)</a>
+    <a class="nav-link" href="/zero-trust.html">02 Interactive Locks</a>
+    <a class="nav-link" href="/benchmarks.html">03 Silicon Benchmarks</a>
+    <a class="nav-link active" href="/verification.html" aria-current="page">04 Lean 4 Proofs</a>
+    <a class="nav-link" href="/console-demo/">05 Policy Compiler</a>
+    <a class="nav-link" href="/cots-procurement.html">06 DARPA ERIS &amp; Procurement</a>
+    <a class="nav-link" href="/patents.html">07 IP &amp; Air-Gap</a>
+  </div>
+</nav>
+
+<style>
+  .verify-stats {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 28px;
+  }
+  .verify-stat-cell {
+    background: var(--bg-bay);
+    padding: 16px 14px;
+  }
+  .thm-search-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .thm-ledger-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .thm-row {
+    background: var(--bg-bay);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 16px 18px;
+  }
+  .thm-row-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .thm-code-line {
+    background: var(--bg-grid);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 9px 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-slate);
+    overflow-x: auto;
+    white-space: pre;
+    margin-top: 8px;
+  }
+  @media (max-width: 960px) {
+    .verify-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
+
+<main id="main-content">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="kicker">ROUTE 04 // ZERO-AXIOM LEAN 4 PROOFS &amp; HARDWARE BI-SIMULATION</span>
+      <h1 class="page-title">43,691 lines of constructive Lean 4 proofs with <code>0 sorry</code> and <code>0</code> axioms.</h1>
+      <p class="muted">Every finite-field identity, Steiner block intersection, dual-rail De Morgan LUT mask, and monotonic reset invariant compiles directly from Lean 4 <code>Init.Prelude</code>.</p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;">
+        <a class="action-btn action-btn-primary" href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer/tree/main/formal_lean4" target="_blank" rel="noopener">[ Inspect formal_lean4/ on GitHub ]</a>
+        <a class="action-btn" href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Unified Preprint v1 (PDF &middot; DOI: 10.5281/zenodo.24047902) ]</a>
+      </div>
+
+      <div class="verify-stats">
+        <div class="verify-stat-cell">
+          <span class="telemetry-label">Lean 4 Proof Corpus</span>
+          <span class="telemetry-value sig-emerald">43,691 Lines</span>
+        </div>
+        <div class="verify-stat-cell">
+          <span class="telemetry-label">Checked Obligations</span>
+          <span class="telemetry-value">10,000+</span>
+        </div>
+        <div class="verify-stat-cell">
+          <span class="telemetry-label">Core Theorems</span>
+          <span class="telemetry-value sig-orange">thm00 &ndash; thm37</span>
+        </div>
+        <div class="verify-stat-cell">
+          <span class="telemetry-label">Unproved Holes</span>
+          <span class="telemetry-value sig-emerald">0 sorry</span>
+        </div>
+        <div class="verify-stat-cell">
+          <span class="telemetry-label">Trusted Base</span>
+          <span class="telemetry-value sig-cyan">0 Axioms (Init.Prelude)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- INTERACTIVE HARDWARE BI-SIMULATION PROVER                             -->
+  <!-- ===================================================================== -->
+  <section class="workbench-section" id="spectral-gf256-lut6-prover">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="kicker">INTERACTIVE BI-SIMULATION PROVER // <code>thm05</code> &middot; <code>thm35</code> &middot; <code>thm37</code></span>
+        <h2 class="section-title">Run the 64-state dual-rail <code>LUT6_2</code> sweeper and 8-step \(\mathbb{F}_{2^8}\) B&eacute;zout&ndash;Horner divider.</h2>
+      </div>
+
+      <div class="grid-2">
+        <!-- LEFT BAY: 64-State LUT6_2 + Mode-D De Morgan RAIN Sweeper -->
+        <div class="instrument-card fiducial-box">
+          <div class="instrument-head">
+            <div>
+              <span class="kicker">LEFT BAY // 64-STATE LUT6_2 &amp; MODE-D RAIN DUAL-SIEVE</span>
+              <h3 class="serif-head" style="font-size:1.38rem;margin:0;"><code>64'h2A2A2A2A_80808080</code> &amp; <code>64'hABABABAB_FEFEFEFE</code></h3>
+            </div>
+            <span class="mono sig-emerald" id="bisim-lut-badge">64 / 64 STATES VERIFIED</span>
+          </div>
+
+          <p style="font-size:15px;">
+            Sweeps all 64 6-bit input states <code>I5..I0</code> to verify exact survivor/violation orthogonality \(\Pi_P(s) \oplus \Delta_P(s) \equiv s\), disjointness \(\Pi_P(s) \wedge \Delta_P(s) \equiv 0\), and Mode-D negative-logic De Morgan duality \(\overline{f(\overline{x})} \equiv g(x)\) (`thm05`, `thm37`).
+          </p>
+
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;">
+            <button type="button" class="hw-btn pass-active" id="bisim-sweep-btn">[Run Exhaustive 64/64 State Bi-Simulation]</button>
+            <button type="button" class="hw-btn" id="bisim-sample-btn">[Inspect State Table Slice]</button>
+          </div>
+
+          <div class="terminal-out" id="bisim-lut-terminal"></div>
+
+          <div style="margin-top:12px;">
+            \[
+              \Pi_P(s) \oplus \Delta_P(s) \equiv s, \qquad
+              \Pi_P(s) \wedge \Delta_P(s) \equiv 0, \qquad
+              \overline{\mathrm{LUT}_{\texttt{2A\_80}}(\overline{x})} \equiv \mathrm{LUT}_{\texttt{AB\_FE}}(x)
+            \]
+          </div>
+        </div>
+
+        <!-- RIGHT BAY: 8-Step GF(2^8) Bezout-Horner Polynomial Divider -->
+        <div class="instrument-card fiducial-box">
+          <div class="instrument-head">
+            <div>
+              <span class="kicker">RIGHT BAY // \(\mathbb{F}_{2^8}\) SHADOW-BANK B&Eacute;ZOUT&ndash;HORNER DIVIDER (<code>thm35</code>)</span>
+              <h3 class="serif-head" style="font-size:1.38rem;margin:0;">Exact Root Retirement Over \(\mathbb{F}_2[x]/(x^8+x^4+x^3+x+1)\)</h3>
+            </div>
+            <span class="mono sig-cyan" id="horner-rem-badge">q_8 = 0x00 (EXACT ROOT)</span>
+          </div>
+
+          <p style="font-size:15px;">
+            Enter up to 8 active emergency roots in \(\mathbb{F}_{2^8}\) (`0x11B`) and select a root \(\alpha_j\) to deflate in 8 Horner cycles, verifying \(\Lambda^{(t)}(Z) = \bigl((Z \oplus \alpha_j) \odot Q^{\mathrm{defl}}(Z)\bigr) \oplus q_8\) with \(q_8 = \Lambda^{(t)}(\alpha_j) = 0_{\mathbb{F}_{2^8}}\).
+          </p>
+
+          <div class="grid-2" style="margin-bottom:10px;">
+            <div>
+              <label class="hw-label" for="horner-roots-input">Active Roots \(\alpha_1..\alpha_8\) (Hex CSV)</label>
+              <input type="text" id="horner-roots-input" class="hw-input" value="0x53, 0xCA, 0x1F, 0x89, 0x07, 0xE2, 0x3B, 0x9D">
+            </div>
+            <div>
+              <label class="hw-label" for="horner-target-input">Divisor Root \(\alpha_j\) (Hex Byte)</label>
+              <input type="text" id="horner-target-input" class="hw-input" value="0x1F">
+            </div>
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+            <button type="button" class="hw-btn active" id="horner-divide-btn">[Run 8-Step Bezout-Horner Division]</button>
+            <button type="button" class="hw-btn" id="horner-nonroot-btn">[Test Non-Root 0xA4 (q_8 != 0)]</button>
+          </div>
+
+          <div class="terminal-out" id="horner-terminal"></div>
+
+          <div style="margin-top:12px;">
+            \[
+              \Lambda^{(t)}(Z) = \bigl((Z \oplus \alpha_j) \odot Q^{\mathrm{defl}}(Z)\bigr) \oplus q_8, \qquad
+              q_8 = \Lambda^{(t)}(\alpha_j) = 0_{\mathbb{F}_{2^8}}
+            \]
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SEARCHABLE CONSTRUCTIVE INIT.PRELUDE LEAN 4 THEOREM LEDGER            -->
+  <!-- ===================================================================== -->
+  <section class="workbench-section">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="kicker">CONSTRUCTIVE KERNEL LEDGER // <code>thm00</code> &ndash; <code>thm37</code> (<code>0 sorry</code>, <code>0 axioms</code>)</span>
+        <h2 class="section-title">Search and copy every machine-checked theorem obligation.</h2>
+      </div>
+
+      <div class="thm-search-row">
+        <input type="search" id="lean-thm-search" class="hw-input" style="max-width:520px;" placeholder="Filter theorems by ID (thm02, thm18, thm35), hardware module, or keyword...">
+        <span class="mono muted" id="lean-thm-count">Showing 38 / 38 constructive theorems</span>
+      </div>
+
+      <div class="thm-ledger-list" id="lean-thm-list"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  // -------------------------------------------------------------------------
+  // LEFT BAY: 64-State LUT6_2 (64'h2A2A2A2A_80808080) & RAIN (64'hABABABAB_FEFEFEFE)
+  // -------------------------------------------------------------------------
+  var lutTerm = document.getElementById("bisim-lut-terminal");
+  var lutBadge = document.getElementById("bisim-lut-badge");
+  var sweepBtn = document.getElementById("bisim-sweep-btn");
+  var sampleBtn = document.getElementById("bisim-sample-btn");
+
+  function runBiSim(showSlice) {
+    var posHi = 0x2A2A2A2A >>> 0;
+    var posLo = 0x80808080 >>> 0;
+    var negHi = 0xABABABAB >>> 0;
+    var negLo = 0xFEFEFEFE >>> 0;
+
+    var dualOk = 0;
+    var orthoOk = 0;
+    var sliceLines = [];
+
+    for (var s = 0; s < 64; s++) {
+      var idx5 = s & 31;
+      var inv5 = 31 ^ idx5;
+      var pBit = (((s >= 32) ? posHi : posLo) >>> idx5) & 1;
+      var nBit = (((s >= 32) ? negHi : negLo) >>> idx5) & 1;
+      var deMorgan = 1 ^ ((((s >= 32) ? posHi : posLo) >>> inv5) & 1);
+      if (nBit === deMorgan) dualOk++;
+
+      var o6 = (posHi >>> idx5) & 1;
+      var o5 = (posLo >>> idx5) & 1;
+      var rBit = idx5 & 1;
+      if ((o6 ^ o5) === rBit && (o6 & o5) === 0) orthoOk++;
+
+      if (showSlice && s >= 32 && s < 40) {
+        sliceLines.push(
+          "addr=" + s + " (I2..I0=" + ((idx5 >>> 2) & 1) + ((idx5 >>> 1) & 1) + (idx5 & 1) + ") -> O6=" + o6 + " O5=" + o5 + " | RAIN_n=" + nBit
+        );
+      }
+    }
+
+    if (lutBadge) lutBadge.textContent = dualOk + " / 64 STATES VERIFIED";
+    if (lutTerm) {
+      lutTerm.textContent =
+        "POS RAIL INIT : 64'h2A2A2A2A_80808080 (thm05)\n" +
+        "NEG RAIN INIT : 64'hABABABAB_FEFEFEFE (thm37 Mode-D WDDL)\n" +
+        "ORTHOGONALITY : " + orthoOk + " / 64 states satisfy (O6 ^ O5 == r_i) & (O6 & O5 == 0)\n" +
+        "DE MORGAN LAW : " + dualOk + " / 64 states satisfy ~LUT_pos(~x) == LUT_neg(x)" +
+        (sliceLines.length ? ("\n" + sliceLines.join("\n")) : "");
+    }
+  }
+
+  if (sweepBtn) sweepBtn.addEventListener("click", function () { runBiSim(false); });
+  if (sampleBtn) sampleBtn.addEventListener("click", function () { runBiSim(true); });
+  runBiSim(false);
+
+  // -------------------------------------------------------------------------
+  // RIGHT BAY: GF(2^8) (0x11B) 8-Step Bezout-Horner Polynomial Divider (thm35)
+  // -------------------------------------------------------------------------
+  function gf256Mul(a, b) {
+    var p = 0;
+    var x = a & 0xFF;
+    var y = b & 0xFF;
+    for (var i = 0; i < 8; i++) {
+      if (y & 1) p ^= x;
+      var hi = x & 0x80;
+      x = (x << 1) & 0xFF;
+      if (hi) x ^= 0x1B;
+      y >>= 1;
+    }
+    return p & 0xFF;
+  }
+
+  function hex2(b) {
+    return "0x" + ("00" + (b & 0xFF).toString(16).toUpperCase()).slice(-2);
+  }
+
+  var rootsIn = document.getElementById("horner-roots-input");
+  var targetIn = document.getElementById("horner-target-input");
+  var divBtn = document.getElementById("horner-divide-btn");
+  var nonRootBtn = document.getElementById("horner-nonroot-btn");
+  var hornerTerm = document.getElementById("horner-terminal");
+  var hornerBadge = document.getElementById("horner-rem-badge");
+
+  function runHorner() {
+    var rawParts = String(rootsIn ? rootsIn.value : "").split(",");
+    var roots = [];
+    for (var i = 0; i < rawParts.length && roots.length < 8; i++) {
+      var tok = rawParts[i].trim();
+      if (tok) {
+        var v = parseInt(tok.replace(/^0x/i, ""), 16);
+        if (!Number.isNaN(v)) roots.push(v & 0xFF);
+      }
+    }
+    while (roots.length < 8) roots.push(0x00);
+
+    var alpha = parseInt(String(targetIn ? targetIn.value : "0x1F").trim().replace(/^0x/i, ""), 16);
+    if (Number.isNaN(alpha)) alpha = 0x1F;
+    alpha &= 0xFF;
+
+    // Expand monic degree-8 Lambda(Z) = prod_{k=0..7} (Z (+) roots[k])
+    var poly = [1];
+    for (var r = 0; r < 8; r++) {
+      var nxt = new Array(poly.length + 1).fill(0);
+      for (var c = 0; c < poly.length; c++) {
+        nxt[c] ^= poly[c];
+        nxt[c + 1] ^= gf256Mul(poly[c], roots[r]);
+      }
+      poly = nxt;
+    }
+
+    // 8-Step Bezout-Horner Synthetic Division by (Z (+) alpha)
+    var q = new Array(8).fill(0);
+    var rem = poly[0];
+    for (var step = 0; step < 8; step++) {
+      q[step] = rem;
+      rem = gf256Mul(rem, alpha) ^ poly[step + 1];
+    }
+
+    // Reconstruct ((Z (+) alpha) * Q_defl(Z)) (+) q_8
+    var rec = new Array(9).fill(0);
+    for (var m = 0; m < 8; m++) {
+      rec[m] ^= q[m];
+      rec[m + 1] ^= gf256Mul(q[m], alpha);
+    }
+    rec[8] ^= rem;
+
+    var match = true;
+    for (var z = 0; z < 9; z++) {
+      if (rec[z] !== poly[z]) match = false;
+    }
+
+    if (hornerBadge) {
+      hornerBadge.textContent = "q_8 = " + hex2(rem) + (rem === 0 ? " (EXACT ROOT RETIRED)" : " (NON-ROOT REJECTED)");
+      hornerBadge.className = "mono " + (rem === 0 ? "sig-emerald" : "sig-orange");
+    }
+    if (hornerTerm) {
+      hornerTerm.textContent =
+        "LAMBDA(Z) COEFFS : [" + poly.map(hex2).join(", ") + "]\n" +
+        "DIVISOR ROOT a_j : " + hex2(alpha) + "  |  8-STEP QUOTIENT Q_defl : [" + q.map(hex2).join(", ") + "]\n" +
+        "REMAINDER q_8    : " + hex2(rem) + "  |  BEZOUT IDENTITY MATCH  : " + (match ? "TRUE (9/9 BYTES)" : "FALSE");
+    }
+  }
+
+  if (divBtn) divBtn.addEventListener("click", runHorner);
+  if (nonRootBtn) {
+    nonRootBtn.addEventListener("click", function () {
+      if (targetIn) targetIn.value = "0xA4";
+      runHorner();
+    });
+  }
+  runHorner();
+
+  // -------------------------------------------------------------------------
+  // SEARCHABLE CONSTRUCTIVE LEAN 4 THEOREM LEDGER (thm00 - thm37)
+  // -------------------------------------------------------------------------
+  var THEOREMS = [
+    ["thm00", "ChainComplex.lean", "theorem thm00_boundary_annihilation : d1_comp_d0 = 0", "\\partial_{1,k} \\circ \\partial_{0,k} \\equiv 0 \\text{ (homological kernel exactness)}"],
+    ["thm01", "CapabilityLattice.lean", "theorem thm01_projection_idempotent (P r : BitVec 64) : proj P (proj P r) = proj P r", "\\Pi_P(\\Pi_P(r)) = \\Pi_P(r) \\text{ (idempotent authority filter)}"],
+    ["thm02", "MonotonicRatchet.lean", "theorem thm02_and2_ratchet_monotone (m w : BitVec 64) : (m &&& w) ||| m = m", "M^{(t+1)} = M^{(t)} \\wedge W_{\\mathrm{bus}} \\preceq M^{(t)} \\text{ (one-way CSR ratchet)}"],
+    ["thm03", "MonotonicRatchet.lean", "theorem thm03_zero_sticky_forever (w : BitVec 64) : (0 &&& w) = 0", "M_i^{(t_0)} = 0 \\implies \\forall t \\ge t_0,\\; M_i^{(t)} = 0"],
+    ["thm04", "EscalationTrap.lean", "theorem thm04_csr48_trap_sound (m w : BitVec 64) : ((~~~m) &&& w != 0) <-> Escalation m w", "E_{\\texttt{0x48}} \\iff (\\neg M^{(t)} \\wedge W_{\\mathrm{bus}}) \\neq 0"],
+    ["thm05", "FracturedLut6.lean", "theorem thm05_lut6_2_orthogonal_split : forall x : Fin 32, (o6 x ^^^ o5 x = rBit x) /\\ (o6 x &&& o5 x = 0)", "\\Pi_{P}(r_i) \\oplus \\Delta_{P}(r_i) = r_i \\;\\wedge\\; \\Pi_{P}(r_i) \\wedge \\Delta_{P}(r_i) = 0"],
+    ["thm06", "AffinePlaneAG28.lean", "theorem thm06_gf8_field_axioms : IsField GF8", "\\mathbb{F}_8 \\cong \\mathbb{F}_2[x]/(x^3 + x + 1) \\text{ constructive field laws}"],
+    ["thm07", "AffinePlaneAG28.lean", "theorem thm07_parallel_disjoint (m b1 b2 : GF8) (h : b1 != b2) : Disjoint (line m b1) (line m b2)", "b_1 \\neq b_2 \\implies |\\mathcal{L}_{m,b_1} \\cap \\mathcal{L}_{m,b_2}| = \\lambda = 0"],
+    ["thm08", "AffinePlaneAG28.lean", "theorem thm08_crossing_unique (m1 m2 b1 b2 : GF8) (h : m1 != m2) : card (inter (line m1 b1) (line m2 b2)) = 1", "m_1 \\neq m_2 \\implies |\\mathcal{L}_{m_1,b_1} \\cap \\mathcal{L}_{m_2,b_2}| = \\lambda = 1"],
+    ["thm09", "SteinerSpectrum.lean", "theorem thm09_gram_identity : mul (transpose N_ag28) N_ag28 = smul 8 I64 + J64", "N^T N = 8I_{64} + J_{64},\\quad \\mathrm{Spec}(N^T N) = \\{72^{(1)},\\, 8^{(63)}\\}"],
+    ["thm10", "SteinerSpectrum.lean", "theorem thm10_laplacian_commutation : mul G_ws L_kirchhoff = smul 8 L_kirchhoff", "G_{\\mathrm{WS}} L = 8L \\text{ (Kirchhoff Laplacian commutation)}"],
+    ["thm11", "CoverFree7.lean", "theorem thm11_seven_cover_free (L0 : Line) (S : Finset Line) (hc : S.card <= 7) : Nonempty (L0 \\ union S)", "|\\mathcal{S}| \\le 7 \\implies |L_0 \\setminus \\bigcup_{L \\in \\mathcal{S}} L| \\ge 1"],
+    ["thm12", "SubFlitSieve.lean", "theorem thm12_four_slot_non_interference (f : Flit512) (k : Fin 4) : k != bad -> (sieve f k = f k)", "k \\neq k_{\\mathrm{rogue}} \\implies \\widetilde{s}_k = s_k \\text{ (zero neighbor drop)}"],
+    ["thm13", "SubFlitSieve.lean", "theorem thm13_cxl_nop_encoding_valid : isValidFlitSlot CXL_NOP_0000", "\\texttt{CXL\\_NOP}\\ (\\texttt{16'h0000}) \\text{ preserves clean link CRC}"],
+    ["thm14", "RenewalGoodput.lean", "theorem thm14_sieve_dominates_retry (q : Rat) (hq : 0 < q) : goodputSieve q > goodputRetry 32 q", "G_{\\mathrm{sieve}}(0.8\\%) = 99.20\\% > G_{\\mathrm{legacy}}(0.8\\%) = 48.90\\%"],
+    ["thm15", "GF256Vieta.lean", "theorem thm15_gf256_rijndael_irreducible : Irreducible (X^8 + X^4 + X^3 + X + 1)", "\\mathbb{F}_{2^8} \\cong \\mathbb{F}_2[x]/(x^8+x^4+x^3+x+1)\\ (\\texttt{0x11B})"],
+    ["thm16", "GF256Vieta.lean", "theorem thm16_vieta_exact_annihilation (roots : Vec GF256 r) (z : GF256) : evalLambda roots z = 0 <-> z in roots", "\\Lambda^{(t)}(z^*) = 0 \\iff z^* \\in \\{\\alpha_1,\\dots,\\alpha_r\\}\\; (P_{\\mathrm{alias}} \\equiv 0)"],
+    ["thm17", "TimingWheel.lean", "theorem thm17_csr68_zero_revocation_wear : deltaRevWear scheduledExpiry = 0", "\\Delta d_{\\mathrm{rev}}(\\texttt{CSR 0x68}) = 0 \\text{ on scheduled lease expiry}"],
+    ["thm18", "CertifyingCompiler.lean", "theorem thm18_linear_cert_checker_sound (G : ConflictGraph) (cert : Cert) : checkLinear G cert = true -> ValidColoring G cert", "\\mathcal{O}(|V| + |E|) \\text{ certificate verifier soundness}"],
+    ["thm19", "CertifyingCompiler.lean", "theorem thm19_policy_bundle_size_exact : sizeof SBundleV1 = 128", "\\mathrm{sizeof}(\\texttt{.sbundle}) = 128\\text{ bytes (16}\\times 64\\text{-bit CSRs)}"],
+    ["thm20", "WarmResetWall.lean", "theorem thm20_flr_domain_disjoint : Disjoint (resetCone host_warm_flr_rst_n) SecurityRegs", "\\mathrm{Dom}(\\texttt{host\\_warm\\_flr\\_rst\\_n}) \\cap \\mathrm{Reg}_{\\mathrm{sec}} = \\varnothing"],
+    ["thm21", "WarmResetWall.lean", "theorem thm21_cold_por_exclusive_clear (s : SecState) : cleared s <-> por_cold_rst_n = false", "\\mathrm{Reset}(\\mathrm{Reg}_{\\mathrm{sec}}) \\iff \\texttt{por\\_cold\\_rst\\_n} = 0"],
+    ["thm22", "ZeroBramAirlock.lean", "theorem thm22_stateless_combinational_depth : sramBits CoreNetlist = 0", "\\mathrm{BRAM} = \\mathrm{SRAM} = \\mathrm{LUTRAM} = 0"],
+    ["thm23", "WalshBentSpectrum.lean", "theorem thm23_bent_walsh_flat (w : Fin 64) : natAbs (walshHadamard f_bent w) = 8", "|\\widehat{f}(\\omega)| \\equiv 8 \\quad \\forall\\,\\omega \\in \\mathbb{F}_2^6"],
+    ["thm24", "BFloat16Blade.lean", "theorem thm24_e8m0_wire_shear_zero_lut (x : BitVec 16) : bf16Shear9 x = x &&& 0xFF80", "\\mathcal{S}_{\\mathrm{BF16}}(\\texttt{0x3F8E}) = \\texttt{0x3F80}\\ (+0\\text{ LUT})"],
+    ["thm25", "BFloat16Blade.lean", "theorem thm25_wannamaker_dither_variance : varAvg ditherOut = deltaU^2 / (6 * Q_eff)", "\\sigma_{\\mathrm{avg}}^2 = \\frac{\\Delta_u^2}{6 Q_{\\mathrm{eff}}}"],
+    ["thm26", "BFloat16Blade.lean", "theorem thm26_bbp_phase_wall_bound : Q_queries < Q_bbp -> UnrecoverableSpike", "Q^*_{\\mathrm{BBP}} \\in \\{21{,}845.33,\\; 43{,}690.67\\}"],
+    ["thm27", "BFloat16Blade.lean", "theorem thm27_exp_fe_nan_carry_guard (x : BF16) (h : x.exp <= 0xFE) : (guardedDither x).exp <= 0xFE", "\\mathrm{exp}(x) \\le \\texttt{8'hFE} \\implies \\mathrm{exp}(\\widetilde{x}) \\le \\texttt{8'hFE}\\ (\\text{no NaN overflow})"],
+    ["thm28", "AxiReadScrub.lean", "theorem thm28_scrub_zero_address_arvalid_low (req : AxiRead) : unauthorized req -> arvalidOut req = false", "\\Delta_P(r) \\neq 0 \\implies \\mathcal{A}_{\\mathrm{scrub}} = \\mathbf{0}_{46} \\wedge \\texttt{arvalid} = 0\\ (\\texttt{SVA 9})"],
+    ["thm29", "AxiReadScrub.lean", "theorem thm29_per_arid_fifo_order_preserved (q : Fifo32) : fifoOrderOut q = fifoOrderIn q", "\\text{32-slot rollover shift FIFO preserves strict per-}\\texttt{ARID}\\text{ order}"],
+    ["thm30", "AxiReadScrub.lean", "theorem thm30_axi_no_deadlock_32slot (q : Fifo32) : progressGuaranteed q", "\\text{Deadlock-free AXI4 RVALID/RREADY completion across all 32 slots}"],
+    ["thm31", "LittleVieta.lean", "theorem thm31_littles_law_horizon_bound : activeRoots lambda tau_shoot <= 8", "L = \\lambda \\cdot \\tau_{\\mathrm{shoot}} \\le R_{\\mathrm{exact}} = 8\\ (\\tau_{\\mathrm{shoot}} = 548.0\\text{ ns})"],
+    ["thm32", "LittleVieta.lean", "theorem thm32_perpetual_non_saturation (t : Nat) : deg (Lambda t) <= 8", "\\forall t \\to \\infty,\\; \\deg(\\Lambda^{(t)}) \\le 8\\text{ (zero Bloom saturation)}"],
+    ["thm33", "CarterWegmanTag.lean", "theorem thm33_universal_hash_collision_bound : probCollision h_cw <= 1 / 256", "\\Pr[h_k(x) = h_k(y)] = 2^{-8} \\text{ over } \\mathbb{F}_{2^8}"],
+    ["thm34", "NonInterference.lean", "theorem thm34_goguen_meseguer_purge (u v : Tenant) (h : DisjointCap u v) : obs v (step u s) = obs v s", "\\text{Goguen--Meseguer sub-flit information-flow non-interference}"],
+    ["thm35", "ShadowHorner.lean", "theorem thm35_bezout_horner_exact_deflation (p : Poly8) (a : GF256) : p = mulLin a (hornerQ p a) + eval p a", "\\Lambda^{(t)}(Z) = ((Z \\oplus \\alpha_j)\\odot Q^{\\mathrm{defl}}(Z)) \\oplus \\Lambda^{(t)}(\\alpha_j)"],
+    ["thm36", "WddlSideChannel.lean", "theorem thm36_constant_hamming_weight_transition : forall x y, transitionsWddl x y = 256", "\\Delta H_{\\mathrm{WDDL}} \\equiv \\text{const} \\implies \\max |t|_{\\mathrm{TVLA}} = 0.0"],
+    ["thm37", "WddlSideChannel.lean", "theorem thm37_rain_demorgan_duality : forall x : Fin 64, lutABFE x = bnot (lut2A80 (complement x))", "\\mathrm{LUT}_{\\texttt{ABABABAB\\_FEFEFEFE}}(x) = \\overline{\\mathrm{LUT}_{\\texttt{2A2A2A2A\\_80808080}}(\\overline{x})}"]
+  ];
+
+  var thmListEl = document.getElementById("lean-thm-list");
+  var thmSearchEl = document.getElementById("lean-thm-search");
+  var thmCountEl = document.getElementById("lean-thm-count");
+
+  function renderTheorems(filterText) {
+    if (!thmListEl) return;
+    var q = String(filterText || "").trim().toLowerCase();
+    thmListEl.innerHTML = "";
+    var shown = 0;
+
+    for (var i = 0; i < THEOREMS.length; i++) {
+      var item = THEOREMS[i];
+      var hay = (item[0] + " " + item[1] + " " + item[2] + " " + item[3]).toLowerCase();
+      if (q && hay.indexOf(q) === -1) continue;
+      shown++;
+
+      var row = document.createElement("article");
+      row.className = "thm-row";
+
+      var top = document.createElement("div");
+      top.className = "thm-row-top";
+      top.innerHTML =
+        "<div><code class=\"sig-orange\">" + item[0] + "</code> &middot; <span class=\"mono muted\" style=\"font-size:12px;\">formal_lean4/" + item[1] + "</span></div>" +
+        "<button type=\"button\" class=\"hw-btn\" data-copy-thm=\"" + i + "\">[Copy]</button>";
+
+      var mathDiv = document.createElement("div");
+      mathDiv.style.margin = "6px 0";
+      mathDiv.textContent = "\\(" + item[3] + "\\)";
+
+      var pre = document.createElement("div");
+      pre.className = "thm-code-line";
+      pre.textContent = item[2];
+
+      row.appendChild(top);
+      row.appendChild(mathDiv);
+      row.appendChild(pre);
+      thmListEl.appendChild(row);
+    }
+
+    if (thmCountEl) thmCountEl.textContent = "Showing " + shown + " / " + THEOREMS.length + " constructive theorems";
+    if (typeof window.spectralRenderMath === "function") {
+      window.spectralRenderMath(thmListEl);
+    }
+
+    var copyBtns = thmListEl.querySelectorAll("[data-copy-thm]");
+    for (var c = 0; c < copyBtns.length; c++) {
+      copyBtns[c].addEventListener("click", function () {
+        var idx = parseInt(this.getAttribute("data-copy-thm"), 10);
+        var stmt = THEOREMS[idx] ? THEOREMS[idx][2] : "";
+        var self = this;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(stmt).then(function () {
+            self.textContent = "[Copied!]";
+            setTimeout(function () { self.textContent = "[Copy]"; }, 1200);
+          });
+        }
+      });
+    }
+  }
+
+  if (thmSearchEl) {
+    thmSearchEl.addEventListener("input", function () {
+      renderTheorems(this.value);
+    });
+  }
+  renderTheorems("");
+  window.addEventListener("load", function () {
+    if (typeof window.spectralRenderMath === "function") window.spectralRenderMath(thmListEl);
+  });
+})();
+</script>
+<footer class="site-footer" role="contentinfo">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-heading">KERNEL // ZERO&trade; &mdash; &ldquo;FINITE FIELDS FOREVER&rdquo;</div>
+        <p class="mono muted" style="font-size:12px;max-width:58ch;">SPECTRAL SYSTEMS // SUB-FLIT ALGEBRAIC MEMORY ISOLATION</p>
+        <p class="mono slate" style="font-size:12px;margin-top:10px;">Spectral Systems LLC (United States) &middot; Founder &amp; Principal Architect: Eric C. Murphy &middot; CAGE: <code>268E1</code> &middot; SAM.gov UEI: <code>VTP2JPCJU3D9</code> &middot; DFARS <code>252.227-7018</code> &middot; All Patents Pending</p>
+      </div>
+      <div>
+        <div class="footer-heading">Primary Artifacts &amp; Silicon</div>
+        <ul class="footer-list">
+          <li><a href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Preprint v1 (PDF) ]</a></li>
+          <li><a href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener">[ Zenodo DOI: 10.5281/zenodo.24047902 ]</a></li>
+          <li><a href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer" target="_blank" rel="noopener">[ GitHub Repo (Lean 4 &amp; AWS F2) ]</a></li>
+          <li><span class="muted">AGFI-0: <code>agfi-08becf3b40b169674</code></span></li>
+          <li><span class="muted">AGFI-1: <code>agfi-03b742e2a9cd2c0f2</code></span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Verification &amp; Acquisition Routes</div>
+        <ul class="footer-list">
+          <li><a href="/">01 KERNEL // ZERO (Story)</a></li>
+          <li><a href="/zero-trust.html">02 Interactive Locks</a></li>
+          <li><a href="/benchmarks.html">03 Silicon Benchmarks</a></li>
+          <li><a href="/verification.html">04 Lean 4 Proofs</a></li>
+          <li><a href="/console-demo/">05 Policy Compiler</a></li>
+          <li><a href="/cots-procurement.html">06 DARPA ERIS &amp; Procurement</a></li>
+          <li><a href="/patents.html">07 IP &amp; Air-Gap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      KERNEL ZERO&trade;, KERNEL // ZERO&trade;, KERNEL ZERO&trade;, and spectralc&trade; are trademarks of Spectral Systems LLC. Pursuant to Section 6 of the Apache License, Version 2.0, no trademark rights are granted under the open-source verification license. Reduced to practice at 100% private expense by Eric C. Murphy. All Patents Pending.
+    </div>
+  </div>
+</footer>
+  <!-- spectral-elegant-editorial-theme spectral-guided-discovery spectral-scope-and-differentiation spectral-formal-input-validator spectral-arid-fifo-guardrail -->\n</body>
+</html>

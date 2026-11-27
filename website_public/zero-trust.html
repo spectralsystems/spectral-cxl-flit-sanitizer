@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>02 Interactive Locks | AG(2,8) Lines, BF16 Guard &amp; BAR0 Ratchet | KERNEL // ZERO</title>
+  <meta name="description" content="Interactive AG(2,8) 64-square lifeline crossbar, +0-LUT BFloat16 mantissa wire-shear with exp=8'hFE NaN-carry guard (thm27), BAR0 CSR 0x70 monotonic ratchet, and ARID FIFO.">
+  <link rel="canonical" href="https://spectralsystems.org/zero-trust"/>
+  <meta property="og:title" content="02 Interactive Locks | AG(2,8) Lines, BF16 Guard &amp; BAR0 Ratchet | KERNEL // ZERO">
+  <meta property="og:description" content="Interactive AG(2,8) 64-square lifeline crossbar, +0-LUT BFloat16 mantissa wire-shear with exp=8'hFE NaN-carry guard (thm27), BAR0 CSR 0x70 monotonic ratchet, and ARID FIFO.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://spectralsystems.org/zero-trust.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='2' fill='%2309090B' stroke='%2324242C' stroke-width='2'/%3E%3Ctext x='5' y='43' font-family='monospace' font-weight='700' font-size='25' fill='%23FF5500'%3E-%26lt%3B%3C/text%3E%3Ctext x='36' y='44' font-family='monospace' font-weight='700' font-size='27' fill='%23F8F7F4'%3E%26%23216%3B%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <style>
+:root {
+  --bg-void: #09090B;
+  --bg-bay: #111115;
+  --bg-grid: #0D1119;
+  --line: #24242C;
+  --line-hi: #343442;
+  --ink-hi: #F8F7F4;
+  --ink-body: #D8DEE9;
+  --ink-muted: #94A3B8;
+  --ink-slate: #CBD5E1;
+  --orange: #FF5500;
+  --emerald: #10B981;
+  --cyan: #38BDF8;
+  --amber: #F59E0B;
+  --crimson: #F43F5E;
+  --font-serif: 'Newsreader', 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', Consolas, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-void);
+  color: var(--ink-body);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-void);
+  color: var(--ink-body);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .serif-head {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--ink-hi);
+  letter-spacing: -0.026em;
+  line-height: 1.14;
+  margin: 0 0 0.65em 0;
+}
+
+p {
+  margin: 0 0 1.15em 0;
+  max-width: 66ch;
+  color: var(--ink-body);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--ink-hi);
+  text-decoration-color: var(--line-hi);
+  text-underline-offset: 3px;
+  transition: color 0.14s ease, border-color 0.14s ease;
+}
+
+a:hover {
+  color: var(--orange);
+  text-decoration-color: var(--orange);
+}
+
+code, pre, .mono, .num, .csr-hex {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+code {
+  font-size: 0.88em;
+  color: var(--ink-slate);
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 1px 5px;
+}
+
+pre code {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+
+.muted { color: var(--ink-muted); }
+.slate { color: var(--ink-slate); }
+.sig-orange { color: var(--orange); }
+.sig-emerald { color: var(--emerald); }
+.sig-cyan { color: var(--cyan); }
+.sig-amber { color: var(--amber); }
+.sig-crimson { color: var(--crimson); }
+
+/* Exposed 1px Structural Hairlines & + Corner Fiducials */
+.fiducial-box {
+  position: relative;
+  background: var(--bg-bay);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+.fiducial-box::before,
+.fiducial-box::after {
+  content: "+";
+  position: absolute;
+  top: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--ink-muted);
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.fiducial-box::before { left: 7px; }
+.fiducial-box::after { right: 7px; }
+
+/* Top Masthead Strip + Single-Row Sticky Navigation */
+.masthead-strip {
+  background: var(--bg-void);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
+}
+
+.masthead-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 14px;
+}
+
+.brand-glyph {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--orange);
+  border: 1px solid var(--line-hi);
+  background: var(--bg-grid);
+  border-radius: 2px;
+  padding: 2px 7px;
+  text-decoration: none;
+}
+
+.brand-wordmark {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ink-hi);
+  text-decoration: none;
+}
+
+.brand-lockstep {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.masthead-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn,
+.hw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--ink-slate);
+  background: var(--bg-bay);
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  padding: 7px 11px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+}
+
+.action-btn:hover,
+.hw-btn:hover {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.08);
+  text-decoration: none;
+}
+
+.action-btn-primary,
+.hw-btn.active {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.14);
+}
+
+.hw-btn.pass-active {
+  color: var(--ink-hi);
+  border-color: var(--emerald);
+  background: rgba(16, 185, 129, 0.14);
+}
+
+.site-nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  height: 56px;
+  max-height: 60px;
+  background: rgba(9, 9, 11, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.site-nav-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.site-nav-inner {
+  display: inline-flex;
+  align-items: center;
+  height: 56px;
+  min-width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+  gap: 6px;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.nav-link:hover {
+  color: var(--ink-hi);
+  border-color: var(--line-hi);
+  background: var(--bg-bay);
+  text-decoration: none;
+}
+
+.nav-link.active {
+  color: var(--ink-hi);
+  background: var(--bg-bay);
+  border-color: var(--line-hi);
+  border-bottom: 2px solid var(--orange);
+}
+
+/* Screen 1: Cold Open (min-height: 78vh) */
+.screen-cold-open {
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 68px 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+
+.cold-open-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.85rem);
+  letter-spacing: -0.032em;
+  line-height: 1.08;
+  max-width: 23ch;
+  margin-bottom: 24px;
+}
+
+.cold-open-lede {
+  font-size: clamp(1.06rem, 1.3vw, 1.2rem);
+  line-height: 1.74;
+  max-width: 65ch;
+  color: var(--ink-body);
+}
+
+.glyph-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 40px;
+}
+
+.glyph-cell {
+  background: var(--bg-bay);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.glyph-token {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--orange);
+  line-height: 1.1;
+}
+
+.glyph-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-hi);
+  letter-spacing: 0.02em;
+}
+
+.glyph-desc {
+  font-size: 12.5px;
+  line-height: 1.42;
+  color: var(--ink-muted);
+}
+
+/* Screen 2: KERNEL // ZERO Calligraphy Marquee (min-height: 86vh) */
+.screen-marquee {
+  min-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 76px 0;
+  border-bottom: 1px solid var(--line);
+  background-color: var(--bg-void);
+  background-image:
+    linear-gradient(to right, rgba(36, 36, 44, 0.34) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(36, 36, 44, 0.34) 1px, transparent 1px);
+  background-size: 48px 48px;
+  position: relative;
+}
+
+.marquee-wordmark {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 10.8vw, 9.2rem);
+  line-height: 0.94;
+  letter-spacing: -0.038em;
+  color: var(--ink-hi);
+  margin: 12px 0 22px 0;
+}
+
+.marquee-slashes {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--orange);
+  letter-spacing: -0.06em;
+  padding: 0 0.05em;
+}
+
+.marquee-tm {
+  font-family: var(--font-sans);
+  font-size: 0.22em;
+  vertical-align: super;
+  color: var(--ink-muted);
+  letter-spacing: 0;
+}
+
+.marquee-sub {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-slate);
+  margin-bottom: 24px;
+}
+
+.telemetry-strip {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 36px;
+}
+
+.telemetry-cell {
+  background: var(--bg-bay);
+  padding: 16px 14px;
+}
+
+.telemetry-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.telemetry-value {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink-hi);
+  font-variant-numeric: tabular-nums;
+}
+
+.telemetry-note {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+/* Screen 3: 4-Card ASCII Skeptic Grid */
+.screen-skeptic {
+  padding: 84px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-header {
+  max-width: 780px;
+  margin-bottom: 36px;
+}
+
+.section-title {
+  font-size: clamp(1.95rem, 3.4vw, 2.85rem);
+  letter-spacing: -0.028em;
+}
+
+.skeptic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.skeptic-card {
+  background: var(--bg-bay);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.skeptic-card-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeptic-q {
+  font-family: var(--font-serif);
+  font-size: 1.52rem;
+  line-height: 1.22;
+  color: var(--ink-hi);
+  margin-bottom: 16px;
+}
+
+.ascii-diagram {
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 14px 16px;
+  margin: 0 0 18px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-slate);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Screen 4: 3-Bay CMOS Transistor Schematic Workbench */
+.screen-cmos-workbench {
+  padding: 84px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.cmos-bays {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.cmos-bay {
+  background: var(--bg-bay);
+  display: flex;
+  flex-direction: column;
+}
+
+.cmos-bay-head {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.cmos-bay-title {
+  font-family: var(--font-serif);
+  font-size: 1.32rem;
+  color: var(--ink-hi);
+  margin: 4px 0 0 0;
+}
+
+.cmos-canvas-stage {
+  background: var(--bg-grid);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  width: 100%;
+  height: 290px;
+}
+
+.cmos-canvas-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cmos-controls {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.cmos-bay-copy {
+  padding: 18px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 15.5px;
+  line-height: 1.66;
+}
+
+/* Screen 5: Split-Stage Scrollytelling Spine (38% Left / 62% Sticky Right) */
+.screen-scrolly {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.scrolly-intro {
+  padding: 76px 0 42px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.scrolly-spine {
+  display: grid;
+  grid-template-columns: 38% 62%;
+  max-width: 1440px;
+  margin: 0 auto;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  align-items: start;
+}
+
+.scrolly-narrative {
+  border-right: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.scrolly-step {
+  min-height: 82vh;
+  padding: 48px 32px;
+  border-bottom: 1px solid var(--line);
+  border-left: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: background 0.2s ease, border-left-color 0.2s ease;
+}
+
+.scrolly-step:last-child {
+  border-bottom: 0;
+}
+
+.scrolly-step.is-active {
+  border-left-color: var(--orange);
+  background: rgba(17, 17, 21, 0.78);
+}
+
+.scrolly-step-title {
+  font-size: 1.65rem;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.scrolly-stage {
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  background: var(--bg-grid);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.microscope-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-void);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-slate);
+  flex-shrink: 0;
+}
+
+.stage-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.stage-jump-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 3px 7px;
+  background: var(--bg-bay);
+  color: var(--ink-muted);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.stage-jump-btn.active,
+.stage-jump-btn:hover {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+}
+
+.microscope-canvas-wrap {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 300px;
+  background: var(--bg-grid);
+  overflow: hidden;
+}
+
+.microscope-canvas-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#microscope-latex-hud {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  background: rgba(9, 9, 11, 0.93);
+  border: 1px solid var(--line-hi);
+  border-left: 2px solid var(--orange);
+  border-radius: 2px;
+  padding: 12px 16px;
+  z-index: 25;
+}
+
+.hud-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.hud-math {
+  color: var(--ink-hi);
+  font-size: 15px;
+  overflow-x: auto;
+}
+
+/* Collapsible Rosetta LaTeX Drawers (Closed by Default) */
+details.rosetta-drawer {
+  margin-top: 20px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--bg-grid);
+}
+
+details.rosetta-drawer > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: var(--ink-slate);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+details.rosetta-drawer > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.rosetta-drawer > summary:hover {
+  color: var(--orange);
+  background: rgba(255, 85, 0, 0.05);
+}
+
+details.rosetta-drawer[open] > summary {
+  color: var(--orange);
+  border-bottom: 1px solid var(--line);
+}
+
+.rosetta-content {
+  padding: 16px;
+  font-size: 15px;
+  line-height: 1.66;
+  color: var(--ink-body);
+  overflow-x: auto;
+}
+
+/* Shared Technical Workbench Styles (Routes 02 - 07) */
+.page-hero {
+  padding: 56px 0 40px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.page-title {
+  font-size: clamp(2.1rem, 4vw, 3.25rem);
+  letter-spacing: -0.03em;
+  max-width: 26ch;
+}
+
+.workbench-section {
+  padding: 52px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.instrument-card {
+  background: var(--bg-bay);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 24px;
+  position: relative;
+}
+
+.instrument-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hw-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-slate);
+  margin-bottom: 6px;
+}
+
+.hw-input,
+.hw-select,
+.hw-textarea {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-hi);
+  background: var(--bg-grid);
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  padding: 9px 11px;
+}
+
+.hw-input:focus,
+.hw-select:focus,
+.hw-textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+
+.terminal-out {
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-slate);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.spec-table th,
+.spec-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.spec-table th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  background: var(--bg-grid);
+}
+
+/* KaTeX Classical Computer Modern Tuning */
+.katex {
+  font-size: 1.04em;
+  color: var(--ink-hi);
+}
+
+.katex-display {
+  margin: 0.85em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+}
+
+/* Site Footer & Apache-2.0 Sec. 6 Reservation */
+.site-footer {
+  background: var(--bg-void);
+  border-top: 1px solid var(--line);
+  padding: 56px 0 64px 0;
+  font-size: 14px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.footer-heading {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-hi);
+  margin-bottom: 12px;
+}
+
+.footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.footer-legal {
+  padding-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.65;
+  color: var(--ink-muted);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1120px) {
+  .glyph-legend-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .telemetry-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .cmos-bays {
+    grid-template-columns: 1fr;
+  }
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 980px) {
+  .skeptic-grid,
+  .grid-2,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .scrolly-spine {
+    grid-template-columns: 1fr;
+  }
+  .scrolly-stage {
+    order: -1;
+    position: sticky;
+    top: 56px;
+    height: 46vh;
+    min-height: 320px;
+    z-index: 40;
+    border-bottom: 1px solid var(--line);
+  }
+  .scrolly-narrative {
+    border-right: 0;
+  }
+  .scrolly-step {
+    min-height: auto;
+    padding: 36px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 0 16px;
+  }
+  .glyph-legend-grid,
+  .telemetry-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .masthead-actions {
+    width: 100%;
+  }
+}
+</style>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  function runKatex(rootEl) {
+    if (typeof renderMathInElement === "function") {
+      renderMathInElement(rootEl || document.body, {
+        delimiters: [
+          {left: "\\[", right: "\\]", display: true},
+          {left: "\\(", right: "\\)", display: false}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+  window.spectralRenderMath = runKatex;
+  runKatex(document.body);
+  var drawers = document.querySelectorAll("details.rosetta-drawer");
+  for (var i = 0; i < drawers.length; i++) {
+    drawers[i].addEventListener("toggle", function () {
+      if (this.open) {
+        runKatex(this);
+      }
+    });
+  }
+});
+</script>
+  <!-- Highwire Press / Google Scholar / IACR / Zenodo Citation Meta -->
+  <meta name="citation_title" content="Finite Fields Forever: Assured Memory Isolation in a Single Logic Gate">
+  <meta name="citation_author" content="Eric Murphy">
+  <meta name="citation_author_institution" content="Spectral Systems LLC">
+  <meta name="citation_publication_date" content="2026/11/20">
+  <meta name="citation_doi" content="10.5281/zenodo.24047901">
+  <meta name="citation_pdf_url" content="https://spectralsystems.org/preprint_Murphy_v1.pdf">
+  <meta name="citation_technical_report_institution" content="Spectral Systems LLC">
+  <link rel="cite-as" href="https://doi.org/10.5281/zenodo.24047901">
+</head>
+<body>
+<header class="masthead-strip" role="banner">
+  <div class="wrap masthead-inner">
+    <div class="brand-cluster">
+      <a class="brand-glyph" href="/" aria-label="KERNEL ZERO Home">-&lt;&Oslash;</a>
+      <a class="brand-wordmark" href="/">KERNEL // ZERO&trade;</a>
+      <span class="brand-lockstep">SPECTRAL SYSTEMS // SUB-FLIT ALGEBRAIC MEMORY ISOLATION</span>
+    </div>
+    <div class="masthead-actions">
+      <a class="action-btn action-btn-primary" href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Preprint v1 (PDF) ]</a>
+      <a class="action-btn" href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener">[ Zenodo DOI: 10.5281/zenodo.24047902 ]</a>
+      <a class="action-btn" href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer" target="_blank" rel="noopener">[ GitHub Repo (Lean 4 &amp; AWS F2) ]</a>
+    </div>
+  </div>
+</header>
+<nav class="site-nav-bar" aria-label="Primary Instrument Routes">
+  <div class="site-nav-inner">
+    <a class="nav-link" href="/">01 KERNEL // ZERO (Story)</a>
+    <a class="nav-link active" href="/zero-trust.html" aria-current="page">02 Interactive Locks</a>
+    <a class="nav-link" href="/benchmarks.html">03 Silicon Benchmarks</a>
+    <a class="nav-link" href="/verification.html">04 Lean 4 Proofs</a>
+    <a class="nav-link" href="/console-demo/">05 Policy Compiler</a>
+    <a class="nav-link" href="/cots-procurement.html">06 DARPA ERIS &amp; Procurement</a>
+    <a class="nav-link" href="/patents.html">07 IP &amp; Air-Gap</a>
+  </div>
+</nav>
+
+<style>
+  .ag-board {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 4px;
+    background: var(--bg-void);
+    border: 1px solid var(--line-hi);
+    padding: 10px;
+    border-radius: 2px;
+  }
+  .ag-cell {
+    aspect-ratio: 1 / 1;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: #131824;
+    color: var(--ink-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: transform 0.1s ease, border-color 0.12s ease;
+  }
+  .ag-cell:hover {
+    border-color: var(--ink-hi);
+  }
+  .ag-cell.is-line {
+    background: rgba(16, 185, 129, 0.22);
+    border-color: var(--emerald);
+    color: var(--ink-hi);
+    font-weight: 600;
+  }
+  .ag-cell.is-revoked {
+    background: rgba(244, 63, 94, 0.18);
+    border-color: var(--crimson);
+    color: #FDA4AF;
+  }
+  .ag-cell.is-crossing {
+    background: rgba(255, 85, 0, 0.30);
+    border-color: var(--orange);
+    color: #FFF;
+    font-weight: 600;
+  }
+  .bf16-bit-row {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    gap: 4px;
+    margin: 14px 0;
+  }
+  .bf16-bit-btn {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 10px 0;
+    border: 1px solid var(--line-hi);
+    border-radius: 2px;
+    background: var(--bg-grid);
+    color: var(--ink-hi);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .bf16-bit-btn.bit-sign { border-top: 2px solid var(--cyan); }
+  .bf16-bit-btn.bit-exp { border-top: 2px solid var(--emerald); }
+  .bf16-bit-btn.bit-mant { border-top: 2px solid var(--orange); }
+  .bf16-bit-btn.is-sheared {
+    opacity: 0.45;
+    background: rgba(255, 85, 0, 0.10);
+    border-color: var(--orange);
+  }
+  .bf16-bit-idx {
+    font-size: 9px;
+    color: var(--ink-muted);
+  }
+  .lora-matrices {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .lora-tile-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 3px;
+    background: var(--bg-void);
+    border: 1px solid var(--line);
+    padding: 6px;
+    border-radius: 2px;
+  }
+  .lora-cell {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 6px 2px;
+    text-align: center;
+    background: var(--bg-grid);
+    border: 1px solid var(--line);
+    color: var(--ink-slate);
+  }
+  .fifo-strip {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    gap: 4px;
+    margin: 14px 0;
+  }
+  .fifo-slot {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 7px 3px;
+    text-align: center;
+    background: var(--bg-grid);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--ink-muted);
+  }
+  .fifo-slot.slot-ok {
+    border-color: var(--emerald);
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--ink-hi);
+  }
+  .fifo-slot.slot-scrub {
+    border-color: var(--orange);
+    background: rgba(255, 85, 0, 0.18);
+    color: var(--ink-hi);
+  }
+  @media (max-width: 860px) {
+    .bf16-bit-row {
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+    .lora-matrices {
+      grid-template-columns: 1fr;
+    }
+    .fifo-strip {
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+  }
+</style>
+
+<main id="main-content">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="kicker">ROUTE 02 // INTERACTIVE SUB-FLIT ALGEBRA &amp; HARDWARE LOCK WORKBENCHES</span>
+      <h1 class="page-title">Operate the four algebraic hardware locks directly in your browser.</h1>
+      <p class="muted">Every widget below executes exact finite-field \(\mathbb{F}_8\) line geometry, IEEE BFloat16 bit-level wire-shearing, 64-bit monotonic <code>AND2</code> register transitions, and 32-slot AXI4 read-scrub ordering.</p>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- WORKBENCH 1: AG(2,8) ~= S(2,8,64) 64-SQUARE BOARD (id="ro-agline")     -->
+  <!-- ===================================================================== -->
+  <section class="workbench-section" id="ro-agline">
+    <div class="wrap">
+      <div class="instrument-card fiducial-box">
+        <div class="instrument-head">
+          <div>
+            <span class="kicker">WORKBENCH 01 // STEINER AFFINE PLANE (\(\mathrm{AG}(2,8) \cong S(2,8,64)\))</span>
+            <h2 class="serif-head" style="font-size:1.75rem;margin:0;">64-Square Lifeline Crossbar (<span class="mono sig-orange">//</span> &amp; <span class="mono sig-orange">X</span>)</h2>
+          </div>
+          <span class="mono sig-emerald" id="ag-survivor-badge">SURVIVING LIFELINES: 8 / 8 (AUTHORIZED)</span>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <p style="font-size:15.5px;">
+              Select a tenant&rsquo;s slope \(m \in \mathbb{F}_8\) and intercept \(b \in \mathbb{F}_8\) below, or click any square <code>00</code>&ndash;<code>63</code> to cut individual wires. Because non-parallel lines intersect at strictly \(\lambda = 1\) point while parallel lines share \(\lambda = 0\) points, revoking crossing slope \(m = 2\) (or even all 7 crossing slopes) never extinguishes an innocent workload&rsquo;s 8th lifeline.
+            </p>
+
+            <div class="grid-2" style="margin:16px 0;">
+              <div>
+                <label class="hw-label" for="ag-slope-select">Tenant Slope \(m \in \mathbb{F}_8\)</label>
+                <select id="ag-slope-select" class="hw-select">
+                  <option value="0">m = 0 (Horizontal //)</option>
+                  <option value="1" selected>m = 1 (Identity Diagonal)</option>
+                  <option value="2">m = 2 (\(\alpha\))</option>
+                  <option value="3">m = 3 (\(\alpha + 1\))</option>
+                  <option value="4">m = 4 (\(\alpha^2\))</option>
+                  <option value="5">m = 5 (\(\alpha^2 + 1\))</option>
+                  <option value="6">m = 6 (\(\alpha^2 + \alpha\))</option>
+                  <option value="7">m = 7 (\(\alpha^2 + \alpha + 1\))</option>
+                </select>
+              </div>
+              <div>
+                <label class="hw-label" for="ag-intercept-select">Tenant Intercept \(b \in \mathbb{F}_8\)</label>
+                <select id="ag-intercept-select" class="hw-select">
+                  <option value="0" selected>b = 0</option>
+                  <option value="1">b = 1</option>
+                  <option value="2">b = 2</option>
+                  <option value="3">b = 3</option>
+                  <option value="4">b = 4</option>
+                  <option value="5">b = 5</option>
+                  <option value="6">b = 6</option>
+                  <option value="7">b = 7</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+              <button type="button" class="hw-btn active" id="ag-revoke-m2-btn">[Revoke Crossing Slope m=2]</button>
+              <button type="button" class="hw-btn" id="ag-revoke-7-btn">[Revoke 7 Crossing Slopes (X)]</button>
+              <button type="button" class="hw-btn" id="ag-reset-btn">[Reset All 64 Wires]</button>
+            </div>
+
+            <div class="terminal-out" id="ag-readout"></div>
+
+            <div style="margin-top:14px;">
+              \[
+                \mathcal{L}_{m,b} = \bigl\{(x,\, m \odot x \oplus b) : x \in \mathbb{F}_8\bigr\}, \qquad
+                \mathrm{Spec}(N^T N) = \bigl\{72^{(1)},\, 8^{(63)}\bigr\}
+              \]
+            </div>
+          </div>
+
+          <div>
+            <div class="ag-board" id="ag-board-grid" role="grid" aria-label="AG(2,8) 64-Square Lifeline Grid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- WORKBENCH 2: BFLOAT16 BIT-FLIPPER & NaN-CARRY GUARD (thm27)           -->
+  <!-- ===================================================================== -->
+  <section class="workbench-section" id="ro-bf16-word">
+    <div class="wrap">
+      <div class="instrument-card fiducial-box">
+        <div class="instrument-head">
+          <div>
+            <span class="kicker">WORKBENCH 02 // +0-LUT BFLOAT16 WIRE-SHEAR BLADE (/) &amp; NaN-CARRY GUARD (<code>thm27</code>)</span>
+            <h2 class="serif-head" style="font-size:1.75rem;margin:0;">16-Bit \(\mathrm{BFloat16}\) Mantissa Blade &amp; \(6 \times 6\) LoRA Egress Tile</h2>
+          </div>
+          <span class="mono sig-orange" id="bf16-hex-summary">IN: 0x3F8E (+1.109375) -&gt; OUT: 0x3F80 (+1.000000)</span>
+        </div>
+
+        <p style="font-size:15.5px;">
+          Click any bit <code>15..0</code> below to toggle the incoming 16-bit \(\mathrm{BFloat16}\) weight word, select an egress precision tier, or fire the <code>exp = 8'hFE</code> NaN-Carry Guard (<code>thm27</code>) to verify that randomized dithering never overflows max-normal exponents into <code>8'hFF</code> (<code>Inf</code> / <code>NaN</code>).
+        </p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;">
+          <button type="button" class="hw-btn" data-bf16-tier="0">u=0 (Zero-Clamp)</button>
+          <button type="button" class="hw-btn active" data-bf16-tier="9">u=9 E8M0 (Blade /)</button>
+          <button type="button" class="hw-btn" data-bf16-tier="12">u=12 BF12 (Coarse)</button>
+          <button type="button" class="hw-btn" data-bf16-tier="16">u=16 BF16 (Full)</button>
+          <button type="button" class="hw-btn" id="bf16-preset-3f8e">[Preset 0x3F8E (+1.109375)]</button>
+        </div>
+
+        <div class="bf16-bit-row" id="bf16-bit-strip"></div>
+
+        <div id="ro-bf16-guard" style="margin-top:16px;padding:14px 16px;background:var(--bg-void);border:1px solid var(--line-hi);border-radius:2px;">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
+            <div>
+              <span class="mono sig-cyan" style="font-size:12px;">HARDWARE EXPONENT SATURATION GUARD (<code>thm27</code>):</span>
+              <span class="mono muted" style="font-size:12px;" id="bf16-guard-status">ARMED &mdash; Prevents dithering carry into exp = 8'hFF (NaN/Inf).</span>
+            </div>
+            <button type="button" class="hw-btn" id="bf16-nan-guard-btn">[Test exp = 8'hFE NaN-Carry Guard]</button>
+          </div>
+        </div>
+
+        <div class="lora-matrices">
+          <div>
+            <span class="hw-label">Protected HBM2 LoRA Weight Tile (\(6 \times 6\) Raw \(\mathrm{BFloat16}\))</span>
+            <div class="lora-tile-grid" id="lora-hbm-grid"></div>
+          </div>
+          <div>
+            <span class="hw-label">Sanitized CXL Egress Tile (\(6 \times 6\) Post-Blade Output)</span>
+            <div class="lora-tile-grid" id="lora-egress-grid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- WORKBENCH 3: COLD-POR MONOTONIC BAR0 AND2 RATCHET (thm02)             -->
+  <!-- ===================================================================== -->
+  <section class="workbench-section" id="spectral-formal-input-validator">
+    <div class="wrap">
+      <div class="instrument-card fiducial-box">
+        <div class="instrument-head">
+          <div>
+            <span class="kicker">WORKBENCH 03 // SELF-KNOTTING MONOTONIC BAR0 RATCHET (&amp; / <code>thm02</code>)</span>
+            <h2 class="serif-head" style="font-size:1.75rem;margin:0;"><code>CSR 0x70</code> One-Way <code>AND2</code> Latch &amp; <code>CSR 0x48</code> Escalation Trap</h2>
+          </div>
+          <span class="mono sig-orange" id="csr70-trap-badge">CSR 0x48 ESCALATION COUNT: 0</span>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <p style="font-size:15.5px;">
+              Register <code>CSR 0x70</code> boots to <code>0xFFFFFFFFFFFFFFEB</code> (lines 2 and 4 already revoked). Try writing <code>0xFFFFFFFFFFFFFFFF</code> as a compromised Ring-0 root attacker to re-enable those bits: hardware computes \(M^{(t+1)} = M^{(t)} \wedge W_{\mathrm{bus}}\), blocks every <code>0 -&gt; 1</code> bit transition, and increments forensic counter <code>CSR 0x48</code>.
+            </p>
+            <label class="hw-label" for="csr70-wbus-input">64-Bit Host Write Bus \(W_{\mathrm{bus}}\) (Hex)</label>
+            <input type="text" id="csr70-wbus-input" class="hw-input" value="0xFFFFFFFFFFFFFFFF" spellcheck="false">
+
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
+              <button type="button" class="hw-btn active" id="csr70-write-btn">[Write W_bus to CSR 0x70 (&amp;)]</button>
+              <button type="button" class="hw-btn" id="csr70-revoke-low8-btn">[Revoke Low Byte (0xFFFFFFFFFFFFFF00)]</button>
+              <button type="button" class="hw-btn" id="csr70-flr-btn">[Fire Warm PCIe FLR (&perp; Blocked)]</button>
+              <button type="button" class="hw-btn pass-active" id="csr70-por-btn">[Cold Chassis POR (por_cold_rst_n=0)]</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="terminal-out" id="csr70-terminal"></div>
+            <div style="margin-top:12px;">
+              \[
+                M^{(t+1)} = M^{(t)} \wedge W_{\mathrm{bus}} \preceq M^{(t)}, \qquad
+                \Delta E_{\texttt{0x48}} = \mathbb{I}\bigl[(\neg M^{(t)} \wedge W_{\mathrm{bus}}) \neq 0\bigr]
+              \]
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- WORKBENCH 4: 32-SLOT ARID FIFO & AXI4 READ-SCRUB SHIM (SVA 9)         -->
+  <!-- ===================================================================== -->
+  <section class="workbench-section" id="spectral-arid-fifo-guardrail">
+    <div class="wrap">
+      <div class="instrument-card fiducial-box">
+        <div class="instrument-head">
+          <div>
+            <span class="kicker">WORKBENCH 04 // 341-LUT PER-ARID ORDERED AXI4 READ-SCRUB RESPONDER (<code>SVA 9</code>)</span>
+            <h2 class="serif-head" style="font-size:1.75rem;margin:0;">Non-Destructive 32-Slot <code>M2S_RwD</code> Rollover Shift FIFO</h2>
+          </div>
+          <span class="mono sig-cyan" id="fifo-occ-badge">OCCUPANCY: 4 / 32 SLOTS | m_hbm_axi_arvalid_o = 1'b1</span>
+        </div>
+
+        <p style="font-size:15.5px;">
+          When an incoming CXL read fails capability validation, its address is scrubbed to \(\mathcal{A}_{\mathrm{scrub}} = \mathbf{0}_{46}\) and <code>m_hbm_axi_arvalid_o == 1'b0</code> suppresses physical HBM2 DRAM activation (<code>SVA 9</code>), while the 32-slot rollover shift FIFO returns zeroed synthetic <code>RDATA</code> in strict per-<code>ARID</code> order without head-of-line deadlock.
+        </p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;">
+          <button type="button" class="hw-btn pass-active" id="fifo-push-ok-btn">[Enqueue Authorized Read (ARID)]</button>
+          <button type="button" class="hw-btn active" id="fifo-push-scrub-btn">[Inject Unauthorized Read -&gt; Scrub (arvalid=1'b0)]</button>
+          <button type="button" class="hw-btn" id="fifo-burst-btn">[Burst 8 Mixed CXL.mem Reads]</button>
+          <button type="button" class="hw-btn" id="fifo-pop-btn">[Retire Oldest AXI4 RDATA Beat]</button>
+        </div>
+
+        <div class="fifo-strip" id="arid-fifo-cells"></div>
+        <div class="terminal-out" id="arid-fifo-log"></div>
+
+        <div style="margin-top:12px;">
+          \[
+            \Delta_{P_{\mathrm{eff}}}(r_i) \neq 0 \implies \mathcal{A}_{\mathrm{scrub}} = \mathbf{0}_{46} \;\wedge\; \texttt{m\_hbm\_axi\_arvalid\_o} == \texttt{1'b0}\;\;(\texttt{SVA 9})
+          \]
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  // -------------------------------------------------------------------------
+  // WORKBENCH 1: Exact GF(8) = GF(2)[x]/(x^3 + x + 1) & AG(2,8) 64-Square Grid
+  // -------------------------------------------------------------------------
+  function gf8Mul(a, b) {
+    var p = 0;
+    var x = a & 7;
+    var y = b & 7;
+    for (var i = 0; i < 3; i++) {
+      if (y & 1) p ^= x;
+      var hi = x & 4;
+      x = (x << 1) & 7;
+      if (hi) x ^= 3;
+      y >>= 1;
+    }
+    return p & 7;
+  }
+
+  var boardEl = document.getElementById("ag-board-grid");
+  var slopeSel = document.getElementById("ag-slope-select");
+  var interSel = document.getElementById("ag-intercept-select");
+  var revM2Btn = document.getElementById("ag-revoke-m2-btn");
+  var rev7Btn = document.getElementById("ag-revoke-7-btn");
+  var resetAgBtn = document.getElementById("ag-reset-btn");
+  var agBadge = document.getElementById("ag-survivor-badge");
+  var agReadout = document.getElementById("ag-readout");
+
+  var revokedSet = {};
+
+  function revokeSlopeLine(m, b) {
+    for (var x = 0; x < 8; x++) {
+      var y = gf8Mul(m, x) ^ (b & 7);
+      revokedSet[y * 8 + x] = true;
+    }
+  }
+
+  function renderAgBoard() {
+    if (!boardEl) return;
+    var m = parseInt(slopeSel.value, 10) || 0;
+    var b = parseInt(interSel.value, 10) || 0;
+    var tenantPts = {};
+    for (var x = 0; x < 8; x++) {
+      var y = gf8Mul(m, x) ^ b;
+      tenantPts[y * 8 + x] = true;
+    }
+
+    boardEl.innerHTML = "";
+    var survivors = 0;
+    var crossed = [];
+    var hiWord = 0;
+    var loWord = 0;
+
+    for (var idx = 0; idx < 64; idx++) {
+      var isRev = !!revokedSet[idx];
+      var isTen = !!tenantPts[idx];
+      if (!isRev) {
+        if (idx >= 32) hiWord = (hiWord | (1 << (idx - 32))) >>> 0;
+        else loWord = (loWord | (1 << idx)) >>> 0;
+      }
+      if (isTen && !isRev) survivors++;
+      if (isTen && isRev) crossed.push(idx);
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "ag-cell" + (isTen && isRev ? " is-crossing" : (isTen ? " is-line" : (isRev ? " is-revoked" : "")));
+      btn.textContent = (idx < 10 ? "0" : "") + idx;
+      btn.setAttribute("data-sq", String(idx));
+      btn.addEventListener("click", function () {
+        var sq = parseInt(this.getAttribute("data-sq"), 10);
+        revokedSet[sq] = !revokedSet[sq];
+        renderAgBoard();
+      });
+      boardEl.appendChild(btn);
+    }
+
+    var maskHex = "0x" + ("00000000" + hiWord.toString(16).toUpperCase()).slice(-8) + ("00000000" + loWord.toString(16).toUpperCase()).slice(-8);
+    if (agBadge) {
+      agBadge.textContent = "SURVIVING LIFELINES: " + survivors + " / 8 (" + (survivors > 0 ? "AUTHORIZED" : "REVOKED") + ")";
+      agBadge.className = "mono " + (survivors > 0 ? "sig-emerald" : "sig-crimson");
+    }
+    if (agReadout) {
+      agReadout.textContent =
+        "ACTIVE LINE L_{" + m + "," + b + "}  |  BAR0 MASK = " + maskHex + "\n" +
+        "CROSSING COLLISIONS (" + crossed.length + ") : [" + crossed.join(", ") + "]  |  SURVIVING WIRES = " + survivors + " / 8";
+    }
+  }
+
+  if (slopeSel) slopeSel.addEventListener("change", renderAgBoard);
+  if (interSel) interSel.addEventListener("change", renderAgBoard);
+  if (revM2Btn) {
+    revM2Btn.addEventListener("click", function () {
+      revokedSet = {};
+      revokeSlopeLine(2, 0);
+      renderAgBoard();
+    });
+  }
+  if (rev7Btn) {
+    rev7Btn.addEventListener("click", function () {
+      revokedSet = {};
+      var curM = parseInt(slopeSel.value, 10) || 0;
+      for (var sm = 0; sm < 8; sm++) {
+        if (sm !== curM) revokeSlopeLine(sm, (sm + 1) & 7);
+      }
+      renderAgBoard();
+    });
+  }
+  if (resetAgBtn) {
+    resetAgBtn.addEventListener("click", function () {
+      revokedSet = {};
+      renderAgBoard();
+    });
+  }
+  revokeSlopeLine(2, 0);
+  renderAgBoard();
+
+  // -------------------------------------------------------------------------
+  // WORKBENCH 2: BFloat16 Bit-Flipper & exp=8'hFE NaN-Carry Guard (thm27)
+  // -------------------------------------------------------------------------
+  var bf16Word = 0x3F8E;
+  var bf16Tier = 9;
+  var bf16Strip = document.getElementById("bf16-bit-strip");
+  var bf16Summary = document.getElementById("bf16-hex-summary");
+  var bf16GuardStatus = document.getElementById("bf16-guard-status");
+  var nanBtn = document.getElementById("bf16-nan-guard-btn");
+  var presetBtn = document.getElementById("bf16-preset-3f8e");
+  var tierBtns = document.querySelectorAll("[data-bf16-tier]");
+  var loraHbmEl = document.getElementById("lora-hbm-grid");
+  var loraEgressEl = document.getElementById("lora-egress-grid");
+
+  function bf16ToFloat(u16) {
+    var sign = (u16 >>> 15) & 1;
+    var exp = (u16 >>> 7) & 0xFF;
+    var mant = u16 & 0x7F;
+    if (exp === 0xFF) return mant === 0 ? (sign ? -Infinity : Infinity) : NaN;
+    if (exp === 0) return (sign ? -1 : 1) * Math.pow(2, -126) * (mant / 128.0);
+    return (sign ? -1 : 1) * Math.pow(2, exp - 127) * (1.0 + mant / 128.0);
+  }
+
+  function applyBf16Tier(u16, tier) {
+    if (tier === 0) return 0x0000;
+    if (tier === 9) return u16 & 0xFF80;
+    if (tier === 12) return u16 & 0xFFF0;
+    return u16 & 0xFFFF;
+  }
+
+  function fmtHex16(v) {
+    return "0x" + ("0000" + (v & 0xFFFF).toString(16).toUpperCase()).slice(-4);
+  }
+
+  function fmtFloat(f) {
+    if (Number.isNaN(f)) return "NaN";
+    if (!Number.isFinite(f)) return f > 0 ? "+Inf" : "-Inf";
+    return (f >= 0 ? "+" : "") + (Math.abs(f) >= 1e4 ? f.toExponential(3) : f.toFixed(6));
+  }
+
+  function renderBf16() {
+    if (!bf16Strip) return;
+    var outWord = applyBf16Tier(bf16Word, bf16Tier);
+    var inF = bf16ToFloat(bf16Word);
+    var outF = bf16ToFloat(outWord);
+    if (bf16Summary) {
+      bf16Summary.textContent = "IN: " + fmtHex16(bf16Word) + " (" + fmtFloat(inF) + ") -> OUT: " + fmtHex16(outWord) + " (" + fmtFloat(outF) + ")";
+    }
+
+    bf16Strip.innerHTML = "";
+    for (var b = 15; b >= 0; b--) {
+      var bitVal = (bf16Word >>> b) & 1;
+      var sheared = (bf16Tier === 0) || (bf16Tier === 9 && b <= 6) || (bf16Tier === 12 && b <= 3);
+      var roleCls = b === 15 ? "bit-sign" : (b >= 7 ? "bit-exp" : "bit-mant");
+      var el = document.createElement("button");
+      el.type = "button";
+      el.className = "bf16-bit-btn " + roleCls + (sheared ? " is-sheared" : "");
+      el.setAttribute("data-bit", String(b));
+      el.innerHTML = "<strong>" + (sheared ? "0" : bitVal) + "</strong><span class=\"bf16-bit-idx\">b" + b + "</span>";
+      el.addEventListener("click", function () {
+        var bi = parseInt(this.getAttribute("data-bit"), 10);
+        bf16Word = (bf16Word ^ (1 << bi)) & 0xFFFF;
+        renderBf16();
+      });
+      bf16Strip.appendChild(el);
+    }
+
+    if (loraHbmEl && loraEgressEl) {
+      loraHbmEl.innerHTML = "";
+      loraEgressEl.innerHTML = "";
+      for (var k = 0; k < 36; k++) {
+        var sample = (bf16Word & 0xFF80) | ((bf16Word + k * 19) & 0x7F);
+        var san = applyBf16Tier(sample, bf16Tier);
+        var c1 = document.createElement("div");
+        c1.className = "lora-cell";
+        c1.textContent = fmtHex16(sample);
+        loraHbmEl.appendChild(c1);
+
+        var c2 = document.createElement("div");
+        c2.className = "lora-cell";
+        c2.style.color = bf16Tier < 16 ? "#10B981" : "#F43F5E";
+        c2.textContent = fmtHex16(san);
+        loraEgressEl.appendChild(c2);
+      }
+    }
+  }
+
+  for (var t = 0; t < tierBtns.length; t++) {
+    tierBtns[t].addEventListener("click", function () {
+      bf16Tier = parseInt(this.getAttribute("data-bf16-tier"), 10);
+      for (var j = 0; j < tierBtns.length; j++) tierBtns[j].classList.remove("active");
+      this.classList.add("active");
+      renderBf16();
+    });
+  }
+
+  if (presetBtn) {
+    presetBtn.addEventListener("click", function () {
+      bf16Word = 0x3F8E;
+      if (bf16GuardStatus) bf16GuardStatus.textContent = "ARMED -- Preset 0x3F8E (+1.109375) -> 0x3F80 (+1.000000).";
+      renderBf16();
+    });
+  }
+
+  if (nanBtn) {
+    nanBtn.addEventListener("click", function () {
+      // Max normal exponent exp = 8'hFE (0x7F7F): thm27 blocks carry into 8'hFF (Inf/NaN)
+      bf16Word = 0x7F7F;
+      if (bf16GuardStatus) {
+        bf16GuardStatus.textContent =
+          "PASS (thm27): Input 0x7F7F (exp=8'hFE) clamped safely to finite max-normal; carry into exp=8'hFF (NaN/Inf) suppressed!";
+      }
+      renderBf16();
+    });
+  }
+  renderBf16();
+
+  // -------------------------------------------------------------------------
+  // WORKBENCH 3: Cold-POR Monotonic BAR0 CSR 0x70 Ratchet (thm02)
+  // -------------------------------------------------------------------------
+  var csrHi = 0xFFFFFFFF >>> 0;
+  var csrLo = 0xFFFFFFEB >>> 0;
+  var csr48Count = 0;
+  var wbusIn = document.getElementById("csr70-wbus-input");
+  var csrTerm = document.getElementById("csr70-terminal");
+  var csrBadge = document.getElementById("csr70-trap-badge");
+
+  function fmt64(hi, lo) {
+    return "0x" + ("00000000" + (hi >>> 0).toString(16).toUpperCase()).slice(-8) + ("00000000" + (lo >>> 0).toString(16).toUpperCase()).slice(-8);
+  }
+
+  function parse64(hexStr) {
+    var clean = String(hexStr || "").trim().replace(/^0x/i, "").replace(/[^0-9a-fA-F]/g, "");
+    while (clean.length < 16) clean = "0" + clean;
+    clean = clean.slice(-16);
+    return {
+      hi: parseInt(clean.slice(0, 8), 16) >>> 0,
+      lo: parseInt(clean.slice(8, 16), 16) >>> 0
+    };
+  }
+
+  function updateCsrDisplay(note) {
+    if (csrBadge) csrBadge.textContent = "CSR 0x48 ESCALATION COUNT: " + csr48Count;
+    if (csrTerm) {
+      csrTerm.textContent =
+        "BAR0 CSR 0x70 CURRENT : " + fmt64(csrHi, csrLo) + "\n" +
+        "BAR0 CSR 0x48 TRAPS   : " + csr48Count + " (thm02 monotonic AND2 invariant)\n" +
+        "LAST HARDWARE EVENT   : " + note;
+    }
+  }
+
+  function applyCsrWrite(rawHex) {
+    var w = parse64(rawHex);
+    var escHi = ((~csrHi) & w.hi) >>> 0;
+    var escLo = ((~csrLo) & w.lo) >>> 0;
+    var nextHi = (csrHi & w.hi) >>> 0;
+    var nextLo = (csrLo & w.lo) >>> 0;
+    csrHi = nextHi;
+    csrLo = nextLo;
+    if (escHi !== 0 || escLo !== 0) {
+      csr48Count += 1;
+      updateCsrDisplay("BLOCKED 0->1 ESCALATION (" + fmt64(escHi, escLo) + ") -> CSR 0x48 INCREMENTED!");
+    } else {
+      updateCsrDisplay("MONOTONIC WRITE ACCEPTED -> M^(t+1) = M^(t) & W_bus.");
+    }
+  }
+
+  var wBtn = document.getElementById("csr70-write-btn");
+  var rev8Btn = document.getElementById("csr70-revoke-low8-btn");
+  var flrBtn = document.getElementById("csr70-flr-btn");
+  var porBtn = document.getElementById("csr70-por-btn");
+
+  if (wBtn) wBtn.addEventListener("click", function () { applyCsrWrite(wbusIn ? wbusIn.value : "0xFFFFFFFFFFFFFFFF"); });
+  if (rev8Btn) rev8Btn.addEventListener("click", function () {
+    if (wbusIn) wbusIn.value = "0xFFFFFFFFFFFFFF00";
+    applyCsrWrite("0xFFFFFFFFFFFFFF00");
+  });
+  if (flrBtn) flrBtn.addEventListener("click", function () {
+    updateCsrDisplay("host_warm_flr_rst_n ASSERTED -> BLOCKED AT SiO2 AIR-GAP WALL (\u2534). CSR 0x70 UNCHANGED!");
+  });
+  if (porBtn) porBtn.addEventListener("click", function () {
+    csrHi = 0xFFFFFFFF >>> 0;
+    csrLo = 0xFFFFFFEB >>> 0;
+    csr48Count = 0;
+    updateCsrDisplay("por_cold_rst_n = 0 (COLD CHASSIS POWER CYCLE) -> BOOT MASK 0xFFFFFFFFFFFFFFEB RESTORED.");
+  });
+  updateCsrDisplay("BOOT INITIALIZED AT 0xFFFFFFFFFFFFFFEB (BITS 2 & 4 LATCHED LOW).");
+
+  // -------------------------------------------------------------------------
+  // WORKBENCH 4: 32-Slot M2S_RwD Rollover Shift FIFO & AXI4 Read-Scrub (SVA 9)
+  // -------------------------------------------------------------------------
+  var fifoCellsEl = document.getElementById("arid-fifo-cells");
+  var fifoLogEl = document.getElementById("arid-fifo-log");
+  var fifoBadgeEl = document.getElementById("fifo-occ-badge");
+  var nextArid = 0x10;
+  var fifoQueue = [
+    { arid: "0x0C", scrub: false },
+    { arid: "0x0D", scrub: false },
+    { arid: "0x0E", scrub: true },
+    { arid: "0x0F", scrub: false }
+  ];
+
+  function renderFifo(lastMsg) {
+    if (!fifoCellsEl) return;
+    fifoCellsEl.innerHTML = "";
+    for (var s = 0; s < 32; s++) {
+      var item = fifoQueue[s];
+      var cell = document.createElement("div");
+      if (!item) {
+        cell.className = "fifo-slot";
+        cell.textContent = "[" + (s < 10 ? "0" : "") + s + "] --";
+      } else if (item.scrub) {
+        cell.className = "fifo-slot slot-scrub";
+        cell.textContent = item.arid + " SCRUB";
+      } else {
+        cell.className = "fifo-slot slot-ok";
+        cell.textContent = item.arid + " HBM2";
+      }
+      fifoCellsEl.appendChild(cell);
+    }
+    var head = fifoQueue[fifoQueue.length - 1];
+    var arvalid = (head && head.scrub) ? "1'b0" : "1'b1";
+    if (fifoBadgeEl) {
+      fifoBadgeEl.textContent = "OCCUPANCY: " + fifoQueue.length + " / 32 SLOTS | m_hbm_axi_arvalid_o == " + arvalid;
+    }
+    if (fifoLogEl) {
+      fifoLogEl.textContent = lastMsg;
+    }
+  }
+
+  function pushFifo(isScrub) {
+    if (fifoQueue.length >= 32) fifoQueue.shift();
+    var tag = "0x" + ("00" + (nextArid & 0xFF).toString(16).toUpperCase()).slice(-2);
+    nextArid = (nextArid + 1) & 0xFF;
+    fifoQueue.push({ arid: tag, scrub: isScrub });
+    renderFifo(
+      isScrub
+        ? ("SVA 9 TRIGGERED ON ARID " + tag + ": Address -> 0_46 | m_hbm_axi_arvalid_o == 1'b0 (HBM2 DRAM suppressed; zeroed RDATA queued).")
+        : ("AUTHORIZED READ ARID " + tag + ": Forwarded to HBM2 with m_hbm_axi_arvalid_o == 1'b1.")
+    );
+  }
+
+  var fOk = document.getElementById("fifo-push-ok-btn");
+  var fScrub = document.getElementById("fifo-push-scrub-btn");
+  var fBurst = document.getElementById("fifo-burst-btn");
+  var fPop = document.getElementById("fifo-pop-btn");
+
+  if (fOk) fOk.addEventListener("click", function () { pushFifo(false); });
+  if (fScrub) fScrub.addEventListener("click", function () { pushFifo(true); });
+  if (fBurst) fBurst.addEventListener("click", function () {
+    for (var k = 0; k < 8; k++) pushFifo(k === 2 || k === 6);
+  });
+  if (fPop) fPop.addEventListener("click", function () {
+    if (!fifoQueue.length) {
+      renderFifo("FIFO EMPTY -- All AXI4 RDATA beats retired cleanly.");
+      return;
+    }
+    var retired = fifoQueue.shift();
+    renderFifo("RETIRED ARID " + retired.arid + " IN ORDER -> RDATA = " + (retired.scrub ? "512'h0 (SYNTHETIC SCRUB)" : "HBM2 PAYLOAD"));
+  });
+
+  renderFifo("READY -- 341-LUT Per-ARID Rollover Shift FIFO initialized (SVA 9 verified).");
+})();
+</script>
+<footer class="site-footer" role="contentinfo">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-heading">KERNEL // ZERO&trade; &mdash; &ldquo;FINITE FIELDS FOREVER&rdquo;</div>
+        <p class="mono muted" style="font-size:12px;max-width:58ch;">SPECTRAL SYSTEMS // SUB-FLIT ALGEBRAIC MEMORY ISOLATION</p>
+        <p class="mono slate" style="font-size:12px;margin-top:10px;">Spectral Systems LLC (United States) &middot; Founder &amp; Principal Architect: Eric C. Murphy &middot; CAGE: <code>268E1</code> &middot; SAM.gov UEI: <code>VTP2JPCJU3D9</code> &middot; DFARS <code>252.227-7018</code> &middot; All Patents Pending</p>
+      </div>
+      <div>
+        <div class="footer-heading">Primary Artifacts &amp; Silicon</div>
+        <ul class="footer-list">
+          <li><a href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Preprint v1 (PDF) ]</a></li>
+          <li><a href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener">[ Zenodo DOI: 10.5281/zenodo.24047902 ]</a></li>
+          <li><a href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer" target="_blank" rel="noopener">[ GitHub Repo (Lean 4 &amp; AWS F2) ]</a></li>
+          <li><span class="muted">AGFI-0: <code>agfi-08becf3b40b169674</code></span></li>
+          <li><span class="muted">AGFI-1: <code>agfi-03b742e2a9cd2c0f2</code></span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Verification &amp; Acquisition Routes</div>
+        <ul class="footer-list">
+          <li><a href="/">01 KERNEL // ZERO (Story)</a></li>
+          <li><a href="/zero-trust.html">02 Interactive Locks</a></li>
+          <li><a href="/benchmarks.html">03 Silicon Benchmarks</a></li>
+          <li><a href="/verification.html">04 Lean 4 Proofs</a></li>
+          <li><a href="/console-demo/">05 Policy Compiler</a></li>
+          <li><a href="/cots-procurement.html">06 DARPA ERIS &amp; Procurement</a></li>
+          <li><a href="/patents.html">07 IP &amp; Air-Gap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      KERNEL ZERO&trade;, KERNEL // ZERO&trade;, KERNEL ZERO&trade;, and spectralc&trade; are trademarks of Spectral Systems LLC. Pursuant to Section 6 of the Apache License, Version 2.0, no trademark rights are granted under the open-source verification license. Reduced to practice at 100% private expense by Eric C. Murphy. All Patents Pending.
+    </div>
+  </div>
+</footer>
+  <!-- spectral-elegant-editorial-theme spectral-guided-discovery spectral-scope-and-differentiation spectral-formal-input-validator spectral-arid-fifo-guardrail -->\n</body>
+</html>

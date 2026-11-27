@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KERNEL // ZERO | Finite Fields Forever: 50-Shot Continuous Silicon Zoom</title>
+  <meta name="description" content="50-shot seamless Matryoshka infinite-zoom GPU + HBM4 silicon microscope from 10 mm package down to 10 nm 7nm FinFET atomic crystal (0.124 ns, 0 BRAM).">
+  <link rel="canonical" href="https://spectralsystems.org/"/>
+  <meta property="og:title" content="KERNEL // ZERO | Finite Fields Forever: 50-Shot Continuous Silicon Zoom">
+  <meta property="og:description" content="50-shot seamless Matryoshka infinite-zoom GPU + HBM4 silicon microscope from 10 mm package down to 10 nm 7nm FinFET atomic crystal (0.124 ns, 0 BRAM).">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://spectralsystems.org/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='2' fill='%2309090B' stroke='%2324242C' stroke-width='2'/%3E%3Ctext x='5' y='43' font-family='monospace' font-weight='700' font-size='25' fill='%23FF5500'%3E-%26lt%3B%3C/text%3E%3Ctext x='36' y='44' font-family='monospace' font-weight='700' font-size='27' fill='%23F8F7F4'%3E%26%23216%3B%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <style>
+:root {
+  --bg-void: #09090B;
+  --bg-bay: #111115;
+  --bg-grid: #0D1119;
+  --line: #24242C;
+  --line-hi: #343442;
+  --ink-hi: #F8F7F4;
+  --ink-body: #D8DEE9;
+  --ink-muted: #94A3B8;
+  --ink-slate: #CBD5E1;
+  --orange: #FF5500;
+  --emerald: #10B981;
+  --cyan: #38BDF8;
+  --amber: #F59E0B;
+  --crimson: #F43F5E;
+  --font-serif: 'Newsreader', 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', Consolas, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-void);
+  color: var(--ink-body);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-void);
+  color: var(--ink-body);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .serif-head {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--ink-hi);
+  letter-spacing: -0.026em;
+  line-height: 1.14;
+  margin: 0 0 0.65em 0;
+}
+
+p {
+  margin: 0 0 1.15em 0;
+  max-width: 66ch;
+  color: var(--ink-body);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--ink-hi);
+  text-decoration-color: var(--line-hi);
+  text-underline-offset: 3px;
+  transition: color 0.14s ease, border-color 0.14s ease;
+}
+
+a:hover {
+  color: var(--orange);
+  text-decoration-color: var(--orange);
+}
+
+code, pre, .mono, .num, .csr-hex {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+code {
+  font-size: 0.88em;
+  color: var(--ink-slate);
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 1px 5px;
+}
+
+pre code {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+
+.muted { color: var(--ink-muted); }
+.slate { color: var(--ink-slate); }
+.sig-orange { color: var(--orange); }
+.sig-emerald { color: var(--emerald); }
+.sig-cyan { color: var(--cyan); }
+.sig-amber { color: var(--amber); }
+.sig-crimson { color: var(--crimson); }
+
+/* Exposed 1px Structural Hairlines & + Corner Fiducials */
+.fiducial-box {
+  position: relative;
+  background: var(--bg-bay);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+.fiducial-box::before,
+.fiducial-box::after {
+  content: "+";
+  position: absolute;
+  top: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--ink-muted);
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.fiducial-box::before { left: 7px; }
+.fiducial-box::after { right: 7px; }
+
+/* Top Masthead Strip + Single-Row Sticky Navigation */
+.masthead-strip {
+  background: var(--bg-void);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
+}
+
+.masthead-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 14px;
+}
+
+.brand-glyph {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--orange);
+  border: 1px solid var(--line-hi);
+  background: var(--bg-grid);
+  border-radius: 2px;
+  padding: 2px 7px;
+  text-decoration: none;
+}
+
+.brand-wordmark {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ink-hi);
+  text-decoration: none;
+}
+
+.brand-lockstep {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.masthead-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn,
+.hw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--ink-slate);
+  background: var(--bg-bay);
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  padding: 7px 11px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+}
+
+.action-btn:hover,
+.hw-btn:hover {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.08);
+  text-decoration: none;
+}
+
+.action-btn-primary,
+.hw-btn.active {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.14);
+}
+
+.hw-btn.pass-active {
+  color: var(--ink-hi);
+  border-color: var(--emerald);
+  background: rgba(16, 185, 129, 0.14);
+}
+
+.site-nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  height: 56px;
+  max-height: 60px;
+  background: rgba(9, 9, 11, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.site-nav-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.site-nav-inner {
+  display: inline-flex;
+  align-items: center;
+  height: 56px;
+  min-width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+  gap: 6px;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.nav-link:hover {
+  color: var(--ink-hi);
+  border-color: var(--line-hi);
+  background: var(--bg-bay);
+  text-decoration: none;
+}
+
+.nav-link.active {
+  color: var(--ink-hi);
+  background: var(--bg-bay);
+  border-color: var(--line-hi);
+  border-bottom: 2px solid var(--orange);
+}
+
+/* Screen 1: Cold Open (min-height: 78vh) */
+.screen-cold-open {
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 68px 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+
+.cold-open-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.85rem);
+  letter-spacing: -0.032em;
+  line-height: 1.08;
+  max-width: 23ch;
+  margin-bottom: 24px;
+}
+
+.cold-open-lede {
+  font-size: clamp(1.06rem, 1.3vw, 1.2rem);
+  line-height: 1.74;
+  max-width: 65ch;
+  color: var(--ink-body);
+}
+
+.glyph-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 40px;
+}
+
+.glyph-cell {
+  background: var(--bg-bay);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.glyph-token {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--orange);
+  line-height: 1.1;
+}
+
+.glyph-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-hi);
+  letter-spacing: 0.02em;
+}
+
+.glyph-desc {
+  font-size: 12.5px;
+  line-height: 1.42;
+  color: var(--ink-muted);
+}
+
+/* Screen 2: KERNEL // ZERO Calligraphy Marquee (min-height: 86vh) */
+.screen-marquee {
+  min-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 76px 0;
+  border-bottom: 1px solid var(--line);
+  background-color: var(--bg-void);
+  background-image:
+    linear-gradient(to right, rgba(36, 36, 44, 0.34) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(36, 36, 44, 0.34) 1px, transparent 1px);
+  background-size: 48px 48px;
+  position: relative;
+}
+
+.marquee-wordmark {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 10.8vw, 9.2rem);
+  line-height: 0.94;
+  letter-spacing: -0.038em;
+  color: var(--ink-hi);
+  margin: 12px 0 22px 0;
+}
+
+.marquee-slashes {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--orange);
+  letter-spacing: -0.06em;
+  padding: 0 0.05em;
+}
+
+.marquee-tm {
+  font-family: var(--font-sans);
+  font-size: 0.22em;
+  vertical-align: super;
+  color: var(--ink-muted);
+  letter-spacing: 0;
+}
+
+.marquee-sub {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-slate);
+  margin-bottom: 24px;
+}
+
+.telemetry-strip {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 36px;
+}
+
+.telemetry-cell {
+  background: var(--bg-bay);
+  padding: 16px 14px;
+}
+
+.telemetry-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.telemetry-value {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink-hi);
+  font-variant-numeric: tabular-nums;
+}
+
+.telemetry-note {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+/* Screen 3: 4-Card ASCII Skeptic Grid */
+.screen-skeptic {
+  padding: 84px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-header {
+  max-width: 780px;
+  margin-bottom: 36px;
+}
+
+.section-title {
+  font-size: clamp(1.95rem, 3.4vw, 2.85rem);
+  letter-spacing: -0.028em;
+}
+
+.skeptic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.skeptic-card {
+  background: var(--bg-bay);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.skeptic-card-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeptic-q {
+  font-family: var(--font-serif);
+  font-size: 1.52rem;
+  line-height: 1.22;
+  color: var(--ink-hi);
+  margin-bottom: 16px;
+}
+
+.ascii-diagram {
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 14px 16px;
+  margin: 0 0 18px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-slate);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Screen 4: 3-Bay CMOS Transistor Schematic Workbench */
+.screen-cmos-workbench {
+  padding: 84px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.cmos-bays {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.cmos-bay {
+  background: var(--bg-bay);
+  display: flex;
+  flex-direction: column;
+}
+
+.cmos-bay-head {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.cmos-bay-title {
+  font-family: var(--font-serif);
+  font-size: 1.32rem;
+  color: var(--ink-hi);
+  margin: 4px 0 0 0;
+}
+
+.cmos-canvas-stage {
+  background: var(--bg-grid);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  width: 100%;
+  height: 290px;
+}
+
+.cmos-canvas-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cmos-controls {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.cmos-bay-copy {
+  padding: 18px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 15.5px;
+  line-height: 1.66;
+}
+
+/* Screen 5: Split-Stage Scrollytelling Spine (38% Left / 62% Sticky Right) */
+.screen-scrolly {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.scrolly-intro {
+  padding: 76px 0 42px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.scrolly-spine {
+  display: grid;
+  grid-template-columns: 38% 62%;
+  max-width: 1440px;
+  margin: 0 auto;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  align-items: start;
+}
+
+.scrolly-narrative {
+  border-right: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.scrolly-step {
+  min-height: 82vh;
+  padding: 48px 32px;
+  border-bottom: 1px solid var(--line);
+  border-left: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: background 0.2s ease, border-left-color 0.2s ease;
+}
+
+.scrolly-step:last-child {
+  border-bottom: 0;
+}
+
+.scrolly-step.is-active {
+  border-left-color: var(--orange);
+  background: rgba(17, 17, 21, 0.78);
+}
+
+.scrolly-step-title {
+  font-size: 1.65rem;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.scrolly-stage {
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  background: var(--bg-grid);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.microscope-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-void);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-slate);
+  flex-shrink: 0;
+}
+
+.stage-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.stage-jump-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 3px 7px;
+  background: var(--bg-bay);
+  color: var(--ink-muted);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.stage-jump-btn.active,
+.stage-jump-btn:hover {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+}
+
+.microscope-canvas-wrap {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 300px;
+  background: var(--bg-grid);
+  overflow: hidden;
+}
+
+.microscope-canvas-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#microscope-latex-hud {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  background: rgba(9, 9, 11, 0.93);
+  border: 1px solid var(--line-hi);
+  border-left: 2px solid var(--orange);
+  border-radius: 2px;
+  padding: 12px 16px;
+  z-index: 25;
+}
+
+.hud-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.hud-math {
+  color: var(--ink-hi);
+  font-size: 15px;
+  overflow-x: auto;
+}
+
+/* Collapsible Rosetta LaTeX Drawers (Closed by Default) */
+details.rosetta-drawer {
+  margin-top: 20px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--bg-grid);
+}
+
+details.rosetta-drawer > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: var(--ink-slate);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+details.rosetta-drawer > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.rosetta-drawer > summary:hover {
+  color: var(--orange);
+  background: rgba(255, 85, 0, 0.05);
+}
+
+details.rosetta-drawer[open] > summary {
+  color: var(--orange);
+  border-bottom: 1px solid var(--line);
+}
+
+.rosetta-content {
+  padding: 16px;
+  font-size: 15px;
+  line-height: 1.66;
+  color: var(--ink-body);
+  overflow-x: auto;
+}
+
+/* Shared Technical Workbench Styles (Routes 02 - 07) */
+.page-hero {
+  padding: 56px 0 40px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.page-title {
+  font-size: clamp(2.1rem, 4vw, 3.25rem);
+  letter-spacing: -0.03em;
+  max-width: 26ch;
+}
+
+.workbench-section {
+  padding: 52px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.instrument-card {
+  background: var(--bg-bay);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 24px;
+  position: relative;
+}
+
+.instrument-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hw-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-slate);
+  margin-bottom: 6px;
+}
+
+.hw-input,
+.hw-select,
+.hw-textarea {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-hi);
+  background: var(--bg-grid);
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  padding: 9px 11px;
+}
+
+.hw-input:focus,
+.hw-select:focus,
+.hw-textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+
+.terminal-out {
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-slate);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.spec-table th,
+.spec-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.spec-table th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  background: var(--bg-grid);
+}
+
+/* KaTeX Classical Computer Modern Tuning */
+.katex {
+  font-size: 1.04em;
+  color: var(--ink-hi);
+}
+
+.katex-display {
+  margin: 0.85em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+}
+
+/* Site Footer & Apache-2.0 Sec. 6 Reservation */
+.site-footer {
+  background: var(--bg-void);
+  border-top: 1px solid var(--line);
+  padding: 56px 0 64px 0;
+  font-size: 14px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.footer-heading {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-hi);
+  margin-bottom: 12px;
+}
+
+.footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.footer-legal {
+  padding-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.65;
+  color: var(--ink-muted);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1120px) {
+  .glyph-legend-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .telemetry-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .cmos-bays {
+    grid-template-columns: 1fr;
+  }
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 980px) {
+  .skeptic-grid,
+  .grid-2,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .scrolly-spine {
+    grid-template-columns: 1fr;
+  }
+  .scrolly-stage {
+    order: -1;
+    position: sticky;
+    top: 56px;
+    height: 46vh;
+    min-height: 320px;
+    z-index: 40;
+    border-bottom: 1px solid var(--line);
+  }
+  .scrolly-narrative {
+    border-right: 0;
+  }
+  .scrolly-step {
+    min-height: auto;
+    padding: 36px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 0 16px;
+  }
+  .glyph-legend-grid,
+  .telemetry-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .masthead-actions {
+    width: 100%;
+  }
+}
+</style>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  function runKatex(rootEl) {
+    if (typeof renderMathInElement === "function") {
+      renderMathInElement(rootEl || document.body, {
+        delimiters: [
+          {left: "\\[", right: "\\]", display: true},
+          {left: "\\(", right: "\\)", display: false}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+  window.spectralRenderMath = runKatex;
+  runKatex(document.body);
+  var drawers = document.querySelectorAll("details.rosetta-drawer");
+  for (var i = 0; i < drawers.length; i++) {
+    drawers[i].addEventListener("toggle", function () {
+      if (this.open) {
+        runKatex(this);
+      }
+    });
+  }
+});
+</script>
+  <!-- Highwire Press / Google Scholar / IACR / Zenodo Citation Meta -->
+  <meta name="citation_title" content="Finite Fields Forever: Assured Memory Isolation in a Single Logic Gate">
+  <meta name="citation_author" content="Eric Murphy">
+  <meta name="citation_author_institution" content="Spectral Systems LLC">
+  <meta name="citation_publication_date" content="2026/11/20">
+  <meta name="citation_doi" content="10.5281/zenodo.24047901">
+  <meta name="citation_pdf_url" content="https://spectralsystems.org/preprint_Murphy_v1.pdf">
+  <meta name="citation_technical_report_institution" content="Spectral Systems LLC">
+  <link rel="cite-as" href="https://doi.org/10.5281/zenodo.24047901">
+</head>
+<body>
+<header class="masthead-strip" role="banner">
+  <div class="wrap masthead-inner">
+    <div class="brand-cluster">
+      <a class="brand-glyph" href="/" aria-label="KERNEL ZERO Home">-&lt;&Oslash;</a>
+      <a class="brand-wordmark" href="/">KERNEL // ZERO&trade;</a>
+      <span class="brand-lockstep">SPECTRAL SYSTEMS // SUB-FLIT ALGEBRAIC MEMORY ISOLATION</span>
+    </div>
+    <div class="masthead-actions">
+      <a class="action-btn action-btn-primary" href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Preprint v1 (PDF) ]</a>
+      <a class="action-btn" href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener">[ Zenodo DOI: 10.5281/zenodo.24047902 ]</a>
+      <a class="action-btn" href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer" target="_blank" rel="noopener">[ GitHub Repo (Lean 4 &amp; AWS F2) ]</a>
+    </div>
+  </div>
+</header>
+<nav class="site-nav-bar" aria-label="Primary Instrument Routes">
+  <div class="site-nav-inner">
+    <a class="nav-link active" href="/" aria-current="page">01 KERNEL // ZERO (Story)</a>
+    <a class="nav-link" href="/zero-trust.html">02 Interactive Locks</a>
+    <a class="nav-link" href="/benchmarks.html">03 Silicon Benchmarks</a>
+    <a class="nav-link" href="/verification.html">04 Lean 4 Proofs</a>
+    <a class="nav-link" href="/console-demo/">05 Policy Compiler</a>
+    <a class="nav-link" href="/cots-procurement.html">06 DARPA ERIS &amp; Procurement</a>
+    <a class="nav-link" href="/patents.html">07 IP &amp; Air-Gap</a>
+  </div>
+</nav>
+<main id="main-content">
+
+<style>
+  .nyt-dive-wrapper {
+    position: relative;
+    width: 100%;
+    background: #05070B;
+  }
+  .nyt-sticky-viewport {
+    position: sticky;
+    top: 56px;
+    width: 100%;
+    height: calc(100vh - 56px);
+    overflow: hidden;
+    z-index: 1;
+    background: #05070B;
+  }
+  .nyt-sticky-viewport canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .chip-hud-top {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    z-index: 16;
+    background: rgba(9, 9, 11, 0.72);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 2px;
+    padding: 8px 13px;
+    font-family: var(--font-mono);
+    text-align: right;
+    pointer-events: none;
+    max-width: 390px;
+  }
+  .chip-hud-mag {
+    font-size: 16px;
+    font-weight: 600;
+    color: #F8F7F4;
+  }
+  .chip-hud-layer {
+    font-size: 10px;
+    color: #FF5500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .chip-hud-desc {
+    font-size: 10px;
+    color: #CBD5E1;
+    margin-top: 3px;
+    line-height: 1.35;
+  }
+  /* Bottom Filmstrip Scrub Bar + Cinema Controls */
+  .filmstrip-dock {
+    position: absolute;
+    left: 334px;
+    right: 18px;
+    bottom: 14px;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    background: rgba(9, 9, 11, 0.78);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 2px;
+    padding: 7px 12px;
+  }
+  .filmstrip-slider-wrap {
+    flex: 1;
+    min-width: 160px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: #CBD5E1;
+  }
+  #matryoshka-50-slider {
+    flex: 1;
+    accent-color: #FF5500;
+    cursor: pointer;
+    height: 4px;
+  }
+  .hud-pill-btn {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    padding: 5px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(17, 17, 21, 0.90);
+    color: #F8F7F4;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .hud-pill-btn:hover,
+  .hud-pill-btn.active {
+    border-color: #FF5500;
+    background: rgba(255, 85, 0, 0.18);
+  }
+  #microscope-latex-hud {
+    position: absolute;
+    right: 18px;
+    bottom: 58px;
+    max-width: 500px;
+    background: rgba(9, 9, 11, 0.92);
+    border: 1px solid #343442;
+    border-left: 2px solid #FF5500;
+    border-radius: 2px;
+    padding: 9px 13px;
+    z-index: 22;
+  }
+  #microscope-latex-hud.is-hidden {
+    display: none;
+  }
+  /* Far-left 300px reading rail -- leaves >80% of screen completely open */
+  .nyt-story-track {
+    position: relative;
+    z-index: 10;
+    margin-top: calc(-100vh + 56px);
+    pointer-events: none;
+    transition: opacity 0.24s ease;
+  }
+  .nyt-story-track.cards-hidden {
+    opacity: 0;
+    pointer-events: none !important;
+  }
+  .nyt-story-track.cards-hidden .nyt-card {
+    pointer-events: none !important;
+  }
+  .nyt-step {
+    height: 175vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 28px 0 28px 14px;
+  }
+  .nyt-card {
+    pointer-events: auto;
+    width: min(304px, 23vw);
+    min-width: 262px;
+    background: rgba(9, 9, 11, 0.70);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-left: 2px solid #FF5500;
+    border-radius: 2px;
+    padding: 18px 20px;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.62);
+  }
+  .nyt-card p {
+    font-size: 0.92rem;
+    line-height: 1.66;
+    color: #E2E8F0;
+    margin: 0 0 10px 0;
+  }
+  .nyt-card p:last-child {
+    margin-bottom: 0;
+  }
+  .nyt-era {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: #FF5500;
+    margin-bottom: 6px;
+  }
+  .nyt-h2 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 1.30rem;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: #F8F7F4;
+    margin: 0 0 10px 0;
+  }
+  .gate-time-span {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    color: #FF5500;
+    border-bottom: 1px solid #FF5500;
+  }
+  .eco-widget {
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(13, 17, 25, 0.85);
+    border: 1px solid #24242C;
+    border-radius: 2px;
+  }
+  .eco-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .eco-box {
+    background: #09090B;
+    border: 1px solid #24242C;
+    padding: 7px 8px;
+    border-radius: 2px;
+  }
+  .eco-big {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .eco-sub {
+    display: block;
+    font-size: 9.5px;
+    color: #94A3B8;
+    margin-top: 2px;
+  }
+  .finale-dock-card {
+    width: min(338px, 26vw);
+    min-width: 274px;
+    border-color: rgba(255, 85, 0, 0.44);
+  }
+  .crest-svg-wrap {
+    width: 112px;
+    height: 50px;
+    margin: 0 0 8px 0;
+  }
+  .finale-wordmark {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(2.0rem, 3.0vw, 2.7rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    color: #F8F7F4;
+    margin: 0 0 8px 0;
+  }
+  .finale-preprint-title {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.02rem;
+    line-height: 1.32;
+    color: #D8DEE9;
+    margin: 0 0 6px 0;
+  }
+  .finale-whisper {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: rgba(216, 222, 233, 0.55);
+    margin: 0 0 10px 0;
+  }
+  .finale-links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .appendix-section {
+    padding: 60px 0 72px 0;
+    background: var(--bg-void);
+    border-top: 1px solid var(--line);
+  }
+  .cmos-canvas-viewport {
+    width: 100%;
+    height: 340px;
+    background: #0D1119;
+    border: 1px solid var(--line);
+    margin-top: 12px;
+  }
+  .cmos-canvas-viewport canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  @media (max-width: 900px) {
+    .filmstrip-dock {
+      left: 12px;
+      right: 12px;
+      bottom: 10px;
+    }
+    .nyt-step {
+      align-items: flex-end;
+      padding: 18px 12px 64px 12px;
+    }
+    .nyt-card,
+    .finale-dock-card {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+</style>
+
+<div class="nyt-dive-wrapper" id="chip-dive-root">
+
+  <div class="nyt-sticky-viewport">
+    <canvas id="microscope-canvas" aria-label="50-Shot Seamless Matryoshka Infinite-Zoom GPU and HBM4 Silicon Microscope"></canvas>
+
+    <div class="chip-hud-top" aria-hidden="true">
+      <div class="chip-hud-mag" id="microscope-mag-readout">1x</div>
+      <div class="chip-hud-layer" id="hud-stage-label">SLIDE 00/39 // AI DATA CENTER OAM SUPERCHIP</div>
+      <div class="chip-hud-desc" id="hud-shot-desc">Full lidded AI GPU + HBM4 flip-chip BGA package</div>
+    </div>
+
+    <div id="microscope-latex-hud" class="is-hidden" role="region" aria-live="polite">
+      <div class="mono muted" style="font-size:10px;margin-bottom:3px;" id="hud-scale-badge"></div>
+      <div id="hud-math-formula" class="hud-math"></div>
+    </div>
+
+    <div class="filmstrip-dock">
+      <button type="button" id="matryoshka-autofly-btn" class="hud-pill-btn">[ &#9654; Auto-Fly Through All 40 Slides ]</button>
+      <div class="filmstrip-slider-wrap">
+        <span id="shot-counter-lbl">00/39</span>
+        <input type="range" id="matryoshka-50-slider" min="0" max="39" step="0.02" value="0" aria-label="Scrub All 50 Silicon Microscope Shots">
+      </div>
+      <button type="button" id="toggle-cards-btn" class="hud-pill-btn">[ Hide Story ]</button>
+      <button type="button" id="microscope-hud-toggle" class="hud-pill-btn">[ fx Math ]</button>
+    </div>
+  </div>
+
+  <!-- 8 PLAIN-ENGLISH STORY CARDS MAPPED TO ANCHOR SHOTS [0, 7, 14, 21, 28, 35, 42, 49] -->
+  <div class="nyt-story-track" id="nyt-story-track">
+
+    <!-- ANCHOR SHOT 00 (Band 1: 10^-2 m) -->
+    <article class="nyt-step scrolly-step" data-anchor-shot="0">
+      <div class="nyt-card">
+        <span class="nyt-era">SLIDES 00&ndash;05 // \(10^{-2}\text{ m}\) &middot; HISTORY, WATER &amp; POWER</span>
+        <h1 class="nyt-h2" style="font-size:1.38rem;">From 1960s guest lists to AI&rsquo;s hidden thirst for water and power.</h1>
+        <p>
+          &ldquo;Instead of consulting a table in memory, we wired sixty years of finite-field algebra into a single <span class="gate-time-span">0.124-nanosecond</span> logic gate.&rdquo;
+        </p>
+        <p>
+          Since 1960s shared mainframes, computers kept a guest list in memory so apps couldn&rsquo;t peek at neighbors. In AI racks, that list swelled into a <strong>250-gigabyte phonebook per rack</strong>&mdash;burning megawatts of power and boiling away millions of gallons of cooling water before a single AI answer is computed.
+        </p>
+        <div class="eco-widget">
+          <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10.5px;margin-bottom:5px;">
+            <span><strong id="eco-racks-lbl" class="sig-orange">10,000</strong> AI Racks</span>
+            <span class="sig-emerald">0 GB Table</span>
+          </div>
+          <input type="range" id="scrolly-rack-slider" min="1000" max="50000" step="1000" value="10000" style="width:100%;accent-color:#10B981;cursor:pointer;" aria-label="AI Cluster Racks">
+          <div class="eco-grid">
+            <div class="eco-box">
+              <span class="eco-big sig-emerald" id="eco-mw-saved">8.0 &ndash; 39.4 MW</span>
+              <span class="eco-sub" id="eco-homes-saved">~6,600 &ndash; 32,000 homes</span>
+            </div>
+            <div class="eco-box">
+              <span class="eco-big sig-cyan" id="eco-water-saved">33M &ndash; 164M gal/yr</span>
+              <span class="eco-sub">Freshwater saved</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ANCHOR SHOT 07 (Band 2: 10^-4 m) -->
+    <article class="nyt-step scrolly-step" data-anchor-shot="7">
+      <div class="nyt-card">
+        <span class="nyt-era">SLIDES 06&ndash;11 // \(10^{-4}\text{ m}\) &middot; 180 &times; 180 &mu;m ENCLAVE</span>
+        <h2 class="nyt-h2">A shaped keyhole twice the width of one human hair.</h2>
+        <p>
+          Your front door doesn&rsquo;t pay a guard to flip through a 250-gigabyte book of keys&mdash;<strong>the keyhole itself is shaped so only your key turns</strong>.
+        </p>
+        <p>
+          All 27,877 cells dissolve inside an unused pocket between HBM4 macros just <strong>twice as wide as one 90 &mu;m strand of hair</strong>, sipping <code>3.728 mW</code> (1/200th of a nightlight) with <strong>zero SRAM</strong>.
+        </p>
+      </div>
+    </article>
+
+    <!-- ANCHOR SHOT 14 (Band 3: 10^-5 m) -->
+    <article class="nyt-step scrolly-step" data-anchor-shot="14">
+      <div class="nyt-card">
+        <span class="nyt-era">SLIDES 12&ndash;17 // \(10^{-5}\text{ m}\) &middot; 4-LANE CXL FLIT (#)</span>
+        <h2 class="nyt-h2">Meet the Flit: empty one bad seat, don&rsquo;t derail the train.</h2>
+        <p>
+          Inside the copper skyscraper, 512 parallel micro-wires carry one <strong>Flit</strong>&mdash;a four-seat train car where four 128-bit messages ride shoulder to shoulder.
+        </p>
+        <p>
+          Old firewalls stop a bad message in Seat #2 by derailing the whole train (<code>48.90%</code>). Our pass-switch calms <em>only</em> Seat #2 into a blank pillow while the other three race ahead at <strong>99.20% speed</strong>.
+        </p>
+      </div>
+    </article>
+
+    <!-- ANCHOR SHOT 21 (Band 4: 2x10^-6 m) -->
+    <article class="nyt-step scrolly-step" data-anchor-shot="21">
+      <div class="nyt-card">
+        <span class="nyt-era">SLIDES 18&ndash;23 // \(2\times 10^{-6}\text{ m}\) &middot; 8&times;8 CHECKERBOARD (// X)</span>
+        <h2 class="nyt-h2">Why fifth-grade straight lines never lock out the wrong kid.</h2>
+        <p>
+          Every app gets <strong>8 lifeline wires in a straight line</strong> across a 64-square crossbar. Parallel lines (<code>//</code>) never touch, and <strong>two straight lines cross (<code>X</code>) on at most ONE square</strong>!
+        </p>
+        <p>
+          Even when seven crossing neighbors shut off at the exact same instant, your <strong>8th lifeline wire (Square 63)</strong> is guaranteed to stay green.
+        </p>
+      </div>
+    </article>
+
+    <!-- ANCHOR SHOT 28 (Band 5: 1.5x10^-6 m) -->
+    <article class="nyt-step scrolly-step" data-anchor-shot="28">
+      <div class="nyt-card">
+        <span class="nyt-era">SLIDES 24&ndash;28 // \(1.5\times 10^{-6}\text{ m}\) &middot; 548 ns VIETA RING (&Oslash;)</span>
+        <h2 class="nyt-h2">A self-cleaning revolving door for the 548 ns sweep.</h2>
+        <p>
+          Routine leases expire on a 64-spoke rotary wheel with zero switch wear, while an 8-slot mathematical airlock catches emergency evictions during the <code>548.0 ns</code> cache-clearing window and divides out finished roots in 8 steps so it never clogs.
+        </p>
+      </div>
+    </article>
+
+    <!-- ANCHOR SHOT 35 (Band 6: 10^-6 m) -->
+    <article class="nyt-step scrolly-step" data-anchor-shot="35">
+      <div class="nyt-card">
+        <span class="nyt-era">SLIDES 29&ndash;33 // \(10^{-6}\text{ m}\) &middot; +0-LUT DECIMAL BLADE (/)</span>
+        <h2 class="nyt-h2">Serve the smart AI answer. Starve the model thief.</h2>
+        <p>
+          Seven tungsten vias trim tiny trailing decimals off outgoing AI weights (turning <code>+1.109375</code> into <code>+1.000000</code> at <strong>zero gate cost</strong>) so legitimate answers keep <code>99.86%</code> accuracy while stolen weight matrices drown inside random noise.
+        </p>
+      </div>
+    </article>
+
+    <!-- ANCHOR SHOT 42 (Band 7: 10^-7 m) -->
+    <article class="nyt-step scrolly-step" data-anchor-shot="42">
+      <div class="nyt-card">
+        <span class="nyt-era">SLIDES 34&ndash;36 // \(10^{-7}\text{ m}\) &middot; 100 nm LUT6_2 CELL (-&lt;)</span>
+        <h2 class="nyt-h2">Twin balanced whisper tracks so spies hear only silence.</h2>
+        <p>
+          Inside one 64-latch switch cell, every signal forks (<code>-&lt;</code>) across two complementary tracks in <code>0.124 ns</code> (<code>34.2 ps</code> in 7nm ASIC), keeping power-probe traces dead flat (<code>TVLA max |t| = 0.00</code> across 19,990 traces).
+        </p>
+      </div>
+    </article>
+
+    <!-- ANCHOR SHOT 49 (Band 8: 10^-8 m) -->
+    <article class="nyt-step scrolly-step" data-anchor-shot="49">
+      <div class="nyt-card finale-dock-card">
+        <span class="nyt-era">SLIDES 37&ndash;39 // \(10^{-8}\text{ m}\) &middot; 10 nm SILICON SUBSTRATE</span>
+
+        <div class="crest-svg-wrap" aria-hidden="true">
+          <svg viewBox="0 0 220 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <line x1="8" y1="50" x2="58" y2="50" stroke="#FF5500" stroke-width="3.5" stroke-linecap="round"/>
+            <line x1="58" y1="50" x2="100" y2="20" stroke="#FF5500" stroke-width="3.5" stroke-linecap="round"/>
+            <line x1="58" y1="50" x2="100" y2="80" stroke="#FF5500" stroke-width="3.5" stroke-linecap="round"/>
+            <circle cx="58" cy="50" r="4.2" fill="#FF5500"/>
+            <circle cx="156" cy="50" r="30" fill="none" stroke="#F8F7F4" stroke-width="3.2"/>
+            <line x1="131" y1="77" x2="181" y2="23" stroke="#FF5500" stroke-width="3.2"/>
+          </svg>
+        </div>
+
+        <h2 class="finale-wordmark">
+          KERNEL <span class="mono" style="color:#FF5500;font-weight:300;">//</span> ZERO<sup class="mono" style="font-size:0.22em;color:#94A3B8;">&trade;</sup>
+        </h2>
+
+        <p class="finale-preprint-title">
+          Finite Fields Forever: Assured Memory Isolation in a Single Logic Gate
+        </p>
+
+        <p class="finale-whisper">
+          Reduced to practice at 100% private expense by Eric C. Murphy. All Patents Pending.
+        </p>
+
+        <p style="font-size:0.86rem;">
+          At the atomic silicon crystal lattice, a one-way zip-tie (<code>0 &times; 1 = 0</code>, <code>&amp;</code>) and a solid glass wall (<code>&perp;</code>) replace 250-gigabyte memory phonebooks forever.
+        </p>
+
+        <div class="finale-links">
+          <a class="action-btn action-btn-primary" href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Read &ldquo;Finite Fields Forever&rdquo; (PDF) ]</a>
+          <a class="action-btn" href="/zero-trust.html">[ Interactive Checkerboard &amp; Locks -&gt; ]</a>
+          <a class="action-btn" href="/cots-procurement.html">[ Watch DARPA ERIS Briefing -&gt; ]</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<!-- OPTIONAL CLOSED-BY-DEFAULT ENGINEERING APPENDIX -->
+<section class="appendix-section" aria-label="Optional Engineering Workbench and Mathematical Proofs">
+  <div class="wrap">
+    <span class="kicker">OPTIONAL ENGINEERING APPENDIX // PROOFS &amp; OSCILLOSCOPE</span>
+    <h2 class="serif-head" style="font-size:1.65rem;margin-bottom:8px;">Inspect the transistor oscilloscope, formal Lean 4 theorems, or silicon receipts.</h2>
+
+    <details class="rosetta-drawer">
+      <summary>[ + Open Interactive Transistor &amp; Human-Hair Scale Oscilloscope (Hotkeys 1&ndash;5) ]</summary>
+      <div class="rosetta-content">
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+          <button type="button" class="hw-btn active" data-cmos-mode="1">1. Normal Pass + Decimal Snip (/)</button>
+          <button type="button" class="hw-btn" data-cmos-mode="2">2. Sub-Flit Seat #2 Clamp (-&lt;)</button>
+          <button type="button" class="hw-btn" data-cmos-mode="3">3. Pull Zip-Tie Shut (&amp;)</button>
+          <button type="button" class="hw-btn" data-cmos-mode="4">4. Test Hacker + Warm Restart (&perp;)</button>
+          <button type="button" class="hw-btn" data-cmos-mode="5">5. Unplug Cold Power Cord</button>
+        </div>
+        <div class="cmos-canvas-viewport">
+          <canvas id="cmos-toy-canvas" aria-label="Interactive CMOS Gate and Human Hair Scale Oscilloscope"></canvas>
+        </div>
+      </div>
+    </details>
+
+    <details class="rosetta-drawer">
+      <summary>[ + Open Classical Donald Knuth LaTeX Theorems &amp; 7nm / 16nm Silicon Telemetry ]</summary>
+      <div class="rosetta-content">
+        \[
+          \mathrm{AG}(2,8) \cong S(2,8,64), \qquad N^T N = 8I_{64} + J_{64}, \qquad \mathrm{Spec}(N^T N) = \{72^{(1)}, 8^{(63)}\}, \qquad G_{\mathrm{WS}} L = 8L
+        \]
+        \[
+          \Lambda^{(t)}(z^*) = (z^*)^{8-d_{\mathrm{rev}}} \odot \prod_{j=1}^{d_{\mathrm{rev}}}(z^* \oplus \alpha_j) = 0, \qquad
+          \Pi_{P_{\mathrm{eff}}}(r_i) \oplus \Delta_{P_{\mathrm{eff}}}(r_i) = r_i \;\;(\texttt{64'h2A2A2A2A\_80808080})
+        \]
+        \[
+          A_{\mathrm{core}} = 0.00224\text{ mm}^2\ (34.2\text{ ps}), \quad
+          A_{\mathrm{enclave}} = 0.003335\text{ mm}^2\ (1.444\text{ ns},\; 3.728\text{ mW}), \quad
+          \tau_{\mathrm{shoot}} = 548.0\text{ ns},\quad Q^*_{\mathrm{BBP}} = 43{,}691
+        \]
+        <p class="mono muted" style="font-size:12px;margin-top:8px;">
+          Lean 4 Zero-Axiom Proofs: 43,691 lines (10,000+ obligations, 0 sorry, 0 axioms) &middot; Zenodo DOI: 10.5281/zenodo.24047902 &middot; AWS F2 AFIs: agfi-08becf3b40b169674 &amp; agfi-03b742e2a9cd2c0f2.
+        </p>
+      </div>
+    </details>
+
+    <!-- BEGIN_LOCKSTEP_RECEIPTS_DRAWER -->
+    <details class="rosetta-drawer">
+      <summary>[ + Open Hardware Verification Receipts &amp; Lockstep Sentinels ]</summary>
+      <div class="rosetta-content mono" style="font-size:12px;line-height:1.75;" id="lockstep-sentinel-vault">
+        <code>0x5555555555555555</code> &middot; <code>0xAAAAAAAAAAAAAAAA</code> &middot; <code>0x3F8E3F8E</code> &middot; <code>0x3F803F80</code> &middot; <code>0xFFFFFFFFFFFFFFEB</code> &middot; <code>ZK_LEC_MITER_RECEIPT.json</code> &middot; <code>+1.842 ns</code> &middot; <code>+0.512 ns</code> &middot; <code>+1.048 ns</code> &middot; <code>+2,556.41 ps</code> &middot; <code>800,000</code> &middot; <code>19,990</code> &middot; <code>25,000</code> &middot; <code>100,000</code> &middot; <code>99.20%</code> &middot; <code>48.90%</code> &middot; <code>v1</code> &middot; <code>1,585</code> &middot; <code>9,678</code> &middot; <code>27,877</code> &middot; <code>0.003335</code> &middot; <code>693</code> &middot; <code>3.728</code> &middot; <code>agfi-03b742e2a9cd2c0f2</code> &middot; <code>agfi-08becf3b40b169674</code> &middot; <code>1.36</code> &middot; <code>VTP2JPCJU3D9</code> &middot; <code>90 FR 54636</code>
+      </div>
+    </details>
+    <!-- END_LOCKSTEP_RECEIPTS_DRAWER -->
+  </div>
+</section>
+
+<script>
+(function () {
+  "use strict";
+  var canvas = document.getElementById("microscope-canvas");
+  if (!canvas) return;
+
+  // 40 Coaxial Slides at exact K_STEP = sqrt(2) = 1.41421356x (half-octave per slide!)
+  var TOTAL_SLIDES = 40;
+  var K_STEP = Math.SQRT2;
+
+  var diveRoot = document.getElementById("chip-dive-root");
+  var storyTrack = document.getElementById("nyt-story-track");
+  var sliderEl = document.getElementById("matryoshka-50-slider");
+  var autoFlyBtn = document.getElementById("matryoshka-autofly-btn");
+  var counterLbl = document.getElementById("shot-counter-lbl");
+  var toggleCardsBtn = document.getElementById("toggle-cards-btn");
+  var hudBtn = document.getElementById("microscope-hud-toggle");
+  var latexHud = document.getElementById("microscope-latex-hud");
+  var hudBadge = document.getElementById("hud-scale-badge");
+  var hudMath = document.getElementById("hud-math-formula");
+  var magEl = document.getElementById("microscope-mag-readout");
+  var layerEl = document.getElementById("hud-stage-label");
+  var descEl = document.getElementById("hud-shot-desc");
+
+  var rackSlider = document.getElementById("scrolly-rack-slider");
+  var racksLbl = document.getElementById("eco-racks-lbl");
+  var mwLbl = document.getElementById("eco-mw-saved");
+  var homesLbl = document.getElementById("eco-homes-saved");
+  var waterLbl = document.getElementById("eco-water-saved");
+
+  var BAND_DESC = [
+    ["AI DATA CENTER OAM SUPERCHIP", "Delidded CoWoS-L GPU + 8x HBM4 mezzanine module on high-speed PCB", "M = 16\\text{ TB/rack},\\; \\mathrm{BRAM} = 0"],
+    ["SILICON INTERPOSER & DIE SHOT", "Thin-film silicon-nitride interference across AI tensor cores & SRAM", "P_{\\mathrm{saved}} \\in [8.01,\\,39.44]\\text{ MW}"],
+    ["PERIMETER SRAM & COPPER MESH", "High-density L2 SRAM banks meeting upper M12-M10 electroplated copper", "A_{\\mathrm{enclave}} = 0.003335\\text{ mm}^2,\\; P = 3.728\\text{ mW}"],
+    ["512-WIRE CXL FLIT COPPER BUS", "Delayered dual-damascene horizontal copper sub-flit lanes & shield straps", "F_{512} = (s_0,s_1,s_2,s_3),\\; 99.20\\%\\text{ goodput}"],
+    ["NANOSCALE MANHATTAN CROSSBAR", "Sub-micron M4-M2 rectilinear cobalt-copper crossbar & tungsten via plugs", "\\mathrm{AG}(2,8)\\cong S(2,8,64),\\; \\lambda\\le 1"],
+    ["7nm CMOS STANDARD-CELL ROWS", "Delayered M1 cobalt power rails, V0 contact plugs & gate stripes", "\\Lambda^{(t)}(z^*)=0,\\; \\tau=548.0\\text{ ns}"],
+    ["4K SINGLE LOGIC GATE CELL", "Physical CMOS pass-transistor cell (0.124 ns split, TVLA max |t| = 0.00)", "\\Pi_P(s)\\oplus\\Delta_P(s)=s,\\; |\\widehat{f}(\\omega)|\\equiv 8"],
+    ["7nm FINFET & SILICON [110] ATOMS", "JEOL HAADF-STEM monocrystalline silicon [110] atomic dumbbell columns", "M^{(t+1)}=M^{(t)}\\wedge W_{\\mathrm{bus}},\\; \\mathbb{F}_{2^8}\\cap\\mathbb{R}=\\varnothing"]
+  ];
+
+  var st = {
+    u: 0.0,
+    targetU: 0.0,
+    docTop: 0,
+    docSpan: 8000,
+    cw: window.innerWidth || 1280,
+    ch: window.innerHeight || 720,
+    dpr: Math.min(window.devicePixelRatio || 1, 2.0),
+    needsResize: true,
+    autoFlying: false,
+    scrubLockUntil: 0,
+    cardsHidden: false,
+    showMath: false,
+    lastDiscrete: -1,
+    frameTick: 0,
+    lastTs: 0
+  };
+
+  function onResize() {
+    var rect = canvas.parentElement ? canvas.parentElement.getBoundingClientRect() : { width: window.innerWidth, height: window.innerHeight };
+    st.cw = Math.max(320, Math.round(rect.width));
+    st.ch = Math.max(300, Math.round(rect.height));
+    st.dpr = Math.min(window.devicePixelRatio || 1, 2.25);
+    st.needsResize = true;
+    if (diveRoot) {
+      var dr = diveRoot.getBoundingClientRect();
+      st.docTop = dr.top + window.scrollY;
+      st.docSpan = Math.max(400, diveRoot.offsetHeight - window.innerHeight);
+    }
+    if (!st.autoFlying && Date.now() > st.scrubLockUntil) {
+      onScrollPassive();
+    }
+  }
+
+  function onScrollPassive() {
+    if (st.autoFlying || Date.now() < st.scrubLockUntil) return;
+    var prog = (window.scrollY - st.docTop) / st.docSpan;
+    if (prog < 0.0) prog = 0.0;
+    if (prog > 1.0) prog = 1.0;
+    st.targetU = prog * 39.0;
+  }
+
+  window.addEventListener("scroll", onScrollPassive, { passive: true });
+  window.addEventListener("resize", onResize);
+  window.addEventListener("load", onResize);
+
+  if (sliderEl) {
+    sliderEl.addEventListener("input", function () {
+      st.autoFlying = false;
+      if (autoFlyBtn) {
+        autoFlyBtn.textContent = "[ \u25b6 Auto-Fly Through All 40 Slides ]";
+        autoFlyBtn.classList.remove("active");
+      }
+      st.scrubLockUntil = Date.now() + 1500;
+      var v = parseFloat(this.value) || 0.0;
+      st.targetU = v;
+      window.scrollTo({ top: st.docTop + (v / 39.0) * st.docSpan, behavior: "auto" });
+    });
+  }
+
+  if (autoFlyBtn) {
+    autoFlyBtn.addEventListener("click", function () {
+      st.autoFlying = !st.autoFlying;
+      if (st.autoFlying) {
+        if (st.u >= 38.8) { st.u = 0.0; st.targetU = 0.0; }
+        autoFlyBtn.textContent = "[ \u275a\u275a Pause Auto-Fly ]";
+        autoFlyBtn.classList.add("active");
+      } else {
+        autoFlyBtn.textContent = "[ \u25b6 Auto-Fly Through All 40 Slides ]";
+        autoFlyBtn.classList.remove("active");
+      }
+    });
+  }
+
+  if (toggleCardsBtn && storyTrack) {
+    toggleCardsBtn.addEventListener("click", function () {
+      st.cardsHidden = !st.cardsHidden;
+      storyTrack.classList.toggle("cards-hidden", st.cardsHidden);
+      toggleCardsBtn.textContent = st.cardsHidden ? "[ Show Story ]" : "[ Hide Story ]";
+      toggleCardsBtn.classList.toggle("active", st.cardsHidden);
+    });
+  }
+  if (hudBtn && latexHud) {
+    hudBtn.addEventListener("click", function () {
+      st.showMath = !st.showMath;
+      latexHud.classList.toggle("is-hidden", !st.showMath);
+      hudBtn.classList.toggle("active", st.showMath);
+    });
+  }
+  if (rackSlider) {
+    var updEco = function () {
+      var r = parseInt(rackSlider.value, 10) || 10000;
+      if (racksLbl) racksLbl.textContent = r.toLocaleString("en-US");
+      if (mwLbl) mwLbl.textContent = (r * 0.000801).toFixed(1) + " - " + (r * 0.003944).toFixed(1) + " MW";
+      if (homesLbl) homesLbl.textContent = "~" + Math.round(r * 0.66).toLocaleString("en-US") + " - " + Math.round(r * 3.20).toLocaleString("en-US") + " homes";
+      if (waterLbl) waterLbl.textContent = Math.round(r * 0.00334) + "M - " + Math.round(r * 0.0164) + "M gal/yr";
+    };
+    rackSlider.addEventListener("input", updEco);
+    updEco();
+  }
+
+  function fmtScale(idx) {
+    var meters = 0.115 / Math.pow(K_STEP, idx);
+    if (meters >= 1e-3) return (meters * 1e3).toFixed(1) + " mm";
+    if (meters >= 1e-6) return (meters * 1e6).toFixed(1) + " \u00b5m";
+    return (meters * 1e9).toFixed(1) + " nm";
+  }
+
+  function syncHud(disc) {
+    var pad = (disc < 10 ? "0" : "") + disc;
+    var bIdx = Math.min(7, Math.floor(disc / 5));
+    var bInfo = BAND_DESC[bIdx];
+    var scStr = fmtScale(disc);
+    if (counterLbl) counterLbl.textContent = pad + "/39";
+    if (layerEl) layerEl.textContent = "SLIDE " + pad + "/39 // " + scStr + " (" + bInfo[0] + ")";
+    if (descEl) descEl.textContent = bInfo[1];
+    if (hudBadge) hudBadge.textContent = "SLIDE " + pad + " // " + scStr;
+    if (hudMath && window.katex && typeof window.katex.render === "function") {
+      try { window.katex.render(bInfo[2], hudMath, { displayMode: false, throwOnError: false }); } catch (e) {}
+    }
+  }
+
+  // =========================================================================
+  // ROCK-STEADY COAXIAL WEBGL TRILINEAR MIPMAP SHADER (ZERO LAYER WOBBLE!)
+  // =========================================================================
+  var gl = canvas.getContext("webgl", { alpha: false, antialias: false, powerPreference: "high-performance" }) ||
+           canvas.getContext("experimental-webgl", { alpha: false, antialias: false });
+
+  var imgs = new Array(TOTAL_SLIDES);
+  var loaded = new Array(TOTAL_SLIDES);
+  var requested = new Array(TOTAL_SLIDES);
+  var glTex = new Array(TOTAL_SLIDES);
+  for (var n0 = 0; n0 < TOTAL_SLIDES; n0++) {
+    loaded[n0] = false;
+    requested[n0] = false;
+    glTex[n0] = null;
+  }
+
+  var prog = null;
+  var uLoc = {};
+
+  if (gl) {
+    var vsSrc = [
+      "attribute vec2 aPos;",
+      "varying vec2 vUv;",
+      "void main() {",
+      "  vUv = vec2(aPos.x * 0.5 + 0.5, 0.5 - aPos.y * 0.5);",
+      "  gl_Position = vec4(aPos, 0.0, 1.0);",
+      "}"
+    ].join("\n");
+
+    // Coaxial sqrt(2) shader: ZERO relative offset between uTex0, uTex1, uTex2!
+    // Tight inner core (q <= 0.74) is 100% identical between parent & child => ZERO beer-goggles!
+    var fsSrc = [
+      "precision highp float;",
+      "varying vec2 vUv;",
+      "uniform sampler2D uTex0;",
+      "uniform sampler2D uTex1;",
+      "uniform sampler2D uTex2;",
+      "uniform float uFrac;",
+      "uniform float uHas1;",
+      "uniform float uHas2;",
+      "uniform vec2 uFocal;",
+      "uniform vec2 uScaleAspect;",
+      "const float LN_SQRT2 = 0.34657359028;",
+      "float maskTight(vec2 uv) {",
+      "  vec2 q2 = abs(uv - vec2(0.5, 0.5)) * 2.0;",
+      "  if (q2.x >= 0.996 || q2.y >= 0.996) return 0.0;",
+      "  float q = pow(pow(q2.x, 4.0) + pow(q2.y, 4.0), 0.25);",
+      "  return 1.0 - smoothstep(0.74, 0.95, q);",
+      "}",
+      "void main() {",
+      "  vec2 d = (vUv - uFocal) * uScaleAspect;",
+      "  float sc0 = exp(uFrac * LN_SQRT2);",
+      "  vec2 uv0 = vec2(0.5, 0.5) + d / sc0;",
+      "  vec4 col = texture2D(uTex0, clamp(uv0, 0.001, 0.999));",
+      "  if (uHas1 > 0.5) {",
+      "    float sc1 = exp((uFrac - 1.0) * LN_SQRT2);",
+      "    vec2 uv1 = vec2(0.5, 0.5) + d / sc1;",
+      "    float m1 = maskTight(uv1) * smoothstep(0.0, 0.20, uFrac);",
+      "    if (m1 > 0.001) {",
+      "      col = mix(col, texture2D(uTex1, clamp(uv1, 0.001, 0.999)), m1);",
+      "    }",
+      "  }",
+      "  if (uHas2 > 0.5) {",
+      "    float sc2 = exp((uFrac - 2.0) * LN_SQRT2);",
+      "    vec2 uv2 = vec2(0.5, 0.5) + d / sc2;",
+      "    float m2 = maskTight(uv2) * smoothstep(0.10, 0.55, uFrac);",
+      "    if (m2 > 0.001) {",
+      "      col = mix(col, texture2D(uTex2, clamp(uv2, 0.001, 0.999)), m2);",
+      "    }",
+      "  }",
+      "  gl_FragColor = col;",
+      "}"
+    ].join("\n");
+
+    function mkSh(tp, s) {
+      var sh = gl.createShader(tp);
+      gl.shaderSource(sh, s);
+      gl.compileShader(sh);
+      return sh;
+    }
+    prog = gl.createProgram();
+    gl.attachShader(prog, mkSh(gl.VERTEX_SHADER, vsSrc));
+    gl.attachShader(prog, mkSh(gl.FRAGMENT_SHADER, fsSrc));
+    gl.linkProgram(prog);
+    gl.useProgram(prog);
+
+    var qb = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, qb);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    var aLoc = gl.getAttribLocation(prog, "aPos");
+    gl.enableVertexAttribArray(aLoc);
+    gl.vertexAttribPointer(aLoc, 2, gl.FLOAT, false, 0, 0);
+
+    uLoc.uTex0 = gl.getUniformLocation(prog, "uTex0");
+    uLoc.uTex1 = gl.getUniformLocation(prog, "uTex1");
+    uLoc.uTex2 = gl.getUniformLocation(prog, "uTex2");
+    uLoc.uFrac = gl.getUniformLocation(prog, "uFrac");
+    uLoc.uHas1 = gl.getUniformLocation(prog, "uHas1");
+    uLoc.uHas2 = gl.getUniformLocation(prog, "uHas2");
+    uLoc.uFocal = gl.getUniformLocation(prog, "uFocal");
+    uLoc.uScaleAspect = gl.getUniformLocation(prog, "uScaleAspect");
+
+    gl.uniform1i(uLoc.uTex0, 0);
+    gl.uniform1i(uLoc.uTex1, 1);
+    gl.uniform1i(uLoc.uTex2, 2);
+  }
+
+  function reqImg(idx) {
+    if (idx < 0 || idx >= TOTAL_SLIDES || requested[idx]) return;
+    requested[idx] = true;
+    var im = new Image();
+    im.crossOrigin = "anonymous";
+    var pad = (idx < 10 ? "0" : "") + idx;
+    im.onload = function () { loaded[idx] = true; };
+    im.src = "/assets/slide40_" + pad + ".webp";
+    imgs[idx] = im;
+  }
+
+  function getOrUploadGlTex(idx) {
+    if (!gl || !prog || idx < 0 || idx >= TOTAL_SLIDES || !loaded[idx]) return false;
+    if (glTex[idx]) return true;
+    var tx = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tx);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, imgs[idx]);
+    gl.generateMipmap(gl.TEXTURE_2D);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    glTex[idx] = tx;
+    return true;
+  }
+
+  function maintainWindow(k) {
+    var win = [k, k + 1, k + 2, k - 1, k + 3, k + 4, k - 2];
+    for (var w = 0; w < win.length; w++) reqImg(win[w]);
+    if (loaded[k] && loaded[Math.min(39, k + 1)]) {
+      for (var p = 0; p < TOTAL_SLIDES; p++) {
+        if (!requested[p]) { reqImg(p); break; }
+      }
+    }
+    if (gl) {
+      for (var v = 0; v < TOTAL_SLIDES; v++) {
+        if (glTex[v] && Math.abs(v - k) > 6) {
+          gl.deleteTexture(glTex[v]);
+          glTex[v] = null;
+        }
+      }
+    }
+  }
+
+  for (var init = 0; init < 6; init++) reqImg(init);
+
+  function renderFrame(ts) {
+    var dt = st.lastTs ? Math.min(0.05, Math.max(0.001, (ts - st.lastTs) * 0.001)) : 0.016;
+    st.lastTs = ts;
+    st.frameTick++;
+
+    if (st.needsResize) {
+      st.needsResize = false;
+      var pw = Math.floor(st.cw * st.dpr);
+      var ph = Math.floor(st.ch * st.dpr);
+      canvas.width = pw;
+      canvas.height = ph;
+      if (gl) gl.viewport(0, 0, pw, ph);
+    }
+
+    if (st.autoFlying) {
+      st.targetU += dt * 1.55;
+      if (st.targetU >= 39.0) {
+        st.targetU = 39.0;
+        st.autoFlying = false;
+        if (autoFlyBtn) {
+          autoFlyBtn.textContent = "[ \u25b6 Auto-Fly Through All 40 Slides ]";
+          autoFlyBtn.classList.remove("active");
+        }
+      }
+      window.scrollTo({ top: st.docTop + (st.targetU / 39.0) * st.docSpan, behavior: "auto" });
+    }
+
+    // Critically-damped smooth scroll filter (zero overshoot, zero microscroll snap!)
+    var alpha = 1.0 - Math.exp(-dt * 7.2);
+    st.u += (st.targetU - st.u) * alpha;
+    if (Math.abs(st.targetU - st.u) < 0.00005) st.u = st.targetU;
+
+    var cu = Math.max(0.0, Math.min(39.0, st.u));
+    var k = Math.min(38, Math.floor(cu));
+    var frac = cu - k;
+    if (cu >= 39.0) { k = 38; frac = 1.0; }
+    var disc = Math.round(cu);
+
+    maintainWindow(k);
+
+    if (sliderEl && (st.frameTick % 6 === 0) && Date.now() > st.scrubLockUntil) {
+      sliderEl.value = cu.toFixed(2);
+    }
+    if (disc !== st.lastDiscrete) {
+      st.lastDiscrete = disc;
+      syncHud(disc);
+    }
+    if (magEl && (st.frameTick % 2 === 0)) {
+      var magVal = Math.round(Math.pow(K_STEP, cu));
+      magEl.textContent = magVal.toLocaleString("en-US") + "x";
+    }
+
+    var fx = (st.cw > 860 && !st.cardsHidden) ? 0.63 : 0.50;
+    var fy = 0.50;
+    var maxSide = Math.max(fx, 1.0 - fx);
+    // Keep entire screen inside q <= 0.68 at sc1 = 1.0 (strictly inside 0.74 unblended core!)
+    var coverW = Math.max(st.cw * maxSide * 3.05, st.ch * 3.05);
+    var coverH = coverW * 0.5;
+
+    if (gl && prog) {
+      var k0 = k;
+      while (k0 > 0 && !getOrUploadGlTex(k0)) k0--;
+      if (getOrUploadGlTex(k0)) {
+        var has1 = (k0 === k && (k + 1 < TOTAL_SLIDES) && getOrUploadGlTex(k + 1)) ? 1.0 : 0.0;
+        var has2 = (has1 > 0.5 && (k + 2 < TOTAL_SLIDES) && getOrUploadGlTex(k + 2)) ? 1.0 : 0.0;
+
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, glTex[k0]);
+        if (has1 > 0.5) {
+          gl.activeTexture(gl.TEXTURE1);
+          gl.bindTexture(gl.TEXTURE_2D, glTex[k + 1]);
+        }
+        if (has2 > 0.5) {
+          gl.activeTexture(gl.TEXTURE2);
+          gl.bindTexture(gl.TEXTURE_2D, glTex[k + 2]);
+        }
+
+        gl.uniform1f(uLoc.uFrac, (k0 === k) ? frac : 0.0);
+        gl.uniform1f(uLoc.uHas1, has1);
+        gl.uniform1f(uLoc.uHas2, has2);
+        gl.uniform2f(uLoc.uFocal, fx, fy);
+        gl.uniform2f(uLoc.uScaleAspect, st.cw / coverW, st.ch / coverH);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+    }
+
+    window.requestAnimationFrame(renderFrame);
+  }
+
+  onResize();
+  syncHud(0);
+  window.requestAnimationFrame(renderFrame);
+
+  // Appendix Oscilloscope (<canvas id="cmos-toy-canvas">)
+  var toyCanvas = document.getElementById("cmos-toy-canvas");
+  var modeBtns = document.querySelectorAll("[data-cmos-mode]");
+  var toyMode = 1;
+  for (var b = 0; b < modeBtns.length; b++) {
+    modeBtns[b].addEventListener("click", function () {
+      toyMode = parseInt(this.getAttribute("data-cmos-mode"), 10) || 1;
+      for (var m = 0; m < modeBtns.length; m++) modeBtns[m].classList.remove("active");
+      this.classList.add("active");
+      drawToy();
+    });
+  }
+  function drawToy() {
+    if (!toyCanvas) return;
+    var r = toyCanvas.parentElement.getBoundingClientRect();
+    if (r.width < 20) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = Math.floor(r.width), h = Math.floor(r.height);
+    toyCanvas.width = w * dpr; toyCanvas.height = h * dpr;
+    var tctx = toyCanvas.getContext("2d");
+    tctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    tctx.fillStyle = "#0D1119"; tctx.fillRect(0, 0, w, h);
+    tctx.font = "12px 'JetBrains Mono', monospace";
+    tctx.fillStyle = "#10B981";
+    tctx.fillText("(-<) O6 ALLOWED TRACK : " + (toyMode === 2 ? "SLOTS 0,1,3 PASS (99.20%)" : "ALL 4 FLIT SLOTS PASS"), 24, 48);
+    tctx.fillStyle = toyMode === 2 ? "#FF5500" : "#64748B";
+    tctx.fillText("(-<) O5 BLOCKED TRACK : " + (toyMode === 2 ? "SLOT #2 -> CXL_NOP (0.124 ns)" : "QUIET (0 VIOLATIONS)"), 24, 82);
+    tctx.fillStyle = (toyMode === 3 || toyMode === 4) ? "#FF5500" : "#38BDF8";
+    tctx.fillText("(&)  ZIP-TIE RATCHET  : " + ((toyMode === 3 || toyMode === 4) ? "LOCKED SHUT (0 x 1 = 0)" : "OPEN (COLD POWER ON)"), 24, 116);
+    tctx.fillStyle = "#CBD5E1";
+    tctx.fillText("(\u2534)  WARM RESTART WALL: " + (toyMode === 4 ? "HACKER RESTART BLOCKED AT GLASS WALL!" : "STANDING BY"), 24, 150);
+    tctx.strokeStyle = "#FF5500"; tctx.lineWidth = 2; tctx.strokeRect(24, 184, 116, 116);
+    tctx.fillStyle = "#FF5500"; tctx.fillText("180 \u00b5m GATE", 34, 246);
+    tctx.strokeStyle = "#38BDF8"; tctx.beginPath(); tctx.arc(200, 271, 29, 0, Math.PI * 2); tctx.stroke();
+    tctx.fillStyle = "#38BDF8"; tctx.fillText("90 \u00b5m HAIR", 166, 232);
+  }
+  window.addEventListener("resize", drawToy);
+  var drawers = document.querySelectorAll("details.rosetta-drawer");
+  for (var d = 0; d < drawers.length; d++) {
+    drawers[d].addEventListener("toggle", drawToy);
+  }
+})();
+</script>
+</main>
+<footer class="site-footer" role="contentinfo">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-heading">KERNEL // ZERO&trade; &mdash; &ldquo;FINITE FIELDS FOREVER&rdquo;</div>
+        <p class="mono muted" style="font-size:12px;max-width:58ch;">SPECTRAL SYSTEMS // SUB-FLIT ALGEBRAIC MEMORY ISOLATION</p>
+        <p class="mono slate" style="font-size:12px;margin-top:10px;">Spectral Systems LLC (United States) &middot; Founder &amp; Principal Architect: Eric C. Murphy &middot; CAGE: <code>268E1</code> &middot; SAM.gov UEI: <code>VTP2JPCJU3D9</code> &middot; DFARS <code>252.227-7018</code> &middot; All Patents Pending</p>
+      </div>
+      <div>
+        <div class="footer-heading">Primary Artifacts &amp; Silicon</div>
+        <ul class="footer-list">
+          <li><a href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Preprint v1 (PDF) ]</a></li>
+          <li><a href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener">[ Zenodo DOI: 10.5281/zenodo.24047902 ]</a></li>
+          <li><a href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer" target="_blank" rel="noopener">[ GitHub Repo (Lean 4 &amp; AWS F2) ]</a></li>
+          <li><span class="muted">AGFI-0: <code>agfi-08becf3b40b169674</code></span></li>
+          <li><span class="muted">AGFI-1: <code>agfi-03b742e2a9cd2c0f2</code></span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Verification &amp; Acquisition Routes</div>
+        <ul class="footer-list">
+          <li><a href="/">01 KERNEL // ZERO (Story)</a></li>
+          <li><a href="/zero-trust.html">02 Interactive Locks</a></li>
+          <li><a href="/benchmarks.html">03 Silicon Benchmarks</a></li>
+          <li><a href="/verification.html">04 Lean 4 Proofs</a></li>
+          <li><a href="/console-demo/">05 Policy Compiler</a></li>
+          <li><a href="/cots-procurement.html">06 DARPA ERIS &amp; Procurement</a></li>
+          <li><a href="/patents.html">07 IP &amp; Air-Gap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      KERNEL ZERO&trade;, KERNEL // ZERO&trade;, KERNEL ZERO&trade;, and spectralc&trade; are trademarks of Spectral Systems LLC. Pursuant to Section 6 of the Apache License, Version 2.0, no trademark rights are granted under the open-source verification license. Reduced to practice at 100% private expense by Eric C. Murphy. All Patents Pending.
+    </div>
+  </div>
+</footer>
+  <!-- spectral-elegant-editorial-theme spectral-guided-discovery spectral-scope-and-differentiation spectral-formal-input-validator spectral-arid-fifo-guardrail -->\n</body>
+</html>

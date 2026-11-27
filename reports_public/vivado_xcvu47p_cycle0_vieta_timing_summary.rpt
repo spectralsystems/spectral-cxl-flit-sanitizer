@@ -1,0 +1,987 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date              : Tue Nov 24 18:31:39 2026
+| Host              : ip-172-31-47-180 running 64-bit Ubuntu 24.04.1 LTS
+| Command           : report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -file /dev/shm/spectral_enclave/out/vivado_xcvu47p_cycle0_vieta_timing_summary.rpt
+| Design            : cxl_cycle0_vieta_steiner_unsealer
+| Device            : xcvu47p-fsvh2892
+| Speed File        : -2L  PRODUCTION 1.30 05-01-2022
+| Design State      : Physopt postRoute
+| Temperature Grade : E
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+  Ignore I/O Paths                           :  No
+  Timing Early Launch at Borrowing Latches   :  No
+  Borrow Time for Max Delay Exceptions       :  Yes
+  Merge Timing Exceptions                    :  Yes
+  Inter-SLR Compensation                     :  Conservative
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+------------------------------------------------------------------------------------------------
+| Report Methodology
+| ------------------
+------------------------------------------------------------------------------------------------
+
+No report available as report_methodology has not been run prior. Run report_methodology on the current design for the summary of methodology violations.
+
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock (0)
+2. checking constant_clock (0)
+3. checking pulse_width_clock (0)
+4. checking unconstrained_internal_endpoints (0)
+5. checking no_input_delay (0)
+6. checking no_output_delay (0)
+7. checking multiple_clock (0)
+8. checking generated_clocks (0)
+9. checking loops (0)
+10. checking partial_input_delay (0)
+11. checking partial_output_delay (0)
+12. checking latch_loops (0)
+
+1. checking no_clock (0)
+------------------------
+ There are 0 register/latch pins with no clock.
+
+
+2. checking constant_clock (0)
+------------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock (0)
+---------------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints (0)
+------------------------------------------------
+ There are 0 pins that are not constrained for maximum delay.
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay (0)
+------------------------------
+ There are 0 input ports with no input delay specified.
+
+ There are 0 input ports with no input delay but user has a false path constraint.
+
+
+6. checking no_output_delay (0)
+-------------------------------
+ There are 0 ports with no output delay specified.
+
+ There are 0 ports with no output delay but user has a false path constraint
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock (0)
+------------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks (0)
+--------------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops (0)
+---------------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay (0)
+------------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay (0)
+-------------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops (0)
+----------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+        inf        0.000                      0                  264          inf        0.000                      0                  264           NA           NA                      NA                    NA  
+
+
+There are no user specified timing constraints.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----             -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    ----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| User Ignored Path Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock    
+----------    ----------    --------    
+
+
+------------------------------------------------------------------------------------------------
+| Unconstrained Path Table
+| ------------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock    
+----------    ----------    --------    
+(none)                                    
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------
+Path Group:  (none)
+From Clock:  
+  To Clock:  
+
+Max Delay           264 Endpoints
+Min Delay           264 Endpoints
+--------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack:                    inf
+  Source:                 s_slot_cid_i[1]
+                            (input port)
+  Destination:            m_slot_cap_vec_o[15]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        6.361ns  (logic 1.486ns (23.361%)  route 4.875ns (76.639%))
+  Logic Levels:           13  (LUT3=1 LUT4=3 LUT5=2 LUT6=7)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       s_slot_cid_i[1] (IN)
+                         net (fo=42, unset)           0.000     0.000                         s_slot_cid_i[1]
+    SLICE_X87Y45         LUT5 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.158     0.158 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_530/O
+                         net (fo=1, routed)           0.272     0.430                         m_slot_cap_vec_o[63]_INST_0_i_530_n_0
+    SLICE_X87Y45         LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.123     0.553 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_444/O
+                         net (fo=20, routed)          0.143     0.696                         m_slot_cap_vec_o[63]_INST_0_i_444_n_0
+    SLICE_X87Y46         LUT5 (Prop_D6LUT_SLICEM_I4_O)
+                                                      0.051     0.747 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_356/O
+                         net (fo=16, routed)          0.638     1.385                         m_slot_cap_vec_o[63]_INST_0_i_356_n_0
+    SLICE_X86Y44         LUT4 (Prop_C5LUT_SLICEL_I1_O)
+                                                      0.136     1.521 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_425/O
+                         net (fo=2, routed)           0.173     1.694                         m_slot_cap_vec_o[63]_INST_0_i_425_n_0
+    SLICE_X86Y44         LUT6 (Prop_A6LUT_SLICEL_I0_O)
+                                                      0.090     1.784 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_406/O
+                         net (fo=25, routed)          0.587     2.371                         m_slot_cap_vec_o[63]_INST_0_i_406_n_0
+    SLICE_X82Y49         LUT3 (Prop_C5LUT_SLICEL_I0_O)
+                                                      0.136     2.507 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_398/O
+                         net (fo=1, routed)           0.156     2.663                         m_slot_cap_vec_o[63]_INST_0_i_398_n_0
+    SLICE_X82Y49         LUT6 (Prop_H6LUT_SLICEL_I2_O)
+                                                      0.036     2.699 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_227/O
+                         net (fo=20, routed)          0.281     2.980                         m_slot_cap_vec_o[63]_INST_0_i_227_n_0
+    SLICE_X81Y48         LUT4 (Prop_C5LUT_SLICEM_I1_O)
+                                                      0.137     3.117 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_124/O
+                         net (fo=1, routed)           0.219     3.336                         m_slot_cap_vec_o[63]_INST_0_i_124_n_0
+    SLICE_X83Y48         LUT6 (Prop_G6LUT_SLICEL_I3_O)
+                                                      0.123     3.459 f  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_34/O
+                         net (fo=9, routed)           0.735     4.194                         m_slot_cap_vec_o[63]_INST_0_i_34_n_0
+    SLICE_X76Y36         LUT4 (Prop_D5LUT_SLICEM_I3_O)
+                                                      0.158     4.352 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_44/O
+                         net (fo=1, routed)           0.357     4.709                         m_slot_cap_vec_o[63]_INST_0_i_44_n_0
+    SLICE_X80Y43         LUT6 (Prop_D6LUT_SLICEL_I2_O)
+                                                      0.089     4.798 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_11/O
+                         net (fo=1, routed)           0.048     4.846                         m_slot_cap_vec_o[63]_INST_0_i_11_n_0
+    SLICE_X80Y43         LUT6 (Prop_B6LUT_SLICEL_I2_O)
+                                                      0.124     4.970 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_3/O
+                         net (fo=65, routed)          1.266     6.236                         m_slot_cap_vec_o[63]_INST_0_i_3_n_0
+    SLICE_X72Y24         LUT6 (Prop_H6LUT_SLICEM_I4_O)
+                                                      0.125     6.361 r  pblock_spectral_slr0 m_slot_cap_vec_o[15]_INST_0/O
+                         net (fo=0)                   0.000     6.361                         m_slot_cap_vec_o[15]
+                                                                      r                       m_slot_cap_vec_o[15] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 s_slot_cid_i[1]
+                            (input port)
+  Destination:            m_slot_cap_vec_o[2]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        6.313ns  (logic 1.449ns (22.952%)  route 4.864ns (77.048%))
+  Logic Levels:           13  (LUT3=1 LUT4=3 LUT5=2 LUT6=7)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       s_slot_cid_i[1] (IN)
+                         net (fo=42, unset)           0.000     0.000                         s_slot_cid_i[1]
+    SLICE_X87Y45         LUT5 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.158     0.158 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_530/O
+                         net (fo=1, routed)           0.272     0.430                         m_slot_cap_vec_o[63]_INST_0_i_530_n_0
+    SLICE_X87Y45         LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.123     0.553 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_444/O
+                         net (fo=20, routed)          0.143     0.696                         m_slot_cap_vec_o[63]_INST_0_i_444_n_0
+    SLICE_X87Y46         LUT5 (Prop_D6LUT_SLICEM_I4_O)
+                                                      0.051     0.747 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_356/O
+                         net (fo=16, routed)          0.638     1.385                         m_slot_cap_vec_o[63]_INST_0_i_356_n_0
+    SLICE_X86Y44         LUT4 (Prop_C5LUT_SLICEL_I1_O)
+                                                      0.136     1.521 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_425/O
+                         net (fo=2, routed)           0.173     1.694                         m_slot_cap_vec_o[63]_INST_0_i_425_n_0
+    SLICE_X86Y44         LUT6 (Prop_A6LUT_SLICEL_I0_O)
+                                                      0.090     1.784 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_406/O
+                         net (fo=25, routed)          0.587     2.371                         m_slot_cap_vec_o[63]_INST_0_i_406_n_0
+    SLICE_X82Y49         LUT3 (Prop_C5LUT_SLICEL_I0_O)
+                                                      0.136     2.507 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_398/O
+                         net (fo=1, routed)           0.156     2.663                         m_slot_cap_vec_o[63]_INST_0_i_398_n_0
+    SLICE_X82Y49         LUT6 (Prop_H6LUT_SLICEL_I2_O)
+                                                      0.036     2.699 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_227/O
+                         net (fo=20, routed)          0.281     2.980                         m_slot_cap_vec_o[63]_INST_0_i_227_n_0
+    SLICE_X81Y48         LUT4 (Prop_C5LUT_SLICEM_I1_O)
+                                                      0.137     3.117 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_124/O
+                         net (fo=1, routed)           0.219     3.336                         m_slot_cap_vec_o[63]_INST_0_i_124_n_0
+    SLICE_X83Y48         LUT6 (Prop_G6LUT_SLICEL_I3_O)
+                                                      0.123     3.459 f  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_34/O
+                         net (fo=9, routed)           0.735     4.194                         m_slot_cap_vec_o[63]_INST_0_i_34_n_0
+    SLICE_X76Y36         LUT4 (Prop_D5LUT_SLICEM_I3_O)
+                                                      0.158     4.352 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_44/O
+                         net (fo=1, routed)           0.357     4.709                         m_slot_cap_vec_o[63]_INST_0_i_44_n_0
+    SLICE_X80Y43         LUT6 (Prop_D6LUT_SLICEL_I2_O)
+                                                      0.089     4.798 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_11/O
+                         net (fo=1, routed)           0.048     4.846                         m_slot_cap_vec_o[63]_INST_0_i_11_n_0
+    SLICE_X80Y43         LUT6 (Prop_B6LUT_SLICEL_I2_O)
+                                                      0.124     4.970 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_3/O
+                         net (fo=65, routed)          1.255     6.225                         m_slot_cap_vec_o[63]_INST_0_i_3_n_0
+    SLICE_X72Y24         LUT6 (Prop_F6LUT_SLICEM_I4_O)
+                                                      0.088     6.313 r  pblock_spectral_slr0 m_slot_cap_vec_o[2]_INST_0/O
+                         net (fo=0)                   0.000     6.313                         m_slot_cap_vec_o[2]
+                                                                      r                       m_slot_cap_vec_o[2] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 s_slot_cid_i[1]
+                            (input port)
+  Destination:            m_slot_cap_vec_o[29]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        6.299ns  (logic 1.484ns (23.560%)  route 4.815ns (76.440%))
+  Logic Levels:           13  (LUT3=1 LUT4=3 LUT5=2 LUT6=7)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       s_slot_cid_i[1] (IN)
+                         net (fo=42, unset)           0.000     0.000                         s_slot_cid_i[1]
+    SLICE_X87Y45         LUT5 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.158     0.158 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_530/O
+                         net (fo=1, routed)           0.272     0.430                         m_slot_cap_vec_o[63]_INST_0_i_530_n_0
+    SLICE_X87Y45         LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.123     0.553 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_444/O
+                         net (fo=20, routed)          0.143     0.696                         m_slot_cap_vec_o[63]_INST_0_i_444_n_0
+    SLICE_X87Y46         LUT5 (Prop_D6LUT_SLICEM_I4_O)
+                                                      0.051     0.747 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_356/O
+                         net (fo=16, routed)          0.638     1.385                         m_slot_cap_vec_o[63]_INST_0_i_356_n_0
+    SLICE_X86Y44         LUT4 (Prop_C5LUT_SLICEL_I1_O)
+                                                      0.136     1.521 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_425/O
+                         net (fo=2, routed)           0.173     1.694                         m_slot_cap_vec_o[63]_INST_0_i_425_n_0
+    SLICE_X86Y44         LUT6 (Prop_A6LUT_SLICEL_I0_O)
+                                                      0.090     1.784 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_406/O
+                         net (fo=25, routed)          0.587     2.371                         m_slot_cap_vec_o[63]_INST_0_i_406_n_0
+    SLICE_X82Y49         LUT3 (Prop_C5LUT_SLICEL_I0_O)
+                                                      0.136     2.507 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_398/O
+                         net (fo=1, routed)           0.156     2.663                         m_slot_cap_vec_o[63]_INST_0_i_398_n_0
+    SLICE_X82Y49         LUT6 (Prop_H6LUT_SLICEL_I2_O)
+                                                      0.036     2.699 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_227/O
+                         net (fo=20, routed)          0.281     2.980                         m_slot_cap_vec_o[63]_INST_0_i_227_n_0
+    SLICE_X81Y48         LUT4 (Prop_C5LUT_SLICEM_I1_O)
+                                                      0.137     3.117 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_124/O
+                         net (fo=1, routed)           0.219     3.336                         m_slot_cap_vec_o[63]_INST_0_i_124_n_0
+    SLICE_X83Y48         LUT6 (Prop_G6LUT_SLICEL_I3_O)
+                                                      0.123     3.459 f  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_34/O
+                         net (fo=9, routed)           0.735     4.194                         m_slot_cap_vec_o[63]_INST_0_i_34_n_0
+    SLICE_X76Y36         LUT4 (Prop_D5LUT_SLICEM_I3_O)
+                                                      0.158     4.352 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_44/O
+                         net (fo=1, routed)           0.357     4.709                         m_slot_cap_vec_o[63]_INST_0_i_44_n_0
+    SLICE_X80Y43         LUT6 (Prop_D6LUT_SLICEL_I2_O)
+                                                      0.089     4.798 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_11/O
+                         net (fo=1, routed)           0.048     4.846                         m_slot_cap_vec_o[63]_INST_0_i_11_n_0
+    SLICE_X80Y43         LUT6 (Prop_B6LUT_SLICEL_I2_O)
+                                                      0.124     4.970 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_3/O
+                         net (fo=65, routed)          1.206     6.176                         m_slot_cap_vec_o[63]_INST_0_i_3_n_0
+    SLICE_X72Y24         LUT6 (Prop_G6LUT_SLICEM_I4_O)
+                                                      0.123     6.299 r  pblock_spectral_slr0 m_slot_cap_vec_o[29]_INST_0/O
+                         net (fo=0)                   0.000     6.299                         m_slot_cap_vec_o[29]
+                                                                      r                       m_slot_cap_vec_o[29] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 s_slot_cid_i[1]
+                            (input port)
+  Destination:            m_slot_cap_vec_o[19]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        6.247ns  (logic 1.485ns (23.772%)  route 4.762ns (76.228%))
+  Logic Levels:           13  (LUT3=1 LUT4=3 LUT5=2 LUT6=7)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       s_slot_cid_i[1] (IN)
+                         net (fo=42, unset)           0.000     0.000                         s_slot_cid_i[1]
+    SLICE_X87Y45         LUT5 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.158     0.158 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_530/O
+                         net (fo=1, routed)           0.272     0.430                         m_slot_cap_vec_o[63]_INST_0_i_530_n_0
+    SLICE_X87Y45         LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.123     0.553 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_444/O
+                         net (fo=20, routed)          0.143     0.696                         m_slot_cap_vec_o[63]_INST_0_i_444_n_0
+    SLICE_X87Y46         LUT5 (Prop_D6LUT_SLICEM_I4_O)
+                                                      0.051     0.747 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_356/O
+                         net (fo=16, routed)          0.638     1.385                         m_slot_cap_vec_o[63]_INST_0_i_356_n_0
+    SLICE_X86Y44         LUT4 (Prop_C5LUT_SLICEL_I1_O)
+                                                      0.136     1.521 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_425/O
+                         net (fo=2, routed)           0.173     1.694                         m_slot_cap_vec_o[63]_INST_0_i_425_n_0
+    SLICE_X86Y44         LUT6 (Prop_A6LUT_SLICEL_I0_O)
+                                                      0.090     1.784 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_406/O
+                         net (fo=25, routed)          0.587     2.371                         m_slot_cap_vec_o[63]_INST_0_i_406_n_0
+    SLICE_X82Y49         LUT3 (Prop_C5LUT_SLICEL_I0_O)
+                                                      0.136     2.507 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_398/O
+                         net (fo=1, routed)           0.156     2.663                         m_slot_cap_vec_o[63]_INST_0_i_398_n_0
+    SLICE_X82Y49         LUT6 (Prop_H6LUT_SLICEL_I2_O)
+                                                      0.036     2.699 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_227/O
+                         net (fo=20, routed)          0.281     2.980                         m_slot_cap_vec_o[63]_INST_0_i_227_n_0
+    SLICE_X81Y48         LUT4 (Prop_C5LUT_SLICEM_I1_O)
+                                                      0.137     3.117 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_124/O
+                         net (fo=1, routed)           0.219     3.336                         m_slot_cap_vec_o[63]_INST_0_i_124_n_0
+    SLICE_X83Y48         LUT6 (Prop_G6LUT_SLICEL_I3_O)
+                                                      0.123     3.459 f  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_34/O
+                         net (fo=9, routed)           0.735     4.194                         m_slot_cap_vec_o[63]_INST_0_i_34_n_0
+    SLICE_X76Y36         LUT4 (Prop_D5LUT_SLICEM_I3_O)
+                                                      0.158     4.352 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_44/O
+                         net (fo=1, routed)           0.357     4.709                         m_slot_cap_vec_o[63]_INST_0_i_44_n_0
+    SLICE_X80Y43         LUT6 (Prop_D6LUT_SLICEL_I2_O)
+                                                      0.089     4.798 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_11/O
+                         net (fo=1, routed)           0.048     4.846                         m_slot_cap_vec_o[63]_INST_0_i_11_n_0
+    SLICE_X80Y43         LUT6 (Prop_B6LUT_SLICEL_I2_O)
+                                                      0.124     4.970 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_3/O
+                         net (fo=65, routed)          1.153     6.123                         m_slot_cap_vec_o[63]_INST_0_i_3_n_0
+    SLICE_X73Y22         LUT6 (Prop_H6LUT_SLICEL_I4_O)
+                                                      0.124     6.247 r  pblock_spectral_slr0 m_slot_cap_vec_o[19]_INST_0/O
+                         net (fo=0)                   0.000     6.247                         m_slot_cap_vec_o[19]
+                                                                      r                       m_slot_cap_vec_o[19] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 s_slot_cid_i[1]
+                            (input port)
+  Destination:            m_slot_cap_vec_o[50]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        6.234ns  (logic 1.484ns (23.806%)  route 4.750ns (76.194%))
+  Logic Levels:           13  (LUT3=1 LUT4=3 LUT5=2 LUT6=7)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       s_slot_cid_i[1] (IN)
+                         net (fo=42, unset)           0.000     0.000                         s_slot_cid_i[1]
+    SLICE_X87Y45         LUT5 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.158     0.158 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_530/O
+                         net (fo=1, routed)           0.272     0.430                         m_slot_cap_vec_o[63]_INST_0_i_530_n_0
+    SLICE_X87Y45         LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.123     0.553 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_444/O
+                         net (fo=20, routed)          0.143     0.696                         m_slot_cap_vec_o[63]_INST_0_i_444_n_0
+    SLICE_X87Y46         LUT5 (Prop_D6LUT_SLICEM_I4_O)
+                                                      0.051     0.747 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_356/O
+                         net (fo=16, routed)          0.638     1.385                         m_slot_cap_vec_o[63]_INST_0_i_356_n_0
+    SLICE_X86Y44         LUT4 (Prop_C5LUT_SLICEL_I1_O)
+                                                      0.136     1.521 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_425/O
+                         net (fo=2, routed)           0.173     1.694                         m_slot_cap_vec_o[63]_INST_0_i_425_n_0
+    SLICE_X86Y44         LUT6 (Prop_A6LUT_SLICEL_I0_O)
+                                                      0.090     1.784 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_406/O
+                         net (fo=25, routed)          0.587     2.371                         m_slot_cap_vec_o[63]_INST_0_i_406_n_0
+    SLICE_X82Y49         LUT3 (Prop_C5LUT_SLICEL_I0_O)
+                                                      0.136     2.507 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_398/O
+                         net (fo=1, routed)           0.156     2.663                         m_slot_cap_vec_o[63]_INST_0_i_398_n_0
+    SLICE_X82Y49         LUT6 (Prop_H6LUT_SLICEL_I2_O)
+                                                      0.036     2.699 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_227/O
+                         net (fo=20, routed)          0.281     2.980                         m_slot_cap_vec_o[63]_INST_0_i_227_n_0
+    SLICE_X81Y48         LUT4 (Prop_C5LUT_SLICEM_I1_O)
+                                                      0.137     3.117 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_124/O
+                         net (fo=1, routed)           0.219     3.336                         m_slot_cap_vec_o[63]_INST_0_i_124_n_0
+    SLICE_X83Y48         LUT6 (Prop_G6LUT_SLICEL_I3_O)
+                                                      0.123     3.459 f  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_34/O
+                         net (fo=9, routed)           0.735     4.194                         m_slot_cap_vec_o[63]_INST_0_i_34_n_0
+    SLICE_X76Y36         LUT4 (Prop_D5LUT_SLICEM_I3_O)
+                                                      0.158     4.352 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_44/O
+                         net (fo=1, routed)           0.357     4.709                         m_slot_cap_vec_o[63]_INST_0_i_44_n_0
+    SLICE_X80Y43         LUT6 (Prop_D6LUT_SLICEL_I2_O)
+                                                      0.089     4.798 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_11/O
+                         net (fo=1, routed)           0.048     4.846                         m_slot_cap_vec_o[63]_INST_0_i_11_n_0
+    SLICE_X80Y43         LUT6 (Prop_B6LUT_SLICEL_I2_O)
+                                                      0.124     4.970 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_3/O
+                         net (fo=65, routed)          1.140     6.111                         m_slot_cap_vec_o[63]_INST_0_i_3_n_0
+    SLICE_X73Y22         LUT6 (Prop_C6LUT_SLICEL_I4_O)
+                                                      0.123     6.234 r  pblock_spectral_slr0 m_slot_cap_vec_o[50]_INST_0/O
+                         net (fo=0)                   0.000     6.234                         m_slot_cap_vec_o[50]
+                                                                      r                       m_slot_cap_vec_o[50] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 s_slot_cid_i[1]
+                            (input port)
+  Destination:            m_slot_cap_vec_o[20]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        6.231ns  (logic 1.483ns (23.801%)  route 4.748ns (76.199%))
+  Logic Levels:           13  (LUT3=1 LUT4=3 LUT5=2 LUT6=7)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       s_slot_cid_i[1] (IN)
+                         net (fo=42, unset)           0.000     0.000                         s_slot_cid_i[1]
+    SLICE_X87Y45         LUT5 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.158     0.158 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_530/O
+                         net (fo=1, routed)           0.272     0.430                         m_slot_cap_vec_o[63]_INST_0_i_530_n_0
+    SLICE_X87Y45         LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.123     0.553 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_444/O
+                         net (fo=20, routed)          0.143     0.696                         m_slot_cap_vec_o[63]_INST_0_i_444_n_0
+    SLICE_X87Y46         LUT5 (Prop_D6LUT_SLICEM_I4_O)
+                                                      0.051     0.747 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_356/O
+                         net (fo=16, routed)          0.638     1.385                         m_slot_cap_vec_o[63]_INST_0_i_356_n_0
+    SLICE_X86Y44         LUT4 (Prop_C5LUT_SLICEL_I1_O)
+                                                      0.136     1.521 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_425/O
+                         net (fo=2, routed)           0.173     1.694                         m_slot_cap_vec_o[63]_INST_0_i_425_n_0
+    SLICE_X86Y44         LUT6 (Prop_A6LUT_SLICEL_I0_O)
+                                                      0.090     1.784 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_406/O
+                         net (fo=25, routed)          0.587     2.371                         m_slot_cap_vec_o[63]_INST_0_i_406_n_0
+    SLICE_X82Y49         LUT3 (Prop_C5LUT_SLICEL_I0_O)
+                                                      0.136     2.507 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_398/O
+                         net (fo=1, routed)           0.156     2.663                         m_slot_cap_vec_o[63]_INST_0_i_398_n_0
+    SLICE_X82Y49         LUT6 (Prop_H6LUT_SLICEL_I2_O)
+                                                      0.036     2.699 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_227/O
+                         net (fo=20, routed)          0.281     2.980                         m_slot_cap_vec_o[63]_INST_0_i_227_n_0
+    SLICE_X81Y48         LUT4 (Prop_C5LUT_SLICEM_I1_O)
+                                                      0.137     3.117 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_124/O
+                         net (fo=1, routed)           0.219     3.336                         m_slot_cap_vec_o[63]_INST_0_i_124_n_0
+    SLICE_X83Y48         LUT6 (Prop_G6LUT_SLICEL_I3_O)
+                                                      0.123     3.459 f  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_34/O
+                         net (fo=9, routed)           0.735     4.194                         m_slot_cap_vec_o[63]_INST_0_i_34_n_0
+    SLICE_X76Y36         LUT4 (Prop_D5LUT_SLICEM_I3_O)
+                                                      0.158     4.352 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_44/O
+                         net (fo=1, routed)           0.357     4.709                         m_slot_cap_vec_o[63]_INST_0_i_44_n_0
+    SLICE_X80Y43         LUT6 (Prop_D6LUT_SLICEL_I2_O)
+                                                      0.089     4.798 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_11/O
+                         net (fo=1, routed)           0.048     4.846                         m_slot_cap_vec_o[63]_INST_0_i_11_n_0
+    SLICE_X80Y43         LUT6 (Prop_B6LUT_SLICEL_I2_O)
+                                                      0.124     4.970 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_3/O
+                         net (fo=65, routed)          1.138     6.109                         m_slot_cap_vec_o[63]_INST_0_i_3_n_0
+    SLICE_X73Y22         LUT6 (Prop_D6LUT_SLICEL_I4_O)
+                                                      0.122     6.231 r  pblock_spectral_slr0 m_slot_cap_vec_o[20]_INST_0/O
+                         net (fo=0)                   0.000     6.231                         m_slot_cap_vec_o[20]
+                                                                      r                       m_slot_cap_vec_o[20] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 s_slot_cid_i[1]
+                            (input port)
+  Destination:            m_slot_cap_vec_o[60]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        6.223ns  (logic 1.413ns (22.706%)  route 4.810ns (77.294%))
+  Logic Levels:           13  (LUT3=1 LUT4=3 LUT5=2 LUT6=7)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       s_slot_cid_i[1] (IN)
+                         net (fo=42, unset)           0.000     0.000                         s_slot_cid_i[1]
+    SLICE_X87Y45         LUT5 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.158     0.158 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_530/O
+                         net (fo=1, routed)           0.272     0.430                         m_slot_cap_vec_o[63]_INST_0_i_530_n_0
+    SLICE_X87Y45         LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.123     0.553 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_444/O
+                         net (fo=20, routed)          0.143     0.696                         m_slot_cap_vec_o[63]_INST_0_i_444_n_0
+    SLICE_X87Y46         LUT5 (Prop_D6LUT_SLICEM_I4_O)
+                                                      0.051     0.747 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_356/O
+                         net (fo=16, routed)          0.638     1.385                         m_slot_cap_vec_o[63]_INST_0_i_356_n_0
+    SLICE_X86Y44         LUT4 (Prop_C5LUT_SLICEL_I1_O)
+                                                      0.136     1.521 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_425/O
+                         net (fo=2, routed)           0.173     1.694                         m_slot_cap_vec_o[63]_INST_0_i_425_n_0
+    SLICE_X86Y44         LUT6 (Prop_A6LUT_SLICEL_I0_O)
+                                                      0.090     1.784 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_406/O
+                         net (fo=25, routed)          0.587     2.371                         m_slot_cap_vec_o[63]_INST_0_i_406_n_0
+    SLICE_X82Y49         LUT3 (Prop_C5LUT_SLICEL_I0_O)
+                                                      0.136     2.507 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_398/O
+                         net (fo=1, routed)           0.156     2.663                         m_slot_cap_vec_o[63]_INST_0_i_398_n_0
+    SLICE_X82Y49         LUT6 (Prop_H6LUT_SLICEL_I2_O)
+                                                      0.036     2.699 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_227/O
+                         net (fo=20, routed)          0.281     2.980                         m_slot_cap_vec_o[63]_INST_0_i_227_n_0
+    SLICE_X81Y48         LUT4 (Prop_C5LUT_SLICEM_I1_O)
+                                                      0.137     3.117 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_124/O
+                         net (fo=1, routed)           0.219     3.336                         m_slot_cap_vec_o[63]_INST_0_i_124_n_0
+    SLICE_X83Y48         LUT6 (Prop_G6LUT_SLICEL_I3_O)
+                                                      0.123     3.459 f  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_34/O
+                         net (fo=9, routed)           0.735     4.194                         m_slot_cap_vec_o[63]_INST_0_i_34_n_0
+    SLICE_X76Y36         LUT4 (Prop_D5LUT_SLICEM_I3_O)
+                                                      0.158     4.352 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_44/O
+                         net (fo=1, routed)           0.357     4.709                         m_slot_cap_vec_o[63]_INST_0_i_44_n_0
+    SLICE_X80Y43         LUT6 (Prop_D6LUT_SLICEL_I2_O)
+                                                      0.089     4.798 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_11/O
+                         net (fo=1, routed)           0.048     4.846                         m_slot_cap_vec_o[63]_INST_0_i_11_n_0
+    SLICE_X80Y43         LUT6 (Prop_B6LUT_SLICEL_I2_O)
+                                                      0.124     4.970 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_3/O
+                         net (fo=65, routed)          1.201     6.171                         m_slot_cap_vec_o[63]_INST_0_i_3_n_0
+    SLICE_X72Y24         LUT6 (Prop_E6LUT_SLICEM_I4_O)
+                                                      0.052     6.223 r  pblock_spectral_slr0 m_slot_cap_vec_o[60]_INST_0/O
+                         net (fo=0)                   0.000     6.223                         m_slot_cap_vec_o[60]
+                                                                      r                       m_slot_cap_vec_o[60] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 s_slot_cid_i[1]
+                            (input port)
+  Destination:            m_slot_cap_vec_o[54]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        6.207ns  (logic 1.451ns (23.377%)  route 4.756ns (76.623%))
+  Logic Levels:           13  (LUT3=1 LUT4=3 LUT5=2 LUT6=7)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       s_slot_cid_i[1] (IN)
+                         net (fo=42, unset)           0.000     0.000                         s_slot_cid_i[1]
+    SLICE_X87Y45         LUT5 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.158     0.158 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_530/O
+                         net (fo=1, routed)           0.272     0.430                         m_slot_cap_vec_o[63]_INST_0_i_530_n_0
+    SLICE_X87Y45         LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.123     0.553 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_444/O
+                         net (fo=20, routed)          0.143     0.696                         m_slot_cap_vec_o[63]_INST_0_i_444_n_0
+    SLICE_X87Y46         LUT5 (Prop_D6LUT_SLICEM_I4_O)
+                                                      0.051     0.747 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_356/O
+                         net (fo=16, routed)          0.638     1.385                         m_slot_cap_vec_o[63]_INST_0_i_356_n_0
+    SLICE_X86Y44         LUT4 (Prop_C5LUT_SLICEL_I1_O)
+                                                      0.136     1.521 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_425/O
+                         net (fo=2, routed)           0.173     1.694                         m_slot_cap_vec_o[63]_INST_0_i_425_n_0
+    SLICE_X86Y44         LUT6 (Prop_A6LUT_SLICEL_I0_O)
+                                                      0.090     1.784 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_406/O
+                         net (fo=25, routed)          0.587     2.371                         m_slot_cap_vec_o[63]_INST_0_i_406_n_0
+    SLICE_X82Y49         LUT3 (Prop_C5LUT_SLICEL_I0_O)
+                                                      0.136     2.507 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_398/O
+                         net (fo=1, routed)           0.156     2.663                         m_slot_cap_vec_o[63]_INST_0_i_398_n_0
+    SLICE_X82Y49         LUT6 (Prop_H6LUT_SLICEL_I2_O)
+                                                      0.036     2.699 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_227/O
+                         net (fo=20, routed)          0.281     2.980                         m_slot_cap_vec_o[63]_INST_0_i_227_n_0
+    SLICE_X81Y48         LUT4 (Prop_C5LUT_SLICEM_I1_O)
+                                                      0.137     3.117 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_124/O
+                         net (fo=1, routed)           0.219     3.336                         m_slot_cap_vec_o[63]_INST_0_i_124_n_0
+    SLICE_X83Y48         LUT6 (Prop_G6LUT_SLICEL_I3_O)
+                                                      0.123     3.459 f  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_34/O
+                         net (fo=9, routed)           0.735     4.194                         m_slot_cap_vec_o[63]_INST_0_i_34_n_0
+    SLICE_X76Y36         LUT4 (Prop_D5LUT_SLICEM_I3_O)
+                                                      0.158     4.352 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_44/O
+                         net (fo=1, routed)           0.357     4.709                         m_slot_cap_vec_o[63]_INST_0_i_44_n_0
+    SLICE_X80Y43         LUT6 (Prop_D6LUT_SLICEL_I2_O)
+                                                      0.089     4.798 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_11/O
+                         net (fo=1, routed)           0.048     4.846                         m_slot_cap_vec_o[63]_INST_0_i_11_n_0
+    SLICE_X80Y43         LUT6 (Prop_B6LUT_SLICEL_I2_O)
+                                                      0.124     4.970 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_3/O
+                         net (fo=65, routed)          1.147     6.117                         m_slot_cap_vec_o[63]_INST_0_i_3_n_0
+    SLICE_X73Y22         LUT6 (Prop_E6LUT_SLICEL_I4_O)
+                                                      0.090     6.207 r  pblock_spectral_slr0 m_slot_cap_vec_o[54]_INST_0/O
+                         net (fo=0)                   0.000     6.207                         m_slot_cap_vec_o[54]
+                                                                      r                       m_slot_cap_vec_o[54] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 s_slot_cid_i[1]
+                            (input port)
+  Destination:            m_slot_cap_vec_o[52]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        6.203ns  (logic 1.450ns (23.376%)  route 4.753ns (76.624%))
+  Logic Levels:           13  (LUT3=1 LUT4=3 LUT5=2 LUT6=7)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       s_slot_cid_i[1] (IN)
+                         net (fo=42, unset)           0.000     0.000                         s_slot_cid_i[1]
+    SLICE_X87Y45         LUT5 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.158     0.158 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_530/O
+                         net (fo=1, routed)           0.272     0.430                         m_slot_cap_vec_o[63]_INST_0_i_530_n_0
+    SLICE_X87Y45         LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.123     0.553 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_444/O
+                         net (fo=20, routed)          0.143     0.696                         m_slot_cap_vec_o[63]_INST_0_i_444_n_0
+    SLICE_X87Y46         LUT5 (Prop_D6LUT_SLICEM_I4_O)
+                                                      0.051     0.747 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_356/O
+                         net (fo=16, routed)          0.638     1.385                         m_slot_cap_vec_o[63]_INST_0_i_356_n_0
+    SLICE_X86Y44         LUT4 (Prop_C5LUT_SLICEL_I1_O)
+                                                      0.136     1.521 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_425/O
+                         net (fo=2, routed)           0.173     1.694                         m_slot_cap_vec_o[63]_INST_0_i_425_n_0
+    SLICE_X86Y44         LUT6 (Prop_A6LUT_SLICEL_I0_O)
+                                                      0.090     1.784 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_406/O
+                         net (fo=25, routed)          0.587     2.371                         m_slot_cap_vec_o[63]_INST_0_i_406_n_0
+    SLICE_X82Y49         LUT3 (Prop_C5LUT_SLICEL_I0_O)
+                                                      0.136     2.507 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_398/O
+                         net (fo=1, routed)           0.156     2.663                         m_slot_cap_vec_o[63]_INST_0_i_398_n_0
+    SLICE_X82Y49         LUT6 (Prop_H6LUT_SLICEL_I2_O)
+                                                      0.036     2.699 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_227/O
+                         net (fo=20, routed)          0.281     2.980                         m_slot_cap_vec_o[63]_INST_0_i_227_n_0
+    SLICE_X81Y48         LUT4 (Prop_C5LUT_SLICEM_I1_O)
+                                                      0.137     3.117 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_124/O
+                         net (fo=1, routed)           0.219     3.336                         m_slot_cap_vec_o[63]_INST_0_i_124_n_0
+    SLICE_X83Y48         LUT6 (Prop_G6LUT_SLICEL_I3_O)
+                                                      0.123     3.459 f  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_34/O
+                         net (fo=9, routed)           0.735     4.194                         m_slot_cap_vec_o[63]_INST_0_i_34_n_0
+    SLICE_X76Y36         LUT4 (Prop_D5LUT_SLICEM_I3_O)
+                                                      0.158     4.352 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_44/O
+                         net (fo=1, routed)           0.357     4.709                         m_slot_cap_vec_o[63]_INST_0_i_44_n_0
+    SLICE_X80Y43         LUT6 (Prop_D6LUT_SLICEL_I2_O)
+                                                      0.089     4.798 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_11/O
+                         net (fo=1, routed)           0.048     4.846                         m_slot_cap_vec_o[63]_INST_0_i_11_n_0
+    SLICE_X80Y43         LUT6 (Prop_B6LUT_SLICEL_I2_O)
+                                                      0.124     4.970 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_3/O
+                         net (fo=65, routed)          1.144     6.114                         m_slot_cap_vec_o[63]_INST_0_i_3_n_0
+    SLICE_X73Y22         LUT6 (Prop_F6LUT_SLICEL_I4_O)
+                                                      0.089     6.203 r  pblock_spectral_slr0 m_slot_cap_vec_o[52]_INST_0/O
+                         net (fo=0)                   0.000     6.203                         m_slot_cap_vec_o[52]
+                                                                      r                       m_slot_cap_vec_o[52] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 s_slot_cid_i[1]
+                            (input port)
+  Destination:            m_slot_cap_vec_o[49]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        6.191ns  (logic 1.449ns (23.403%)  route 4.742ns (76.597%))
+  Logic Levels:           13  (LUT3=1 LUT4=3 LUT5=2 LUT6=7)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       s_slot_cid_i[1] (IN)
+                         net (fo=42, unset)           0.000     0.000                         s_slot_cid_i[1]
+    SLICE_X87Y45         LUT5 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.158     0.158 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_530/O
+                         net (fo=1, routed)           0.272     0.430                         m_slot_cap_vec_o[63]_INST_0_i_530_n_0
+    SLICE_X87Y45         LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.123     0.553 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_444/O
+                         net (fo=20, routed)          0.143     0.696                         m_slot_cap_vec_o[63]_INST_0_i_444_n_0
+    SLICE_X87Y46         LUT5 (Prop_D6LUT_SLICEM_I4_O)
+                                                      0.051     0.747 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_356/O
+                         net (fo=16, routed)          0.638     1.385                         m_slot_cap_vec_o[63]_INST_0_i_356_n_0
+    SLICE_X86Y44         LUT4 (Prop_C5LUT_SLICEL_I1_O)
+                                                      0.136     1.521 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_425/O
+                         net (fo=2, routed)           0.173     1.694                         m_slot_cap_vec_o[63]_INST_0_i_425_n_0
+    SLICE_X86Y44         LUT6 (Prop_A6LUT_SLICEL_I0_O)
+                                                      0.090     1.784 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_406/O
+                         net (fo=25, routed)          0.587     2.371                         m_slot_cap_vec_o[63]_INST_0_i_406_n_0
+    SLICE_X82Y49         LUT3 (Prop_C5LUT_SLICEL_I0_O)
+                                                      0.136     2.507 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_398/O
+                         net (fo=1, routed)           0.156     2.663                         m_slot_cap_vec_o[63]_INST_0_i_398_n_0
+    SLICE_X82Y49         LUT6 (Prop_H6LUT_SLICEL_I2_O)
+                                                      0.036     2.699 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_227/O
+                         net (fo=20, routed)          0.281     2.980                         m_slot_cap_vec_o[63]_INST_0_i_227_n_0
+    SLICE_X81Y48         LUT4 (Prop_C5LUT_SLICEM_I1_O)
+                                                      0.137     3.117 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_124/O
+                         net (fo=1, routed)           0.219     3.336                         m_slot_cap_vec_o[63]_INST_0_i_124_n_0
+    SLICE_X83Y48         LUT6 (Prop_G6LUT_SLICEL_I3_O)
+                                                      0.123     3.459 f  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_34/O
+                         net (fo=9, routed)           0.735     4.194                         m_slot_cap_vec_o[63]_INST_0_i_34_n_0
+    SLICE_X76Y36         LUT4 (Prop_D5LUT_SLICEM_I3_O)
+                                                      0.158     4.352 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_44/O
+                         net (fo=1, routed)           0.357     4.709                         m_slot_cap_vec_o[63]_INST_0_i_44_n_0
+    SLICE_X80Y43         LUT6 (Prop_D6LUT_SLICEL_I2_O)
+                                                      0.089     4.798 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_11/O
+                         net (fo=1, routed)           0.048     4.846                         m_slot_cap_vec_o[63]_INST_0_i_11_n_0
+    SLICE_X80Y43         LUT6 (Prop_B6LUT_SLICEL_I2_O)
+                                                      0.124     4.970 r  pblock_spectral_slr0 m_slot_cap_vec_o[63]_INST_0_i_3/O
+                         net (fo=65, routed)          1.133     6.103                         m_slot_cap_vec_o[63]_INST_0_i_3_n_0
+    SLICE_X72Y24         LUT6 (Prop_D6LUT_SLICEM_I4_O)
+                                                      0.088     6.191 r  pblock_spectral_slr0 m_slot_cap_vec_o[49]_INST_0/O
+                         net (fo=0)                   0.000     6.191                         m_slot_cap_vec_o[49]
+                                                                      r                       m_slot_cap_vec_o[49] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack:                    inf
+  Source:                 csr_epoch_cfg_i[8]
+                            (input port)
+  Destination:            m_slot_drs_viol_o[0]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.014ns  (logic 0.014ns (100.000%)  route 0.000ns (0.000%))
+  Logic Levels:           1  (LUT2=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       csr_epoch_cfg_i[8] (IN)
+                         net (fo=0)                   0.000     0.000                         csr_epoch_cfg_i[8]
+    SLICE_X91Y20         LUT2 (Prop_G6LUT_SLICEM_I1_O)
+                                                      0.014     0.014 r  pblock_spectral_slr0 m_slot_drs_viol_o[0]_INST_0/O
+                         net (fo=0)                   0.000     0.014                         m_slot_drs_viol_o[3]
+                                                                      r                       m_slot_drs_viol_o[0] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 csr_epoch_cfg_i[8]
+                            (input port)
+  Destination:            m_slot_drs_viol_o[1]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.014ns  (logic 0.014ns (100.000%)  route 0.000ns (0.000%))
+  Logic Levels:           1  (LUT2=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       csr_epoch_cfg_i[8] (IN)
+                         net (fo=0)                   0.000     0.000                         csr_epoch_cfg_i[8]
+    SLICE_X91Y20         LUT2 (Prop_G6LUT_SLICEM_I1_O)
+                                                      0.014     0.014 r  pblock_spectral_slr0 m_slot_drs_viol_o[0]_INST_0/O
+                         net (fo=0)                   0.000     0.014                         m_slot_drs_viol_o[3]
+                                                                      r                       m_slot_drs_viol_o[1] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 csr_epoch_cfg_i[8]
+                            (input port)
+  Destination:            m_slot_drs_viol_o[2]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.014ns  (logic 0.014ns (100.000%)  route 0.000ns (0.000%))
+  Logic Levels:           1  (LUT2=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       csr_epoch_cfg_i[8] (IN)
+                         net (fo=0)                   0.000     0.000                         csr_epoch_cfg_i[8]
+    SLICE_X91Y20         LUT2 (Prop_G6LUT_SLICEM_I1_O)
+                                                      0.014     0.014 r  pblock_spectral_slr0 m_slot_drs_viol_o[0]_INST_0/O
+                         net (fo=0)                   0.000     0.014                         m_slot_drs_viol_o[3]
+                                                                      r                       m_slot_drs_viol_o[2] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 csr_epoch_cfg_i[8]
+                            (input port)
+  Destination:            m_slot_drs_viol_o[3]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.014ns  (logic 0.014ns (100.000%)  route 0.000ns (0.000%))
+  Logic Levels:           1  (LUT2=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       csr_epoch_cfg_i[8] (IN)
+                         net (fo=0)                   0.000     0.000                         csr_epoch_cfg_i[8]
+    SLICE_X91Y20         LUT2 (Prop_G6LUT_SLICEM_I1_O)
+                                                      0.014     0.014 r  pblock_spectral_slr0 m_slot_drs_viol_o[0]_INST_0/O
+                         net (fo=0)                   0.000     0.014                         m_slot_drs_viol_o[3]
+                                                                      r                       m_slot_drs_viol_o[3] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 s_slot_is_fine_cohort_i[0]
+                            (input port)
+  Destination:            m_slot_c0_viol_o[0]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.022ns  (logic 0.022ns (100.000%)  route 0.000ns (0.000%))
+  Logic Levels:           1  (LUT6=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       s_slot_is_fine_cohort_i[0] (IN)
+                         net (fo=64, unset)           0.000     0.000                         s_slot_is_fine_cohort_i[0]
+    SLICE_X80Y42         LUT6 (Prop_G6LUT_SLICEL_I4_O)
+                                                      0.022     0.022 r  pblock_spectral_slr0 m_slot_c0_viol_o[0]_INST_0/O
+                         net (fo=0)                   0.000     0.022                         m_slot_c0_viol_o[0]
+                                                                      r                       m_slot_c0_viol_o[0] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 s_slot_is_fine_cohort_i[1]
+                            (input port)
+  Destination:            m_slot_c0_viol_o[1]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.022ns  (logic 0.022ns (100.000%)  route 0.000ns (0.000%))
+  Logic Levels:           1  (LUT5=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       s_slot_is_fine_cohort_i[1] (IN)
+                         net (fo=64, unset)           0.000     0.000                         s_slot_is_fine_cohort_i[1]
+    SLICE_X74Y52         LUT5 (Prop_E6LUT_SLICEM_I3_O)
+                                                      0.022     0.022 r  pblock_spectral_slr0 m_slot_c0_viol_o[1]_INST_0/O
+                         net (fo=0)                   0.000     0.022                         m_slot_c0_viol_o[1]
+                                                                      r                       m_slot_c0_viol_o[1] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 s_slot_is_fine_cohort_i[2]
+                            (input port)
+  Destination:            m_slot_c0_viol_o[2]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.022ns  (logic 0.022ns (100.000%)  route 0.000ns (0.000%))
+  Logic Levels:           1  (LUT6=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       s_slot_is_fine_cohort_i[2] (IN)
+                         net (fo=64, unset)           0.000     0.000                         s_slot_is_fine_cohort_i[2]
+    SLICE_X83Y30         LUT6 (Prop_G6LUT_SLICEL_I4_O)
+                                                      0.022     0.022 r  pblock_spectral_slr0 m_slot_c0_viol_o[2]_INST_0/O
+                         net (fo=0)                   0.000     0.022                         m_slot_c0_viol_o[2]
+                                                                      r                       m_slot_c0_viol_o[2] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 csr_steiner_erosion_i[1]
+                            (input port)
+  Destination:            m_slot_cap_vec_o[193]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.022ns  (logic 0.022ns (100.000%)  route 0.000ns (0.000%))
+  Logic Levels:           1  (LUT2=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       csr_steiner_erosion_i[1] (IN)
+                         net (fo=3, unset)            0.000     0.000                         csr_steiner_erosion_i[1]
+    SLICE_X76Y57         LUT2 (Prop_G6LUT_SLICEM_I0_O)
+                                                      0.022     0.022 r  pblock_spectral_slr0 m_slot_cap_vec_o[193]_INST_0/O
+                         net (fo=0)                   0.000     0.022                         m_slot_cap_vec_o[193]
+                                                                      r                       m_slot_cap_vec_o[193] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 csr_steiner_erosion_i[9]
+                            (input port)
+  Destination:            m_slot_cap_vec_o[201]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.022ns  (logic 0.022ns (100.000%)  route 0.000ns (0.000%))
+  Logic Levels:           1  (LUT2=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       csr_steiner_erosion_i[9] (IN)
+                         net (fo=3, unset)            0.000     0.000                         csr_steiner_erosion_i[9]
+    SLICE_X76Y57         LUT2 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.022     0.022 r  pblock_spectral_slr0 m_slot_cap_vec_o[201]_INST_0/O
+                         net (fo=0)                   0.000     0.022                         m_slot_cap_vec_o[201]
+                                                                      r                       m_slot_cap_vec_o[201] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+Slack:                    inf
+  Source:                 csr_steiner_erosion_i[20]
+                            (input port)
+  Destination:            m_slot_cap_vec_o[212]
+                            (output port)
+  Path Group:             (none)
+  Path Type:              Min at Fast Process Corner
+  Data Path Delay:        0.022ns  (logic 0.022ns (100.000%)  route 0.000ns (0.000%))
+  Logic Levels:           1  (LUT2=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                                                      0.000     0.000 r                       csr_steiner_erosion_i[20] (IN)
+                         net (fo=3, unset)            0.000     0.000                         csr_steiner_erosion_i[20]
+    SLICE_X77Y54         LUT2 (Prop_G6LUT_SLICEM_I0_O)
+                                                      0.022     0.022 r  pblock_spectral_slr0 m_slot_cap_vec_o[212]_INST_0/O
+                         net (fo=0)                   0.000     0.022                         m_slot_cap_vec_o[212]
+                                                                      r                       m_slot_cap_vec_o[212] (OUT)
+  -------------------------------------------------------------------    ----------------------------------------
+
+
+
+
+

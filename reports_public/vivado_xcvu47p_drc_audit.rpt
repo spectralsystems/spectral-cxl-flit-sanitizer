@@ -1,0 +1,47 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Tue Nov 24 18:25:53 2026
+| Host         : ip-172-31-47-180 running 64-bit Ubuntu 24.04.1 LTS
+| Command      : report_drc -name drc_signoff_1 -file /dev/shm/spectral_enclave/qor_matrix/strat_3_AltSpreadLogic_high/core_drc_audit.rpt
+| Design       : cxl_subflit_slot_sanitizer_core
+| Device       : xcvu47p-fsvh2892-2L-e
+| Speed File   : -2L
+| Design State : Partially Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: cxl_subflit_slot_sanitizer_core
+          Floorplan: design_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max checks: <unlimited>
+             Checks found: 1
++-----------+----------+-------------------+--------+
+| Rule      | Severity | Description       | Checks |
++-----------+----------+-------------------+--------+
+| RTSTAT-10 | Warning  | No routable loads | 1      |
++-----------+----------+-------------------+--------+
+
+2. REPORT DETAILS
+-----------------
+RTSTAT-10#1 Warning
+No routable loads  
+614 net(s) have no routable loads. The problem bus(es) and/or net(s) are m_canonical_egress_digest_o[63:0], m_flit_payload_c4_o[511:0],
+m_hbm_wstrb_c4_o[62:14], m_pcie_crd_pulse_c4_o[3:0], m_seu_alarm_pulse_o,
+m_slot_moesi_c4_o[7:4], m_slot_scrub_Event_o[3:0],
+s1_slot_viol_rep_q[1][0], s1_slot_viol_rep_q[1][2],
+s1_slot_viol_rep_q[1][3], s1_slot_viol_rep_q[2][0],
+s1_slot_viol_rep_q[2][1], s1_slot_viol_rep_q[2][3],
+s1_slot_viol_rep_q[3][0], s1_slot_viol_rep_q[3][1]
+ (the first 15 of 19 listed nets/buses).
+Related violations: <none>
+# Canonical Sign-Off DRC Audit: 0 Violations (0 Errors, 0 Critical Warnings)

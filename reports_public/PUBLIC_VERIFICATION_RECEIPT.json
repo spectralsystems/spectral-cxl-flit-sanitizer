@@ -1,0 +1,18 @@
+{
+  "schema": "spectral.public_verification_receipt.v1.1.0",
+  "timestamp_utc": "2026-11-27T15:52:18Z",
+  "entity": "Spectral Systems LLC (Virginia Beach, VA | CAGE: 268E1 | UEI: VTP2JPCJU3D9)",
+  "monograph_doi": "10.5281/zenodo.24047902",
+  "lean4_headline_theorems": 99,
+  "lean4_core_theorems": 87,
+  "lean4_physics_corollaries": 12,
+  "lean4_kernel_declarations": 280,
+  "lean4_sorry_count": 0,
+  "lean4_axiom_count": 0,
+  "status": "ALL_5_ORACLES_PASS",
+  "sealed_pdf_sha256": "b3e26a2defcfd96bfb63aeee453cba035cd300e26db5f8960d656f71009a861c",
+  "release_version": "v0.0.0",
+  "architecture_name": "Kernel Zero",
+  "title": "Finite Fields Forever: Assured Memory Isolation in a Single Logic Gate",
+  "canonical_monograph_pdf": "Murphy_2026_Finite_Fields_Forever.pdf"
+}

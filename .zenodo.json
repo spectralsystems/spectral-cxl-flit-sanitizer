@@ -1,0 +1,42 @@
+{
+  "title": "Finite Fields Forever: Assured Memory Isolation in a Single Logic Gate",
+  "version": "v1",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "license": "Apache-2.0",
+  "creators": [
+    {
+      "name": "Murphy, Eric",
+      "affiliation": "Spectral Systems LLC"
+    }
+  ],
+  "keywords": [
+    "Compute Express Link",
+    "CXL 3.0",
+    "CXL 4.0",
+    "UCIe",
+    "HBM",
+    "Zero Trust",
+    "Lean 4",
+    "Formal Verification",
+    "Finite Fields",
+    "Kernel Zero"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://spectralsystems.org",
+      "relation": "isSupplementedBy",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://spectralsystems.org/preprint_Murphy_v1.pdf",
+      "relation": "isIdenticalTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/spectralsystems/spectral-cxl-flit-sanitizer",
+      "relation": "isSupplementedBy",
+      "scheme": "url"
+    }
+  ]
+}
