@@ -1,0 +1,21 @@
+# Spectral Systems LLC -- Kernel Zero (`v0.0.0`)
+
+> Stateless sub-flit capability sanitization, Cycle-0 GF(2^8)[Z] Vieta polynomial-ideal & 8-step shadow Bezout-Horner cohort revocation, fractured LUT6_2 4-tier mantissa clamping, and cold-POR BAR0 hardware ratchets for disaggregated CXL 3.0-4.0 and HBM memory fabrics (38 zero-axiom Lean 4 theorem obligations, thm00..thm37).
+
+## Core Silicon & Formal Verification Telemetry
+- **16nm AMD Virtex UltraScale+ HBM (`xcvu47p-fsvh2892-2L-e`, Vivado v2025.2):** 1,585 physical CLB LUTs (0.12%), 1,157 FDCE FFs, 0 BRAM, 0 DSP, +1.048 ns setup WNS (338.8 MHz Fmax), 35.0 mW dynamic power (+341-LUT Per-ARID Ordered AXI4 Read-Scrub Responder Shim; 2,555-LUT Cycle-0 Mode-C/Vieta/Steiner evaluator; 5,459-LUT 4-stage enclave).
+- **Live AWS EC2 `f2.6xlarge` Dual-AFI Silicon Execution:** Baseline BIST/TVLA AFI `agfi-03b742e2a9cd2c0f2` (800,000 slots, warm PCIe FLR survival, 19,990-trace on-die digital toggle/timing Welch TVLA max |t| = 0.0 < 4.5) and Production 16 GB HBM2 DMA AFI `agfi-08becf3b40b169674` (25,000 bursts / 100,000 inline slots, 100% `0xAAAAAAAAAAAAAAAA` HBM2 sentinel retention, 99.20% goodput vs. 48.90% legacy CRC poisoning).
+- **7nm FinFET ASAP7 Standard-Cell CMOS (`asap7sc7p5t`):** 9,678 standalone core cells (0.00224 mm^2) and 27,877 placed-and-routed 4-stage enclave cells (0.003335 mm^2, 1,443.59 ps critical path, 693 MHz Fmax, 3.728 mW total power, 0 DRC violations).
+- **Pure `Init.Prelude` Lean 4 Formal Proofs:** 38 zero-axiom theorem obligations (`thm00..thm37` across Part I and Part II, extended to the unified corpus with 0 `sorry` and 0 axioms) + 320-cone post-route CNF/LRAT Miter UNSAT (`ZK_LEC_MITER_RECEIPT.json`).
+- **TRL-8 CNCF `k3s` Kubernetes Admission Control & Exascale TCO:** Post-quantum FIPS 204 `ML-DSA-87` signed `spectralc` policy bundles with 1.36 ms HTTP 403 Forbidden rejection of rogue `0 -> 1` escalation; reclaims 250 GB/rack (2,500 TB / $37.50M-$38.40M CapEx and 8.0-39.4 MW grid power across 10,000 racks).
+- **Entity & Statutory Identifiers:** Spectral Systems LLC (SAM.gov UEI: `VTP2JPCJU3D9` | DLA CAGE: `268E1` | Permanent CERN/Zenodo DOI: `10.5281/zenodo.24047902`). Protected by U.S. & International Patents Pending (All Patents Pending).
+
+## Documentation & Verification Artifacts
+- [Canonical Preprint Monograph (PDF)](https://spectralsystems.org/preprint_Murphy_v1_0_0.pdf): Finite Fields Forever: Assured Memory Isolation in a Single Logic Gate
+- [Benchmarks & TCO Telemetry](https://spectralsystems.org/benchmarks): Disaggregated CXL 3.0-4.0 latency, renewal-reward goodput, and 10,000-rack power/water audit
+- [Zero-Trust Architecture](https://spectralsystems.org/zero-trust): Five-boundary Layer-1/2 hardware Policy Enforcement Point and NSA NCDSMO RAIN crosswalk
+- [Formal Proofs & Silicon Receipts](https://spectralsystems.org/verification): Lean 4 proofs, SHA-256 manifest digests, and Dual-AFI AWS F2 hardware receipts
+- [COTS Federal Procurement](https://spectralsystems.org/cots-procurement): FAR Part 12 / 13.201 evaluation licensing, CAGE 268E1, and UEI VTP2JPCJU3D9
+- [Patent & Licensing Notice](https://spectralsystems.org/patents): Apache-2.0 verification suite and commercial silicon synthesis rights
+- [Interactive 16-CSR BAR0 Console](https://spectralsystems.org/console-demo/): Bit-accurate 512-bit sub-flit fault-injection and BAR0 register simulator
+- [GitHub Verification Repository](https://github.com/spectralsystems/spectral-cxl-flit-sanitizer): Public verification suite, CycloneDX SBOM, and SHA256SUMS.txt

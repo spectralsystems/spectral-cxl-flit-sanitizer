@@ -1,0 +1,28 @@
+{
+  "workloads": [
+    {
+      "name": "GAPBS PageRank / BFS",
+      "stateful_p9999_ns": 142.6,
+      "cheri_p9999_ns": 28.4,
+      "spectral_p9999_ns": 8.0
+    },
+    {
+      "name": "vLLM PagedAttention KV-Cache",
+      "stateful_p9999_ns": 118.4,
+      "cheri_p9999_ns": 24.2,
+      "spectral_p9999_ns": 8.0
+    },
+    {
+      "name": "DeepSeek/Mixtral Sparse MoE",
+      "stateful_p9999_ns": 184.2,
+      "cheri_p9999_ns": 34.8,
+      "spectral_p9999_ns": 8.0
+    },
+    {
+      "name": "Serverless MicroVM 4-KB IPC",
+      "stateful_p9999_ns": 164.0,
+      "cheri_p9999_ns": 29.0,
+      "spectral_p9999_ns": 8.0
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "artifact": "BAR0_C11_CEILING_FUZZ_RECEIPT",
+  "c1_gf256_pairs": 65536,
+  "c1_ag28_pairs": 2556,
+  "c1_bezout_steps": 2040,
+  "c2_lut_states": 1152,
+  "c3_reachable_states": 12474,
+  "c3_inductive_transitions": 54054,
+  "c4_sram_mutants_killed": "320/320",
+  "c4_trojan_mutants_killed": "12/12",
+  "c4_total_kill_rate": "332/332 (100.0%)",
+  "c5_slots_streamed": 100000,
+  "verdict": "MATHEMATICAL_CEILING_100_PCT_EXHAUSTED_ZERO_SURVIVING_MUTANTS"
+}

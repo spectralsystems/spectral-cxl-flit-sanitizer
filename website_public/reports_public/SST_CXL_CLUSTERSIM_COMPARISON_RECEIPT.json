@@ -1,0 +1,33 @@
+{
+  "sst_adapter": "VERIFIED_CXL_CLUSTERSIM_TRACES",
+  "total_subflit_slots_simulated": 300000,
+  "dram_lookup_table_tax_gb_per_16tb_rack": 0.0,
+  "legacy_directory_tax_gb_per_16tb_rack": 250.0,
+  "bar0_128b_sbundle_sha16": "593ade0f31df680f",
+  "workloads": [
+    {
+      "workload": "vLLM_Prefill_Decode_KV_Cache_Disagg",
+      "flits": 25000,
+      "rogue_slot_rate": 0.008,
+      "baseline_goodput_pct": 48.9,
+      "spectral_goodput_pct": 99.2,
+      "p99_99_latency_ns": 8.0
+    },
+    {
+      "workload": "DeepSeek_Mixtral_Sparse_MoE_AllToAll",
+      "flits": 25000,
+      "rogue_slot_rate": 0.005,
+      "baseline_goodput_pct": 54.1,
+      "spectral_goodput_pct": 99.5,
+      "p99_99_latency_ns": 8.0
+    },
+    {
+      "workload": "GAPBS_PageRank_16TB_Pooled_CXL_Mem",
+      "flits": 25000,
+      "rogue_slot_rate": 0.01,
+      "baseline_goodput_pct": 44.2,
+      "spectral_goodput_pct": 99.0,
+      "p99_99_latency_ns": 8.0
+    }
+  ]
+}

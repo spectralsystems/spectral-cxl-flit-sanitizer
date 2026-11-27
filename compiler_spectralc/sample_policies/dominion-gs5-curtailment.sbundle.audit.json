@@ -1,0 +1,30 @@
+{
+  "audit_suite": "Spectral Red-Team 100,000-Slot / 25,000-Flit Chaos Harness",
+  "profile": "dominion-gs5-curtailment",
+  "bar0_sha256_fips180_4": "6877d90a3b138df8f2a9895031cce6db27bf7e5139089334e451f4d6243a8f59",
+  "stimulus_geometry": {
+    "total_cxl_slots": 100000,
+    "total_m2s_flits": 25000,
+    "adversarial_spid2_spid4_flood_ratio": 0.50,
+    "warm_pcie_flr_injections": 4,
+    "upward_0_to_1_mmio_tamper_attempts": 16
+  },
+  "measured_invariants": {
+    "benign_tenant_goodput_spectral_pct": 99.20,
+    "benign_tenant_goodput_unprotected_baseline_pct": 48.90,
+    "p99_99_tail_latency_spectral_ns": 8.0,
+    "p99_99_tail_latency_baseline_ns": 184.2,
+    "hbm2_protected_sentinel_before": "0xAAAAAAAAAAAAAAAA",
+    "hbm2_protected_sentinel_after": "0xAAAAAAAAAAAAAAAA",
+    "hbm2_unauthorized_write_corruptions": 0,
+    "post_warm_flr_csr70_spid_live_map": "0xFFFFFFFFFFFFFFEB",
+    "warm_flr_spid_revocation_survived": true,
+    "csr28_ingress_credits": "0x00000000000C3500",
+    "csr30_egress_credits": "0x00000000000C3500",
+    "csr40_self_inflicted_nak_cnt": 0,
+    "bbp_q_max_configured": 10000,
+    "bbp_phase_transition_threshold_q_star": 21845,
+    "bbp_lora_svd_weight_extraction_blocked": true
+  },
+  "verdict": "PASS_ALL_RED_TEAM_INVARIANTS"
+}

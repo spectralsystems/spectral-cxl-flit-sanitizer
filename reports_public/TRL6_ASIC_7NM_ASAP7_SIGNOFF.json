@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0-TRL6-ASIC-GDSII-SIGNOFF",
+  "pdk": "ASAP7 7nm Predictive FinFET Standard-Cell PDK (asap7sc7p5t)",
+  "toolchain": "OpenROAD-flow-scripts (Yosys + ABC + RePlAce + TritonCTS + TritonRoute + OpenRCX + OpenSTA)",
+  "top_module": "cxl_subflit_sanitizer_enclave_top",
+  "routed_standard_cells": 27877,
+  "active_stdcell_area_um2": 3335.45,
+  "active_stdcell_area_mm2": 0.003335,
+  "macro_pin_ring_die_um": "180.0 x 180.0 (1,460 CXL/HBM 512b I/O pins routed)",
+  "sram_macros": 0,
+  "target_cxl_clock_mhz": 250.0,
+  "post_spef_setup_wns_ps": 2556.41,
+  "post_spef_critical_path_ps": 1443.59,
+  "post_spef_7nm_fmax_ghz": 0.693,
+  "total_estimated_power_mw": 3.728,
+  "tritonroute_drc_violations": 0,
+  "gdsii_6_final_sha256": "e4469a77fe4ab118ac69ade4a960fe28bc3072b1a753ac0c5c7b2cf83faae925",
+  "spef_6_final_sha256": "9a0b1469fc515f5f59303f39620b635adbc80ee0523bc6d218db076c784d89b2",
+  "cots_xcvu47p_edif_sha256": "270b21e9a5a1738a124bbd5f0dfbe6509deb7f96698542204508dc228bc9f572",
+  "status": "PASS"
+}

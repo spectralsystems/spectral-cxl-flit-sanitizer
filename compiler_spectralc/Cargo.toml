@@ -1,0 +1,10 @@
+[package]
+name = "spectralc"
+version = "1.0.0"
+edition = "2021"
+license = "Apache-2.0"
+authors = ["Eric C. Murphy <eric@spectralsystems.org>"]
+description = "Universal 16-CSR (128-Byte) BAR0 Policy-to-Silicon Certifying Compiler for Spectral Systems CXL/PCIe/AXI4-Stream Enclaves"
+repository = "[https://spectralsystems.org](https://spectralsystems.org)"
+
+[dependencies]

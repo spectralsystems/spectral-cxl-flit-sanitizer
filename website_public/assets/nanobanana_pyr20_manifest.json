@@ -1,0 +1,106 @@
+{
+  "schema": "spectral.pyr20.v1",
+  "zoom_step": 1.72,
+  "stages": [
+    {
+      "stage": 0,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_00.webp"
+    },
+    {
+      "stage": 1,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_01.webp"
+    },
+    {
+      "stage": 2,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_02.webp"
+    },
+    {
+      "stage": 3,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_03.webp"
+    },
+    {
+      "stage": 4,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_04.webp"
+    },
+    {
+      "stage": 5,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_05.webp"
+    },
+    {
+      "stage": 6,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_06.webp"
+    },
+    {
+      "stage": 7,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_07.webp"
+    },
+    {
+      "stage": 8,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_08.webp"
+    },
+    {
+      "stage": 9,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_09.webp"
+    },
+    {
+      "stage": 10,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_10.webp"
+    },
+    {
+      "stage": 11,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_11.webp"
+    },
+    {
+      "stage": 12,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_12.webp"
+    },
+    {
+      "stage": 13,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_13.webp"
+    },
+    {
+      "stage": 14,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_14.webp"
+    },
+    {
+      "stage": 15,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_15.webp"
+    },
+    {
+      "stage": 16,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_16.webp"
+    },
+    {
+      "stage": 17,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_17.webp"
+    },
+    {
+      "stage": 18,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_18.webp"
+    },
+    {
+      "stage": 19,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_pyr20_19.webp"
+    }
+  ]
+}

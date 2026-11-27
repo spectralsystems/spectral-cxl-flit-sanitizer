@@ -1,0 +1,7 @@
+{
+  "target_projection": "7nm FinFET Standard-Cell CMOS (ASAP7 Scale)",
+  "total_standard_cells": 9678,
+  "nand2_gate_equivalents": 11420,
+  "projected_7nm_area_mm2": 0.00224,
+  "sram_bits": 0
+}

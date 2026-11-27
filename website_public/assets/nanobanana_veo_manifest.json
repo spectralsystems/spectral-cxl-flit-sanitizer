@@ -1,0 +1,91 @@
+{
+  "schema": "spectral.nanobanana.veo.v1",
+  "brand": "KERNEL // ZERO",
+  "lockstep": "SPECTRAL SYSTEMS // SUB-FLIT ALGEBRAIC MEMORY ISOLATION",
+  "doi": "10.5281/zenodo.24047902",
+  "imagen_model": "imagen-3.0-generate-002",
+  "veo_model": "veo-3.0-generate-preview",
+  "veo3_continuous_zoom_prompt": "Continuous seamless orthographic scientific zoom-in camera descend from 10^-2 m server flip-chip BGA silicon die down six orders of magnitude to 10^-8 m 7nm FinFET crystalline silicon fins and SiO2 isolation trench: passing through CXL 3.0 beachfront macro floorplan, 4-lane 512-bit copper sub-flit bus, 64-wire AG(2,8) M4/M5 crossbar, dual-output combinational cell rows, M1 feedback AND2 ratchet strap, and the physical warm-reset SiO2 air-gap dead-end barrier. Authentic darkfield optical to scanning electron microscope (SEM) transition, zero glowing sci-fi neon, Bell Labs archival cinematography.",
+  "stages": [
+    {
+      "stage": 0,
+      "scale_latex": "10^{-2}\\text{ m}",
+      "scale_label": "10 mm Flip-Chip BGA Die",
+      "imagen_model": "imagen-3.0-generate-002",
+      "prompt": "Orthographic top-down scientific macro photograph of a server-grade flip-chip BGA exposed silicon processor die (24mm x 24mm) mounted on matte obsidian organic substrate, precision studio darkfield lighting, crystalline silicon specular reflections, PCIe Gen5 / CXL 3.0 beachfront I/O pads, Bell Labs archival semiconductor plate aesthetic, 8k, no text.",
+      "svg_underlay": "/assets/zoom_stage_0.svg",
+      "png_underlay": "/assets/zoom_stage_0.png",
+      "active_underlay": "/assets/zoom_stage_0.webp"
+    },
+    {
+      "stage": 1,
+      "scale_latex": "3 \\times 10^{-3}\\text{ m}",
+      "scale_label": "3 mm CXL Home-Agent Perimeter",
+      "imagen_model": "imagen-3.0-generate-002",
+      "prompt": "Orthographic optical darkfield die micrograph at 3mm field of view showing CXL 3.0 Home-Agent perimeter beachfront contrasting dense SRAM macro blocks against an ultra-thin SRAM-free combinational logic airlock ribbon occupying 0.00224 square millimeters, crisp copper M8 power grid, scientific semiconductor photography, no text.",
+      "svg_underlay": "/assets/zoom_stage_1.svg",
+      "png_underlay": "/assets/zoom_stage_1.png",
+      "active_underlay": "/assets/zoom_stage_1.webp"
+    },
+    {
+      "stage": 2,
+      "scale_latex": "5 \\times 10^{-4}\\text{ m}",
+      "scale_label": "500 um 4-Slot Sub-Flit Bus",
+      "imagen_model": "imagen-3.0-generate-002",
+      "prompt": "Differential interference contrast orthographic silicon micrograph at 500 micrometer field of view showing four parallel 128-bit copper bus channels traversing a 215-micrometer perimeter white-space trench, precision lithography Vernier alignment targets, metallic copper and cobalt traces over dark silicon dioxide, no text.",
+      "svg_underlay": "/assets/zoom_stage_2.svg",
+      "png_underlay": "/assets/zoom_stage_2.png",
+      "active_underlay": "/assets/zoom_stage_2.webp"
+    },
+    {
+      "stage": 3,
+      "scale_latex": "10^{-4}\\text{ m}",
+      "scale_label": "100 um AG(2,8) 64-Wire Crossbar",
+      "imagen_model": "imagen-3.0-generate-002",
+      "prompt": "Confocal laser orthographic semiconductor metallization micrograph at 100 micrometer scale showing a geometric 64-wire M4/M5 orthogonal and diagonal crossbar routing matrix corresponding to affine plane AG(2,8), crisp via arrays, darkfield illumination, no text.",
+      "svg_underlay": "/assets/zoom_stage_3.svg",
+      "png_underlay": "/assets/zoom_stage_3.png",
+      "active_underlay": "/assets/zoom_stage_3.webp"
+    },
+    {
+      "stage": 4,
+      "scale_latex": "2 \\times 10^{-5}\\text{ m}",
+      "scale_label": "20 um LUT6_2 & Wire-Shear Cell Row",
+      "imagen_model": "imagen-3.0-generate-002",
+      "prompt": "High-NA optical to early SEM orthographic micrograph at 20 micrometer field of view revealing standard-cell placement rows, dual-output combinational logic cells and physical hardwired zero tie-off rails, subtle tungsten local interconnect, scientific monochrome with faint copper-oxide tint, no text.",
+      "svg_underlay": "/assets/zoom_stage_4.svg",
+      "png_underlay": "/assets/zoom_stage_4.png",
+      "active_underlay": "/assets/zoom_stage_4.webp"
+    },
+    {
+      "stage": 5,
+      "scale_latex": "3 \\times 10^{-6}\\text{ m}",
+      "scale_label": "3 um Self-Knotting AND2 Ratchet",
+      "imagen_model": "imagen-3.0-generate-002",
+      "prompt": "Top-down scanning electron micrograph (SEM) at 3 micrometer field of view showing M1 and M2 cobalt/tungsten local interconnects forming a closed feedback strap from register Q output directly into a 2-input CMOS AND gate input, crisp contact plugs, high-contrast scientific SEM, no text.",
+      "svg_underlay": "/assets/zoom_stage_5.svg",
+      "png_underlay": "/assets/zoom_stage_5.png",
+      "active_underlay": "/assets/zoom_stage_5.webp"
+    },
+    {
+      "stage": 6,
+      "scale_latex": "3 \\times 10^{-7}\\text{ m}",
+      "scale_label": "300 nm Warm-Reset Air-Gap Trench",
+      "imagen_model": "imagen-3.0-generate-002",
+      "prompt": "High-resolution top-down scanning electron micrograph (SEM) at 300 nanometer scale showing a metal reset trace terminating abruptly at an etched silicon dioxide dielectric isolation trench with zero conductive path across the gap while an adjacent cold power-on-reset trace routes cleanly into the flip-flop cell, scientific SEM, no text.",
+      "svg_underlay": "/assets/zoom_stage_6.svg",
+      "png_underlay": "/assets/zoom_stage_6.png",
+      "active_underlay": "/assets/zoom_stage_6.webp"
+    },
+    {
+      "stage": 7,
+      "scale_latex": "10^{-8}\\text{ m}",
+      "scale_label": "10 nm 7nm FinFET Fins & SiO2 Trench",
+      "imagen_model": "imagen-3.0-generate-002",
+      "prompt": "Ultra-high-magnification top-down scanning electron micrograph (SEM) at 10 nanometer scale resolving 7nm FinFET parallel crystalline silicon fins intersected orthogonally by high-k metal gate strips beside an insulating SiO2 shallow trench isolation barrier, atomic-scale lithography precision, grayscale scientific SEM, no text.",
+      "svg_underlay": "/assets/zoom_stage_7.svg",
+      "png_underlay": "/assets/zoom_stage_7.png",
+      "active_underlay": "/assets/zoom_stage_7.webp"
+    }
+  ]
+}

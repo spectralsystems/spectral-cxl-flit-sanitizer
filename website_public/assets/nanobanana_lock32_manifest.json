@@ -1,0 +1,166 @@
+{
+  "schema": "spectral.lock32.v1",
+  "zoom_step": 1.45,
+  "stages": [
+    {
+      "stage": 0,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_00.webp"
+    },
+    {
+      "stage": 1,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_01.webp"
+    },
+    {
+      "stage": 2,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_02.webp"
+    },
+    {
+      "stage": 3,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_03.webp"
+    },
+    {
+      "stage": 4,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_04.webp"
+    },
+    {
+      "stage": 5,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_05.webp"
+    },
+    {
+      "stage": 6,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_06.webp"
+    },
+    {
+      "stage": 7,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_07.webp"
+    },
+    {
+      "stage": 8,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_08.webp"
+    },
+    {
+      "stage": 9,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_09.webp"
+    },
+    {
+      "stage": 10,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_10.webp"
+    },
+    {
+      "stage": 11,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_11.webp"
+    },
+    {
+      "stage": 12,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_12.webp"
+    },
+    {
+      "stage": 13,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_13.webp"
+    },
+    {
+      "stage": 14,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_14.webp"
+    },
+    {
+      "stage": 15,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_15.webp"
+    },
+    {
+      "stage": 16,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_16.webp"
+    },
+    {
+      "stage": 17,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_17.webp"
+    },
+    {
+      "stage": 18,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_18.webp"
+    },
+    {
+      "stage": 19,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_19.webp"
+    },
+    {
+      "stage": 20,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_20.webp"
+    },
+    {
+      "stage": 21,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_21.webp"
+    },
+    {
+      "stage": 22,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_22.webp"
+    },
+    {
+      "stage": 23,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_23.webp"
+    },
+    {
+      "stage": 24,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_24.webp"
+    },
+    {
+      "stage": 25,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_25.webp"
+    },
+    {
+      "stage": 26,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_26.webp"
+    },
+    {
+      "stage": 27,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_27.webp"
+    },
+    {
+      "stage": 28,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_28.webp"
+    },
+    {
+      "stage": 29,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_29.webp"
+    },
+    {
+      "stage": 30,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_30.webp"
+    },
+    {
+      "stage": 31,
+      "model": "gemini-nano-banana-2.1",
+      "src": "/assets/zoom_lock32_31.webp"
+    }
+  ]
+}

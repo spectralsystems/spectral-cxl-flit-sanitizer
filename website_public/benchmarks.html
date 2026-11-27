@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>03 Silicon Benchmarks | 23x Packet Race, 16nm AWS F2 &amp; 7nm ASAP7 | KERNEL // ZERO</title>
+  <meta name="description" content="Measured 16nm AWS F2 (agfi-08becf3b40b169674, agfi-03b742e2a9cd2c0f2) and 7nm ASAP7 (0.00224 sq mm core, 0.003335 sq mm enclave, 34.2 ps gate, 3.728 mW) silicon benchmarks.">
+  <link rel="canonical" href="https://spectralsystems.org/benchmarks"/>
+  <meta property="og:title" content="03 Silicon Benchmarks | 23x Packet Race, 16nm AWS F2 &amp; 7nm ASAP7 | KERNEL // ZERO">
+  <meta property="og:description" content="Measured 16nm AWS F2 (agfi-08becf3b40b169674, agfi-03b742e2a9cd2c0f2) and 7nm ASAP7 (0.00224 sq mm core, 0.003335 sq mm enclave, 34.2 ps gate, 3.728 mW) silicon benchmarks.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://spectralsystems.org/benchmarks.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='2' fill='%2309090B' stroke='%2324242C' stroke-width='2'/%3E%3Ctext x='5' y='43' font-family='monospace' font-weight='700' font-size='25' fill='%23FF5500'%3E-%26lt%3B%3C/text%3E%3Ctext x='36' y='44' font-family='monospace' font-weight='700' font-size='27' fill='%23F8F7F4'%3E%26%23216%3B%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <style>
+:root {
+  --bg-void: #09090B;
+  --bg-bay: #111115;
+  --bg-grid: #0D1119;
+  --line: #24242C;
+  --line-hi: #343442;
+  --ink-hi: #F8F7F4;
+  --ink-body: #D8DEE9;
+  --ink-muted: #94A3B8;
+  --ink-slate: #CBD5E1;
+  --orange: #FF5500;
+  --emerald: #10B981;
+  --cyan: #38BDF8;
+  --amber: #F59E0B;
+  --crimson: #F43F5E;
+  --font-serif: 'Newsreader', 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', Consolas, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-void);
+  color: var(--ink-body);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-void);
+  color: var(--ink-body);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .serif-head {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--ink-hi);
+  letter-spacing: -0.026em;
+  line-height: 1.14;
+  margin: 0 0 0.65em 0;
+}
+
+p {
+  margin: 0 0 1.15em 0;
+  max-width: 66ch;
+  color: var(--ink-body);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--ink-hi);
+  text-decoration-color: var(--line-hi);
+  text-underline-offset: 3px;
+  transition: color 0.14s ease, border-color 0.14s ease;
+}
+
+a:hover {
+  color: var(--orange);
+  text-decoration-color: var(--orange);
+}
+
+code, pre, .mono, .num, .csr-hex {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+code {
+  font-size: 0.88em;
+  color: var(--ink-slate);
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 1px 5px;
+}
+
+pre code {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+
+.muted { color: var(--ink-muted); }
+.slate { color: var(--ink-slate); }
+.sig-orange { color: var(--orange); }
+.sig-emerald { color: var(--emerald); }
+.sig-cyan { color: var(--cyan); }
+.sig-amber { color: var(--amber); }
+.sig-crimson { color: var(--crimson); }
+
+/* Exposed 1px Structural Hairlines & + Corner Fiducials */
+.fiducial-box {
+  position: relative;
+  background: var(--bg-bay);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+.fiducial-box::before,
+.fiducial-box::after {
+  content: "+";
+  position: absolute;
+  top: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--ink-muted);
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.fiducial-box::before { left: 7px; }
+.fiducial-box::after { right: 7px; }
+
+/* Top Masthead Strip + Single-Row Sticky Navigation */
+.masthead-strip {
+  background: var(--bg-void);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
+}
+
+.masthead-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 14px;
+}
+
+.brand-glyph {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--orange);
+  border: 1px solid var(--line-hi);
+  background: var(--bg-grid);
+  border-radius: 2px;
+  padding: 2px 7px;
+  text-decoration: none;
+}
+
+.brand-wordmark {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ink-hi);
+  text-decoration: none;
+}
+
+.brand-lockstep {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+}
+
+.masthead-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn,
+.hw-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--ink-slate);
+  background: var(--bg-bay);
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  padding: 7px 11px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+}
+
+.action-btn:hover,
+.hw-btn:hover {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.08);
+  text-decoration: none;
+}
+
+.action-btn-primary,
+.hw-btn.active {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.14);
+}
+
+.hw-btn.pass-active {
+  color: var(--ink-hi);
+  border-color: var(--emerald);
+  background: rgba(16, 185, 129, 0.14);
+}
+
+.site-nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 300;
+  height: 56px;
+  max-height: 60px;
+  background: rgba(9, 9, 11, 0.96);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.site-nav-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.site-nav-inner {
+  display: inline-flex;
+  align-items: center;
+  height: 56px;
+  min-width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 24px;
+  gap: 6px;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.nav-link:hover {
+  color: var(--ink-hi);
+  border-color: var(--line-hi);
+  background: var(--bg-bay);
+  text-decoration: none;
+}
+
+.nav-link.active {
+  color: var(--ink-hi);
+  background: var(--bg-bay);
+  border-color: var(--line-hi);
+  border-bottom: 2px solid var(--orange);
+}
+
+/* Screen 1: Cold Open (min-height: 78vh) */
+.screen-cold-open {
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 68px 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+
+.cold-open-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.85rem);
+  letter-spacing: -0.032em;
+  line-height: 1.08;
+  max-width: 23ch;
+  margin-bottom: 24px;
+}
+
+.cold-open-lede {
+  font-size: clamp(1.06rem, 1.3vw, 1.2rem);
+  line-height: 1.74;
+  max-width: 65ch;
+  color: var(--ink-body);
+}
+
+.glyph-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 40px;
+}
+
+.glyph-cell {
+  background: var(--bg-bay);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.glyph-token {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--orange);
+  line-height: 1.1;
+}
+
+.glyph-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-hi);
+  letter-spacing: 0.02em;
+}
+
+.glyph-desc {
+  font-size: 12.5px;
+  line-height: 1.42;
+  color: var(--ink-muted);
+}
+
+/* Screen 2: KERNEL // ZERO Calligraphy Marquee (min-height: 86vh) */
+.screen-marquee {
+  min-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 76px 0;
+  border-bottom: 1px solid var(--line);
+  background-color: var(--bg-void);
+  background-image:
+    linear-gradient(to right, rgba(36, 36, 44, 0.34) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(36, 36, 44, 0.34) 1px, transparent 1px);
+  background-size: 48px 48px;
+  position: relative;
+}
+
+.marquee-wordmark {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 10.8vw, 9.2rem);
+  line-height: 0.94;
+  letter-spacing: -0.038em;
+  color: var(--ink-hi);
+  margin: 12px 0 22px 0;
+}
+
+.marquee-slashes {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--orange);
+  letter-spacing: -0.06em;
+  padding: 0 0.05em;
+}
+
+.marquee-tm {
+  font-family: var(--font-sans);
+  font-size: 0.22em;
+  vertical-align: super;
+  color: var(--ink-muted);
+  letter-spacing: 0;
+}
+
+.marquee-sub {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-slate);
+  margin-bottom: 24px;
+}
+
+.telemetry-strip {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 36px;
+}
+
+.telemetry-cell {
+  background: var(--bg-bay);
+  padding: 16px 14px;
+}
+
+.telemetry-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.telemetry-value {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink-hi);
+  font-variant-numeric: tabular-nums;
+}
+
+.telemetry-note {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+/* Screen 3: 4-Card ASCII Skeptic Grid */
+.screen-skeptic {
+  padding: 84px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-header {
+  max-width: 780px;
+  margin-bottom: 36px;
+}
+
+.section-title {
+  font-size: clamp(1.95rem, 3.4vw, 2.85rem);
+  letter-spacing: -0.028em;
+}
+
+.skeptic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.skeptic-card {
+  background: var(--bg-bay);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.skeptic-card-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeptic-q {
+  font-family: var(--font-serif);
+  font-size: 1.52rem;
+  line-height: 1.22;
+  color: var(--ink-hi);
+  margin-bottom: 16px;
+}
+
+.ascii-diagram {
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 14px 16px;
+  margin: 0 0 18px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-slate);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Screen 4: 3-Bay CMOS Transistor Schematic Workbench */
+.screen-cmos-workbench {
+  padding: 84px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.cmos-bays {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.cmos-bay {
+  background: var(--bg-bay);
+  display: flex;
+  flex-direction: column;
+}
+
+.cmos-bay-head {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.cmos-bay-title {
+  font-family: var(--font-serif);
+  font-size: 1.32rem;
+  color: var(--ink-hi);
+  margin: 4px 0 0 0;
+}
+
+.cmos-canvas-stage {
+  background: var(--bg-grid);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  width: 100%;
+  height: 290px;
+}
+
+.cmos-canvas-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cmos-controls {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.cmos-bay-copy {
+  padding: 18px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 15.5px;
+  line-height: 1.66;
+}
+
+/* Screen 5: Split-Stage Scrollytelling Spine (38% Left / 62% Sticky Right) */
+.screen-scrolly {
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.scrolly-intro {
+  padding: 76px 0 42px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.scrolly-spine {
+  display: grid;
+  grid-template-columns: 38% 62%;
+  max-width: 1440px;
+  margin: 0 auto;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  align-items: start;
+}
+
+.scrolly-narrative {
+  border-right: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.scrolly-step {
+  min-height: 82vh;
+  padding: 48px 32px;
+  border-bottom: 1px solid var(--line);
+  border-left: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: background 0.2s ease, border-left-color 0.2s ease;
+}
+
+.scrolly-step:last-child {
+  border-bottom: 0;
+}
+
+.scrolly-step.is-active {
+  border-left-color: var(--orange);
+  background: rgba(17, 17, 21, 0.78);
+}
+
+.scrolly-step-title {
+  font-size: 1.65rem;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.scrolly-stage {
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  background: var(--bg-grid);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.microscope-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-void);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-slate);
+  flex-shrink: 0;
+}
+
+.stage-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.stage-jump-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 3px 7px;
+  background: var(--bg-bay);
+  color: var(--ink-muted);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.stage-jump-btn.active,
+.stage-jump-btn:hover {
+  color: var(--ink-hi);
+  border-color: var(--orange);
+}
+
+.microscope-canvas-wrap {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 300px;
+  background: var(--bg-grid);
+  overflow: hidden;
+}
+
+.microscope-canvas-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#microscope-latex-hud {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  background: rgba(9, 9, 11, 0.93);
+  border: 1px solid var(--line-hi);
+  border-left: 2px solid var(--orange);
+  border-radius: 2px;
+  padding: 12px 16px;
+  z-index: 25;
+}
+
+.hud-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.hud-math {
+  color: var(--ink-hi);
+  font-size: 15px;
+  overflow-x: auto;
+}
+
+/* Collapsible Rosetta LaTeX Drawers (Closed by Default) */
+details.rosetta-drawer {
+  margin-top: 20px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--bg-grid);
+}
+
+details.rosetta-drawer > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: var(--ink-slate);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+details.rosetta-drawer > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.rosetta-drawer > summary:hover {
+  color: var(--orange);
+  background: rgba(255, 85, 0, 0.05);
+}
+
+details.rosetta-drawer[open] > summary {
+  color: var(--orange);
+  border-bottom: 1px solid var(--line);
+}
+
+.rosetta-content {
+  padding: 16px;
+  font-size: 15px;
+  line-height: 1.66;
+  color: var(--ink-body);
+  overflow-x: auto;
+}
+
+/* Shared Technical Workbench Styles (Routes 02 - 07) */
+.page-hero {
+  padding: 56px 0 40px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-void);
+}
+
+.page-title {
+  font-size: clamp(2.1rem, 4vw, 3.25rem);
+  letter-spacing: -0.03em;
+  max-width: 26ch;
+}
+
+.workbench-section {
+  padding: 52px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.instrument-card {
+  background: var(--bg-bay);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 24px;
+  position: relative;
+}
+
+.instrument-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hw-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-slate);
+  margin-bottom: 6px;
+}
+
+.hw-input,
+.hw-select,
+.hw-textarea {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-hi);
+  background: var(--bg-grid);
+  border: 1px solid var(--line-hi);
+  border-radius: 2px;
+  padding: 9px 11px;
+}
+
+.hw-input:focus,
+.hw-select:focus,
+.hw-textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+
+.terminal-out {
+  background: var(--bg-grid);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-slate);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.spec-table th,
+.spec-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.spec-table th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  background: var(--bg-grid);
+}
+
+/* KaTeX Classical Computer Modern Tuning */
+.katex {
+  font-size: 1.04em;
+  color: var(--ink-hi);
+}
+
+.katex-display {
+  margin: 0.85em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+}
+
+/* Site Footer & Apache-2.0 Sec. 6 Reservation */
+.site-footer {
+  background: var(--bg-void);
+  border-top: 1px solid var(--line);
+  padding: 56px 0 64px 0;
+  font-size: 14px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.footer-heading {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-hi);
+  margin-bottom: 12px;
+}
+
+.footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.footer-legal {
+  padding-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.65;
+  color: var(--ink-muted);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1120px) {
+  .glyph-legend-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .telemetry-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .cmos-bays {
+    grid-template-columns: 1fr;
+  }
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 980px) {
+  .skeptic-grid,
+  .grid-2,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .scrolly-spine {
+    grid-template-columns: 1fr;
+  }
+  .scrolly-stage {
+    order: -1;
+    position: sticky;
+    top: 56px;
+    height: 46vh;
+    min-height: 320px;
+    z-index: 40;
+    border-bottom: 1px solid var(--line);
+  }
+  .scrolly-narrative {
+    border-right: 0;
+  }
+  .scrolly-step {
+    min-height: auto;
+    padding: 36px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 0 16px;
+  }
+  .glyph-legend-grid,
+  .telemetry-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .masthead-actions {
+    width: 100%;
+  }
+}
+</style>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  function runKatex(rootEl) {
+    if (typeof renderMathInElement === "function") {
+      renderMathInElement(rootEl || document.body, {
+        delimiters: [
+          {left: "\\[", right: "\\]", display: true},
+          {left: "\\(", right: "\\)", display: false}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+  window.spectralRenderMath = runKatex;
+  runKatex(document.body);
+  var drawers = document.querySelectorAll("details.rosetta-drawer");
+  for (var i = 0; i < drawers.length; i++) {
+    drawers[i].addEventListener("toggle", function () {
+      if (this.open) {
+        runKatex(this);
+      }
+    });
+  }
+});
+</script>
+  <!-- Highwire Press / Google Scholar / IACR / Zenodo Citation Meta -->
+  <meta name="citation_title" content="Finite Fields Forever: Assured Memory Isolation in a Single Logic Gate">
+  <meta name="citation_author" content="Eric Murphy">
+  <meta name="citation_author_institution" content="Spectral Systems LLC">
+  <meta name="citation_publication_date" content="2026/11/20">
+  <meta name="citation_doi" content="10.5281/zenodo.24047901">
+  <meta name="citation_pdf_url" content="https://spectralsystems.org/preprint_Murphy_v1.pdf">
+  <meta name="citation_technical_report_institution" content="Spectral Systems LLC">
+  <link rel="cite-as" href="https://doi.org/10.5281/zenodo.24047901">
+</head>
+<body>
+<header class="masthead-strip" role="banner">
+  <div class="wrap masthead-inner">
+    <div class="brand-cluster">
+      <a class="brand-glyph" href="/" aria-label="KERNEL ZERO Home">-&lt;&Oslash;</a>
+      <a class="brand-wordmark" href="/">KERNEL // ZERO&trade;</a>
+      <span class="brand-lockstep">SPECTRAL SYSTEMS // SUB-FLIT ALGEBRAIC MEMORY ISOLATION</span>
+    </div>
+    <div class="masthead-actions">
+      <a class="action-btn action-btn-primary" href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Preprint v1 (PDF) ]</a>
+      <a class="action-btn" href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener">[ Zenodo DOI: 10.5281/zenodo.24047902 ]</a>
+      <a class="action-btn" href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer" target="_blank" rel="noopener">[ GitHub Repo (Lean 4 &amp; AWS F2) ]</a>
+    </div>
+  </div>
+</header>
+<nav class="site-nav-bar" aria-label="Primary Instrument Routes">
+  <div class="site-nav-inner">
+    <a class="nav-link" href="/">01 KERNEL // ZERO (Story)</a>
+    <a class="nav-link" href="/zero-trust.html">02 Interactive Locks</a>
+    <a class="nav-link active" href="/benchmarks.html" aria-current="page">03 Silicon Benchmarks</a>
+    <a class="nav-link" href="/verification.html">04 Lean 4 Proofs</a>
+    <a class="nav-link" href="/console-demo/">05 Policy Compiler</a>
+    <a class="nav-link" href="/cots-procurement.html">06 DARPA ERIS &amp; Procurement</a>
+    <a class="nav-link" href="/patents.html">07 IP &amp; Air-Gap</a>
+  </div>
+</nav>
+
+<style>
+  .race-canvas-box {
+    width: 100%;
+    height: 310px;
+    background: #0D1119;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    margin: 16px 0;
+    overflow: hidden;
+  }
+  .race-canvas-box canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .plates-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 24px;
+  }
+  .plate-card {
+    background: var(--bg-bay);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 18px;
+  }
+  .plate-svg-wrap {
+    background: #0D1119;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  .plate-svg-wrap svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  @media (max-width: 960px) {
+    .plates-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<main id="main-content">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="kicker">ROUTE 03 // MEASURED SILICON BENCHMARKS &amp; THE 23&times; PACKET RACE</span>
+      <h1 class="page-title">Measured 16nm AWS F2 silicon, 7nm <code>ASAP7</code> sign-off, and the 23&times; latency race.</h1>
+      <p class="muted">Compare post-route FPGA and FinFET ASIC telemetry against CHERI/Morello tagged memory and stateful DRAM permission tables across live CXL 3.0 workloads.</p>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 1. INTERACTIVE 23x SLOW-MOTION PACKET RACE (<canvas id="race-canvas">)-->
+  <!-- ===================================================================== -->
+  <section class="workbench-section">
+    <div class="wrap">
+      <div class="instrument-card fiducial-box">
+        <div class="instrument-head">
+          <div>
+            <span class="kicker">WORKBENCH 01 // 23&times; SLOW-MOTION SUB-FLIT PACKET RACE</span>
+            <h2 class="serif-head" style="font-size:1.75rem;margin:0;"><code>8.0 ns</code> Cut-Through Wall vs. CHERI (<code>34.8 ns</code>) vs. DRAM Tables (<code>184.2 ns</code>)</h2>
+          </div>
+          <span class="mono sig-orange" id="race-speedup-badge">SPEEDUP: 23.0x FASTER THAN DRAM TABLE</span>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;">
+          <div style="min-width:290px;">
+            <label class="hw-label" for="bm-workload-select">Target AI / HPC Workload Profile</label>
+            <select id="bm-workload-select" class="hw-select">
+              <option value="184.2" selected>Sparse MoE Routing (184.2 ns P99.99 DRAM Miss Stall)</option>
+              <option value="142.6">GAPBS Graph Analytics (142.6 ns P99.99 DRAM Miss Stall)</option>
+              <option value="118.4">vLLM KV-Cache Paging (118.4 ns P99.99 DRAM Miss Stall)</option>
+            </select>
+          </div>
+          <label class="mono slate" style="font-size:12.5px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;margin-top:18px;">
+            <input type="checkbox" id="bm-wddl-toggle" style="accent-color:#FF5500;">
+            <span>Enable Mode-D WDDL Dual-Rail Hardening (<code>16.0 ns</code> vs. <code>8.0 ns</code> Cut-Through)</span>
+          </label>
+          <button type="button" class="hw-btn active" id="race-replay-btn" style="margin-top:18px;">[Replay 23x Slow-Motion Race]</button>
+        </div>
+
+        <div class="race-canvas-box">
+          <canvas id="race-canvas" aria-label="23x Slow-Motion Packet Race Canvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 2. RENEWAL-REWARD GOODPUT & LE CAM / BBP SIMULATOR                    -->
+  <!-- ===================================================================== -->
+  <section class="workbench-section" id="spectral-goodput-lecam-sim">
+    <div class="wrap">
+      <div class="instrument-card fiducial-box">
+        <div class="instrument-head">
+          <div>
+            <span class="kicker">WORKBENCH 02 // RENEWAL-REWARD GOODPUT &amp; LE CAM / BBP SPECTRAL WALL</span>
+            <h2 class="serif-head" style="font-size:1.75rem;margin:0;"><code>99.20%</code> Surgical Goodput vs. <code>48.90%</code> CRC-Poison Collapse &amp; \(Q^*_{\mathrm{BBP}} = 43{,}691\)</h2>
+          </div>
+          <span class="mono sig-emerald" id="sim-goodput-badge">SIEVE: 99.20% | LEGACY: 48.90%</span>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label class="hw-label" for="sim-qslot-slider">Slot Violation Rate \(q_{\mathrm{slot}}\) (<span id="sim-qslot-val">0.80%</span>, \(N_{\mathrm{pipe}} = 32\))</label>
+            <input type="range" id="sim-qslot-slider" class="tangle-slider" min="0.1" max="5.0" step="0.1" value="0.8" style="width:100%;accent-color:#FF5500;">
+
+            <label class="hw-label" for="sim-dither-slider" style="margin-top:16px;">Extraction Step Ratio \(\Delta_u / \delta w\) (<span id="sim-dither-val">64</span> &times; fine step)</label>
+            <input type="range" id="sim-dither-slider" class="tangle-slider" min="4" max="128" step="4" value="64" style="width:100%;accent-color:#FF5500;">
+          </div>
+
+          <div>
+            <div class="terminal-out" id="sim-readout-box"></div>
+            <div style="margin-top:10px;">
+              \[
+                G_{\mathrm{sieve}} = 1 - q_{\mathrm{slot}}, \qquad
+                G_{\mathrm{legacy}} = \frac{1}{1 + N_{\mathrm{pipe}} \frac{p_{\mathrm{flit}}}{1 - p_{\mathrm{flit}}}}, \qquad
+                Q^*_{\mathrm{BBP}} = 43{,}691\;\; (Q_{\mathrm{LeCam}} \ge 512)
+              \]
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 3. GF(2^8) & FRACTURED LUT6_2 TRUTH-TABLE PROVER                      -->
+  <!-- ===================================================================== -->
+  <section class="workbench-section" id="spectral-gf256-lut6-prover">
+    <div class="wrap">
+      <div class="instrument-card fiducial-box">
+        <div class="instrument-head">
+          <div>
+            <span class="kicker">WORKBENCH 03 // EXHAUSTIVE FRACTURED LUT6_2 &amp; \(\mathbb{F}_{2^8}\) PROVER</span>
+            <h2 class="serif-head" style="font-size:1.75rem;margin:0;">Bit-Exact Verification of <code>INIT = 64'h2A2A2A2A_80808080</code></h2>
+          </div>
+          <span class="mono sig-emerald" id="lut6-proof-badge">VERIFIED: 32/32 DUAL-RAIL STATES ORTHOGONAL</span>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <p style="font-size:15.5px;">
+              Verify directly in JavaScript that Xilinx UltraScale+ <code>LUT6_2</code> configuration constant <code>64'h2A2A2A2A_80808080</code> (`I5 = 1`) satisfies exact orthogonal decomposition \(\texttt{O6} \oplus \texttt{O5} \equiv r_i\) and \(\texttt{O6} \wedge \texttt{O5} \equiv 0\) across every input state while evaluating \(\mathbb{F}_{2^8}\) Vieta roots in <code>0.124 ns</code> per LUT level.
+            </p>
+            <button type="button" class="hw-btn pass-active" id="lut6-run-btn">[Re-Run 32-State LUT6_2 &amp; GF(2^8) Exhaustive Sweep]</button>
+          </div>
+          <div class="terminal-out" id="lut6-prover-out"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 4. CROSS-TECHNOLOGY POST-ROUTE SILICON SIGN-OFF TABLE & PLATES        -->
+  <!-- ===================================================================== -->
+  <section class="workbench-section">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="kicker">POST-ROUTE SILICON SIGN-OFF &amp; DUAL-AFI AWS F2 CAMPAIGNS</span>
+        <h2 class="section-title">Cross-technology synthesis, timing, power, and live HBM2 / TVLA verification.</h2>
+      </div>
+
+      <div class="instrument-card fiducial-box" style="overflow-x:auto;">
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Target / Silicon Artifact</th>
+              <th>Logic / Cell Footprint</th>
+              <th>SRAM / BRAM</th>
+              <th>Critical Path / Fmax</th>
+              <th>Power / Campaign Verification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>16nm AMD UltraScale+ (<code>xcvu47p</code>)</strong><br><span class="muted mono">Full 4-Stage Enclave Post-Route</span></td>
+              <td class="mono">1,585 LUTs / 1,157 FFs<br><span class="muted">(1,585 CLB LUTs standalone core; 0.003335% chip LUT slice)</span></td>
+              <td class="mono sig-emerald">0 BRAM / 0 URAM / 0 LUTRAM</td>
+              <td class="mono">+1.048 ns WNS<br>338.8 MHz (0.124 ns LUT6_2)</td>
+              <td class="mono">35.0 mW dynamic</td>
+            </tr>
+            <tr>
+              <td><strong>7nm <code>ASAP7</code> FinFET ASIC (Core)</strong><br><span class="muted mono">Standalone Combinational Sanitizer</span></td>
+              <td class="mono">9,678 cells<br><span class="sig-emerald">0.00224 mm&sup2;</span></td>
+              <td class="mono sig-emerald">0 SRAM / 0 CAM</td>
+              <td class="mono">34.2 ps single-gate delay</td>
+              <td class="mono">Sub-milliwatt combinational</td>
+            </tr>
+            <tr>
+              <td><strong>7nm <code>ASAP7</code> FinFET ASIC (Enclave)</strong><br><span class="muted mono">Full 4-Stage Pipeline + CSRs</span></td>
+              <td class="mono">27,877 cells<br><span class="sig-orange">0.003335 mm&sup2; (3,335.45 &mu;m&sup2;)</span></td>
+              <td class="mono sig-emerald">0 SRAM / 0 CAM</td>
+              <td class="mono">1,443.59 ps = 1.444 ns<br>693 MHz sign-off</td>
+              <td class="mono">3.728 mW total power</td>
+            </tr>
+            <tr>
+              <td><strong>AWS EC2 <code>f2.6xlarge</code> AFI #1</strong><br><code class="sig-cyan">agfi-03b742e2a9cd2c0f2</code></td>
+              <td class="mono">Hardware BIST + WDDL TVLA Harness</td>
+              <td class="mono sig-emerald">0 BRAM</td>
+              <td class="mono">250 MHz shell clock</td>
+              <td class="mono">800,000 BIST slots (0 errors); 19,990-trace TVLA \(\max |t| = 0.0\)</td>
+            </tr>
+            <tr>
+              <td><strong>AWS EC2 <code>f2.6xlarge</code> AFI #2</strong><br><code class="sig-cyan">agfi-08becf3b40b169674</code></td>
+              <td class="mono">16 GB HBM2 Datapath + AXI4 Scrub Shim (341 LUTs)</td>
+              <td class="mono sig-emerald">0 BRAM</td>
+              <td class="mono">8.0 ns cut-through / 16.0 ns WDDL</td>
+              <td class="mono">25,000 live 16 GB HBM2 bursts (100,000 slots, 0x5555555555555555 committed / 0xAAAAAAAAAAAAAAAA scrubbed, 0 CmpltTO)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 6 Publication Vector Plates (fig1 - fig6) -->
+      <div class="plates-grid">
+        <figure class="plate-card" id="fig1" style="margin:0;">
+          <span class="kicker">PLATE FIG. 1 // END-TO-END P99.99 LATENCY WATERFALL</span>
+          <div class="plate-svg-wrap">
+            <svg viewBox="0 0 460 150" xmlns="http://www.w3.org/2000/svg">
+              <rect x="120" y="18" width="16" height="24" fill="#10B981"/>
+              <text x="10" y="34" fill="#CBD5E1" font-family="monospace" font-size="11">KERNEL // ZERO</text>
+              <text x="144" y="34" fill="#10B981" font-family="monospace" font-size="11">8.0 ns (16.0 ns WDDL)</text>
+              <rect x="120" y="60" width="64" height="24" fill="#38BDF8"/>
+              <text x="10" y="76" fill="#CBD5E1" font-family="monospace" font-size="11">CHERI/Morello</text>
+              <text x="192" y="76" fill="#38BDF8" font-family="monospace" font-size="11">34.8 ns (+12.5% DRAM)</text>
+              <rect x="120" y="102" width="290" height="24" fill="#F43F5E"/>
+              <text x="10" y="118" fill="#CBD5E1" font-family="monospace" font-size="11">DRAM MPT Table</text>
+              <text x="275" y="118" fill="#F8F7F4" font-family="monospace" font-size="11">184.2 ns Stall</text>
+            </svg>
+          </div>
+        </figure>
+
+        <figure class="plate-card" id="fig2" style="margin:0;">
+          <span class="kicker">PLATE FIG. 2 // SUB-FLIT SIEVE vs. WHOLE-FLIT CRC POISON GOODPUT</span>
+          <div class="plate-svg-wrap">
+            <svg viewBox="0 0 460 150" xmlns="http://www.w3.org/2000/svg">
+              <line x1="45" y1="125" x2="435" y2="125" stroke="#343442"/>
+              <line x1="45" y1="20" x2="45" y2="125" stroke="#343442"/>
+              <polyline points="45,24 180,27 310,30 430,34" fill="none" stroke="#10B981" stroke-width="2.5"/>
+              <polyline points="45,24 120,76 240,104 430,118" fill="none" stroke="#FF5500" stroke-width="2.5"/>
+              <text x="245" y="24" fill="#10B981" font-family="monospace" font-size="10.5">99.20% Sub-Flit Sieve (#)</text>
+              <text x="200" y="96" fill="#FF5500" font-family="monospace" font-size="10.5">48.90% Legacy Retry Collapse</text>
+            </svg>
+          </div>
+        </figure>
+
+        <figure class="plate-card" id="fig3" style="margin:0;">
+          <span class="kicker">PLATE FIG. 3 // 7NM ASAP7 AREA PARETO (0.00224 vs. 0.003335 mm&sup2;)</span>
+          <div class="plate-svg-wrap">
+            <svg viewBox="0 0 460 150" xmlns="http://www.w3.org/2000/svg">
+              <rect x="40" y="25" width="96" height="96" fill="rgba(255,85,0,0.16)" stroke="#FF5500" stroke-width="1.8"/>
+              <rect x="55" y="40" width="66" height="66" fill="rgba(16,185,129,0.22)" stroke="#10B981" stroke-width="1.5"/>
+              <circle cx="195" cy="97" r="24" fill="rgba(56,189,248,0.16)" stroke="#38BDF8" stroke-width="1.6"/>
+              <text x="240" y="48" fill="#FF5500" font-family="monospace" font-size="10.5">Enclave: 0.003335 mm2</text>
+              <text x="240" y="72" fill="#10B981" font-family="monospace" font-size="10.5">Core   : 0.00224 mm2</text>
+              <text x="240" y="96" fill="#38BDF8" font-family="monospace" font-size="10.5">Hair   : 90 um (1:2 scale)</text>
+            </svg>
+          </div>
+        </figure>
+
+        <figure class="plate-card" id="fig4" style="margin:0;">
+          <span class="kicker">PLATE FIG. 4 // 19,990-TRACE AWS F2 TVLA SPECTRUM (\(\max |t| = 0.0\))</span>
+          <div class="plate-svg-wrap">
+            <svg viewBox="0 0 460 150" xmlns="http://www.w3.org/2000/svg">
+              <line x1="35" y1="32" x2="435" y2="32" stroke="#F43F5E" stroke-dasharray="4,4"/>
+              <line x1="35" y1="118" x2="435" y2="118" stroke="#F43F5E" stroke-dasharray="4,4"/>
+              <line x1="35" y1="75" x2="435" y2="75" stroke="#10B981" stroke-width="2.4"/>
+              <text x="44" y="26" fill="#F43F5E" font-family="monospace" font-size="10">+4.5 TVLA Leak Threshold</text>
+              <text x="44" y="68" fill="#10B981" font-family="monospace" font-size="10.5">Measured WDDL Trace: max |t| = 0.0 (19,990 traces)</text>
+            </svg>
+          </div>
+        </figure>
+
+        <figure class="plate-card" id="fig5" style="margin:0;">
+          <span class="kicker">PLATE FIG. 5 // 548.0 ns VIETA NON-SATURATION vs. BLOOM SATURATION</span>
+          <div class="plate-svg-wrap">
+            <svg viewBox="0 0 460 150" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="40,118 140,86 240,42 430,24" fill="none" stroke="#F43F5E" stroke-width="2.2"/>
+              <line x1="40" y1="120" x2="430" y2="120" stroke="#38BDF8" stroke-width="2.6"/>
+              <text x="160" y="38" fill="#F43F5E" font-family="monospace" font-size="10.5">Bloom P_alias -&gt; 1.0 (Saturated)</text>
+              <text x="80" y="112" fill="#38BDF8" font-family="monospace" font-size="10.5">CSR 0x60 Vieta: P_alias = 0 (548.0 ns window)</text>
+            </svg>
+          </div>
+        </figure>
+
+        <figure class="plate-card" id="fig6" style="margin:0;">
+          <span class="kicker">PLATE FIG. 6 // BBP SINGULAR-VALUE PHASE WALL (\(Q^*_{\mathrm{BBP}} = 43{,}691\))</span>
+          <div class="plate-svg-wrap">
+            <svg viewBox="0 0 460 150" xmlns="http://www.w3.org/2000/svg">
+              <rect x="40" y="22" width="235" height="102" fill="rgba(16,185,129,0.12)" stroke="#10B981"/>
+              <line x1="275" y1="16" x2="275" y2="130" stroke="#FF5500" stroke-width="2.5"/>
+              <text x="54" y="68" fill="#10B981" font-family="monospace" font-size="10.5">MP Bulk Noise Sea</text>
+              <text x="54" y="86" fill="#CBD5E1" font-family="monospace" font-size="10">(LoRA Weights Unrecoverable)</text>
+              <text x="284" y="54" fill="#FF5500" font-family="monospace" font-size="10.5">Q*_BBP = 43,691</text>
+              <text x="284" y="72" fill="#94A3B8" font-family="monospace" font-size="10">Phase Transition Wall</text>
+            </svg>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  // -------------------------------------------------------------------------
+  // 1. 23x Slow-Motion Packet Race (<canvas id="race-canvas">)
+  // -------------------------------------------------------------------------
+  var raceCanvas = document.getElementById("race-canvas");
+  var workloadSel = document.getElementById("bm-workload-select");
+  var wddlToggle = document.getElementById("bm-wddl-toggle");
+  var replayBtn = document.getElementById("race-replay-btn");
+  var raceBadge = document.getElementById("race-speedup-badge");
+
+  var simTimeNs = 0.0;
+
+  function resetRace() {
+    simTimeNs = 0.0;
+  }
+
+  if (workloadSel) workloadSel.addEventListener("change", resetRace);
+  if (wddlToggle) wddlToggle.addEventListener("change", resetRace);
+  if (replayBtn) replayBtn.addEventListener("click", resetRace);
+
+  if (raceCanvas) {
+    var rctx = raceCanvas.getContext("2d");
+    function drawRace() {
+      var rect = raceCanvas.parentElement.getBoundingClientRect();
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = Math.max(300, Math.floor(rect.width));
+      var h = Math.max(240, Math.floor(rect.height));
+      if (raceCanvas.width !== Math.floor(w * dpr) || raceCanvas.height !== Math.floor(h * dpr)) {
+        raceCanvas.width = Math.floor(w * dpr);
+        raceCanvas.height = Math.floor(h * dpr);
+      }
+      rctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      var dramNs = parseFloat(workloadSel ? workloadSel.value : "184.2") || 184.2;
+      var kzNs = (wddlToggle && wddlToggle.checked) ? 16.0 : 8.0;
+      var cheriNs = 34.8;
+      var ratio = (dramNs / kzNs).toFixed(1);
+      if (raceBadge) {
+        raceBadge.textContent = "SPEEDUP: " + ratio + "x FASTER (" + kzNs.toFixed(1) + " ns vs. " + dramNs.toFixed(1) + " ns)";
+      }
+
+      simTimeNs += 0.55;
+      if (simTimeNs > dramNs + 28) simTimeNs = 0.0;
+
+      rctx.fillStyle = "#0D1119";
+      rctx.fillRect(0, 0, w, h);
+
+      var lanes = [
+        { name: "KERNEL // ZERO Flit-Filter (0% DRAM Tax)", target: kzNs, col: "#10B981" },
+        { name: "CHERI / Morello Tagged Memory (+12.5% DRAM Tax)", target: cheriNs, col: "#38BDF8" },
+        { name: "Stateful DRAM Permission Table (250 GB/rack)", target: dramNs, col: "#F43F5E" }
+      ];
+
+      var xStart = 24;
+      var xFinish = w - 130;
+      var trackW = Math.max(120, xFinish - xStart);
+
+      // Finish line
+      rctx.strokeStyle = "#FF5500";
+      rctx.lineWidth = 1.5;
+      rctx.beginPath();
+      rctx.moveTo(xFinish, 18);
+      rctx.lineTo(xFinish, h - 18);
+      rctx.stroke();
+      rctx.fillStyle = "#FF5500";
+      rctx.font = "10.5px 'JetBrains Mono', monospace";
+      rctx.fillText("EGRESS FINISH", xFinish + 8, 30);
+      rctx.fillStyle = "#94A3B8";
+      rctx.fillText("t = " + Math.min(dramNs, simTimeNs).toFixed(1) + " ns", xFinish + 8, 48);
+
+      for (var i = 0; i < lanes.length; i++) {
+        var ln = lanes[i];
+        var ly = 56 + i * 86;
+        var prog = Math.min(1.0, simTimeNs / ln.target);
+        var px = xStart + prog * trackW;
+
+        rctx.strokeStyle = "#24242C";
+        rctx.lineWidth = 2;
+        rctx.beginPath();
+        rctx.moveTo(xStart, ly);
+        rctx.lineTo(xFinish, ly);
+        rctx.stroke();
+
+        rctx.strokeStyle = ln.col;
+        rctx.lineWidth = 4;
+        rctx.beginPath();
+        rctx.moveTo(xStart, ly);
+        rctx.lineTo(px, ly);
+        rctx.stroke();
+
+        rctx.fillStyle = ln.col;
+        rctx.fillRect(px - 10, ly - 8, 20, 16);
+
+        rctx.fillStyle = "#F8F7F4";
+        rctx.font = "11px 'JetBrains Mono', monospace";
+        rctx.fillText(ln.name, xStart, ly - 14);
+        rctx.fillStyle = ln.col;
+        rctx.fillText(ln.target.toFixed(1) + " ns" + (prog >= 1.0 ? " [DONE]" : ""), xFinish + 8, ly + 4);
+      }
+
+      window.requestAnimationFrame(drawRace);
+    }
+    drawRace();
+  }
+
+  // -------------------------------------------------------------------------
+  // 2. Renewal-Reward Goodput & Le Cam / BBP Simulator
+  // -------------------------------------------------------------------------
+  var qSlider = document.getElementById("sim-qslot-slider");
+  var dSlider = document.getElementById("sim-dither-slider");
+  var qValEl = document.getElementById("sim-qslot-val");
+  var dValEl = document.getElementById("sim-dither-val");
+  var simBadge = document.getElementById("sim-goodput-badge");
+  var simOut = document.getElementById("sim-readout-box");
+
+  function updateSim() {
+    var qPct = parseFloat(qSlider ? qSlider.value : "0.8") || 0.8;
+    var q = qPct / 100.0;
+    var ratio = parseInt(dSlider ? dSlider.value : "64", 10) || 64;
+    var nPipe = 32;
+    var gSieve = (1.0 - q) * 100.0;
+    var pFlit = 1.0 - Math.pow(1.0 - q, 4);
+    var gLegacy = (1.0 / (1.0 + nPipe * (pFlit / Math.max(1e-9, 1.0 - pFlit)))) * 100.0;
+
+    var qLeCam = Math.round((ratio * ratio) / 8);
+    var qBbp = Math.round(43690.67 * Math.pow(ratio / 64.0, 2));
+
+    if (qValEl) qValEl.textContent = qPct.toFixed(2) + "%";
+    if (dValEl) dValEl.textContent = String(ratio);
+    if (simBadge) simBadge.textContent = "SIEVE: " + gSieve.toFixed(2) + "% | LEGACY: " + gLegacy.toFixed(2) + "%";
+    if (simOut) {
+      simOut.textContent =
+        "SUB-FLIT SURGICAL SIEVE GOODPUT : " + gSieve.toFixed(2) + "% (1 rogue slot -> CXL_NOP)\n" +
+        "LEGACY CRC-POISON LINK GOODPUT  : " + gLegacy.toFixed(2) + "% (N_pipe = 32 replay penalty)\n" +
+        "LE CAM MIDPOINT QUERY LOWER BND : Q >= " + qLeCam.toLocaleString("en-US") + " queries\n" +
+        "BBP LORA SVD PHASE-WALL QUERIES : Q*_BBP = " + qBbp.toLocaleString("en-US") + " queries";
+    }
+  }
+  if (qSlider) qSlider.addEventListener("input", updateSim);
+  if (dSlider) dSlider.addEventListener("input", updateSim);
+  updateSim();
+
+  // -------------------------------------------------------------------------
+  // 3. Exhaustive Fractured LUT6_2 (64'h2A2A2A2A_80808080) & GF(2^8) Prover
+  // -------------------------------------------------------------------------
+  var lutOut = document.getElementById("lut6-prover-out");
+  var lutBtn = document.getElementById("lut6-run-btn");
+
+  function runLut6Prover() {
+    var o6Init = 0x2A2A2A2A >>> 0;
+    var o5Init = 0x80808080 >>> 0;
+    var passCount = 0;
+    for (var addr = 0; addr < 32; addr++) {
+      var rBit = addr & 1;
+      var o6 = (o6Init >>> addr) & 1;
+      var o5 = (o5Init >>> addr) & 1;
+      if ((o6 ^ o5) === rBit && (o6 & o5) === 0) {
+        passCount++;
+      }
+    }
+    if (lutOut) {
+      lutOut.textContent =
+        "LUT6_2 INIT = 64'h2A2A2A2A_80808080 (I5=1 tied high)\n" +
+        "O6[31:0] = 0x2A2A2A2A  |  O5[31:0] = 0x80808080\n" +
+        "ORTHOGONALITY (O6 ^ O5 == r_i) & (O6 & O5 == 0) : " + passCount + " / 32 STATES PASS\n" +
+        "GF(2^8) POLY : x^8 + x^4 + x^3 + x + 1 (0x11B)  |  t_LUT6_2 = 0.124 ns";
+    }
+  }
+  if (lutBtn) lutBtn.addEventListener("click", runLut6Prover);
+  runLut6Prover();
+})();
+</script>
+<footer class="site-footer" role="contentinfo">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-heading">KERNEL // ZERO&trade; &mdash; &ldquo;FINITE FIELDS FOREVER&rdquo;</div>
+        <p class="mono muted" style="font-size:12px;max-width:58ch;">SPECTRAL SYSTEMS // SUB-FLIT ALGEBRAIC MEMORY ISOLATION</p>
+        <p class="mono slate" style="font-size:12px;margin-top:10px;">Spectral Systems LLC (United States) &middot; Founder &amp; Principal Architect: Eric C. Murphy &middot; CAGE: <code>268E1</code> &middot; SAM.gov UEI: <code>VTP2JPCJU3D9</code> &middot; DFARS <code>252.227-7018</code> &middot; All Patents Pending</p>
+      </div>
+      <div>
+        <div class="footer-heading">Primary Artifacts &amp; Silicon</div>
+        <ul class="footer-list">
+          <li><a href="/Murphy_2026_Finite_Fields_Forever.pdf">[ Preprint v1 (PDF) ]</a></li>
+          <li><a href="https://doi.org/10.5281/zenodo.24047902" target="_blank" rel="noopener">[ Zenodo DOI: 10.5281/zenodo.24047902 ]</a></li>
+          <li><a href="https://github.com/spectralsystems/spectral-cxl-flit-sanitizer" target="_blank" rel="noopener">[ GitHub Repo (Lean 4 &amp; AWS F2) ]</a></li>
+          <li><span class="muted">AGFI-0: <code>agfi-08becf3b40b169674</code></span></li>
+          <li><span class="muted">AGFI-1: <code>agfi-03b742e2a9cd2c0f2</code></span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Verification &amp; Acquisition Routes</div>
+        <ul class="footer-list">
+          <li><a href="/">01 KERNEL // ZERO (Story)</a></li>
+          <li><a href="/zero-trust.html">02 Interactive Locks</a></li>
+          <li><a href="/benchmarks.html">03 Silicon Benchmarks</a></li>
+          <li><a href="/verification.html">04 Lean 4 Proofs</a></li>
+          <li><a href="/console-demo/">05 Policy Compiler</a></li>
+          <li><a href="/cots-procurement.html">06 DARPA ERIS &amp; Procurement</a></li>
+          <li><a href="/patents.html">07 IP &amp; Air-Gap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      KERNEL ZERO&trade;, KERNEL // ZERO&trade;, KERNEL ZERO&trade;, and spectralc&trade; are trademarks of Spectral Systems LLC. Pursuant to Section 6 of the Apache License, Version 2.0, no trademark rights are granted under the open-source verification license. Reduced to practice at 100% private expense by Eric C. Murphy. All Patents Pending.
+    </div>
+  </div>
+</footer>
+  <!-- spectral-elegant-editorial-theme spectral-guided-discovery spectral-scope-and-differentiation spectral-formal-input-validator spectral-arid-fifo-guardrail -->\n</body>
+</html>

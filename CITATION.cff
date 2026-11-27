@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this hardware architecture, formal proof suite, or silicon verification ledger, please cite it as below."
+title: "Finite Fields Forever: Assured Memory Isolation in a Single Logic Gate"
+version: "0.0.0"
+doi: "10.5281/zenodo.24047901"
+date-released: "2026-11-20"
+url: "https://spectralsystems.org"
+repository-code: "https://github.com/spectralsystems/spectral-cxl-flit-sanitizer"
+license: "Apache-2.0"
+authors:
+  - family-names: "Murphy"
+    given-names: "Eric"
+    email: "eric@spectralsystems.org"
+    affiliation: "Spectral Systems LLC"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24047901"
+    description: "Zenodo All-Versions Concept DOI"
+  - type: doi
+    value: "10.5281/zenodo.24047902"
+    description: "Zenodo Release Snapshot DOI"
+  - type: url
+    value: "https://spectralsystems.org/preprint_Murphy_v1.pdf"
+    description: "Canonical Monograph PDF on spectralsystems.org"

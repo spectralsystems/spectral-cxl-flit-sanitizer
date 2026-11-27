@@ -1,0 +1,518 @@
+{
+  "schema": "spectral.matryoshka.50shots.v1",
+  "total_shots": 50,
+  "k_step": 1.3257113655901092,
+  "overlap_pct": 75.43,
+  "anchor_card_shots": [
+    0,
+    7,
+    14,
+    21,
+    28,
+    35,
+    42,
+    49
+  ],
+  "shots": [
+    {
+      "shot": 0,
+      "id": "shot_00",
+      "band": "Band 1: CoWoS Package",
+      "meters": 0.01,
+      "magnification": 1.0,
+      "description": "Full lidded AI GPU + HBM4 flip-chip BGA package (100 mm2 reticle, gold bond fingers, 0201 MLCC capacitors)",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Full lidded AI GPU + HBM4 flip-chip BGA package (100 mm2 reticle, gold bond fingers, 0201 MLCC capacitors)",
+      "asset": "/assets/shot_00.webp"
+    },
+    {
+      "shot": 1,
+      "id": "shot_01",
+      "band": "Band 1: CoWoS Package",
+      "meters": 0.0075431,
+      "magnification": 1.33,
+      "description": "De-lidded copper IHS frame exposing central GPU compute die and four 8-Hi HBM4 memory stacks",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): De-lidded copper IHS frame exposing central GPU compute die and four 8-Hi HBM4 memory stacks",
+      "asset": "/assets/shot_01.webp"
+    },
+    {
+      "shot": 2,
+      "id": "shot_02",
+      "band": "Band 1: CoWoS Package",
+      "meters": 0.0056899,
+      "magnification": 1.76,
+      "description": "2.5D silicon interposer shoreline with 128-bit sub-micron differential micro-strip traces between GPU and HBM4",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 2.5D silicon interposer shoreline with 128-bit sub-micron differential micro-strip traces between GPU and HBM4",
+      "asset": "/assets/shot_02.webp"
+    },
+    {
+      "shot": 3,
+      "id": "shot_03",
+      "band": "Band 1: CoWoS Package",
+      "meters": 0.0042919,
+      "magnification": 2.33,
+      "description": "8-Hi HBM4 vertical DRAM stack plan view revealing copper Through-Silicon Vias (TSVs) and micro-bumps",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 8-Hi HBM4 vertical DRAM stack plan view revealing copper Through-Silicon Vias (TSVs) and micro-bumps",
+      "asset": "/assets/shot_03.webp"
+    },
+    {
+      "shot": 4,
+      "id": "shot_04",
+      "band": "Band 1: CoWoS Package",
+      "meters": 0.0032375,
+      "magnification": 3.09,
+      "description": "HBM4 logic base-die floorplan contrasting legacy 250 GB permission carve-out vs. 0 GB emerald freed banks",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): HBM4 logic base-die floorplan contrasting legacy 250 GB permission carve-out vs. 0 GB emerald freed banks",
+      "asset": "/assets/shot_04.webp"
+    },
+    {
+      "shot": 5,
+      "id": "shot_05",
+      "band": "Band 1: CoWoS Package",
+      "meters": 0.0024421,
+      "magnification": 4.09,
+      "description": "HBM4 Pseudo-Channel 0 PHY-to-Controller interface boundary",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): HBM4 Pseudo-Channel 0 PHY-to-Controller interface boundary",
+      "asset": "/assets/shot_05.webp"
+    },
+    {
+      "shot": 6,
+      "id": "shot_06",
+      "band": "Band 1: CoWoS Package",
+      "meters": 0.0018421,
+      "magnification": 5.43,
+      "description": "180.0 x 180.0 um (0.003335 mm2) unused filler white-space pocket beside 90 um human-hair gauge",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 180.0 x 180.0 um (0.003335 mm2) unused filler white-space pocket beside 90 um human-hair gauge",
+      "asset": "/assets/shot_06.webp"
+    },
+    {
+      "shot": 7,
+      "id": "shot_07",
+      "band": "Band 2: ASAP7 Enclave",
+      "meters": 0.0013895,
+      "magnification": 7.2,
+      "description": "Placed-and-routed 7nm ASAP7 enclave perimeter (27,877 cells, 0.003335 mm2) & inner core (9,678 cells, 0.00224 mm2)",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Placed-and-routed 7nm ASAP7 enclave perimeter (27,877 cells, 0.003335 mm2) & inner core (9,678 cells, 0.00224 mm2)",
+      "asset": "/assets/shot_07.webp"
+    },
+    {
+      "shot": 8,
+      "id": "shot_08",
+      "band": "Band 2: ASAP7 Enclave",
+      "meters": 0.0010481,
+      "magnification": 9.54,
+      "description": "1,460-pin enclave I/O ring and M9/M8 thick electroplated copper VDD/VSS power grid mesh",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 1,460-pin enclave I/O ring and M9/M8 thick electroplated copper VDD/VSS power grid mesh",
+      "asset": "/assets/shot_08.webp"
+    },
+    {
+      "shot": 9,
+      "id": "shot_09",
+      "band": "Band 2: ASAP7 Enclave",
+      "meters": 0.0007906,
+      "magnification": 12.65,
+      "description": "M7/M6 balanced H-tree clock distribution trunk (693 MHz ASIC / 338.8 MHz FPGA) & dual-bank 2'b11 control bus",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): M7/M6 balanced H-tree clock distribution trunk (693 MHz ASIC / 338.8 MHz FPGA) & dual-bank 2'b11 control bus",
+      "asset": "/assets/shot_09.webp"
+    },
+    {
+      "shot": 10,
+      "id": "shot_10",
+      "band": "Band 2: ASAP7 Enclave",
+      "meters": 0.00059636,
+      "magnification": 16.77,
+      "description": "M5/M4 512-bit CXL/UCIe flit bus trunk and 341-LUT Per-ARID ordered AXI4 read-scrub shim",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): M5/M4 512-bit CXL/UCIe flit bus trunk and 341-LUT Per-ARID ordered AXI4 read-scrub shim",
+      "asset": "/assets/shot_10.webp"
+    },
+    {
+      "shot": 11,
+      "id": "shot_11",
+      "band": "Band 2: ASAP7 Enclave",
+      "meters": 0.00044984,
+      "magnification": 22.23,
+      "description": "18 standard-cell placement rows (asap7sc7p5t) emerging beneath M3/M2 Manhattan routing tracks",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 18 standard-cell placement rows (asap7sc7p5t) emerging beneath M3/M2 Manhattan routing tracks",
+      "asset": "/assets/shot_11.webp"
+    },
+    {
+      "shot": 12,
+      "id": "shot_12",
+      "band": "Band 2: ASAP7 Enclave",
+      "meters": 0.00033932,
+      "magnification": 29.47,
+      "description": "4-stage cut-through register spine (Cycle 0 -> Stage 1 -> Stage 2 -> Stages 3-4) with 8-way fanout FFs",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 4-stage cut-through register spine (Cycle 0 -> Stage 1 -> Stage 2 -> Stages 3-4) with 8-way fanout FFs",
+      "asset": "/assets/shot_12.webp"
+    },
+    {
+      "shot": 13,
+      "id": "shot_13",
+      "band": "Band 2: ASAP7 Enclave",
+      "meters": 0.00025595,
+      "magnification": 39.07,
+      "description": "Entering the 4-slot sub-flit crossbar channel (#) where 4 co-packed 128-bit tenant lanes run in parallel",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Entering the 4-slot sub-flit crossbar channel (#) where 4 co-packed 128-bit tenant lanes run in parallel",
+      "asset": "/assets/shot_13.webp"
+    },
+    {
+      "shot": 14,
+      "id": "shot_14",
+      "band": "Band 3: Sub-Flit Bus",
+      "meters": 0.00019307,
+      "magnification": 51.79,
+      "description": "Wide view of all 4 electroplated dual-damascene copper lanes (Slot 0..3) carrying a 64-byte CXL flit",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Wide view of all 4 electroplated dual-damascene copper lanes (Slot 0..3) carrying a 64-byte CXL flit",
+      "asset": "/assets/shot_14.webp"
+    },
+    {
+      "shot": 15,
+      "id": "shot_15",
+      "band": "Band 3: Sub-Flit Bus",
+      "meters": 0.00014563,
+      "magnification": 68.66,
+      "description": "Low-k SiCOH dielectric trenches and Tantalum Nitride (TaN) diffusion barrier sidewalls along Lane 2",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Low-k SiCOH dielectric trenches and Tantalum Nitride (TaN) diffusion barrier sidewalls along Lane 2",
+      "asset": "/assets/shot_15.webp"
+    },
+    {
+      "shot": 16,
+      "id": "shot_16",
+      "band": "Band 3: Sub-Flit Bus",
+      "meters": 0.00010985,
+      "magnification": 91.03,
+      "description": "16 parallel byte-enable micro-filaments (WSTRB[15:0]) inside Lane 2 carrying rogue write 0xDEADBEEF",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 16 parallel byte-enable micro-filaments (WSTRB[15:0]) inside Lane 2 carrying rogue write 0xDEADBEEF",
+      "asset": "/assets/shot_16.webp"
+    },
+    {
+      "shot": 17,
+      "id": "shot_17",
+      "band": "Band 3: Sub-Flit Bus",
+      "meters": 8.2864e-05,
+      "magnification": 120.68,
+      "description": "CMOS transmission-gate knife-switch bay bridging Lane 2 ingress to HBM4 Bank 2 egress",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): CMOS transmission-gate knife-switch bay bridging Lane 2 ingress to HBM4 Bank 2 egress",
+      "asset": "/assets/shot_17.webp"
+    },
+    {
+      "shot": 18,
+      "id": "shot_18",
+      "band": "Band 3: Sub-Flit Bus",
+      "meters": 6.2506e-05,
+      "magnification": 159.99,
+      "description": "Lane 2 pass-gate quenching rogue write in 0.124 ns (WSTRB_2 = 16'h0000, CXL_NOP) at 99.20% neighbor goodput",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Lane 2 pass-gate quenching rogue write in 0.124 ns (WSTRB_2 = 16'h0000, CXL_NOP) at 99.20% neighbor goodput",
+      "asset": "/assets/shot_18.webp"
+    },
+    {
+      "shot": 19,
+      "id": "shot_19",
+      "band": "Band 3: Sub-Flit Bus",
+      "meters": 4.7149e-05,
+      "magnification": 212.1,
+      "description": "Stage-4 constant-delay credit loop (CSR 0x28 == CSR 0x30, 0.0 ps jitter) beside untouched HBM sentinel 0xAAAA_AAAA",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Stage-4 constant-delay credit loop (CSR 0x28 == CSR 0x30, 0.0 ps jitter) beside untouched HBM sentinel 0xAAAA_AAAA",
+      "asset": "/assets/shot_19.webp"
+    },
+    {
+      "shot": 20,
+      "id": "shot_20",
+      "band": "Band 3: Sub-Flit Bus",
+      "meters": 3.5565e-05,
+      "magnification": 281.18,
+      "description": "Descending down the circular tungsten Via-2 (V2) pillar into the Stage-1 capability comparator",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Descending down the circular tungsten Via-2 (V2) pillar into the Stage-1 capability comparator",
+      "asset": "/assets/shot_20.webp"
+    },
+    {
+      "shot": 21,
+      "id": "shot_21",
+      "band": "Band 4: AG(2,8) Grid",
+      "meters": 2.6827e-05,
+      "magnification": 372.76,
+      "description": "Full 8x8 finite-field chessboard of 64 flip-flop switches (Squares 00..63) over F_8",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Full 8x8 finite-field chessboard of 64 flip-flop switches (Squares 00..63) over F_8",
+      "asset": "/assets/shot_21.webp"
+    },
+    {
+      "shot": 22,
+      "id": "shot_22",
+      "band": "Band 4: AG(2,8) Grid",
+      "meters": 2.0236e-05,
+      "magnification": 494.17,
+      "description": "Parallel slope-b affine line bundle (//, lambda = 0 shared switches, zero cross-tenant interference)",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Parallel slope-b affine line bundle (//, lambda = 0 shared switches, zero cross-tenant interference)",
+      "asset": "/assets/shot_22.webp"
+    },
+    {
+      "shot": 23,
+      "id": "shot_23",
+      "band": "Band 4: AG(2,8) Grid",
+      "meters": 1.5264e-05,
+      "magnification": 655.13,
+      "description": "Crossing non-parallel affine lines (X, lambda = 1 unique intersection) and Welch-Sidelnikov eigenvalue grid",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Crossing non-parallel affine lines (X, lambda = 1 unique intersection) and Welch-Sidelnikov eigenvalue grid",
+      "asset": "/assets/shot_23.webp"
+    },
+    {
+      "shot": 24,
+      "id": "shot_24",
+      "band": "Band 4: AG(2,8) Grid",
+      "meters": 1.1514e-05,
+      "magnification": 868.51,
+      "description": "Cylindrical tungsten crosspoint via pads coupling F_8 column decoders to row evaluation rails",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Cylindrical tungsten crosspoint via pads coupling F_8 column decoders to row evaluation rails",
+      "asset": "/assets/shot_24.webp"
+    },
+    {
+      "shot": 25,
+      "id": "shot_25",
+      "band": "Band 4: AG(2,8) Grid",
+      "meters": 8.6851e-06,
+      "magnification": 1151.4,
+      "description": "The 8 lifeline traces (Squares 00, 09, 18, 27, 36, 45, 54, 63) converging into the 8-input OR sense-amp hub",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): The 8 lifeline traces (Squares 00, 09, 18, 27, 36, 45, 54, 63) converging into the 8-input OR sense-amp hub",
+      "asset": "/assets/shot_25.webp"
+    },
+    {
+      "shot": 26,
+      "id": "shot_26",
+      "band": "Band 4: AG(2,8) Grid",
+      "meters": 6.5513e-06,
+      "magnification": 1526.42,
+      "description": "7 revoked crossing apps severing Wires 1-7 while Wire 8 (Square 63) stays lit (1/8 Lifelines Intact -> ONLINE)",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 7 revoked crossing apps severing Wires 1-7 while Wire 8 (Square 63) stays lit (1/8 Lifelines Intact -> ONLINE)",
+      "asset": "/assets/shot_26.webp"
+    },
+    {
+      "shot": 27,
+      "id": "shot_27",
+      "band": "Band 4: AG(2,8) Grid",
+      "meters": 4.9417e-06,
+      "magnification": 2023.59,
+      "description": "Transitioning from the OR sense-amp hub into the dual-banked 64-bit CSR 0x60 Vieta polynomial register file",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Transitioning from the OR sense-amp hub into the dual-banked 64-bit CSR 0x60 Vieta polynomial register file",
+      "asset": "/assets/shot_27.webp"
+    },
+    {
+      "shot": 28,
+      "id": "shot_28",
+      "band": "Band 5: Vieta Airlock",
+      "meters": 3.7276e-06,
+      "magnification": 2682.7,
+      "description": "Full 8-root Vieta polynomial annihilator ring Lambda^(t)(z*) over F_{2^8}[Z]/<0x11B>",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Full 8-root Vieta polynomial annihilator ring Lambda^(t)(z*) over F_{2^8}[Z]/<0x11B>",
+      "asset": "/assets/shot_28.webp"
+    },
+    {
+      "shot": 29,
+      "id": "shot_29",
+      "band": "Band 5: Vieta Airlock",
+      "meters": 2.8118e-06,
+      "magnification": 3556.48,
+      "description": "64-spoke rotary TTL lease timing wheel (CSR 0x68, delta d_rev = 0) expiring routine leases autonomously",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 64-spoke rotary TTL lease timing wheel (CSR 0x68, delta d_rev = 0) expiring routine leases autonomously",
+      "asset": "/assets/shot_29.webp"
+    },
+    {
+      "shot": 30,
+      "id": "shot_30",
+      "band": "Band 5: Vieta Airlock",
+      "meters": 2.121e-06,
+      "magnification": 4714.87,
+      "description": "Galois XOR comparator cell where z* = 0x5A hits revoked root alpha_3 = 0x5A => 0x00 (ANNIHILATED -> CXL_NOP)",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Galois XOR comparator cell where z* = 0x5A hits revoked root alpha_3 = 0x5A => 0x00 (ANNIHILATED -> CXL_NOP)",
+      "asset": "/assets/shot_30.webp"
+    },
+    {
+      "shot": 31,
+      "id": "shot_31",
+      "band": "Band 5: Vieta Airlock",
+      "meters": 1.5999e-06,
+      "magnification": 6250.55,
+      "description": "Irreducible modulus 0x11B feedback taps and 0x20 (z^5) 0-LUT normal-basis Frobenius wire rotation",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Irreducible modulus 0x11B feedback taps and 0x20 (z^5) 0-LUT normal-basis Frobenius wire rotation",
+      "asset": "/assets/shot_31.webp"
+    },
+    {
+      "shot": 32,
+      "id": "shot_32",
+      "band": "Band 5: Vieta Airlock",
+      "meters": 1.2068e-06,
+      "magnification": 8286.43,
+      "description": "Inactive shadow-bank (CSR 0x60_bank[1]) 8-step Bezout-Horner polynomial divider (1.095x10^7 rev/s)",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Inactive shadow-bank (CSR 0x60_bank[1]) 8-step Bezout-Horner polynomial divider (1.095x10^7 rev/s)",
+      "asset": "/assets/shot_32.webp"
+    },
+    {
+      "shot": 33,
+      "id": "shot_33",
+      "band": "Band 5: Vieta Airlock",
+      "meters": 9.103e-07,
+      "magnification": 10985.41,
+      "description": "Hitless dual-epoch bank_valid = 2'b11 grace-window switch and 137-tick (548.0 ns) shootdown drain counter",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Hitless dual-epoch bank_valid = 2'b11 grace-window switch and 137-tick (548.0 ns) shootdown drain counter",
+      "asset": "/assets/shot_33.webp"
+    },
+    {
+      "shot": 34,
+      "id": "shot_34",
+      "band": "Band 5: Vieta Airlock",
+      "meters": 6.8665e-07,
+      "magnification": 14563.48,
+      "description": "Following the Stage-1 capability rail into the Stage-2 BFloat16 shared-weight read datapath",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Following the Stage-1 capability rail into the Stage-2 BFloat16 shared-weight read datapath",
+      "asset": "/assets/shot_34.webp"
+    },
+    {
+      "shot": 35,
+      "id": "shot_35",
+      "band": "Band 6: BF16 Blade",
+      "meters": 5.1795e-07,
+      "magnification": 19306.98,
+      "description": "16-bit BFloat16 AI weight bus (+1.109375 = 0x3F8E) approaching the Stage-2 Y-fork junction (/)",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 16-bit BFloat16 AI weight bus (+1.109375 = 0x3F8E) approaching the Stage-2 Y-fork junction (/)",
+      "asset": "/assets/shot_35.webp"
+    },
+    {
+      "shot": 36,
+      "id": "shot_36",
+      "band": "Band 6: BF16 Blade",
+      "meters": 3.9069e-07,
+      "magnification": 25595.48,
+      "description": "Upper 9 coarse inference bitlines (+1.000000 = 0x3F80) crossing the pass bridge (+0 LUTs, 99.86% accuracy)",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Upper 9 coarse inference bitlines (+1.000000 = 0x3F80) crossing the pass bridge (+0 LUTs, 99.86% accuracy)",
+      "asset": "/assets/shot_36.webp"
+    },
+    {
+      "shot": 37,
+      "id": "shot_37",
+      "band": "Band 6: BF16 Blade",
+      "meters": 2.9471e-07,
+      "magnification": 33932.22,
+      "description": "Lower 7 trailing mantissa bitlines (.109375) sheared off by / into 7 tungsten grounding vias to V_SS",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Lower 7 trailing mantissa bitlines (.109375) sheared off by / into 7 tungsten grounding vias to V_SS",
+      "asset": "/assets/shot_37.webp"
+    },
+    {
+      "shot": 38,
+      "id": "shot_38",
+      "band": "Band 6: BF16 Blade",
+      "meters": 2.223e-07,
+      "magnification": 44984.33,
+      "description": "The exp == 8'hFE NaN-carry overflow suppression gate (thm27) preserving finite IEEE-754 weights",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): The exp == 8'hFE NaN-carry overflow suppression gate (thm27) preserving finite IEEE-754 weights",
+      "asset": "/assets/shot_38.webp"
+    },
+    {
+      "shot": 39,
+      "id": "shot_39",
+      "band": "Band 6: BF16 Blade",
+      "meters": 1.6768e-07,
+      "magnification": 59636.23,
+      "description": "Cycle-0 X_{31,33} counter-seeded dither XOR injector (sigma_avg^2 = Delta_u^2 / 6Q_eff)",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Cycle-0 X_{31,33} counter-seeded dither XOR injector (sigma_avg^2 = Delta_u^2 / 6Q_eff)",
+      "asset": "/assets/shot_39.webp"
+    },
+    {
+      "shot": 40,
+      "id": "shot_40",
+      "band": "Band 6: BF16 Blade",
+      "meters": 1.2649e-07,
+      "magnification": 79060.43,
+      "description": "Marcenko-Pastur random-matrix noise bulk vs. BBP wall (Q*_BBP = 43,691) locked by CSR 0x38 at Q_max = 10,000",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Marcenko-Pastur random-matrix noise bulk vs. BBP wall (Q*_BBP = 43,691) locked by CSR 0x38 at Q_max = 10,000",
+      "asset": "/assets/shot_40.webp"
+    },
+    {
+      "shot": 41,
+      "id": "shot_41",
+      "band": "Band 6: BF16 Blade",
+      "meters": 9.541e-08,
+      "magnification": 104811.31,
+      "description": "Diving straight into the single fractured LUT6_2 silicon cell sitting at the Y-fork apex",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Diving straight into the single fractured LUT6_2 silicon cell sitting at the Y-fork apex",
+      "asset": "/assets/shot_41.webp"
+    },
+    {
+      "shot": 42,
+      "id": "shot_42",
+      "band": "Band 7: LUT6_2 Cell",
+      "meters": 7.1969e-08,
+      "magnification": 138949.55,
+      "description": "64-cell CMOS 6T-SRAM configuration matrix (INIT = 64'h2A2A2A2A_80808080) with cross-coupled inverter pairs",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 64-cell CMOS 6T-SRAM configuration matrix (INIT = 64'h2A2A2A2A_80808080) with cross-coupled inverter pairs",
+      "asset": "/assets/shot_42.webp"
+    },
+    {
+      "shot": 43,
+      "id": "shot_43",
+      "band": "Band 7: LUT6_2 Cell",
+      "meters": 5.4287e-08,
+      "magnification": 184207.0,
+      "description": "6-level NMOS/PMOS pass-transistor multiplexer tree steered by inputs I4..I0",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 6-level NMOS/PMOS pass-transistor multiplexer tree steered by inputs I4..I0",
+      "asset": "/assets/shot_43.webp"
+    },
+    {
+      "shot": 44,
+      "id": "shot_44",
+      "band": "Band 7: LUT6_2 Cell",
+      "meters": 4.0949e-08,
+      "magnification": 244205.31,
+      "description": "Internal I5 fracture junction (-<) splitting upper O6 survivor rail from lower O5 defect rail in 0.124 ns (34.2 ps ASIC)",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Internal I5 fracture junction (-<) splitting upper O6 survivor rail from lower O5 defect rail in 0.124 ns (34.2 ps ASIC)",
+      "asset": "/assets/shot_44.webp"
+    },
+    {
+      "shot": 45,
+      "id": "shot_45",
+      "band": "Band 7: LUT6_2 Cell",
+      "meters": 3.0888e-08,
+      "magnification": 323745.75,
+      "description": "Mode-D De Morgan negative-logic RAIN dual cell (64'hABABABAB_FEFEFEFE) & 2-share DOM glitch-stopping register",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Mode-D De Morgan negative-logic RAIN dual cell (64'hABABABAB_FEFEFEFE) & 2-share DOM glitch-stopping register",
+      "asset": "/assets/shot_45.webp"
+    },
+    {
+      "shot": 46,
+      "id": "shot_46",
+      "band": "Band 7: LUT6_2 Cell",
+      "meters": 2.33e-08,
+      "magnification": 429193.43,
+      "description": "Dillon PS^-+ partial-spread bent mask (|f_hat(w)| === 8, NL = 28) holding 19,990-trace TVLA dead flat (max |t| = 0.00)",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): Dillon PS^-+ partial-spread bent mask (|f_hat(w)| === 8, NL = 28) holding 19,990-trace TVLA dead flat (max |t| = 0.00)",
+      "asset": "/assets/shot_46.webp"
+    },
+    {
+      "shot": 47,
+      "id": "shot_47",
+      "band": "Band 8: 7nm FinFET",
+      "meters": 1.7575e-08,
+      "magnification": 568986.6,
+      "description": "7nm FinFET cell layout of CSR 0x70 showing AND2 gate (&) and FDCE latch with self-knotting Q feedback wire",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 7nm FinFET cell layout of CSR 0x70 showing AND2 gate (&) and FDCE latch with self-knotting Q feedback wire",
+      "asset": "/assets/shot_47.webp"
+    },
+    {
+      "shot": 48,
+      "id": "shot_48",
+      "band": "Band 8: 7nm FinFET",
+      "meters": 1.3257e-08,
+      "magnification": 754312.01,
+      "description": "SEM view of 3 epitaxial 7nm silicon active fins crossed by HfO2 Gate A (P_curr=0) and SiO2 isolation trench (T)",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): SEM view of 3 epitaxial 7nm silicon active fins crossed by HfO2 Gate A (P_curr=0) and SiO2 isolation trench (T)",
+      "asset": "/assets/shot_48.webp"
+    },
+    {
+      "shot": 49,
+      "id": "shot_49",
+      "band": "Band 8: 7nm FinFET",
+      "meters": 1e-08,
+      "magnification": 1000000.0,
+      "description": "10^-8 m (10 nm) atomic-scale monocrystalline silicon (100) diamond-cubic crystal lattice & -<O substrate",
+      "imagen_prompt": "Strict 90.0-degree perpendicular flat-field telecentric top-down real-life semiconductor micrograph (0 degrees tilt, zero perspective shift, zero text): 10^-8 m (10 nm) atomic-scale monocrystalline silicon (100) diamond-cubic crystal lattice & -<O substrate",
+      "asset": "/assets/shot_49.webp"
+    }
+  ]
+}

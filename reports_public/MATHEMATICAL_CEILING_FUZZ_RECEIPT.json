@@ -1,0 +1,47 @@
+{
+  "artifact": "MATHEMATICAL_CEILING_FUZZ_RECEIPT",
+  "organization": "Spectral Systems LLC (CAGE: 268E1 | UEI: VTP2JPCJU3D9)",
+  "ceiling_1_algebraic_basis_exhaustion": {
+    "gf256_pairs_exhausted": 65536,
+    "normal_basis_0x20_states_exhausted": 256,
+    "ag28_steiner_line_pairs_exhausted": 2556,
+    "vieta_bezout_horner_steps_verified": 2040,
+    "css_reed_solomon_codewords_exhausted": 65536,
+    "macwilliams_weight_distribution": [
+      1,
+      0,
+      0,
+      1020,
+      64515
+    ]
+  },
+  "ceiling_2_combinational_lut_cone_exhaustion": {
+    "total_lut_and_bent_truth_table_states_exhausted": 1280,
+    "Walsh_Hadamard_flat_modulus": 8,
+    "max_6input_LUT_nonlinearity": 28
+  },
+  "ceiling_3_inductive_infinite_horizon_closure": {
+    "reachable_control_states_exhausted": 12474,
+    "inductive_transitions_verified": 54054,
+    "rsm_137_tick_drain_terminal": 0
+  },
+  "ceiling_4_adversarial_mutation_kill_matrix": {
+    "lut6_2_sram_bit_mutants_killed": "320/320",
+    "architectural_trojan_mutants_killed": "12/12",
+    "total_mutants_killed": "332/332",
+    "mutation_kill_rate_pct": 100.0
+  },
+  "ceiling_5_stochastic_and_stream_convergence": {
+    "flits_streamed": 250000,
+    "slots_streamed": 1000000,
+    "theorem_5_1_spectral_goodput_pct": 99.2,
+    "theorem_5_1_legacy_crc_goodput_pct": 48.9,
+    "corollary_4_6_q_max_csr_0x38": 10000,
+    "corollary_4_6_q_bbp_subtractive": 21845.33,
+    "corollary_4_6_q_bbp_wannamaker": 43690.67,
+    "theorem_6_2_p9999_cut_through_ns": 8.0,
+    "theorem_6_2_p9999_dram_table_ns": 184.2,
+    "iso_17825_welch_tvla_max_abs_t": 0.0
+  },
+  "verdict": "MATHEMATICAL_CEILING_100_PCT_EXHAUSTED_ZERO_SURVIVING_MUTANTS"
+}

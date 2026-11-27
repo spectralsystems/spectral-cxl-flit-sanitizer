@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+<defs>
+  <pattern id="gridMinor" width="24" height="24" patternUnits="userSpaceOnUse">
+    <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#161E2C" stroke-width="0.7"/>
+  </pattern>
+  <pattern id="gridMajor" width="120" height="120" patternUnits="userSpaceOnUse">
+    <rect width="120" height="120" fill="url(#gridMinor)"/>
+    <path d="M 120 0 L 0 0 0 120" fill="none" stroke="#222D40" stroke-width="1.1"/>
+  </pattern>
+  <pattern id="semScan" width="8" height="4" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="0" x2="8" y2="0" stroke="#CBD5E1" stroke-opacity="0.035" stroke-width="1"/>
+  </pattern>
+  <linearGradient id="dieSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#172233"/>
+    <stop offset="50%" stop-color="#0F1724"/>
+    <stop offset="100%" stop-color="#1B283B"/>
+  </linearGradient>
+  <radialGradient id="vignette" cx="50%" cy="50%" r="68%">
+    <stop offset="0%" stop-color="#131926" stop-opacity="0.0"/>
+    <stop offset="100%" stop-color="#07080B" stop-opacity="0.84"/>
+  </radialGradient>
+</defs>
+<rect width="1200" height="900" fill="#0A0E15"/>
+<rect width="1200" height="900" fill="url(#gridMajor)"/>
+<line x1="240" y1="70" x2="240" y2="830" stroke="#24354C" stroke-width="4"/>
+<line x1="210" y1="96" x2="990" y2="96" stroke="#1E2D42" stroke-width="4"/>
+<line x1="342" y1="70" x2="342" y2="830" stroke="#24354C" stroke-width="4"/>
+<line x1="210" y1="198" x2="990" y2="198" stroke="#1E2D42" stroke-width="4"/>
+<line x1="444" y1="70" x2="444" y2="830" stroke="#24354C" stroke-width="4"/>
+<line x1="210" y1="300" x2="990" y2="300" stroke="#1E2D42" stroke-width="4"/>
+<line x1="546" y1="70" x2="546" y2="830" stroke="#24354C" stroke-width="4"/>
+<line x1="210" y1="402" x2="990" y2="402" stroke="#1E2D42" stroke-width="4"/>
+<line x1="648" y1="70" x2="648" y2="830" stroke="#24354C" stroke-width="4"/>
+<line x1="210" y1="504" x2="990" y2="504" stroke="#1E2D42" stroke-width="4"/>
+<line x1="750" y1="70" x2="750" y2="830" stroke="#24354C" stroke-width="4"/>
+<line x1="210" y1="606" x2="990" y2="606" stroke="#1E2D42" stroke-width="4"/>
+<line x1="852" y1="70" x2="852" y2="830" stroke="#24354C" stroke-width="4"/>
+<line x1="210" y1="708" x2="990" y2="708" stroke="#1E2D42" stroke-width="4"/>
+<line x1="954" y1="70" x2="954" y2="830" stroke="#24354C" stroke-width="4"/>
+<line x1="210" y1="810" x2="990" y2="810" stroke="#1E2D42" stroke-width="4"/>
+<circle cx="240" cy="96" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="342" cy="96" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="444" cy="96" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="546" cy="96" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="648" cy="96" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="750" cy="96" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="852" cy="96" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="954" cy="96" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="240" cy="198" r="7" fill="#10B981" fill-opacity="0.78"/>
+<circle cx="342" cy="198" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="444" cy="198" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="546" cy="198" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="648" cy="198" r="7" fill="#10B981" fill-opacity="0.78"/>
+<circle cx="750" cy="198" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="852" cy="198" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="954" cy="198" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="240" cy="300" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="342" cy="300" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="444" cy="300" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="546" cy="300" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="648" cy="300" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="750" cy="300" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="852" cy="300" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="954" cy="300" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="240" cy="402" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="342" cy="402" r="7" fill="#10B981" fill-opacity="0.78"/>
+<circle cx="444" cy="402" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="546" cy="402" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="648" cy="402" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="750" cy="402" r="7" fill="#10B981" fill-opacity="0.78"/>
+<circle cx="852" cy="402" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="954" cy="402" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="240" cy="504" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="342" cy="504" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="444" cy="504" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="546" cy="504" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="648" cy="504" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="750" cy="504" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="852" cy="504" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="954" cy="504" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="240" cy="606" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="342" cy="606" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="444" cy="606" r="7" fill="#10B981" fill-opacity="0.78"/>
+<circle cx="546" cy="606" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="648" cy="606" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="750" cy="606" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="852" cy="606" r="7" fill="#10B981" fill-opacity="0.78"/>
+<circle cx="954" cy="606" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="240" cy="708" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="342" cy="708" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="444" cy="708" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="546" cy="708" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="648" cy="708" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="750" cy="708" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="852" cy="708" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="954" cy="708" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="240" cy="810" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="342" cy="810" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="444" cy="810" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="546" cy="810" r="7" fill="#10B981" fill-opacity="0.78"/>
+<circle cx="648" cy="810" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="750" cy="810" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="852" cy="810" r="4" fill="#334155" fill-opacity="0.78"/>
+<circle cx="954" cy="810" r="7" fill="#10B981" fill-opacity="0.78"/>
+<path d="M 36 60 L 36 36 L 60 36 M 1140 36 L 1164 36 L 1164 60 M 36 840 L 36 864 L 60 864 M 1140 864 L 1164 864 L 1164 840" fill="none" stroke="#64748B" stroke-width="2"/>
+<rect width="1200" height="900" fill="url(#vignette)"/>
+</svg>

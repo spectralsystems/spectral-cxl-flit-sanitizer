@@ -1,0 +1,68 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Wed Nov  4 00:23:45 2026
+| Host         : aws-f2-cleanroom-node running 64-bit Ubuntu 24.04.1 LTS
+| Command      : report_utilization -hierarchical -hierarchical_depth 4 -file /dev/shm/spectral_enclave/out/cl_spectral_sanitizer_post_route_hier_utilization.rpt
+| Design       : top
+| Device       : xcvu47p-fsvh2892-2-e
+| Speed File   : -2
+| Design State : Routed
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++-------------------------------+------------------------------------------------------------------+----------------+--------------+------------+------------+---------+------+-------+--------+--------+------+------------+
+|            Instance           |                              Module                              |  PR Attribute  | Total PPLOCs | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs  | RAMB36 | RAMB18 | URAM | DSP Blocks |
++-------------------------------+------------------------------------------------------------------+----------------+--------------+------------+------------+---------+------+-------+--------+--------+------+------------+
+| top                           |                                                            (top) |              - |         3883 |      12202 |      12202 |       0 |    0 | 18446 |      0 |      0 |    0 |          0 |
+|   SL                          |                                                        static_sh |         Static |            - |          2 |          2 |       0 |    0 |    70 |      0 |      0 |    0 |          0 |
+|     SH_ICAP                   |                                                          sh_icap |         Static |            - |          0 |          0 |       0 |    0 |    69 |      0 |      0 |    0 |          0 |
+|       AXI_HWICAP              |                                                     axi_hwicap_0 |         Static |            - |          0 |          0 |       0 |    0 |    69 |      0 |      0 |    0 |          0 |
+|         U0                    |                                                       axi_hwicap |         Static |            - |          0 |          0 |       0 |    0 |    69 |      0 |      0 |    0 |          0 |
+|   WRAPPER                     |                                                          WRAPPER |              - |            - |      12200 |      12200 |       0 |    0 | 18376 |      0 |      0 |    0 |          0 |
+|     CL                        |                                            cl_spectral_sanitizer | Reconfigurable |         3883 |       9270 |       9270 |       0 |    0 |  8165 |      0 |      0 |    0 |          0 |
+|       (CL)                    |                                            cl_spectral_sanitizer | Reconfigurable |            - |       3833 |       3833 |       0 |    0 |  4541 |      0 |      0 |    0 |          0 |
+|       u_spectral_enclave      |                                cxl_subflit_sanitizer_enclave_top | Reconfigurable |            - |       5468 |       5468 |       0 |    0 |  3624 |      0 |      0 |    0 |          0 |
+|         (u_spectral_enclave)  |                                cxl_subflit_sanitizer_enclave_top | Reconfigurable |            - |        654 |        654 |       0 |    0 |  2155 |      0 |      0 |    0 |          0 |
+|         u_core                |                                  cxl_subflit_slot_sanitizer_core | Reconfigurable |            - |       1745 |       1745 |       0 |    0 |  1209 |      0 |      0 |    0 |          0 |
+|         u_cycle0              |                                cxl_cycle0_vieta_steiner_unsealer | Reconfigurable |            - |       3070 |       3070 |       0 |    0 |   260 |      0 |      0 |    0 |          0 |
+|     HBM_SHIM                  |                                                         hbm_shim |         Static |            - |          1 |          1 |       0 |    0 |   198 |      0 |      0 |    0 |          0 |
+|     IO_SHIM                   |                                                          io_shim |         Static |            - |       1309 |       1309 |       0 |    0 |  1639 |      0 |      0 |    0 |          0 |
+|       RL_CLKS                 |                                                          rl_clks |         Static |            - |       1305 |       1305 |       0 |    0 |  1623 |      0 |      0 |    0 |          0 |
+|         MMCM_CLK_MAIN_A       |                                                   rl_clkwiz_main |         Static |            - |       1209 |       1209 |       0 |    0 |  1570 |      0 |      0 |    0 |          0 |
+|         CROSSBAR_AXIL         |                                     rl_axil_crossbar_kernel_clks |         Static |            - |         95 |         95 |       0 |    0 |    53 |      0 |      0 |    0 |          0 |
+|     RL                        |                                                               rl |         Static |            - |        234 |        234 |       0 |    0 |  2220 |      0 |      0 |    0 |          0 |
+|       (RL)                    |                                                               rl |         Static |            - |         98 |         98 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|       RL_DEBUG_BRIDGE         |                                                  rl_debug_bridge |         Static |            - |         34 |         34 |       0 |    0 |    67 |      0 |      0 |    0 |          0 |
+|         inst                  |                                                          bd_a842 |         Static |            - |         34 |         34 |       0 |    0 |    67 |      0 |      0 |    0 |          0 |
+|       RL_MGT                  |                                                           rl_mgt |         Static |            - |         99 |         99 |       0 |    0 |  2016 |      0 |      0 |    0 |          0 |
+|         (RL_MGT)              |                                                           rl_mgt |         Static |            - |          0 |          0 |       0 |    0 |   163 |      0 |      0 |    0 |          0 |
+|         MGT_TOP               |                                                       mgt_top_v2 |         Static |            - |         46 |         46 |       0 |    0 |   145 |      0 |      0 |    0 |          0 |
+|         PCIM_AXI_CLOCK_CONV   |                                                   axi_clock_conv |         Static |            - |          5 |          5 |       0 |    0 |   554 |      0 |      0 |    0 |          0 |
+|         SDA_CL_REG_SLC        |                          rl_axi_clock_converter_light__xdcDup__3 |         Static |            - |          1 |          1 |       0 |    0 |   138 |      0 |      0 |    0 |          0 |
+|         SH_OCL_REG_SLC        |                                     rl_axi_clock_converter_light |         Static |            - |          1 |          1 |       0 |    0 |   138 |      0 |      0 |    0 |          0 |
+|         XDMA_PCIS_AXI_REG_SLC |                                   axi_clock_conv__parameterized1 |         Static |            - |          5 |          5 |       0 |    0 |   744 |      0 |      0 |    0 |          0 |
+|     RL_SHIM                   |                                                          rl_shim |         Static |            - |       1386 |       1386 |       0 |    0 |  6154 |      0 |      0 |    0 |          0 |
+|       SDA_REG_SLC             |                                      rl_axi_register_slice_light |         Static |            - |         15 |         15 |       0 |    0 |   156 |      0 |      0 |    0 |          0 |
+|         inst                  | axi_register_slice_v2_1_31_axi_register_slice__parameterized0__2 |         Static |            - |         15 |         15 |       0 |    0 |   156 |      0 |      0 |    0 |          0 |
+|       DDR_STAT_PIPE_DATA      |                                         lib_pipe__parameterized6 |         Static |            - |          0 |          0 |       0 |    0 |    72 |      0 |      0 |    0 |          0 |
+|       DMA_PCIS_AXI_REG_SLC    |                                               axi_register_slice |         Static |            - |        678 |        678 |       0 |    0 |  2648 |      0 |      0 |    0 |          0 |
+|         AXI_REGISTER_SLICE    |                                            rl_axi_register_slice |         Static |            - |        678 |        678 |       0 |    0 |  2648 |      0 |      0 |    0 |          0 |
+|       OCL_REG_SLC             |                           rl_axi_register_slice_light__xdcDup__1 |         Static |            - |         15 |         15 |       0 |    0 |   156 |      0 |      0 |    0 |          0 |
+|         inst                  |    axi_register_slice_v2_1_31_axi_register_slice__parameterized0 |         Static |            - |         15 |         15 |       0 |    0 |   156 |      0 |      0 |    0 |          0 |
+|       PCIM_AXI_REG_SLC        |                                    axi_register_slice__xdcDup__1 |         Static |            - |        676 |        676 |       0 |    0 |  2648 |      0 |      0 |    0 |          0 |
+|         AXI_REGISTER_SLICE    |                                 rl_axi_register_slice__xdcDup__1 |         Static |            - |        676 |        676 |       0 |    0 |  2648 |      0 |      0 |    0 |          0 |
+|       PIPE_GLCOUNT0           |                                         lib_pipe__parameterized3 |         Static |            - |          1 |          1 |       0 |    0 |    64 |      0 |      0 |    0 |          0 |
+|       PIPE_GLCOUNT1           |                                       lib_pipe__parameterized3_3 |         Static |            - |          0 |          0 |       0 |    0 |    64 |      0 |      0 |    0 |          0 |
++-------------------------------+------------------------------------------------------------------+----------------+--------------+------------+------------+---------+------+-------+--------+--------+------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+

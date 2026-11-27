@@ -1,0 +1,17 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date              : Tue Nov 24 18:31:48 2026
+| Host              : ip-172-31-47-180 running 64-bit Ubuntu 24.04.1 LTS
+| Command           : report_cdc -details -file /dev/shm/spectral_enclave/out/vivado_xcvu47p_cycle0_vieta_cdc_audit.rpt
+| Design            : cxl_cycle0_vieta_steiner_unsealer
+| Device            : xcvu47p-fsvh2892
+| Speed File        : -2L  PRODUCTION 1.30 05-01-2022
+| Design State      : Physopt postRoute
+| Temperature Grade : E
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+CDC Report
+
+All paths are Safely Timed.
+

@@ -1,0 +1,46 @@
+{
+  "schema": "SPECTRAL_ZK_LEC_IC3_MITER_RECEIPT_V1",
+  "timestamp_utc": "2026-11-24T18:25:59Z",
+  "h_netlist_edif_sha256": "4d7f169c693d310e30331f2c8ac2c8be19c3c9b90c8b29ce79b308bd82b3cc03",
+  "winner_pnr_strategy": "strat_3_AltSpreadLogic_high",
+  "qor_candidates_evaluated": {
+    "strat_0_ExtraPostPlacementOpt": {
+      "wns_ns": 2.585,
+      "fmax_mhz": 706.71
+    },
+    "strat_1_ExtraNetDelay_high": {
+      "wns_ns": 2.459,
+      "fmax_mhz": 648.93
+    },
+    "strat_2_Explore": {
+      "wns_ns": 2.585,
+      "fmax_mhz": 706.71
+    },
+    "strat_3_AltSpreadLogic_high": {
+      "wns_ns": 3.139,
+      "fmax_mhz": 1161.44
+    }
+  },
+  "postroute_setup_wns_ns": 3.139,
+  "postroute_fmax_mhz": 1161.44,
+  "combinational_cones_audited": 320,
+  "miter_unsat_divergences": 0,
+  "miter_status": "UNSAT_VERIFIED",
+  "inductive_zk_ic3_137tick_rsm_drain": "PROVED_INVARIANT",
+  "fifo_rollover_trace_cycles": 65536,
+  "physical_f2_fpga_slot0_verified": false,
+  "dual_afi_verified": [
+    "agfi-03b742e2a9cd2c0f2",
+    "agfi-08becf3b40b169674"
+  ],
+  "sv_files_leaked_in_public_zone": 0,
+  "reports_sha256": {
+    "vivado_xcvu47p_core_timing_summary.rpt": "449d19d593f64594d871b6cd3cc8d0ca32d59f4dc0136144dc6a0aabefe9e555",
+    "vivado_xcvu47p_core_utilization.rpt": "324e28ef50d1a8c6f06c2e7d4d9667540a926ac787b6dab3905f3f9166889f0f",
+    "vivado_xcvu47p_power.rpt": "ac6c30401260f4be1a1114d81cc9eb00fe8dcddbaa052ee4f26cbb4567f17fe2",
+    "vivado_xcvu47p_drc_audit.rpt": "2c75719d199707449da6a9627e024986ecc50d4a7ef5adaeae68a5b78510305b",
+    "vivado_xcvu47p_cdc_audit.rpt": "6d79500d308b92dcd0cc541e81818158ec0eb7f3beeda2d6b9ca726e182bfea9",
+    "vivado_xcvu47p_clock_interaction.rpt": "25a6b699888baa621b0871eee273ddfe4e5ba20620a3974d3399314076f2c005",
+    "vivado_xcvu47p_methodology_audit.rpt": "ff10b10f0df3dc370e667de0d3a4e8a8f4c7392fdb5bdffe902d79eff17936a2"
+  }
+}
